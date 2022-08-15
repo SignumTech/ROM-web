@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Order;
 class ordersController extends Controller
 {
     /**
@@ -13,7 +13,7 @@ class ordersController extends Controller
      */
     public function index()
     {
-        //
+        return Order::all();
     }
 
     /**
@@ -34,7 +34,21 @@ class ordersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'items' => 'required | string',
+            'total' => 'required | double',
+            'delivery_details' => 'required | string'
+        ]);
+        $order = new Order;
+        $order->items = json_encode($request->items);
+        $order->order_no = 'to be determined';
+        $order->total = $request->total;
+        $order->order_status = 'PROCESSING';
+        $order->user_id = auth()->user()->id;
+        $order->delivery_details = $request->delivery_details;
+        $order->save();
+
+        return $order;
     }
 
     /**
@@ -45,7 +59,7 @@ class ordersController extends Controller
      */
     public function show($id)
     {
-        //
+        return Order::find($id);
     }
 
     /**
@@ -68,7 +82,21 @@ class ordersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'items' => 'required | string',
+            'total' => 'required | double',
+            'delivery_details' => 'required | string'
+        ]);
+        $order = Order::find($id);
+        $order->items = json_encode($request->items);
+        $order->order_no = 'to be determined';
+        $order->total = $request->total;
+        $order->order_status = 'PROCESSING';
+        $order->user_id = auth()->user()->id;
+        $order->delivery_details = $request->delivery_details;
+        $order->save();
+
+        return $order;
     }
 
     /**
@@ -79,6 +107,27 @@ class ordersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $order = Order::find($id);
+        $order->delete();
+
+        return $order;
+    }
+
+    public function getProcessing(){
+        $order = Order::where('order_status', 'PROCESSING')->get();
+
+        return $order;
+    }
+
+    public function getShipped(){
+        $order = Order::where('order_status', 'SHIPPED')->get();
+
+        return $order;
+    }
+
+    public function getDelivered(){
+        $order = Order::where('order_status', 'DELIVERED')->get();
+
+        return $order;
     }
 }
