@@ -17,8 +17,7 @@ class CreateOrdersTable extends Migration
             $table->engine = 'InnoDB';
             $table->id();
             $table->text('items');
-            $table->bigInteger('order_id')->unsigned();
-            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+            $table->string('order_no');
             $table->double('total');
             $table->string('order_status');
             $table->bigInteger('user_id')->unsigned();

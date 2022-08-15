@@ -16,7 +16,8 @@ class CreateInventoriesTable extends Migration
         Schema::create('inventories', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->id();
-            $table->bigInteger('p_id');
+            $table->bigInteger('p_id')->unsigned();
+            $table->foreign('p_id')->references('id')->on('products')->onDelete('cascade');
             $table->string('size');
             $table->string('color');
             $table->integer('quantity');
