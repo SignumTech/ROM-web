@@ -32,4 +32,21 @@ class registerUsersController extends Controller
 
     }
 
+    public function verifyOTP(Request $request){
+        $this->validate($request, [
+            "otp" => "required | max:4",
+            "id" => "required | integer"
+        ]);
+
+        $user = User::find($request->id);
+        
+        if($user->otp != $request->otp){
+            return response("OTP mismatch", 422);
+        }
+        $user->verification_status = "VERIFIED";
+        $user->save();
+
+        return $user;
+    }
+
 }
