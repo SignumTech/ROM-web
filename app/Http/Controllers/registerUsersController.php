@@ -29,10 +29,10 @@ class registerUsersController extends Controller
 
     }
 
-    public function sendEmail()
+    public function sendEmail(Request $request)
     {
         $user = array('name'=>'Fnote', 'otp'=>'1234');
-        Mail::to(collect(array('email'=>'fnote.md@gmail.com')))->send(new OTP($user));
+        Mail::to($request->user())->send(new OTP($user));
         /*Mail::send('otp', $user, function($message){
             $message->to('fnote.md@gmail.com', 'test')->subject('test');
             $message->from('no-reply@signumdev.com', 'Fnote');
