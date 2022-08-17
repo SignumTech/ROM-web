@@ -7,8 +7,8 @@
 
             </div>
             <div class="col-md-8">
-                <div class="bg-white">
-                    <h1 style="color:red">Hi {{$name}}!</h1>
+                <div class="pader">
+                    <h1>Hi {{$name}}!</h1>
                     <h5>This is your OTP {{$otp}}</h5>
                 </div>
                 
@@ -18,4 +18,10 @@
             </div>
         </div>
     </div>
+    <style>
+        .pader{
+            color: red;
+            padding: 100px
+        }
+    </style>
 @endsection
