@@ -33,7 +33,7 @@ class registerUsersController extends Controller
     {
         $user = collect(array('name'=>'Fnote', 'otp'=>'1234'));
         $user_detail = User::where('id', 1)->get();
-        Mail::to($user_detail)->send(new OTP($user));
+        Mail::to($user_detail)->send(new OTP($user_detail));
         /*Mail::send('otp', $user, function($message){
             $message->to('fnote.md@gmail.com', 'test')->subject('test');
             $message->from('no-reply@signumdev.com', 'Fnote');
