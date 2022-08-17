@@ -8,7 +8,7 @@
             </div>
             <div class="col-md-8">
                 <div class="bg-white">
-                    <h1>Hi {{$name}}!</h1>
+                    <h1 style="color:red">Hi {{$name}}!</h1>
                     <h5>This is your OTP {{$otp}}</h5>
                 </div>
                 
