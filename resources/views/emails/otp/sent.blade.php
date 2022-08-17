@@ -1,7 +1,7 @@
 @component('mail::message')
 # Your OTP is
 
-{{$otp}}
+<h1><strong>{{$otp}}</strong></h1>
 
 @component('mail::button', ['url' => ''])
 Button Text
