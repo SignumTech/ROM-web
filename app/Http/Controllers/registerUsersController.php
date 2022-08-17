@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Mail;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OTP;
 class registerUsersController extends Controller
 {
     public function registerUser(Request $request){
@@ -31,9 +32,10 @@ class registerUsersController extends Controller
     public function sendEmail()
     {
         $user = array('name'=>'Fnote', 'otp'=>'1234');
-        Mail::send('otp', $user, function($message){
+        Mail::to(collect(array('email'=>'fnote.md@gmail.com')))->send(new OTP($user));
+        /*Mail::send('otp', $user, function($message){
             $message->to('fnote.md@gmail.com', 'test')->subject('test');
             $message->from('no-reply@signumdev.com', 'Fnote');
-        });
+        });*/
     }
 }
