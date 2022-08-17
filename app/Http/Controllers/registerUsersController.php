@@ -32,7 +32,7 @@ class registerUsersController extends Controller
     public function sendEmail()
     {
         $user = collect(array('name'=>'Fnote', 'otp'=>'1234'));
-        $user_detail = User::where('id', 1)->get();
+        $user_detail = User::first();
         Mail::to($user_detail)->send(new OTP($user_detail));
         /*Mail::send('otp', $user, function($message){
             $message->to('fnote.md@gmail.com', 'test')->subject('test');
