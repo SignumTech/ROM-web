@@ -1,12 +1,12 @@
 @component('mail::message')
-# Introduction
+# Your OTP is
 
-The body of your message.
+{{$otp}}
 
 @component('mail::button', ['url' => ''])
 Button Text
 @endcomponent
 
 Thanks,<br>
-{{ config('app.name') }}
+ROM Fashion
 @endcomponent
