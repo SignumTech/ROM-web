@@ -20,7 +20,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/sendEmail', [registerUsersController::class, 'sendEmail']);
+Route::get('/registerUser', [registerUsersController::class, 'registerUser']);
 Route::any('{slug}', function () {
     return view('home');
 });

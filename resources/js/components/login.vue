@@ -39,29 +39,29 @@
                         <div class="row m-0 mt-4">
                             <div class="col-md-6">
                                 <label for="email">First Name</label>
-                                <input type="text" class="form-control form-control-auth" placeholder="First Name">
+                                <input v-model="registerData.f_name" type="text" class="form-control form-control-auth" placeholder="First Name">
                             </div>
                             <div class="col-md-6">
                                 <label for="email">Last Name</label>
-                                <input type="email" class="form-control form-control-auth" placeholder="Last Name">
+                                <input v-model="registerData.l_name" type="email" class="form-control form-control-auth" placeholder="Last Name">
                             </div>
                         </div>
                         <div class="row m-0 mt-4">
                             <div class="col-md-12">
                                 <label for="email">Email Address</label>
-                                <input type="email" class="form-control form-control-auth" placeholder="Email address">
+                                <input v-model="registerData.email" type="email" class="form-control form-control-auth" placeholder="Email address">
                             </div>
                         </div>
                         <div class="row m-0 mt-4">
                             <div class="col-md-12">
                                 <label for="email">Password</label>
-                                <input type="password" class="form-control form-control-auth" placeholder="Password">
+                                <input v-model="registerData.password" type="password" class="form-control form-control-auth" placeholder="Password">
                             </div>
                         </div> 
                         <div class="row m-0 mt-4">
                             <div class="col-md-12">
                                 <label for="email">ConfirmPassword</label>
-                                <input type="password" class="form-control form-control-auth" placeholder="Confirm Password">
+                                <input v-model="registerData.password_confirmation" type="password" class="form-control form-control-auth" placeholder="Confirm Password">
                             </div>
                         </div>
                         <div class="row m-0 mt-4">
@@ -111,7 +111,7 @@
                         </div>
                         <div class="row m-0 mt-4">
                             <div class="col-md-12">
-                                <button class="btn btn-primary form-control form-control-auth-btn"><h5 class="m-0"><strong>REGISTER</strong></h5></button>
+                                <button @click="registerUser()" class="btn btn-primary form-control form-control-auth-btn"><h5 class="m-0"><strong>REGISTER</strong></h5></button>
                             </div>  
                         </div>
                     </div>
@@ -123,6 +123,29 @@
 
 </div>
 </template>
+<script>
+    export default {
+        data(){
+            return{
+                registerData:{
+                    f_name:null,
+                    l_name:null,
+                    email:null,
+                    password:null,
+                    password_confirmation:null,
+                }
+            }
+        },
+        methods:{
+            async registerUser(){
+                await axios.post('/registerUser', this.registerData)
+                .then( response =>{
+                    console.log('user registered')
+                })
+            }
+        }
+    }
+</script>
 <style>
 .form-control-auth{
     padding: 11px !important;
