@@ -29,7 +29,7 @@ class OTP extends Mailable
      */
     public function build()
     {
-        return $this->from('no-reply@signumdev.com')
+        return $this->from('no-reply@signumdev.com', 'ROM Fashion')
                     ->markdown('emails.otp.sent')
                     ->with([
                         'name' => $this->user->name,
