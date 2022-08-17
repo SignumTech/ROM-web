@@ -28729,7 +28729,7 @@ var render = function () {
     [
       _c(
         "nav",
-        { staticClass: "navbar navbar-expand-lg navbar-light bg-white p-3" },
+        { staticClass: "navbar navbar-expand-lg navbar-light bg-white p-2" },
         [
           _c("div", { staticClass: "container-fluid" }, [
             _vm._m(0),
@@ -28799,7 +28799,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("a", { staticClass: "navbar-brand", attrs: { href: "#" } }, [
-      _c("h2", [_c("strong", [_vm._v("ROM")])]),
+      _c("h2", { staticClass: "m-0" }, [_c("strong", [_vm._v("ROM")])]),
     ])
   },
   function () {
@@ -28834,43 +28834,43 @@ var staticRenderFns = [
             staticClass: "nav-link active",
             attrs: { "aria-current": "page", href: "#" },
           },
-          [_c("h5", [_vm._v("WOMEN")])]
+          [_c("h5", { staticClass: "m-0" }, [_vm._v("WOMEN")])]
         ),
       ]),
       _vm._v(" "),
       _c("li", { staticClass: "nav-item me-3" }, [
         _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-          _c("h5", [_vm._v("CURVE + PLUS")]),
+          _c("h5", { staticClass: "m-0" }, [_vm._v("CURVE + PLUS")]),
         ]),
       ]),
       _vm._v(" "),
       _c("li", { staticClass: "nav-item me-3" }, [
         _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-          _c("h5", [_vm._v("KIDS")]),
+          _c("h5", { staticClass: "m-0" }, [_vm._v("KIDS")]),
         ]),
       ]),
       _vm._v(" "),
       _c("li", { staticClass: "nav-item me-3" }, [
         _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-          _c("h5", [_vm._v("MEN")]),
+          _c("h5", { staticClass: "m-0" }, [_vm._v("MEN")]),
         ]),
       ]),
       _vm._v(" "),
       _c("li", { staticClass: "nav-item me-3" }, [
         _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-          _c("h5", [_vm._v("BEAUTY")]),
+          _c("h5", { staticClass: "m-0" }, [_vm._v("BEAUTY")]),
         ]),
       ]),
       _vm._v(" "),
       _c("li", { staticClass: "nav-item me-3" }, [
         _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-          _c("h5", [_vm._v("HOME")]),
+          _c("h5", { staticClass: "m-0" }, [_vm._v("HOME")]),
         ]),
       ]),
       _vm._v(" "),
       _c("li", { staticClass: "nav-item me-3" }, [
         _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-          _c("h5", [_vm._v("AFRICAN CLOTHING")]),
+          _c("h5", { staticClass: "m-0" }, [_vm._v("AFRICAN CLOTHING")]),
         ]),
       ]),
     ])

@@ -1,33 +1,33 @@
 <template>
     <div class="row m-0">
-        <nav class="navbar navbar-expand-lg navbar-light bg-white p-3">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white p-2">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#"><h2><strong>ROM</strong></h2></a>
+                <a class="navbar-brand" href="#"><h2 class="m-0"><strong>ROM</strong></h2></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item me-3">
-                        <a class="nav-link active" aria-current="page" href="#"><h5>WOMEN</h5></a>
+                        <a class="nav-link active" aria-current="page" href="#"><h5 class="m-0">WOMEN</h5></a>
                     </li>
                     <li class="nav-item me-3">
-                        <a class="nav-link" href="#"><h5>CURVE + PLUS</h5></a>
+                        <a class="nav-link" href="#"><h5 class="m-0">CURVE + PLUS</h5></a>
                     </li>
                     <li class="nav-item me-3">
-                        <a class="nav-link" href="#"><h5>KIDS</h5></a>
+                        <a class="nav-link" href="#"><h5 class="m-0">KIDS</h5></a>
                     </li>
                     <li class="nav-item me-3">
-                        <a class="nav-link" href="#"><h5>MEN</h5></a>
+                        <a class="nav-link" href="#"><h5 class="m-0">MEN</h5></a>
                     </li>
                     <li class="nav-item me-3">
-                        <a class="nav-link" href="#"><h5>BEAUTY</h5></a>
+                        <a class="nav-link" href="#"><h5 class="m-0">BEAUTY</h5></a>
                     </li>
                     <li class="nav-item me-3">
-                        <a class="nav-link" href="#"><h5>HOME</h5></a>
+                        <a class="nav-link" href="#"><h5 class="m-0">HOME</h5></a>
                     </li>
                     <li class="nav-item me-3">
-                        <a class="nav-link" href="#"><h5>AFRICAN CLOTHING</h5></a>
+                        <a class="nav-link" href="#"><h5 class="m-0">AFRICAN CLOTHING</h5></a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
