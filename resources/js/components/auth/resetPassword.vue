@@ -41,7 +41,7 @@ export default {
         this.formData.user_id = this.user_id
     },
     methods:{
-        async sendReset(){
+        async resetPassword(){
             await axios.post('/resetPassword', this.formData)
             .then( response =>{
                 window.location.replace('/');

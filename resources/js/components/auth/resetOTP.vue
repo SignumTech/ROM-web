@@ -16,7 +16,7 @@
                         <input class="m-2 form-control-auth auth-font text-center form-control rounded" type="text" id="fourth" maxlength="1" /> 
                     </div>
                     <div class="col-md-12 mt-3">
-                        <button class="btn btn-primary form-control form-control-auth-btn"><h5 class="m-0">Verify</h5></button>
+                        <button @click=verifyReset() class="btn btn-primary form-control form-control-auth-btn"><h5 class="m-0">Verify</h5></button>
                     </div>
                     <div class="col-md-12 mt-3">
                         <h6 class="text-center">Didnt get the code? <a href="">Resend</a></h6>

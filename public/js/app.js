@@ -5804,7 +5804,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.formData.user_id = this.user_id;
   },
   methods: {
-    sendReset: function sendReset() {
+    resetPassword: function resetPassword() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
@@ -30583,89 +30583,101 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "container justify-content-center" }, [
+    _c("div", { staticClass: "row mt-5" }, [
+      _c("div", { staticClass: "col-md-4" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("div", { staticClass: "bg-white rounded-sm p-4" }, [
+          _c("div", { staticClass: "row" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _vm._m(1),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-12 mt-3" }, [
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "btn btn-primary form-control form-control-auth-btn",
+                  on: {
+                    click: function ($event) {
+                      return _vm.verifyReset()
+                    },
+                  },
+                },
+                [_c("h5", { staticClass: "m-0" }, [_vm._v("Verify")])]
+              ),
+            ]),
+            _vm._v(" "),
+            _vm._m(2),
+          ]),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-4" }),
+    ]),
+  ])
 }
 var staticRenderFns = [
   function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container justify-content-center" }, [
-      _c("div", { staticClass: "row mt-5" }, [
-        _c("div", { staticClass: "col-md-4" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-4" }, [
-          _c("div", { staticClass: "bg-white rounded-sm p-4" }, [
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-md-12" }, [
-                _c("h5", { staticClass: "text-center" }, [
-                  _c("strong", [
-                    _vm._v(
-                      "Please enter the one time password to reset your password"
-                    ),
-                  ]),
-                ]),
-                _vm._v(" "),
-                _c("h6", { staticClass: "text-center" }, [
-                  _vm._v("A code has been sent to your email"),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "inputs d-flex flex-row justify-content-center mt-2",
-                },
-                [
-                  _c("input", {
-                    staticClass:
-                      "m-2 form-control-auth auth-font text-center form-control rounded",
-                    attrs: { type: "text", id: "first", maxlength: "1" },
-                  }),
-                  _vm._v(" "),
-                  _c("input", {
-                    staticClass:
-                      "m-2 form-control-auth auth-font text-center form-control rounded",
-                    attrs: { type: "text", id: "second", maxlength: "1" },
-                  }),
-                  _vm._v(" "),
-                  _c("input", {
-                    staticClass:
-                      "m-2 form-control-auth auth-font text-center form-control rounded",
-                    attrs: { type: "text", id: "third", maxlength: "1" },
-                  }),
-                  _vm._v(" "),
-                  _c("input", {
-                    staticClass:
-                      "m-2 form-control-auth auth-font text-center form-control rounded",
-                    attrs: { type: "text", id: "fourth", maxlength: "1" },
-                  }),
-                ]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-12 mt-3" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass:
-                      "btn btn-primary form-control form-control-auth-btn",
-                  },
-                  [_c("h5", { staticClass: "m-0" }, [_vm._v("Verify")])]
-                ),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-12 mt-3" }, [
-                _c("h6", { staticClass: "text-center" }, [
-                  _vm._v("Didnt get the code? "),
-                  _c("a", { attrs: { href: "" } }, [_vm._v("Resend")]),
-                ]),
-              ]),
-            ]),
-          ]),
+    return _c("div", { staticClass: "col-md-12" }, [
+      _c("h5", { staticClass: "text-center" }, [
+        _c("strong", [
+          _vm._v("Please enter the one time password to reset your password"),
         ]),
+      ]),
+      _vm._v(" "),
+      _c("h6", { staticClass: "text-center" }, [
+        _vm._v("A code has been sent to your email"),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "inputs d-flex flex-row justify-content-center mt-2" },
+      [
+        _c("input", {
+          staticClass:
+            "m-2 form-control-auth auth-font text-center form-control rounded",
+          attrs: { type: "text", id: "first", maxlength: "1" },
+        }),
         _vm._v(" "),
-        _c("div", { staticClass: "col-md-4" }),
+        _c("input", {
+          staticClass:
+            "m-2 form-control-auth auth-font text-center form-control rounded",
+          attrs: { type: "text", id: "second", maxlength: "1" },
+        }),
+        _vm._v(" "),
+        _c("input", {
+          staticClass:
+            "m-2 form-control-auth auth-font text-center form-control rounded",
+          attrs: { type: "text", id: "third", maxlength: "1" },
+        }),
+        _vm._v(" "),
+        _c("input", {
+          staticClass:
+            "m-2 form-control-auth auth-font text-center form-control rounded",
+          attrs: { type: "text", id: "fourth", maxlength: "1" },
+        }),
+      ]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-12 mt-3" }, [
+      _c("h6", { staticClass: "text-center" }, [
+        _vm._v("Didnt get the code? "),
+        _c("a", { attrs: { href: "" } }, [_vm._v("Resend")]),
       ]),
     ])
   },
