@@ -91,9 +91,12 @@ class registerUsersController extends Controller
         ]);
 
         $user = User::find($request->user_id);
+        $user->password = Hash::make($request->password);
         $user->save();
 
-        return $user;
+        auth()->login($user);
+
+        return redirect('/');
     }
 
 }
