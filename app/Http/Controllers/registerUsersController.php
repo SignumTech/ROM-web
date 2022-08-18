@@ -49,4 +49,22 @@ class registerUsersController extends Controller
         return $user;
     }
 
+    public function foregetPasswordMailer(Request $request){
+        $this->validate($request, [
+            "email" => "required | email"
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+        
+        if(!$user){
+            return response('Email doesnt exist', 422);
+        }
+        
+        $user->otp = rand(1000,9999);
+        $user->save();
+
+        Mail::to($user)->send(new OTP($user));
+        return $user;
+    }
+
 }
