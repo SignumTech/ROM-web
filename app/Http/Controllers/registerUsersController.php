@@ -15,7 +15,7 @@ class registerUsersController extends Controller
             'f_name' => ['required', 'string', 'max:255'],
             'l_name' => ['required', 'string', 'max:255'],
             //'preference' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', /*'unique:users'*/],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
