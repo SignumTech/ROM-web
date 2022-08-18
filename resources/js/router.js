@@ -29,12 +29,14 @@ const routes = [
     {
         path: '/resetOTP',
         component: resetOTP,
-        name: 'ResetOTP'
+        name: 'ResetOTP',
+        props: true
     }, 
     {
         path: '/resetPassword',
         component: resetPassword,
-        name: 'ResetPassword'
+        name: 'ResetPassword',
+        props: true
     },       
 ]
 

@@ -5391,8 +5391,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context.next = 2;
                 return axios.post('/foregetPasswordMailer', _this.formData).then(function (response) {
-                  console.log(response.data.id);
-
                   _this.$router.push({
                     name: 'ResetOTP',
                     params: {
@@ -5951,11 +5949,13 @@ var routes = [{
 },, {
   path: '/resetOTP',
   component: _components_auth_resetOTP_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
-  name: 'ResetOTP'
+  name: 'ResetOTP',
+  props: true
 }, {
   path: '/resetPassword',
   component: _components_auth_resetPassword_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
-  name: 'ResetPassword'
+  name: 'ResetPassword',
+  props: true
 }];
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vue_router__WEBPACK_IMPORTED_MODULE_6__["default"]({
   mode: 'history',
