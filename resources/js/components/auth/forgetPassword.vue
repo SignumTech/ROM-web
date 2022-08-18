@@ -34,7 +34,7 @@ export default {
         async sendReset(){
             await axios.post('/foregetPasswordMailer', this.formData)
             .then( response =>{
-                router.push({ path: 'forgetPasword'});
+                this.$router.push({ path: 'forgetPasword'});
             })
         }
     }

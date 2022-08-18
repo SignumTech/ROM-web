@@ -5390,7 +5390,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context.next = 2;
                 return axios.post('/foregetPasswordMailer', _this.formData).then(function (response) {
-                  router.push({
+                  _this.$router.push({
                     path: 'forgetPasword'
                   });
                 });

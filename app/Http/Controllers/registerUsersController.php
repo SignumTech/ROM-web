@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\OTP;
+use App\Mail\PasswordReset;
 class registerUsersController extends Controller
 {
     public function registerUser(Request $request){
@@ -64,7 +65,7 @@ class registerUsersController extends Controller
         $user->reset_status = "REQUESTED";
         $user->save();
 
-        Mail::to($user)->send(new OTP($user));
+        Mail::to($user)->send(new PasswordReset($user));
         return $user;
     }
 
