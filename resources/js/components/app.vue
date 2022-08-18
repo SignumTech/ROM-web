@@ -43,7 +43,7 @@
                         <router-link class="nav-link" to="/otp"><h4><span class="fa fa-shopping-bag"></span></h4></router-link>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><h4><span class="fa fa-heart"></span></h4></a>
+                        <router-link class="nav-link" to="/forgetPassword"><h4><span class="fa fa-heart"></span></h4></router-link>
                     </li>
                 </ul>
                 </div>

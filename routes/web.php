@@ -21,6 +21,10 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('/registerUser', [registerUsersController::class, 'registerUser']);
+Route::post('/verifyOTP', [registerUsersController::class, 'verifyOTP']);
+Route::post('/foregetPasswordMailer', [registerUsersController::class, 'foregetPasswordMailer']);
+Route::post('/resetVerify', [registerUsersController::class, 'resetVerify']);
+Route::post('/reset_password', [registerUsersController::class, 'reset_password']);
 Route::any('{slug}', function () {
     return view('home');
 });

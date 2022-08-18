@@ -35,10 +35,10 @@ class registerUsersController extends Controller
     public function verifyOTP(Request $request){
         $this->validate($request, [
             "otp" => "required | max:4",
-            "id" => "required | integer"
+            "user_id" => "required | integer"
         ]);
 
-        $user = User::find($request->id);
+        $user = User::find($request->user_id);
         
         if($user->otp != $request->otp){
             return response("OTP mismatch", 422);
@@ -61,9 +61,37 @@ class registerUsersController extends Controller
         }
         
         $user->otp = rand(1000,9999);
+        $user->reset_status = "REQUESTED";
         $user->save();
 
         Mail::to($user)->send(new OTP($user));
+        return $user;
+    }
+
+    public function resetVerify(Request $request){
+        $this->validate($request, [
+            "otp" => "required | max:4",
+            "user_id" => "required | integer"
+        ]);
+
+        $user = User::find($user_id);
+        if($user->otp != $request->otp){
+            return response("Wrong OTP", 422);
+        }
+        $user->reset_status = "ALLOWED";
+        $user->save();
+        return $user;
+    }
+
+    public function reset_password(Request $request){
+        $this->validate($request, [
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'user_id' => "required | integer"
+        ]);
+
+        $user = User::find($request->user_id);
+        $user->save();
+
         return $user;
     }
 
