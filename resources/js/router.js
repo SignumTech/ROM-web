@@ -22,7 +22,12 @@ const routes = [
         path: '/forgetPassword',
         component: forgetPassword,
         name: 'ForgetPassword'
-    },          
+    },     
+    {
+        path: '/resetPassword',
+        component: resetPassword,
+        name: 'ResetPassword'
+    },       
 ]
 
 export default new  Router({

@@ -32,7 +32,7 @@ class PasswordReset extends Mailable
         return $this->from('no-reply@signumdev.com', 'ROM Fashion')
                     ->markdown('emails.otp.reset')
                     ->with([
-                        'name' => $this->user->name,
+                        'name' => $this->user->f_name,
                         'otp' => $this->user->otp
                     ]);
     }

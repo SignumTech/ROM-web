@@ -5371,6 +5371,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -5391,7 +5392,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context.next = 2;
                 return axios.post('/foregetPasswordMailer', _this.formData).then(function (response) {
                   _this.$router.push({
-                    path: 'forgetPasword'
+                    path: 'resetPassword'
                   });
                 });
 
@@ -5749,6 +5750,10 @@ var routes = [{
   path: '/forgetPassword',
   component: _components_auth_forgetPassword_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
   name: 'ForgetPassword'
+}, {
+  path: '/resetPassword',
+  component: resetPassword,
+  name: 'ResetPassword'
 }];
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vue_router__WEBPACK_IMPORTED_MODULE_4__["default"]({
   mode: 'history',
@@ -29549,6 +29554,20 @@ var render = function () {
                   on: {
                     click: function ($event) {
                       return _vm.sendReset()
+                    },
+                  },
+                },
+                [_c("h5", { staticClass: "m-0" }, [_vm._v("Continue")])]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "btn btn-primary form-control form-control-auth-btn",
+                  on: {
+                    click: function ($event) {
+                      return _vm.navigate()
                     },
                   },
                 },

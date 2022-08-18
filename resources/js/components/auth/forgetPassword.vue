@@ -14,6 +14,7 @@
                     </div>
                     <div class="col-md-12 mt-3">
                         <button @click="sendReset()" class="btn btn-primary form-control form-control-auth-btn"><h5 class="m-0">Continue</h5></button>
+                        <button @click="navigate()" class="btn btn-primary form-control form-control-auth-btn"><h5 class="m-0">Continue</h5></button>
                     </div>
                 </div>
             </div>
@@ -34,9 +35,9 @@ export default {
         async sendReset(){
             await axios.post('/foregetPasswordMailer', this.formData)
             .then( response =>{
-                this.$router.push({ path: 'forgetPasword'});
+                this.$router.push({ path: 'resetPassword'});
             })
-        }
+        },
     }
 }
 </script>
