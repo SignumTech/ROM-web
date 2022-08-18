@@ -95,7 +95,7 @@ class registerUsersController extends Controller
             "user_id" => "required | integer"
         ]);
 
-        $user = User::find($user_id);
+        $user = User::find($request->user_id);
         if($user->otp != $request->otp){
             return response("Wrong OTP", 422);
         }
