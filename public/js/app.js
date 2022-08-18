@@ -30594,7 +30594,106 @@ var render = function () {
           _c("div", { staticClass: "row" }, [
             _vm._m(0),
             _vm._v(" "),
-            _vm._m(1),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "inputs d-flex flex-row justify-content-center mt-2",
+              },
+              [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.digits.digit1,
+                      expression: "digits.digit1",
+                    },
+                  ],
+                  staticClass:
+                    "m-2 form-control-auth auth-font text-center form-control rounded",
+                  attrs: { type: "text", id: "first", maxlength: "1" },
+                  domProps: { value: _vm.digits.digit1 },
+                  on: {
+                    input: function ($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.digits, "digit1", $event.target.value)
+                    },
+                  },
+                }),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.digits.digit2,
+                      expression: "digits.digit2",
+                    },
+                  ],
+                  staticClass:
+                    "m-2 form-control-auth auth-font text-center form-control rounded",
+                  attrs: { type: "text", id: "second", maxlength: "1" },
+                  domProps: { value: _vm.digits.digit2 },
+                  on: {
+                    input: function ($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.digits, "digit2", $event.target.value)
+                    },
+                  },
+                }),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.digits.digit3,
+                      expression: "digits.digit3",
+                    },
+                  ],
+                  staticClass:
+                    "m-2 form-control-auth auth-font text-center form-control rounded",
+                  attrs: { type: "text", id: "third", maxlength: "1" },
+                  domProps: { value: _vm.digits.digit3 },
+                  on: {
+                    input: function ($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.digits, "digit3", $event.target.value)
+                    },
+                  },
+                }),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.digits.digit4,
+                      expression: "digits.digit4",
+                    },
+                  ],
+                  staticClass:
+                    "m-2 form-control-auth auth-font text-center form-control rounded",
+                  attrs: { type: "text", id: "fourth", maxlength: "1" },
+                  domProps: { value: _vm.digits.digit4 },
+                  on: {
+                    input: function ($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.digits, "digit4", $event.target.value)
+                    },
+                  },
+                }),
+              ]
+            ),
             _vm._v(" "),
             _c("div", { staticClass: "col-md-12 mt-3" }, [
               _c(
@@ -30612,7 +30711,7 @@ var render = function () {
               ),
             ]),
             _vm._v(" "),
-            _vm._m(2),
+            _vm._m(1),
           ]),
         ]),
       ]),
@@ -30637,40 +30736,6 @@ var staticRenderFns = [
         _vm._v("A code has been sent to your email"),
       ]),
     ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "inputs d-flex flex-row justify-content-center mt-2" },
-      [
-        _c("input", {
-          staticClass:
-            "m-2 form-control-auth auth-font text-center form-control rounded",
-          attrs: { type: "text", id: "first", maxlength: "1" },
-        }),
-        _vm._v(" "),
-        _c("input", {
-          staticClass:
-            "m-2 form-control-auth auth-font text-center form-control rounded",
-          attrs: { type: "text", id: "second", maxlength: "1" },
-        }),
-        _vm._v(" "),
-        _c("input", {
-          staticClass:
-            "m-2 form-control-auth auth-font text-center form-control rounded",
-          attrs: { type: "text", id: "third", maxlength: "1" },
-        }),
-        _vm._v(" "),
-        _c("input", {
-          staticClass:
-            "m-2 form-control-auth auth-font text-center form-control rounded",
-          attrs: { type: "text", id: "fourth", maxlength: "1" },
-        }),
-      ]
-    )
   },
   function () {
     var _vm = this

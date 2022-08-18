@@ -10,10 +10,10 @@
                         <h6 class="text-center">A code has been sent to your email</h6>
                     </div>
                     <div class="inputs d-flex flex-row justify-content-center mt-2"> 
-                        <input class="m-2 form-control-auth auth-font text-center form-control rounded" type="text" id="first" maxlength="1" /> 
-                        <input class="m-2 form-control-auth auth-font text-center form-control rounded" type="text" id="second" maxlength="1" /> 
-                        <input class="m-2 form-control-auth auth-font text-center form-control rounded" type="text" id="third" maxlength="1" /> 
-                        <input class="m-2 form-control-auth auth-font text-center form-control rounded" type="text" id="fourth" maxlength="1" /> 
+                        <input v-model="digits.digit1" class="m-2 form-control-auth auth-font text-center form-control rounded" type="text" id="first" maxlength="1" /> 
+                        <input v-model="digits.digit2" class="m-2 form-control-auth auth-font text-center form-control rounded" type="text" id="second" maxlength="1" /> 
+                        <input v-model="digits.digit3" class="m-2 form-control-auth auth-font text-center form-control rounded" type="text" id="third" maxlength="1" /> 
+                        <input v-model="digits.digit4" class="m-2 form-control-auth auth-font text-center form-control rounded" type="text" id="fourth" maxlength="1" /> 
                     </div>
                     <div class="col-md-12 mt-3">
                         <button @click=verifyReset() class="btn btn-primary form-control form-control-auth-btn"><h5 class="m-0">Verify</h5></button>
