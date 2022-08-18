@@ -46,8 +46,28 @@ class registerUsersController extends Controller
         }
         $user->verification_status = "VERIFIED";
         $user->save();
+        auth()->login($user);
 
         return $user;
+    }
+    public function verifyMobileOTP(Request $request){
+        $this->validate($request, [
+            "otp" => "required | max:4",
+            "user_id" => "required | integer"
+        ]);
+
+        $user = User::find($request->user_id);
+        
+        if($user->otp != $request->otp){
+            return response("OTP mismatch", 422);
+        }
+        $user->verification_status = "VERIFIED";
+        $user->save();
+        /////////////////////////////////
+        $user_token = $user->createToken($user->name);
+
+        return ['token' => $user_token->plainTextToken]; 
+        
     }
 
     public function foregetPasswordMailer(Request $request){

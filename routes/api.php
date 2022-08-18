@@ -14,7 +14,14 @@ use App\Http\Controllers\registerUsersController;
 |
 */
 Auth::routes();
+
 Route::post('/registerUser', [registerUsersController::class, 'registerUser']);
+Route::post('/verifyOTP', [registerUsersController::class, 'verifyOTP']);
+Route::post('/verifyMobileOTP', [registerUsersController::class, 'verifyMobileOTP']);
+Route::post('/foregetPasswordMailer', [registerUsersController::class, 'foregetPasswordMailer']);
+Route::post('/resetVerify', [registerUsersController::class, 'resetVerify']);
+Route::post('/resetPassword', [registerUsersController::class, 'reset_password']);
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

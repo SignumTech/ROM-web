@@ -5394,7 +5394,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   console.log(response.data.id);
 
                   _this.$router.push({
-                    path: 'resetOTP',
+                    name: 'ResetOTP',
                     params: {
                       user_id: response.data
                     }
@@ -5725,7 +5725,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context.next = 3;
                 return axios.post('/resetVerify', _this.formData).then(function (response) {
                   _this.$router.push({
-                    path: '/resetPassword',
+                    name: 'ResetPassword',
                     params: {
                       user_id: response.data.id
                     }
