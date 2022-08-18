@@ -37,7 +37,7 @@ export default {
             .then( response =>{
                 console.log(response.data.id)
                 this.$router.push({ path: 'resetOTP', params:{
-                    user_id: response.data.id
+                    user_id: this.response.data.id
                 }});
             })
         },
