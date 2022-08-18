@@ -5396,7 +5396,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this.$router.push({
                     name: 'ResetOTP',
                     params: {
-                      user_id: response.data
+                      user_id: response.data.id
                     }
                   });
                 });
