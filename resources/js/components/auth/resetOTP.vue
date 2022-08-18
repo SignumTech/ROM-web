@@ -54,7 +54,7 @@ export default {
             this.formData.otp = this.digits.digit1+this.digits.digit2+this.digits.digit3+this.digits.digit4
             await axios.post('/resetVerify', this.formData)
             .then( response =>{
-                this.$router.push({path:'/resetPassword', params:{
+                this.$router.push({name:'ResetPassword', params:{
                     user_id:response.data.id
                 }})
             })

@@ -36,8 +36,8 @@ export default {
             await axios.post('/foregetPasswordMailer', this.formData)
             .then( response =>{
                 console.log(response.data.id)
-                this.$router.push({ path: 'resetOTP', params:{
-                    user_id: this.response.data.id
+                this.$router.push({ name: 'ResetOTP', params:{
+                    user_id: response.data
                 }});
             })
         },
