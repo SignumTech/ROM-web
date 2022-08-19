@@ -4,7 +4,7 @@
         <div class="col-md-4"></div>
         <div class="col-md-4">
             <div class="bg-white rounded-sm p-4">
-                <form action="#" @submit.prevent="verfiyOTP">
+                <form action="#" @submit.prevent="verifyOTP">
                     <div class="row">
                         <div class="col-md-12">
                             <h5 class="text-center"><strong>Please enter the one time password to verify your account</strong></h5>

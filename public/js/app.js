@@ -31234,7 +31234,7 @@ var render = function () {
               on: {
                 submit: function ($event) {
                   $event.preventDefault()
-                  return _vm.verfiyOTP.apply(null, arguments)
+                  return _vm.verifyOTP.apply(null, arguments)
                 },
               },
             },
