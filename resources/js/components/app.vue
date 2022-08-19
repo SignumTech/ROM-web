@@ -34,7 +34,7 @@
                     <li class="nav-item me-4 dropdown">
                         <a class="nav-link nav-link-main dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"><h5 class="m-0"><span class="fa fa-user"></span></h5></a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><router-link class="dropdown-item" to="/login">SIGN IN / REGISTER</router-link></li>
+                            <li><router-link class="dropdown-item" to="/signin">SIGN IN / REGISTER</router-link></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="#">My orders</a></li>
                         </ul>

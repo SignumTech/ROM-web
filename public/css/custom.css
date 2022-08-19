@@ -48,3 +48,19 @@ a {
 a:hover{
     text-decoration: underline;
 }
+.otp-input {
+    width: 60px;
+    height: 60px;
+    padding: 5px;
+    margin: 0 10px;
+    font-size: 20px;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    text-align: center !important;
+}
+.otp-input:focus-visible{
+    border-color: #bf7f25 !important;
+}
+.error {
+    border: 1px solid red !important;
+}

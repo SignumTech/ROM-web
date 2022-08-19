@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import login from './components/auth/login.vue'
+import signin from './components/auth/signin.vue'
 import otp from './components/auth/otp.vue'
 import forgetPassword from './components/auth/forgetPassword.vue'
 import resetOTP from './components/auth/resetOTP.vue'
@@ -11,9 +11,9 @@ Vue.use(Router)
 
 const routes = [
     {
-        path: '/login',
-        component: login,
-        name: 'Login'
+        path: '/signin',
+        component: signin,
+        name: 'Signin'
     },  
     {
         path: '/otp',

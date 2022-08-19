@@ -17,11 +17,12 @@
                             <div class="row m-0 mt-4">
                                 <div class="col-md-12">
                                     <label for="password">Password</label>
-                                    <input v-model="logForm.password" required type="password" pattern="\w{8}" title="your password must be atleast 8 characters" class="form-control form-control-auth" placeholder="Password">
+                                    <input v-model="logForm.password" required type="password" class="form-control form-control-auth" placeholder="Password">
                                 </div>
                             </div>   
                             <div class="row m-0 mt-4">
                                 <div class="col-md-12">
+                                    <h6 v-if="valErrors" class="text-danger text-center"><strong>You entered wrong credentials!</strong></h6>
                                     <div v-if="logLoading" class="d-flex justify-content-center">
                                         <pulse-loader :color="`#BF7F25`" :size="`15px`"></pulse-loader> 
                                     </div>
@@ -47,22 +48,26 @@
                                 <div class="col-md-6">
                                     <label for="email">First Name</label>
                                     <input required v-model="registerData.f_name" type="text" class="form-control form-control-auth" placeholder="First Name">
+                                    <h6 v-for="er in loginErrors.f_name" :key="er.id" class="text-danger m-0">this is an error</h6>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="email">Last Name</label>
                                     <input required v-model="registerData.l_name" type="text" class="form-control form-control-auth" placeholder="Last Name">
+                                    <h6 v-for="er in loginErrors.l_name" :key="er.id" class="text-danger m-0">{{er}}</h6>
                                 </div>
                             </div>
                             <div class="row m-0 mt-4">
                                 <div class="col-md-12">
                                     <label for="email">Email Address</label>
                                     <input required v-model="registerData.email" type="email" class="form-control form-control-auth" placeholder="Email address">
+                                    <h6 v-for="er in loginErrors.email" :key="er.id" class="text-danger m-0">{{er}}</h6>
                                 </div>
                             </div>
                             <div class="row m-0 mt-4">
                                 <div class="col-md-12">
                                     <label for="email">Password</label>
                                     <input required v-model="registerData.password" type="password" class="form-control form-control-auth" placeholder="Password">
+                                    <h6 v-for="er in loginErrors.password" :key="er.id" class="text-danger m-0">{{er}}</h6>
                                 </div>
                             </div> 
                             <div class="row m-0 mt-4">
@@ -77,19 +82,19 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                        <input class="form-check-input" type="checkbox" value="" >
                                         <label class="form-check-label" for="flexCheckDefault">
                                             Women
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                        <input class="form-check-input" type="checkbox" value="">
                                         <label class="form-check-label" for="flexCheckDefault">
                                             Men
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                        <input class="form-check-input" type="checkbox" value="">
                                         <label class="form-check-label" for="flexCheckDefault">
                                             Home
                                         </label>
@@ -97,19 +102,19 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                        <input class="form-check-input" type="checkbox" value="">
                                         <label class="form-check-label" for="flexCheckDefault">
                                             Plus Size
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                        <input class="form-check-input" type="checkbox" value="">
                                         <label class="form-check-label" for="flexCheckDefault">
                                             Kids
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                        <input class="form-check-input" type="checkbox" value="">
                                         <label class="form-check-label" for="flexCheckDefault">
                                             Pets
                                         </label>
@@ -155,7 +160,9 @@ export default {
                     password: null,
                 },
                 regLoading:false,
-                logLoading:false
+                logLoading:false,
+                valErrors: false,
+                loginErrors:{}
             }
         },
         methods:{
@@ -166,8 +173,16 @@ export default {
             async login () {
                 this.logLoading = true
                 await this.signIn(this.logForm)
-                window.location.replace('/')
-                this.logLoading = false
+                .then( response =>{
+                    window.location.replace('/')
+                    
+                })
+                .catch( error =>{
+                    this.logLoading = false
+                    this.valErrors = true
+                })
+                
+                
             },
             async registerUser(){
                 this.regLoading = true
@@ -179,6 +194,7 @@ export default {
                 })
                 .catch( error=>{
                     this.regLoading = false
+                    this.loginErrors = error.response.data.errors
                 })
             },
 
