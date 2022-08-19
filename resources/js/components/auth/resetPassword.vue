@@ -17,7 +17,10 @@
                         <input v-model="formData.password_confirmation" type="password" class="form-control form-control-auth" placeholder="Email address">
                     </div>
                     <div class="col-md-12 mt-3">
-                        <button @click="resetPassword()" class="btn btn-primary form-control form-control-auth-btn"><h5 class="m-0">Reste</h5></button>
+                        <div v-if="regLoading" class="d-flex justify-content-center">
+                            <pulse-loader :color="`#BF7F25`" :size="`15px`"></pulse-loader> 
+                        </div>
+                        <button v-if="!regLoading" @click="resetPassword()" class="btn btn-primary form-control form-control-auth-btn"><h5 class="m-0">Reste</h5></button>
                     </div>
                 </div>
             </div>
@@ -26,7 +29,11 @@
 </div>
 </template>
 <script>
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 export default {
+    components:{
+        PulseLoader
+    },
     props:['user_id'],
     data(){
         return{
@@ -34,7 +41,8 @@ export default {
                 password: null,
                 password_confirmation: null,
                 user_id: null,
-            }
+            },
+            regLoading:false
         }
     },
     mounted(){
@@ -42,9 +50,13 @@ export default {
     },
     methods:{
         async resetPassword(){
+            this.regLoading = true
             await axios.post('/resetPassword', this.formData)
             .then( response =>{
                 window.location.replace('/');
+            })
+            .catch( error =>{
+                this.regLoading = false
             })
         },
     }

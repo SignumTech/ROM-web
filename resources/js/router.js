@@ -18,7 +18,8 @@ const routes = [
     {
         path: '/otp',
         component: otp,
-        name: 'Otp'
+        name: 'Otp',
+        props: true
     },  
     {
         path: '/forgetPassword',

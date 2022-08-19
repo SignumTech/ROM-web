@@ -16,7 +16,10 @@
                         <input v-model="digits.digit4" class="m-2 form-control-auth auth-font text-center form-control rounded" type="text" id="fourth" maxlength="1" /> 
                     </div>
                     <div class="col-md-12 mt-3">
-                        <button @click=verifyReset() class="btn btn-primary form-control form-control-auth-btn"><h5 class="m-0">Verify</h5></button>
+                        <div v-if="regLoading" class="d-flex justify-content-center">
+                            <pulse-loader :color="`#BF7F25`" :size="`15px`"></pulse-loader> 
+                        </div>
+                        <button v-if="!regLoading" @click=verifyReset() class="btn btn-primary form-control form-control-auth-btn"><h5 class="m-0">Verify</h5></button>
                     </div>
                     <div class="col-md-12 mt-3">
                         <h6 class="text-center">Didnt get the code? <a href="">Resend</a></h6>
@@ -30,7 +33,11 @@
 </div>    
 </template>
 <script>
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 export default {
+    components:{
+        PulseLoader
+    },
     data(){
         return{
             formData:{
@@ -42,7 +49,8 @@ export default {
                 digit2:null,
                 digit3:null,
                 digit4:null,
-            }
+            },
+            regLoading:false
         }
     },
     props:['user_id'],
@@ -51,12 +59,16 @@ export default {
     },
     methods:{
         async verifyReset(){
+            this.regLoading = true
             this.formData.otp = this.digits.digit1+this.digits.digit2+this.digits.digit3+this.digits.digit4
             await axios.post('/resetVerify', this.formData)
             .then( response =>{
                 this.$router.push({name:'ResetPassword', params:{
                     user_id:response.data.id
                 }})
+            })
+            .catch( error =>{
+                this.regLoading = false
             })
         }
     }

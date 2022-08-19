@@ -13,7 +13,10 @@
                         <input v-model="formData.email" type="email" class="form-control form-control-auth" placeholder="Email address">
                     </div>
                     <div class="col-md-12 mt-3">
-                        <button @click="sendReset()" class="btn btn-primary form-control form-control-auth-btn"><h5 class="m-0">Continue</h5></button>
+                        <div v-if="regLoading" class="d-flex justify-content-center">
+                            <pulse-loader :color="`#BF7F25`" :size="`15px`"></pulse-loader> 
+                        </div>
+                        <button v-if="!regLoading" @click="sendReset()" class="btn btn-primary form-control form-control-auth-btn"><h5 class="m-0">Continue</h5></button>
                         
                     </div>
                 </div>
@@ -23,22 +26,30 @@
 </div>
 </template>
 <script>
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 export default {
+    components:{
+        PulseLoader
+    },
     data(){
         return{
             formData:{
                 email: null
-            }
+            },
+            regLoading:false
         }
     },
     methods:{
         async sendReset(){
+            this.regLoading = true
             await axios.post('/foregetPasswordMailer', this.formData)
             .then( response =>{
-                
                 this.$router.push({ name: 'ResetOTP', params:{
                     user_id: response.data.id
                 }});
+            })
+            .catch( error =>{
+                this.regLoading = false
             })
         },
     }

@@ -21,8 +21,11 @@
                         </div>   
                         <div class="row m-0 mt-4">
                             <div class="col-md-12">
-                                <button class="btn btn-primary form-control form-control-auth-btn"><h5 class="m-0"><strong>SIGN IN</strong></h5></button>
-                                <h6 class="text-center mt-3">Forgot your password?</h6>
+                                <div v-if="logLoading" class="d-flex justify-content-center">
+                                    <pulse-loader :color="`#BF7F25`" :size="`15px`"></pulse-loader> 
+                                </div>
+                                <button v-if="!logLoading" class="btn btn-primary form-control form-control-auth-btn"><h5 class="m-0"><strong>SIGN IN</strong></h5></button>
+                                <router-link><h6 class="text-center mt-3">Forgot your password?</h6></router-link>
                             </div>
                             <div class="col-md-6 mt-3 border-end">
                                 <img src="/storage/settings/google.png" class="img img-fluid d-flex m-auto" alt="" style="width:40px; height:40px">
@@ -111,7 +114,10 @@
                         </div>
                         <div class="row m-0 mt-4">
                             <div class="col-md-12">
-                                <button @click="registerUser()" class="btn btn-primary form-control form-control-auth-btn"><h5 class="m-0"><strong>REGISTER</strong></h5></button>
+                                <div v-if="regLoading" class="d-flex justify-content-center">
+                                    <pulse-loader :color="`#BF7F25`" :size="`15px`"></pulse-loader> 
+                                </div>
+                                <button v-if="!regLoading" @click="registerUser()" class="btn btn-primary form-control form-control-auth-btn"><h5 class="m-0"><strong>REGISTER</strong></h5></button>
                             </div>  
                         </div>
                     </div>
@@ -124,7 +130,11 @@
 </div>
 </template>
 <script>
-    export default {
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
+export default {
+        components:{
+            PulseLoader
+        },
         data(){
             return{
                 registerData:{
@@ -133,14 +143,22 @@
                     email:null,
                     password:null,
                     password_confirmation:null,
-                }
+                },
+                regLoading:false,
+                logLoading:false
             }
         },
         methods:{
             async registerUser(){
+                this.regLoading = true
                 await axios.post('/registerUser', this.registerData)
                 .then( response =>{
-                    console.log('user registered')
+                    this.$router.push({name: 'Otp', params:{
+                        user_id: response.data.id
+                    }})
+                })
+                .catch( error=>{
+                    this.regLoading = false
                 })
             }
         }
@@ -159,4 +177,8 @@
     border-color: #bf7f25;
     background-color: #bf7f25;
 }
+.dropdown-divider{
+    background-color: #dee2e6 !important;   
+}
+
 </style>
