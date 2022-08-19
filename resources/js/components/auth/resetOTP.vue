@@ -74,13 +74,3 @@ export default {
     }
 }
 </script>
-<style>
-.btn-primary{
-    color:white;
-    border-color: #bf7f25;
-    background-color: #bf7f25;
-}
-.auth-font{
-    font-size: 20px;
-}
-</style>

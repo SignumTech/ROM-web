@@ -1,0 +1,43 @@
+.form-control-auth{
+    padding: 11px !important;
+    background-color: #fff !important;
+}
+.form-control-auth-btn{
+    padding: 11px !important;
+}
+.btn-primary{
+    color:white;
+    border-color: #bf7f25;
+    background-color: #bf7f25;
+}
+.dropdown-divider{
+    background-color: #dee2e6 !important;   
+}
+.btn-primary{
+    color:white;
+    border-color: #bf7f25;
+    background-color: #bf7f25;
+}
+.auth-font{
+    font-size: 20px;
+}
+.dropdown-toggle::after {
+    content: none;
+}
+.nav-link-main{
+    color: white !important;
+    padding-bottom: 1rem !important;
+    padding-top: 1rem !important;
+}
+.main-nav{
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    background-color: #bf7f25;
+}
+.nav-link-active{
+    background-color: white !important;
+    color: #000000e6 !important;
+    font-weight: bolder !important;
+    padding-bottom: 1rem !important;
+    padding-top: 1rem !important;
+}
