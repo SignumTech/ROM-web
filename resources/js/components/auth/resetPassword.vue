@@ -4,25 +4,27 @@
         <div class="col-md-4"></div>
         <div class="col-md-4">
             <div class="bg-white rounded-sm p-4">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h5 class="text-center"><strong>Please enter your new password below</strong></h5>
-                    </div>
-                    <div class="col-md-12 mt-3">
-                        <label for="new_password">New password</label>
-                        <input v-model="formData.password" type="password" class="form-control form-control-auth" placeholder="Email address">
-                    </div>
-                    <div class="col-md-12 mt-3">
-                        <label for="new_password">Confirm password</label>
-                        <input v-model="formData.password_confirmation" type="password" class="form-control form-control-auth" placeholder="Email address">
-                    </div>
-                    <div class="col-md-12 mt-3">
-                        <div v-if="regLoading" class="d-flex justify-content-center">
-                            <pulse-loader :color="`#BF7F25`" :size="`15px`"></pulse-loader> 
+                <form action="#" @submit.prevent="resetPassword">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h5 class="text-center"><strong>Please enter your new password below</strong></h5>
                         </div>
-                        <button v-if="!regLoading" @click="resetPassword()" class="btn btn-primary form-control form-control-auth-btn"><h5 class="m-0">Reste</h5></button>
+                        <div class="col-md-12 mt-3">
+                            <label for="new_password">New password</label>
+                            <input required v-model="formData.password" type="password" class="form-control form-control-auth" placeholder="Email address">
+                        </div>
+                        <div class="col-md-12 mt-3">
+                            <label for="new_password">Confirm password</label>
+                            <input required v-model="formData.password_confirmation" type="password" class="form-control form-control-auth" placeholder="Email address">
+                        </div>
+                        <div class="col-md-12 mt-3">
+                            <div v-if="regLoading" class="d-flex justify-content-center">
+                                <pulse-loader :color="`#BF7F25`" :size="`15px`"></pulse-loader> 
+                            </div>
+                            <button v-if="!regLoading" type="submit" class="btn btn-primary form-control form-control-auth-btn"><h5 class="m-0">Reste</h5></button>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>

@@ -5415,6 +5415,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -5764,6 +5766,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -5839,6 +5842,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
 //
 //
 //
@@ -5953,6 +5957,8 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
 //
 //
 //
@@ -30487,64 +30493,78 @@ var render = function () {
       _vm._v(" "),
       _c("div", { staticClass: "col-md-4" }, [
         _c("div", { staticClass: "bg-white rounded-sm p-4" }, [
-          _c("div", { staticClass: "row" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-12 mt-3" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.formData.email,
-                    expression: "formData.email",
-                  },
-                ],
-                staticClass: "form-control form-control-auth",
-                attrs: { type: "email", placeholder: "Email address" },
-                domProps: { value: _vm.formData.email },
-                on: {
-                  input: function ($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.formData, "email", $event.target.value)
-                  },
+          _c(
+            "form",
+            {
+              attrs: { action: "#" },
+              on: {
+                submit: function ($event) {
+                  $event.preventDefault()
+                  return _vm.sendReset.apply(null, arguments)
                 },
-              }),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-12 mt-3" }, [
-              _vm.regLoading
-                ? _c(
-                    "div",
-                    { staticClass: "d-flex justify-content-center" },
-                    [
-                      _c("pulse-loader", {
-                        attrs: { color: "#BF7F25", size: "15px" },
-                      }),
+              },
+            },
+            [
+              _c("div", { staticClass: "row" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-12 mt-3" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formData.email,
+                        expression: "formData.email",
+                      },
                     ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              !_vm.regLoading
-                ? _c(
-                    "button",
-                    {
-                      staticClass:
-                        "btn btn-primary form-control form-control-auth-btn",
-                      on: {
-                        click: function ($event) {
-                          return _vm.sendReset()
-                        },
+                    staticClass: "form-control form-control-auth",
+                    attrs: {
+                      required: "",
+                      type: "email",
+                      placeholder: "Email address",
+                    },
+                    domProps: { value: _vm.formData.email },
+                    on: {
+                      input: function ($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.formData, "email", $event.target.value)
                       },
                     },
-                    [_c("h5", { staticClass: "m-0" }, [_vm._v("Continue")])]
-                  )
-                : _vm._e(),
-            ]),
-          ]),
+                  }),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-12 mt-3" }, [
+                  _vm.regLoading
+                    ? _c(
+                        "div",
+                        { staticClass: "d-flex justify-content-center" },
+                        [
+                          _c("pulse-loader", {
+                            attrs: { color: "#BF7F25", size: "15px" },
+                          }),
+                        ],
+                        1
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  !_vm.regLoading
+                    ? _c(
+                        "button",
+                        {
+                          staticClass:
+                            "btn btn-primary form-control form-control-auth-btn",
+                          attrs: { type: "submit" },
+                        },
+                        [_c("h5", { staticClass: "m-0" }, [_vm._v("Continue")])]
+                      )
+                    : _vm._e(),
+                ]),
+              ]),
+            ]
+          ),
         ]),
       ]),
     ]),
@@ -31207,138 +31227,173 @@ var render = function () {
       _vm._v(" "),
       _c("div", { staticClass: "col-md-4" }, [
         _c("div", { staticClass: "bg-white rounded-sm p-4" }, [
-          _c("div", { staticClass: "row" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "inputs d-flex flex-row justify-content-center mt-2",
+          _c(
+            "form",
+            {
+              attrs: { action: "#" },
+              on: {
+                submit: function ($event) {
+                  $event.preventDefault()
+                  return _vm.verfiyOTP.apply(null, arguments)
+                },
               },
-              [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.digits.digit1,
-                      expression: "digits.digit1",
-                    },
-                  ],
-                  staticClass:
-                    "m-2 form-control-auth auth-font text-center form-control rounded",
-                  attrs: { type: "text", id: "first", maxlength: "1" },
-                  domProps: { value: _vm.digits.digit1 },
-                  on: {
-                    input: function ($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.digits, "digit1", $event.target.value)
-                    },
-                  },
-                }),
+            },
+            [
+              _c("div", { staticClass: "row" }, [
+                _vm._m(0),
                 _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.digits.digit2,
-                      expression: "digits.digit2",
-                    },
-                  ],
-                  staticClass:
-                    "m-2 form-control-auth auth-font text-center form-control rounded",
-                  attrs: { type: "text", id: "second", maxlength: "1" },
-                  domProps: { value: _vm.digits.digit2 },
-                  on: {
-                    input: function ($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.digits, "digit2", $event.target.value)
-                    },
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "inputs d-flex flex-row justify-content-center mt-2",
                   },
-                }),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.digits.digit3,
-                      expression: "digits.digit3",
-                    },
-                  ],
-                  staticClass:
-                    "m-2 form-control-auth auth-font text-center form-control rounded",
-                  attrs: { type: "text", id: "third", maxlength: "1" },
-                  domProps: { value: _vm.digits.digit3 },
-                  on: {
-                    input: function ($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.digits, "digit3", $event.target.value)
-                    },
-                  },
-                }),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.digits.digit4,
-                      expression: "digits.digit4",
-                    },
-                  ],
-                  staticClass:
-                    "m-2 form-control-auth auth-font text-center form-control rounded",
-                  attrs: { type: "text", id: "fourth", maxlength: "1" },
-                  domProps: { value: _vm.digits.digit4 },
-                  on: {
-                    input: function ($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.digits, "digit4", $event.target.value)
-                    },
-                  },
-                }),
-              ]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-12 mt-3" }, [
-              _vm.regLoading
-                ? _c(
-                    "div",
-                    { staticClass: "d-flex justify-content-center" },
-                    [
-                      _c("pulse-loader", {
-                        attrs: { color: "#BF7F25", size: "15px" },
-                      }),
-                    ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              !_vm.regLoading
-                ? _c(
-                    "button",
-                    {
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.digits.digit1,
+                          expression: "digits.digit1",
+                        },
+                      ],
                       staticClass:
-                        "btn btn-primary form-control form-control-auth-btn",
-                    },
-                    [_c("h5", { staticClass: "m-0" }, [_vm._v("Verify")])]
-                  )
-                : _vm._e(),
-            ]),
-            _vm._v(" "),
-            _vm._m(1),
-          ]),
+                        "m-2 form-control-auth auth-font text-center form-control rounded",
+                      attrs: {
+                        required: "",
+                        type: "text",
+                        id: "first",
+                        maxlength: "1",
+                      },
+                      domProps: { value: _vm.digits.digit1 },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.digits, "digit1", $event.target.value)
+                        },
+                      },
+                    }),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.digits.digit2,
+                          expression: "digits.digit2",
+                        },
+                      ],
+                      staticClass:
+                        "m-2 form-control-auth auth-font text-center form-control rounded",
+                      attrs: {
+                        required: "",
+                        type: "text",
+                        id: "second",
+                        maxlength: "1",
+                      },
+                      domProps: { value: _vm.digits.digit2 },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.digits, "digit2", $event.target.value)
+                        },
+                      },
+                    }),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.digits.digit3,
+                          expression: "digits.digit3",
+                        },
+                      ],
+                      staticClass:
+                        "m-2 form-control-auth auth-font text-center form-control rounded",
+                      attrs: {
+                        required: "",
+                        type: "text",
+                        id: "third",
+                        maxlength: "1",
+                      },
+                      domProps: { value: _vm.digits.digit3 },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.digits, "digit3", $event.target.value)
+                        },
+                      },
+                    }),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.digits.digit4,
+                          expression: "digits.digit4",
+                        },
+                      ],
+                      staticClass:
+                        "m-2 form-control-auth auth-font text-center form-control rounded",
+                      attrs: {
+                        required: "",
+                        type: "text",
+                        id: "fourth",
+                        maxlength: "1",
+                      },
+                      domProps: { value: _vm.digits.digit4 },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.digits, "digit4", $event.target.value)
+                        },
+                      },
+                    }),
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-12 mt-3" }, [
+                  _vm.regLoading
+                    ? _c(
+                        "div",
+                        { staticClass: "d-flex justify-content-center" },
+                        [
+                          _c("pulse-loader", {
+                            attrs: { color: "#BF7F25", size: "15px" },
+                          }),
+                        ],
+                        1
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  !_vm.regLoading
+                    ? _c(
+                        "button",
+                        {
+                          staticClass:
+                            "btn btn-primary form-control form-control-auth-btn",
+                          attrs: { type: "submit" },
+                        },
+                        [_c("h5", { staticClass: "m-0" }, [_vm._v("Verify")])]
+                      )
+                    : _vm._e(),
+                ]),
+                _vm._v(" "),
+                _vm._m(1),
+              ]),
+            ]
+          ),
         ]),
       ]),
       _vm._v(" "),
@@ -31403,143 +31458,173 @@ var render = function () {
       _vm._v(" "),
       _c("div", { staticClass: "col-md-4" }, [
         _c("div", { staticClass: "bg-white rounded-sm p-4" }, [
-          _c("div", { staticClass: "row" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "inputs d-flex flex-row justify-content-center mt-2",
+          _c(
+            "form",
+            {
+              attrs: { action: "#" },
+              on: {
+                submit: function ($event) {
+                  $event.preventDefault()
+                  return _vm.verifyReset.apply(null, arguments)
+                },
               },
-              [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.digits.digit1,
-                      expression: "digits.digit1",
-                    },
-                  ],
-                  staticClass:
-                    "m-2 form-control-auth auth-font text-center form-control rounded",
-                  attrs: { type: "text", id: "first", maxlength: "1" },
-                  domProps: { value: _vm.digits.digit1 },
-                  on: {
-                    input: function ($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.digits, "digit1", $event.target.value)
-                    },
-                  },
-                }),
+            },
+            [
+              _c("div", { staticClass: "row" }, [
+                _vm._m(0),
                 _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.digits.digit2,
-                      expression: "digits.digit2",
-                    },
-                  ],
-                  staticClass:
-                    "m-2 form-control-auth auth-font text-center form-control rounded",
-                  attrs: { type: "text", id: "second", maxlength: "1" },
-                  domProps: { value: _vm.digits.digit2 },
-                  on: {
-                    input: function ($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.digits, "digit2", $event.target.value)
-                    },
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "inputs d-flex flex-row justify-content-center mt-2",
                   },
-                }),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.digits.digit3,
-                      expression: "digits.digit3",
-                    },
-                  ],
-                  staticClass:
-                    "m-2 form-control-auth auth-font text-center form-control rounded",
-                  attrs: { type: "text", id: "third", maxlength: "1" },
-                  domProps: { value: _vm.digits.digit3 },
-                  on: {
-                    input: function ($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.digits, "digit3", $event.target.value)
-                    },
-                  },
-                }),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.digits.digit4,
-                      expression: "digits.digit4",
-                    },
-                  ],
-                  staticClass:
-                    "m-2 form-control-auth auth-font text-center form-control rounded",
-                  attrs: { type: "text", id: "fourth", maxlength: "1" },
-                  domProps: { value: _vm.digits.digit4 },
-                  on: {
-                    input: function ($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.digits, "digit4", $event.target.value)
-                    },
-                  },
-                }),
-              ]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-12 mt-3" }, [
-              _vm.regLoading
-                ? _c(
-                    "div",
-                    { staticClass: "d-flex justify-content-center" },
-                    [
-                      _c("pulse-loader", {
-                        attrs: { color: "#BF7F25", size: "15px" },
-                      }),
-                    ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              !_vm.regLoading
-                ? _c(
-                    "button",
-                    {
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.digits.digit1,
+                          expression: "digits.digit1",
+                        },
+                      ],
                       staticClass:
-                        "btn btn-primary form-control form-control-auth-btn",
+                        "m-2 form-control-auth auth-font text-center form-control rounded",
+                      attrs: {
+                        required: "",
+                        type: "text",
+                        id: "first",
+                        maxlength: "1",
+                      },
+                      domProps: { value: _vm.digits.digit1 },
                       on: {
-                        click: function ($event) {
-                          return _vm.verifyReset()
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.digits, "digit1", $event.target.value)
                         },
                       },
-                    },
-                    [_c("h5", { staticClass: "m-0" }, [_vm._v("Verify")])]
-                  )
-                : _vm._e(),
-            ]),
-            _vm._v(" "),
-            _vm._m(1),
-          ]),
+                    }),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.digits.digit2,
+                          expression: "digits.digit2",
+                        },
+                      ],
+                      staticClass:
+                        "m-2 form-control-auth auth-font text-center form-control rounded",
+                      attrs: {
+                        required: "",
+                        type: "text",
+                        id: "second",
+                        maxlength: "1",
+                      },
+                      domProps: { value: _vm.digits.digit2 },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.digits, "digit2", $event.target.value)
+                        },
+                      },
+                    }),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.digits.digit3,
+                          expression: "digits.digit3",
+                        },
+                      ],
+                      staticClass:
+                        "m-2 form-control-auth auth-font text-center form-control rounded",
+                      attrs: {
+                        required: "",
+                        type: "text",
+                        id: "third",
+                        maxlength: "1",
+                      },
+                      domProps: { value: _vm.digits.digit3 },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.digits, "digit3", $event.target.value)
+                        },
+                      },
+                    }),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.digits.digit4,
+                          expression: "digits.digit4",
+                        },
+                      ],
+                      staticClass:
+                        "m-2 form-control-auth auth-font text-center form-control rounded",
+                      attrs: {
+                        required: "",
+                        type: "text",
+                        id: "fourth",
+                        maxlength: "1",
+                      },
+                      domProps: { value: _vm.digits.digit4 },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.digits, "digit4", $event.target.value)
+                        },
+                      },
+                    }),
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-12 mt-3" }, [
+                  _vm.regLoading
+                    ? _c(
+                        "div",
+                        { staticClass: "d-flex justify-content-center" },
+                        [
+                          _c("pulse-loader", {
+                            attrs: { color: "#BF7F25", size: "15px" },
+                          }),
+                        ],
+                        1
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  !_vm.regLoading
+                    ? _c(
+                        "button",
+                        {
+                          staticClass:
+                            "btn btn-primary form-control form-control-auth-btn",
+                          attrs: { type: "submit" },
+                        },
+                        [_c("h5", { staticClass: "m-0" }, [_vm._v("Verify")])]
+                      )
+                    : _vm._e(),
+                ]),
+                _vm._v(" "),
+                _vm._m(1),
+              ]),
+            ]
+          ),
         ]),
       ]),
       _vm._v(" "),
@@ -31604,100 +31689,118 @@ var render = function () {
       _vm._v(" "),
       _c("div", { staticClass: "col-md-4" }, [
         _c("div", { staticClass: "bg-white rounded-sm p-4" }, [
-          _c("div", { staticClass: "row" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-12 mt-3" }, [
-              _c("label", { attrs: { for: "new_password" } }, [
-                _vm._v("New password"),
-              ]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.formData.password,
-                    expression: "formData.password",
-                  },
-                ],
-                staticClass: "form-control form-control-auth",
-                attrs: { type: "password", placeholder: "Email address" },
-                domProps: { value: _vm.formData.password },
-                on: {
-                  input: function ($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.formData, "password", $event.target.value)
-                  },
+          _c(
+            "form",
+            {
+              attrs: { action: "#" },
+              on: {
+                submit: function ($event) {
+                  $event.preventDefault()
+                  return _vm.resetPassword.apply(null, arguments)
                 },
-              }),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-12 mt-3" }, [
-              _c("label", { attrs: { for: "new_password" } }, [
-                _vm._v("Confirm password"),
-              ]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.formData.password_confirmation,
-                    expression: "formData.password_confirmation",
-                  },
-                ],
-                staticClass: "form-control form-control-auth",
-                attrs: { type: "password", placeholder: "Email address" },
-                domProps: { value: _vm.formData.password_confirmation },
-                on: {
-                  input: function ($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(
-                      _vm.formData,
-                      "password_confirmation",
-                      $event.target.value
-                    )
-                  },
-                },
-              }),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-12 mt-3" }, [
-              _vm.regLoading
-                ? _c(
-                    "div",
-                    { staticClass: "d-flex justify-content-center" },
-                    [
-                      _c("pulse-loader", {
-                        attrs: { color: "#BF7F25", size: "15px" },
-                      }),
+              },
+            },
+            [
+              _c("div", { staticClass: "row" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-12 mt-3" }, [
+                  _c("label", { attrs: { for: "new_password" } }, [
+                    _vm._v("New password"),
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formData.password,
+                        expression: "formData.password",
+                      },
                     ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              !_vm.regLoading
-                ? _c(
-                    "button",
-                    {
-                      staticClass:
-                        "btn btn-primary form-control form-control-auth-btn",
-                      on: {
-                        click: function ($event) {
-                          return _vm.resetPassword()
-                        },
+                    staticClass: "form-control form-control-auth",
+                    attrs: {
+                      required: "",
+                      type: "password",
+                      placeholder: "Email address",
+                    },
+                    domProps: { value: _vm.formData.password },
+                    on: {
+                      input: function ($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.formData, "password", $event.target.value)
                       },
                     },
-                    [_c("h5", { staticClass: "m-0" }, [_vm._v("Reste")])]
-                  )
-                : _vm._e(),
-            ]),
-          ]),
+                  }),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-12 mt-3" }, [
+                  _c("label", { attrs: { for: "new_password" } }, [
+                    _vm._v("Confirm password"),
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.formData.password_confirmation,
+                        expression: "formData.password_confirmation",
+                      },
+                    ],
+                    staticClass: "form-control form-control-auth",
+                    attrs: {
+                      required: "",
+                      type: "password",
+                      placeholder: "Email address",
+                    },
+                    domProps: { value: _vm.formData.password_confirmation },
+                    on: {
+                      input: function ($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.formData,
+                          "password_confirmation",
+                          $event.target.value
+                        )
+                      },
+                    },
+                  }),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-12 mt-3" }, [
+                  _vm.regLoading
+                    ? _c(
+                        "div",
+                        { staticClass: "d-flex justify-content-center" },
+                        [
+                          _c("pulse-loader", {
+                            attrs: { color: "#BF7F25", size: "15px" },
+                          }),
+                        ],
+                        1
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  !_vm.regLoading
+                    ? _c(
+                        "button",
+                        {
+                          staticClass:
+                            "btn btn-primary form-control form-control-auth-btn",
+                          attrs: { type: "submit" },
+                        },
+                        [_c("h5", { staticClass: "m-0" }, [_vm._v("Reste")])]
+                      )
+                    : _vm._e(),
+                ]),
+              ]),
+            ]
+          ),
         ]),
       ]),
     ]),

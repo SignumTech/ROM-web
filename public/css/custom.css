@@ -41,3 +41,10 @@
     padding-bottom: 1rem !important;
     padding-top: 1rem !important;
 }
+a {
+    color: #000000e6 !important;
+    text-decoration: none !important;
+}
+a:hover{
+    text-decoration: underline;
+}
