@@ -65,6 +65,12 @@ export default {
             this.regLoading = true
             await axios.post('/verifyOTP', this.formData)
             .then( response =>{
+                this.$notify({
+                    group: 'foo',
+                    type: 'success',
+                    title: 'Important message',
+                    text: 'Hello user! This is a notification!'
+                });
                 window.location.replace('/');
             })
             .catch( error =>{

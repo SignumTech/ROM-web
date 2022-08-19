@@ -174,6 +174,12 @@ export default {
                 this.logLoading = true
                 await this.signIn(this.logForm)
                 .then( response =>{
+                    this.$notify({
+                        group: 'foo',
+                        type: 'success',
+                        title: 'Important message',
+                        text: 'Hello user! This is a notification!'
+                    });
                     window.location.replace('/')
                     
                 })

@@ -12,6 +12,8 @@ import store from './store'
 import VModal from 'vue-js-modal'
 import 'vue-js-modal/dist/styles.css'
 import OtpInput from "@bachdgvn/vue-otp-input";
+import Notifications from 'vue-notification'
+Vue.use(Notifications)
 Vue.component("v-otp-input", OtpInput);
 Vue.use(VModal)
 Vue.use(require('vue-moment'));

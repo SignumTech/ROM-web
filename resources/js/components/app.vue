@@ -34,9 +34,11 @@
                     <li class="nav-item me-4 dropdown">
                         <a class="nav-link nav-link-main dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"><h5 class="m-0"><span class="fa fa-user"></span></h5></a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><router-link class="dropdown-item" to="/signin">SIGN IN / REGISTER</router-link></li>
+                            <li v-if="!authenticated"><router-link class="dropdown-item" to="/signin">SIGN IN / REGISTER</router-link></li>
+                            <li v-if="authenticated"><router-link class="dropdown-item" to="#"><strong>{{user.f_name}} {{user.l_name}}</strong></router-link></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="#">My orders</a></li>
+                            <li v-if="authenticated"><a class="dropdown-item" @click="logout()" style="cursor:pointer">Sign out</a></li>
                         </ul>
                     </li>
                     <li class="nav-item  me-4">
@@ -90,14 +92,33 @@
                 </div>
             </div>
         </nav>
+        <notifications group="foo" position="bottom right"/>
         <router-view></router-view>
     </div>
 </template>
 
 <script>
     export default {
+        data(){
+            return{
+                authenticated:false,
+                user:{}
+
+            }
+        },
         mounted() {
-            
+            this.authenticated = this.$store.state.auth.authenticated
+            this.user = this.$store.state.auth.user
+        },
+        methods:{
+            logout: function(){
+                axios.post("logout").then(response => { 
+                    window.location.replace("/home");
+                })
+                .catch(error => {
+                console.log(error);
+                });
+            },
         }
     }
 </script>
