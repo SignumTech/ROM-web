@@ -141,7 +141,7 @@
 </template>
 <script>
 /////////////////////////////////////////////////////////
-  window.fbAsyncInit = function() {
+/*  window.fbAsyncInit = function() {
     FB.init({
       appId      : '{your-app-id}',
       cookie     : true,
@@ -160,7 +160,7 @@
      js.src = "https://connect.facebook.net/en_US/sdk.js";
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
-
+*/
 /////////////////////////////////////////////////////////
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 import { mapActions } from 'vuex'
