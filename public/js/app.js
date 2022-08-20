@@ -7854,8 +7854,42 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       },
       regLoading: false,
       completed: false,
-      otpErrors: false
+      otpErrors: false,
+      timerCount: 60,
+      expireCount: 3,
+      otpExpired: false
     };
+  },
+  watch: {
+    timerCount: {
+      handler: function handler(value) {
+        var _this = this;
+
+        if (this.expireCount > 0) {
+          if (value > 0) {
+            setTimeout(function () {
+              _this.timerCount--;
+            }, 1000);
+          } else {
+            this.resendOTP();
+            this.timerCount = 60;
+            this.expireCount--;
+          }
+        } else {
+          this.$notify({
+            group: 'foo',
+            type: 'danger',
+            title: 'OTP expired',
+            text: 'Your OTP has expired'
+          });
+          this.$router.push({
+            name: 'Signin'
+          });
+        }
+      },
+      immediate: true // This ensures the watcher is triggered upon creation
+
+    }
   },
   props: ['user_id'],
   mounted: function mounted() {
@@ -7864,7 +7898,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   methods: {
     resendOTP: function resendOTP() {
-      var _this = this;
+      var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         return _regeneratorRuntime().wrap(function _callee$(_context) {
@@ -7872,8 +7906,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios.post('/resendOTP', _this.resendData).then(function (response) {
-                  _this.$notify({
+                return axios.post('/resendOTP', _this2.resendData).then(function (response) {
+                  _this2.$notify({
                     group: 'foo',
                     type: 'success',
                     title: 'OTP resent!',
@@ -7890,17 +7924,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     verifyOTP: function verifyOTP() {
-      var _this2 = this;
+      var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _this2.regLoading = true;
+                _this3.regLoading = true;
                 _context2.next = 3;
-                return axios.post('/verifyOTP', _this2.formData).then(function (response) {
-                  _this2.$notify({
+                return axios.post('/verifyOTP', _this3.formData).then(function (response) {
+                  _this3.$notify({
                     group: 'foo',
                     type: 'success',
                     title: 'Important message',
@@ -7910,10 +7944,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   window.location.replace('/');
                 })["catch"](function (error) {
                   if (error.response.status == 422) {
-                    _this2.otpErrors = true;
+                    _this3.otpErrors = true;
                   }
 
-                  _this2.regLoading = false;
+                  _this3.regLoading = false;
                 });
 
               case 3:
@@ -8016,8 +8050,42 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       },
       regLoading: false,
       completed: false,
-      otpErrors: false
+      otpErrors: false,
+      timerCount: 60,
+      expireCount: 3,
+      otpExpired: false
     };
+  },
+  watch: {
+    timerCount: {
+      handler: function handler(value) {
+        var _this = this;
+
+        if (this.expireCount > 0) {
+          if (value > 0) {
+            setTimeout(function () {
+              _this.timerCount--;
+            }, 1000);
+          } else {
+            this.resendOTP();
+            this.timerCount = 60;
+            this.expireCount--;
+          }
+        } else {
+          this.$notify({
+            group: 'foo',
+            type: 'danger',
+            title: 'OTP expired',
+            text: 'Your OTP has expired'
+          });
+          this.$router.push({
+            name: 'Signin'
+          });
+        }
+      },
+      immediate: true // This ensures the watcher is triggered upon creation
+
+    }
   },
   props: ['user_id'],
   mounted: function mounted() {
@@ -8026,7 +8094,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   methods: {
     resendOTP: function resendOTP() {
-      var _this = this;
+      var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         return _regeneratorRuntime().wrap(function _callee$(_context) {
@@ -8034,8 +8102,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios.post('/resendOTP', _this.resendData).then(function (response) {
-                  _this.$notify({
+                return axios.post('/resendOTP', _this2.resendData).then(function (response) {
+                  _this2.$notify({
                     group: 'foo',
                     type: 'success',
                     title: 'OTP resent!',
@@ -8052,17 +8120,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     verifyReset: function verifyReset() {
-      var _this2 = this;
+      var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _this2.regLoading = true;
+                _this3.regLoading = true;
                 _context2.next = 3;
-                return axios.post('/resetVerify', _this2.formData).then(function (response) {
-                  _this2.$router.push({
+                return axios.post('/resetVerify', _this3.formData).then(function (response) {
+                  _this3.$router.push({
                     name: 'ResetPassword',
                     params: {
                       user_id: response.data.id
@@ -8070,10 +8138,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   });
                 })["catch"](function (error) {
                   if (error.response.status == 422) {
-                    _this2.otpErrors = true;
+                    _this3.otpErrors = true;
                   }
 
-                  _this2.regLoading = false;
+                  _this3.regLoading = false;
                 });
 
               case 3:
@@ -33187,7 +33255,11 @@ var render = function () {
                 _vm._v(" "),
                 _c("div", { staticClass: "col-md-12 mt-3" }, [
                   _c("h6", { staticClass: "text-center" }, [
-                    _vm._v("Didnt get the code? "),
+                    _vm._v(
+                      "OTP will expire in " +
+                        _vm._s(_vm.timerCount) +
+                        " seconds. Didnt get the code? "
+                    ),
                     _c(
                       "a",
                       {
@@ -33335,7 +33407,11 @@ var render = function () {
                 _vm._v(" "),
                 _c("div", { staticClass: "col-md-12 mt-3" }, [
                   _c("h6", { staticClass: "text-center" }, [
-                    _vm._v("Didnt get the code? "),
+                    _vm._v(
+                      "OTP will expire in " +
+                        _vm._s(_vm.timerCount) +
+                        " seconds. Didnt get the code? "
+                    ),
                     _c(
                       "a",
                       {
