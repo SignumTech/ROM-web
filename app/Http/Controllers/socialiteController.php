@@ -51,7 +51,7 @@ class socialiteController extends Controller
 
     public function facebook_callback(){
         $socialite_user = Socialite::driver('facebook')->user();
-        $names = exploade(' ',$socialite_user->getName());
+        $names = explode(' ',$socialite_user->getName());
         $check_user = User::where("email", $socialite_user->getEmail())->first();
     
         $user = User::where(['provider' => 'facebook', 'provider_id' => $socialite_user->getId()])->first();
