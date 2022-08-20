@@ -21,7 +21,7 @@ class getTokenController extends Controller
             if (Auth::check()){
                 $request->user()->currentAccessToken()->delete();
             }
-            $user_token = $user->createToken($user->name);
+            $user_token = $user->createToken($user->f_name);
 
             return ['token' => $user_token->plainTextToken]; 
         }
