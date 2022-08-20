@@ -35,7 +35,7 @@
                                     <h6 class="text-center mt-2">Sign in with google</h6>
                                 </div>
                                 <div class="col-md-6 mt-3">
-                                    <img src="/storage/settings/facebook.png" class="img img-fluid d-flex m-auto" alt="" style="width:40px; height:40px">
+                                    <a href="/auth/facebook/redirect"><img src="/storage/settings/facebook.png" class="img img-fluid d-flex m-auto" alt="" style="width:40px; height:40px"></a>
                                     <h6 class="text-center mt-2">Sign in with facebook</h6>
                                 </div>
                             </div>
@@ -140,8 +140,30 @@
 </div>
 </template>
 <script>
+/////////////////////////////////////////////////////////
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '{your-app-id}',
+      cookie     : true,
+      xfbml      : true,
+      version    : '{api-version}'
+    });
+      
+    FB.AppEvents.logPageView();   
+      
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+
+/////////////////////////////////////////////////////////
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
-  import { mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 export default {
         components:{
             PulseLoader

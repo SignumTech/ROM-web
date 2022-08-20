@@ -8313,6 +8313,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+/////////////////////////////////////////////////////////
+window.fbAsyncInit = function () {
+  FB.init({
+    appId: '{your-app-id}',
+    cookie: true,
+    xfbml: true,
+    version: '{api-version}'
+  });
+  FB.AppEvents.logPageView();
+};
+
+(function (d, s, id) {
+  var js,
+      fjs = d.getElementsByTagName(s)[0];
+
+  if (d.getElementById(id)) {
+    return;
+  }
+
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://connect.facebook.net/en_US/sdk.js";
+  fjs.parentNode.insertBefore(js, fjs);
+})(document, 'script', 'facebook-jssdk'); /////////////////////////////////////////////////////////
+
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -33997,11 +34023,13 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-md-6 mt-3" }, [
-      _c("img", {
-        staticClass: "img img-fluid d-flex m-auto",
-        staticStyle: { width: "40px", height: "40px" },
-        attrs: { src: "/storage/settings/facebook.png", alt: "" },
-      }),
+      _c("a", { attrs: { href: "/auth/facebook/redirect" } }, [
+        _c("img", {
+          staticClass: "img img-fluid d-flex m-auto",
+          staticStyle: { width: "40px", height: "40px" },
+          attrs: { src: "/storage/settings/facebook.png", alt: "" },
+        }),
+      ]),
       _vm._v(" "),
       _c("h6", { staticClass: "text-center mt-2" }, [
         _vm._v("Sign in with facebook"),
