@@ -52,7 +52,7 @@ Route::get('/auth/google/callback', function () {
        if($check_user){
             return redirect('/sigin')->withErrors(['msg' => "Email already being used by another sigin method!"]);
        }
-       dd($socialite_user->user["given_name"],$socialite_user->user["family_name"]);
+       /*dd($socialite_user->user["given_name"],$socialite_user->user["family_name"]);
        $user = User::create([
             'f_name' => $socialite_user->user["given_name"],
             'l_name' => $socialite_user->user["family_name"],
@@ -60,8 +60,15 @@ Route::get('/auth/google/callback', function () {
             'provider' => 'google',
             'provider_id' => $socialite_user->getId(),
             'email_verified_at' => now()
-        ]);
-
+        ]);*/
+        $user = new User;
+        $user->f_name = $socialite_user->user["given_name"];
+        $user->l_name = $socialite_user->user["family_name"];
+        $user->email = $socialite_user->getEmail();
+        $user->provider = 'google';
+        $user->provider_id = $socialite_user->getId();
+        $user->email_verified_at = now();
+        $user->save();
         Auth::login($user);
     }
 
