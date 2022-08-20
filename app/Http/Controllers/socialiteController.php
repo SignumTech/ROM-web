@@ -51,7 +51,7 @@ class socialiteController extends Controller
 
     public function facebook_callback(){
         $socialite_user = Socialite::driver('facebook')->user();
-        dd($socialite_user);
+        $names = exploade(' ',$socialite_user->getName());
         $check_user = User::where("email", $socialite_user->getEmail())->first();
     
         $user = User::where(['provider' => 'facebook', 'provider_id' => $socialite_user->getId()])->first();
@@ -61,8 +61,8 @@ class socialiteController extends Controller
                 return redirect('/sigin')->withErrors(['msg' => "Email already being used by another sigin method!"]);
            }
             $user = new User;
-            $user->f_name = $socialite_user->user["given_name"];
-            $user->l_name = $socialite_user->user["family_name"];
+            $user->f_name = $names[0];
+            $user->l_name = (count($names) > 1)? $names[1]:"";
             $user->email = $socialite_user->getEmail();
             $user->provider = 'facebook';
             $user->provider_id = $socialite_user->getId();
