@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\registerUsersController;
+use App\Http\Controllers\getTokenController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,7 +15,7 @@ use App\Http\Controllers\registerUsersController;
 |
 */
 Auth::routes();
-
+Route::post('/getUserToken', [getTokenController::class, 'getUserToken']);
 Route::post('/registerUser', [registerUsersController::class, 'registerUser']);
 Route::post('/verifyOTP', [registerUsersController::class, 'verifyOTP']);
 Route::post('/verifyMobileOTP', [registerUsersController::class, 'verifyMobileOTP']);
