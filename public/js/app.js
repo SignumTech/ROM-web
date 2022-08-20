@@ -8379,9 +8379,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   components: {
     PulseLoader: vue_spinner_src_PulseLoader_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  mounted: function mounted() {
-    console.log(this.$session.get('msg'));
-  },
   data: function data() {
     return {
       registerData: {

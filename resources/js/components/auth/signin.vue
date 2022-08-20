@@ -146,9 +146,6 @@ export default {
         components:{
             PulseLoader
         },
-        mounted(){
-            console.log(this.$session.get('msg'))
-        },
         data(){
             return{
                 registerData:{
