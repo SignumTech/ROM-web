@@ -119,4 +119,16 @@ class registerUsersController extends Controller
         return redirect('/');
     }
 
+    public function resendOTP(Request $request){
+        $this->validate($request, [
+            'user_id' => "required"
+        ]);
+
+        $user = User::find($request->user_id);
+        $user->otp = rand(1000,9999);
+        $user->save();
+        Mail::to($user)->send(new PasswordReset($user));
+        return $user;
+    }
+
 }

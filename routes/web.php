@@ -31,6 +31,7 @@ Route::post('/verifyOTP', [registerUsersController::class, 'verifyOTP']);
 Route::post('/foregetPasswordMailer', [registerUsersController::class, 'foregetPasswordMailer']);
 Route::post('/resetVerify', [registerUsersController::class, 'resetVerify']);
 Route::post('/resetPassword', [registerUsersController::class, 'reset_password']);
+Route::post('/resendOTP', [registerUsersController::class, 'resendOTP']);
 
 ///////////////socialites//////////////
 Route::get('/auth/google/redirect', [socialiteController::class, 'google_redirect']);

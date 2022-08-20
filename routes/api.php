@@ -22,7 +22,7 @@ Route::post('/verifyMobileOTP', [registerUsersController::class, 'verifyMobileOT
 Route::post('/foregetPasswordMailer', [registerUsersController::class, 'foregetPasswordMailer']);
 Route::post('/resetVerify', [registerUsersController::class, 'resetVerify']);
 Route::post('/resetPassword', [registerUsersController::class, 'reset_password']);
-
+Route::post('/resendOTP', [registerUsersController::class, 'resendOTP']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

@@ -30,7 +30,7 @@
                             <button type="submit" v-if="!regLoading" :disabled="!completed" class="btn btn-primary form-control form-control-auth-btn"><h5 class="m-0">Verify</h5></button>
                         </div>
                         <div class="col-md-12 mt-3">
-                            <h6 class="text-center">Didnt get the code? <a href="">Resend</a></h6>
+                            <h6 class="text-center">Didnt get the code? <a @click="resendOTP()" href=""><strong>Resend</strong></a></h6>
                         </div>
                     </div>
                 </form>
@@ -52,6 +52,9 @@ export default {
                 otp:null,
                 user_id:null
             },
+            resendData:{
+                user_id:null
+            },
             regLoading:false,
             completed:false,
             otpErrors:false
@@ -60,8 +63,20 @@ export default {
     props:['user_id'],
     mounted(){
         this.formData.user_id = this.user_id;
+        this.resendData.user_id = this.user_id;
     },
     methods:{
+        async resendOTP(){
+            await axios.post('/resendOTP', this.resendData)
+            .then( response =>{
+                this.$notify({
+                    group: 'foo',
+                    type: 'success',
+                    title: 'OTP resent!',
+                    text: 'An OTP has been sent to your email.'
+                });
+            })
+        },
         async verifyOTP(){
             this.regLoading = true
             await axios.post('/verifyOTP', this.formData)

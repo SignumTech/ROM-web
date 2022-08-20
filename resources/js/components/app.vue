@@ -122,11 +122,3 @@
         }
     }
 </script>
-<style>
-    .dropdown:hover .dropdown-menu{
-        display: block;
-    }
-    .dropdown-menu{
-        margin-top: 0;
-    }
-</style>
