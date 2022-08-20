@@ -115,10 +115,10 @@ export default {
                 this.$notify({
                     group: 'foo',
                     type: 'success',
-                    title: 'Important message',
-                    text: 'Hello user! This is a notification!'
+                    title: 'Verification Successful',
+                    text: 'You have successfuly verfied your account!'
                 });
-                window.location.replace('/');
+                window.location.replace('/myProfile');
             })
             .catch( error =>{
                 if(error.response.status == 422){

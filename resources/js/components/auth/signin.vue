@@ -180,7 +180,7 @@ export default {
                         title: 'Important message',
                         text: 'Hello user! This is a notification!'
                     });
-                    window.location.replace('/')
+                    window.location.replace('/myProfile')
                     
                 })
                 .catch( error =>{

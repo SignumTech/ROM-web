@@ -35,7 +35,7 @@
                         <a class="nav-link nav-link-main dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"><h5 class="m-0"><span class="fa fa-user"></span></h5></a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li v-if="!authenticated"><router-link class="dropdown-item" to="/signin">SIGN IN / REGISTER</router-link></li>
-                            <li v-if="authenticated"><router-link class="dropdown-item" to="#"><strong>{{user.f_name}} {{user.l_name}}</strong></router-link></li>
+                            <li v-if="authenticated"><router-link class="dropdown-item" to="/myProfile"><strong>{{user.f_name}} {{user.l_name}}</strong></router-link></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="#">My orders</a></li>
                             <li v-if="authenticated"><a class="dropdown-item" @click="logout()" style="cursor:pointer">Sign out</a></li>
