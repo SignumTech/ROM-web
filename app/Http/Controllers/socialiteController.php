@@ -24,7 +24,7 @@ class socialiteController extends Controller
         if(!$user){
     
            if($check_user){
-                response('Email already being used by another sigin method!', 422);
+                return response('Email already being used by another sigin method!', 422);
                 //return redirect('/signin')->withErrors(['msg' => "Email already being used by another sigin method!"]);
            }
             $user = new User;
