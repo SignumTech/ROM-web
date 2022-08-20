@@ -68,6 +68,8 @@ Route::get('/auth/google/callback', function () {
         $user->provider = 'google';
         $user->provider_id = $socialite_user->getId();
         $user->email_verified_at = now();
+        $user->account_type = 'USER';
+        $user->verification_status = 'VERIFIED';
         $user->save();
         Auth::login($user);
     }
