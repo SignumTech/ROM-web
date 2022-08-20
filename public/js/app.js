@@ -7722,6 +7722,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -7732,7 +7733,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       formData: {
         email: null
       },
-      regLoading: false
+      regLoading: false,
+      emailErrors: false
     };
   },
   methods: {
@@ -7754,6 +7756,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     }
                   });
                 })["catch"](function (error) {
+                  if (error.response.status == 422) {
+                    _this.emailErrors = true;
+                  }
+
                   _this.regLoading = false;
                 });
 
@@ -7844,7 +7850,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         user_id: null
       },
       regLoading: false,
-      completed: false
+      completed: false,
+      otpErrors: false
     };
   },
   props: ['user_id'],
@@ -7872,6 +7879,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                   window.location.replace('/');
                 })["catch"](function (error) {
+                  if (error.response.status == 422) {
+                    _this.otpErrors = true;
+                  }
+
                   _this.regLoading = false;
                 });
 
@@ -7971,7 +7982,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         user_id: null
       },
       regLoading: false,
-      completed: false
+      completed: false,
+      otpErrors: false
     };
   },
   props: ['user_id'],
@@ -7997,6 +8009,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     }
                   });
                 })["catch"](function (error) {
+                  if (error.response.status == 422) {
+                    _this.otpErrors = true;
+                  }
+
                   _this.regLoading = false;
                 });
 
@@ -8074,6 +8090,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -8087,7 +8104,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         password_confirmation: null,
         user_id: null
       },
-      regLoading: false
+      regLoading: false,
+      passErrors: {}
     };
   },
   mounted: function mounted() {
@@ -8107,6 +8125,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return axios.post('/resetPassword', _this.formData).then(function (response) {
                   window.location.replace('/');
                 })["catch"](function (error) {
+                  if (error.response.status == 422) {
+                    _this.passErrors = error.response.data.errors;
+                  }
+
                   _this.regLoading = false;
                 });
 
@@ -8370,7 +8392,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   });
                 })["catch"](function (error) {
                   _this2.regLoading = false;
-                  _this2.loginErrors = error.response.data.errors;
+
+                  if (error.response.status == 422) {
+                    _this2.loginErrors = error.response.data.errors;
+                  }
                 });
 
               case 3:
@@ -32588,7 +32613,7 @@ var render = function () {
                       "router-link",
                       {
                         staticClass: "nav-link nav-link-main",
-                        attrs: { to: "/otp" },
+                        attrs: { to: "/" },
                       },
                       [
                         _c("h5", { staticClass: "m-0" }, [
@@ -32608,7 +32633,7 @@ var render = function () {
                       "router-link",
                       {
                         staticClass: "nav-link nav-link-main",
-                        attrs: { to: "/forgetPassword" },
+                        attrs: { to: "/" },
                       },
                       [
                         _c("h5", { staticClass: "m-0" }, [
@@ -32643,7 +32668,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c(
       "a",
-      { staticClass: "navbar-brand text-white", attrs: { href: "#" } },
+      { staticClass: "navbar-brand text-white", attrs: { href: "/" } },
       [_c("h2", { staticClass: "m-0" }, [_c("strong", [_vm._v("ROM")])])]
     )
   },
@@ -32939,6 +32964,12 @@ var render = function () {
                       },
                     },
                   }),
+                  _vm._v(" "),
+                  _vm.emailErrors
+                    ? _c("h6", { staticClass: "text-danger m-0" }, [
+                        _vm._v("The email doesnt exist!"),
+                      ])
+                    : _vm._e(),
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-md-12 mt-3" }, [
@@ -33058,6 +33089,14 @@ var render = function () {
                   ],
                   1
                 ),
+                _vm._v(" "),
+                _vm.otpErrors
+                  ? _c(
+                      "h6",
+                      { staticClass: "text-danger text-center mt-2 mb-0" },
+                      [_vm._v("The OTP you entered isn't correct.")]
+                    )
+                  : _vm._e(),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-md-12 mt-3" }, [
                   _vm.regLoading
@@ -33194,6 +33233,14 @@ var render = function () {
                   1
                 ),
                 _vm._v(" "),
+                _vm.otpErrors
+                  ? _c(
+                      "h6",
+                      { staticClass: "text-danger text-center mt-2 mb-0" },
+                      [_vm._v("The OTP you entered isn't correct.")]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
                 _c("div", { staticClass: "col-md-12 mt-3" }, [
                   _vm.regLoading
                     ? _c(
@@ -33304,37 +33351,54 @@ var render = function () {
               _c("div", { staticClass: "row" }, [
                 _vm._m(0),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-md-12 mt-3" }, [
-                  _c("label", { attrs: { for: "new_password" } }, [
-                    _vm._v("New password"),
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.formData.password,
-                        expression: "formData.password",
+                _c(
+                  "div",
+                  { staticClass: "col-md-12 mt-3" },
+                  [
+                    _c("label", { attrs: { for: "new_password" } }, [
+                      _vm._v("New password"),
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.formData.password,
+                          expression: "formData.password",
+                        },
+                      ],
+                      staticClass: "form-control form-control-auth",
+                      attrs: {
+                        required: "",
+                        type: "password",
+                        placeholder: "Email address",
                       },
-                    ],
-                    staticClass: "form-control form-control-auth",
-                    attrs: {
-                      required: "",
-                      type: "password",
-                      placeholder: "Email address",
-                    },
-                    domProps: { value: _vm.formData.password },
-                    on: {
-                      input: function ($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.formData, "password", $event.target.value)
+                      domProps: { value: _vm.formData.password },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.formData,
+                            "password",
+                            $event.target.value
+                          )
+                        },
                       },
-                    },
-                  }),
-                ]),
+                    }),
+                    _vm._v(" "),
+                    _vm._l(_vm.passErrors.password, function (er) {
+                      return _c(
+                        "h6",
+                        { key: er.id, staticClass: "text-danger m-0" },
+                        [_vm._v(_vm._s(er))]
+                      )
+                    }),
+                  ],
+                  2
+                ),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-md-12 mt-3" }, [
                   _c("label", { attrs: { for: "new_password" } }, [
@@ -33655,7 +33719,7 @@ var render = function () {
                           return _c(
                             "h6",
                             { key: er.id, staticClass: "text-danger m-0" },
-                            [_vm._v("this is an error")]
+                            [_vm._v(_vm._s(er))]
                           )
                         }),
                       ],

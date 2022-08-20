@@ -12,6 +12,7 @@
                         </div>
                         <div class="col-md-12 mt-3">
                             <input required v-model="formData.email" type="email" class="form-control form-control-auth" placeholder="Email address">
+                            <h6 v-if="emailErrors" class="text-danger m-0">The email doesnt exist!</h6>
                         </div>
                         <div class="col-md-12 mt-3">
                             <div v-if="regLoading" class="d-flex justify-content-center">
@@ -38,7 +39,8 @@ export default {
             formData:{
                 email: null
             },
-            regLoading:false
+            regLoading:false,
+            emailErrors: false,
         }
     },
     methods:{
@@ -51,6 +53,10 @@ export default {
                 }});
             })
             .catch( error =>{
+                
+                if(error.response.status == 422){
+                    this.emailErrors = true
+                }
                 this.regLoading = false
             })
         },

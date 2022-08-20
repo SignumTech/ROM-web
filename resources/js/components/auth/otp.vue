@@ -22,7 +22,7 @@
                             @on-complete="handleOnComplete"
                             />                            
                         </div>
-
+                        <h6 v-if="otpErrors" class="text-danger text-center mt-2 mb-0">The OTP you entered isn't correct.</h6>
                         <div class="col-md-12 mt-3">
                             <div v-if="regLoading" class="d-flex justify-content-center">
                                 <pulse-loader :color="`#BF7F25`" :size="`15px`"></pulse-loader> 
@@ -54,6 +54,7 @@ export default {
             },
             regLoading:false,
             completed:false,
+            otpErrors:false
         }
     },
     props:['user_id'],
@@ -74,6 +75,9 @@ export default {
                 window.location.replace('/');
             })
             .catch( error =>{
+                if(error.response.status == 422){
+                    this.otpErrors = true
+                }
                 this.regLoading = false
             })
         },

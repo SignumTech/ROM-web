@@ -2,7 +2,7 @@
     <div class="row m-0">
         <nav class="navbar navbar-expand-lg pe-2 ps-2 main-nav">
             <div class="container-fluid">
-                <a class="navbar-brand text-white" href="#"><h2 class="m-0"><strong>ROM</strong></h2></a>
+                <a class="navbar-brand text-white" href="/"><h2 class="m-0"><strong>ROM</strong></h2></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
                 </button>
@@ -42,10 +42,10 @@
                         </ul>
                     </li>
                     <li class="nav-item  me-4">
-                        <router-link class="nav-link nav-link-main" to="/otp"><h5 class="m-0"><span class="fa fa-shopping-bag"></span></h5></router-link>
+                        <router-link class="nav-link nav-link-main" to="/"><h5 class="m-0"><span class="fa fa-shopping-bag"></span></h5></router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link class="nav-link nav-link-main" to="/forgetPassword"><h5 class="m-0"><span class="fa fa-heart"></span></h5></router-link>
+                        <router-link class="nav-link nav-link-main" to="/"><h5 class="m-0"><span class="fa fa-heart"></span></h5></router-link>
                     </li>
                 </ul>
                 </div>

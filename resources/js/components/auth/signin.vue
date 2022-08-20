@@ -48,7 +48,7 @@
                                 <div class="col-md-6">
                                     <label for="email">First Name</label>
                                     <input required v-model="registerData.f_name" type="text" class="form-control form-control-auth" placeholder="First Name">
-                                    <h6 v-for="er in loginErrors.f_name" :key="er.id" class="text-danger m-0">this is an error</h6>
+                                    <h6 v-for="er in loginErrors.f_name" :key="er.id" class="text-danger m-0">{{er}}</h6>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="email">Last Name</label>
@@ -200,7 +200,10 @@ export default {
                 })
                 .catch( error=>{
                     this.regLoading = false
-                    this.loginErrors = error.response.data.errors
+                    if(error.response.status == 422){
+                        this.loginErrors = error.response.data.errors
+                    }
+                    
                 })
             },
 
