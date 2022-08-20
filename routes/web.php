@@ -44,8 +44,15 @@ Route::get('/auth/google/redirect', function () {
 Route::get('/auth/google/callback', function () {
     $socialite_user = Socialite::driver('google')->user();
 
+    $check_user = User::where("email", $socialite_user->getEmail())->first();
+
     $user = User::where(['provider' => 'google', 'provider_id' => $socialite_user->getId()])->first();
-    if(!user){
+    if(!$user){
+
+       if($check_user){
+            return redirect('/sigin')->withErrors(['msg' => "Email already being used by another sigin method!"]);
+       }
+
        $user = User::create([
             'f_name' => $socialite_user->user["given_name"],
             'l_name' => $socialite_user->user["family_name"],
