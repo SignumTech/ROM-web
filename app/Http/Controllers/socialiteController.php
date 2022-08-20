@@ -21,15 +21,15 @@ class socialiteController extends Controller
         $check_user = User::where("email", $socialite_user->getEmail())->first();
         
         $user = User::where(['provider' => 'google', 'provider_id' => $socialite_user->getId()])->first();
-        dd($user);
+        //dd($user);
         if(!$user){
     
            if($check_user){
                 return response('Email already being used by another sigin method!', 422);
-                dd($check_user);
+                //dd($check_user);
                 //return redirect('/signin')->withErrors(['msg' => "Email already being used by another sigin method!"]);
            }
-           dd($check_user);
+           //dd($check_user);
             $user = new User;
             $user->f_name = $socialite_user->user["given_name"];
             $user->l_name = $socialite_user->user["family_name"];
