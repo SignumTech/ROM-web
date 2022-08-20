@@ -33979,11 +33979,13 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-md-6 mt-3 border-end" }, [
-      _c("img", {
-        staticClass: "img img-fluid d-flex m-auto",
-        staticStyle: { width: "40px", height: "40px" },
-        attrs: { src: "/storage/settings/google.png", alt: "" },
-      }),
+      _c("a", { attrs: { href: "/auth/google/redirect" } }, [
+        _c("img", {
+          staticClass: "img img-fluid d-flex m-auto",
+          staticStyle: { width: "40px", height: "40px" },
+          attrs: { src: "/storage/settings/google.png", alt: "" },
+        }),
+      ]),
       _vm._v(" "),
       _c("h6", { staticClass: "text-center mt-2" }, [
         _vm._v("Sign in with google"),

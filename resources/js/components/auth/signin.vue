@@ -31,7 +31,7 @@
                                 </div>
                                 
                                 <div class="col-md-6 mt-3 border-end">
-                                    <img src="/storage/settings/google.png" class="img img-fluid d-flex m-auto" alt="" style="width:40px; height:40px">
+                                    <a href="/auth/google/redirect"><img src="/storage/settings/google.png" class="img img-fluid d-flex m-auto" alt="" style="width:40px; height:40px"></a>
                                     <h6 class="text-center mt-2">Sign in with google</h6>
                                 </div>
                                 <div class="col-md-6 mt-3">

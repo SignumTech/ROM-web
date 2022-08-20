@@ -64,7 +64,7 @@ class registerUsersController extends Controller
         $user->verification_status = "VERIFIED";
         $user->save();
         /////////////////////////////////
-        $user_token = $user->createToken($user->name);
+        $user_token = $user->createToken($user->f_name);
 
         return ['token' => $user_token->plainTextToken]; 
         
