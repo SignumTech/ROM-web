@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\registerUsersController;
 use Laravel\Socialite\Facades\Socialite;
@@ -32,12 +33,32 @@ Route::post('/resetPassword', [registerUsersController::class, 'reset_password']
 
 ///////////////socialites//////////////
 Route::get('/auth/google/redirect', function () {
-    return Socialite::driver('google')->redirect();
+    try {
+        return Socialite::driver('google')->redirect();
+    } catch (\Exception $e) {
+        return redirect('/signin');
+    }
+    
 });
  
 Route::get('/auth/google/callback', function () {
-    $user = Socialite::driver('google')->user();
-    dd($user->getName(), $user->getEmail(), $user->getID());
+    $socialite_user = Socialite::driver('google')->user();
+
+    $user = User::where(['provider' => 'google', 'provider_id' => $socialite_user->getId()])->first();
+    if(!user){
+       $user = User::create([
+            'f_name' => $socialite_user->user["given_name"],
+            'l_name' => $socialite_user->user["family_name"],
+            'email' => $socialite_user->getEmail(),
+            'provider' => 'google',
+            'provider_id' => $socialite_user->getId(),
+            'email_verified_at' => now()
+        ]);
+
+        Auth::login($user);
+    }
+
+    return redirect('/');
     // $user->token
 });
 //////////////////////////////////////////////////
