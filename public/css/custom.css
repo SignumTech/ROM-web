@@ -64,3 +64,9 @@ a:hover{
 .error {
     border: 1px solid red !important;
 }
+.dropdown:hover .dropdown-menu{
+    display: block;
+}
+.dropdown-menu{
+    margin-top: 0;
+}

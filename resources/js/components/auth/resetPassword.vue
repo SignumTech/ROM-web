@@ -11,12 +11,12 @@
                         </div>
                         <div class="col-md-12 mt-3">
                             <label for="new_password">New password</label>
-                            <input required v-model="formData.password" type="password" class="form-control form-control-auth" placeholder="Email address">
+                            <input required v-model="formData.password" type="password" class="form-control form-control-auth" placeholder="Password">
                             <h6 v-for="er in passErrors.password" :key="er.id" class="text-danger m-0">{{er}}</h6>
                         </div>
                         <div class="col-md-12 mt-3">
                             <label for="new_password">Confirm password</label>
-                            <input required v-model="formData.password_confirmation" type="password" class="form-control form-control-auth" placeholder="Email address">
+                            <input required v-model="formData.password_confirmation" type="password" class="form-control form-control-auth" placeholder="Confirm Password">
                         </div>
                         <div class="col-md-12 mt-3">
                             <div v-if="regLoading" class="d-flex justify-content-center">
