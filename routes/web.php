@@ -35,11 +35,11 @@ Route::post('/resetPassword', [registerUsersController::class, 'reset_password']
 ///////////////socialites//////////////
 Route::get('/auth/google/redirect', [socialiteController::class, 'google_redirect']);
  
-Route::get('/auth/google/callback', [registerUsersController::class, 'google_callback']);
+Route::get('/auth/google/callback', [socialiteController::class, 'google_callback']);
 
 Route::get('/auth/facebook/redirect', [socialiteController::class, 'facebook_redirect']);
  
-Route::get('/auth/facebook/callback', [registerUsersController::class, 'facebook_callback']);
+Route::get('/auth/facebook/callback', [socialiteController::class, 'facebook_callback']);
 //////////////////////////////////////////////////
 Route::any('{slug}', function () {
     return view('home');
