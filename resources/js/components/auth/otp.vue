@@ -30,7 +30,7 @@
                             <button type="submit" v-if="!regLoading" :disabled="!completed" class="btn btn-primary form-control form-control-auth-btn"><h5 class="m-0">Verify</h5></button>
                         </div>
                         <div class="col-md-12 mt-3">
-                            <h6 class="text-center">Didnt get the code? <a @click="resendOTP()" href=""><strong>Resend</strong></a></h6>
+                            <h6 class="text-center">Didnt get the code? <a @click="resendOTP()" class="btn btn-link"><strong>Resend</strong></a></h6>
                         </div>
                     </div>
                 </form>

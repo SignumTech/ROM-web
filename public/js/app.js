@@ -33191,7 +33191,7 @@ var render = function () {
                     _c(
                       "a",
                       {
-                        attrs: { href: "" },
+                        staticClass: "btn btn-link",
                         on: {
                           click: function ($event) {
                             return _vm.resendOTP()
@@ -33339,7 +33339,7 @@ var render = function () {
                     _c(
                       "a",
                       {
-                        attrs: { href: "" },
+                        staticClass: "btn btn-link",
                         on: {
                           click: function ($event) {
                             return _vm.resendOTP()
