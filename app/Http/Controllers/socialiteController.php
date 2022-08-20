@@ -19,8 +19,9 @@ class socialiteController extends Controller
         $socialite_user = Socialite::driver('google')->user();
 
         $check_user = User::where("email", $socialite_user->getEmail())->first();
-    
+        
         $user = User::where(['provider' => 'google', 'provider_id' => $socialite_user->getId()])->first();
+        dd($user);
         if(!$user){
     
            if($check_user){
