@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+///////////////////////////////////////////////////////////////
+import home from './components/home/home.vue'
+///////////////////////////////////////////////////////////////
 import signin from './components/auth/signin.vue'
 import otp from './components/auth/otp.vue'
 import forgetPassword from './components/auth/forgetPassword.vue'
@@ -45,6 +48,12 @@ const routes = [
         path: '/myProfile',
         component: myProfile,
         name: 'MyProfile',
+        props: true
+    },  
+    {
+        path: '/',
+        component: home,
+        name: 'Home',
         props: true
     },    
 ]

@@ -51,7 +51,7 @@
                 </div>
             </div>
         </nav>
-        <nav class="navbar navbar-expand-lg ps-2 pe-2 bg-white">
+        <nav class="navbar shadow navbar-expand-lg ps-2 pe-2 bg-white">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -98,27 +98,27 @@
 </template>
 
 <script>
-    export default {
-        data(){
-            return{
-                authenticated:false,
-                user:{}
+export default {
+    data(){
+        return{
+            authenticated:false,
+            user:{}
 
-            }
-        },
-        mounted() {
-            this.authenticated = this.$store.state.auth.authenticated
-            this.user = this.$store.state.auth.user
-        },
-        methods:{
-            logout: function(){
-                axios.post("logout").then(response => { 
-                    window.location.replace("/signin");
-                })
-                .catch(error => {
-                
-                });
-            },
         }
+    },
+    mounted() {
+        this.authenticated = this.$store.state.auth.authenticated
+        this.user = this.$store.state.auth.user
+    },
+    methods:{
+        logout: function(){
+            axios.post("logout").then(response => { 
+                window.location.replace("/signin");
+            })
+            .catch(error => {
+            
+            });
+        },
     }
+}
 </script>
