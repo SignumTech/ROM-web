@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 ///////////////////////////////////////////////////////////////
 import home from './components/home/home.vue'
+import product from './components/home/productCard.vue'
 ///////////////////////////////////////////////////////////////
 import signin from './components/auth/signin.vue'
 import otp from './components/auth/otp.vue'
@@ -55,7 +56,13 @@ const routes = [
         component: home,
         name: 'Home',
         props: true
-    },    
+    },   
+    {
+        path: '/product',
+        component: product,
+        name: 'Product',
+        props: true
+    },  
 ]
 
 export default new  Router({

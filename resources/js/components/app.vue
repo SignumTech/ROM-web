@@ -51,7 +51,7 @@
                 </div>
             </div>
         </nav>
-        <nav class="navbar shadow navbar-expand-lg ps-2 pe-2 bg-white">
+        <nav class="navbar shadow-sm navbar-expand-lg ps-2 pe-2 bg-white">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

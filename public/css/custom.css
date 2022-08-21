@@ -78,3 +78,11 @@ a:hover{
 .vh-75{
     height: 75vh;
 }
+.add-cart{
+    
+    display: none;
+}
+.show-add-btn:hover .add-cart{
+    margin-top: -100px;
+    display: block;
+}
