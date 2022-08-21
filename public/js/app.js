@@ -8249,7 +8249,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.regLoading = true;
                 _context.next = 3;
                 return axios.post('/resetPassword', _this.formData).then(function (response) {
-                  window.location.replace('/');
+                  window.location.replace('/signin');
                 })["catch"](function (error) {
                   if (error.response.status == 422) {
                     _this.passErrors = error.response.data.errors;
@@ -8548,6 +8548,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -34470,7 +34493,7 @@ var render = function () {
           _vm._m(1),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-6" }, [
-            _c("div", { staticClass: "bg-white rounded-sm p-3" }, [
+            _c("div", { staticClass: "bg-white rounded-1 p-3" }, [
               _c("h4", { staticClass: "m-0" }, [
                 _c("b", [
                   _vm._v(
@@ -34509,8 +34532,24 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-md-3" }, [
-      _c("div", { staticClass: "bg-white rounded-sm p-3" }, [
-        _c("h5", { staticClass: "m-0" }, [_c("b", [_vm._v("My profile")])]),
+      _c("div", { staticClass: "bg-white rounded-1 p-3" }, [
+        _c("h5", { staticClass: "m-0" }, [_c("b", [_vm._v("My Account")])]),
+        _vm._v(" "),
+        _c("h6", { staticClass: "mt-3 ms-3" }, [_vm._v("My profile")]),
+        _vm._v(" "),
+        _c("h6", { staticClass: "mt-3 ms-3" }, [_vm._v("Address Book")]),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "bg-white rounded-1 p-3 mt-2" }, [
+        _c("h5", { staticClass: "m-0" }, [_c("b", [_vm._v("My Orders")])]),
+        _vm._v(" "),
+        _c("h6", { staticClass: "mt-3 ms-3" }, [_vm._v("All orders")]),
+        _vm._v(" "),
+        _c("h6", { staticClass: "mt-3 ms-3" }, [_vm._v("Processing")]),
+        _vm._v(" "),
+        _c("h6", { staticClass: "mt-3 ms-3" }, [_vm._v("Shipped")]),
+        _vm._v(" "),
+        _c("h6", { staticClass: "mt-3 ms-3" }, [_vm._v("Delivered")]),
       ]),
     ])
   },
@@ -34518,8 +34557,34 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "bg-white rounded-sm p-3 mt-3" }, [
+    return _c("div", { staticClass: "bg-white rounded-1 p-3 mt-3" }, [
       _c("h5", { staticClass: "m-0" }, [_c("b", [_vm._v("My Orders")])]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row ms-0 me-0 mt-4" }, [
+        _c("div", { staticClass: "col-md-4 p-2 orders-hover rounded-1" }, [
+          _c("h3", { staticClass: "text-center m-0" }, [
+            _c("span", { staticClass: "fa fa-cart-plus" }),
+          ]),
+          _vm._v(" "),
+          _c("h6", { staticClass: "text-center m-0" }, [_vm._v("Ordered")]),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-4 p-2 orders-hover rounded-1" }, [
+          _c("h3", { staticClass: "text-center m-0" }, [
+            _c("span", { staticClass: "fa fa-shipping-fast" }),
+          ]),
+          _vm._v(" "),
+          _c("h6", { staticClass: "text-center m-0" }, [_vm._v("Shipped")]),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-4 p-2 orders-hover rounded-1" }, [
+          _c("h3", { staticClass: "text-center m-0" }, [
+            _c("span", { staticClass: "fa fa-box-open" }),
+          ]),
+          _vm._v(" "),
+          _c("h6", { staticClass: "text-center m-0" }, [_vm._v("Delivered")]),
+        ]),
+      ]),
     ])
   },
   function () {
@@ -34527,7 +34592,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-md-3" }, [
-      _c("div", { staticClass: "bg-white rounded-sm p-3" }, [
+      _c("div", { staticClass: "bg-white rounded-1 p-3" }, [
         _c("h5", { staticClass: "m-0" }, [
           _c("b", [
             _c("span", { staticClass: "fa fa-heart" }),
