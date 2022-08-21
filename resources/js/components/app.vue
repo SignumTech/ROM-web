@@ -113,10 +113,10 @@
         methods:{
             logout: function(){
                 axios.post("logout").then(response => { 
-                    window.location.replace("/home");
+                    window.location.replace("/signin");
                 })
                 .catch(error => {
-                console.log(error);
+                
                 });
             },
         }

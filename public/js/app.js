@@ -7663,10 +7663,8 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     logout: function logout() {
       axios.post("logout").then(function (response) {
-        window.location.replace("/home");
-      })["catch"](function (error) {
-        console.log(error);
-      });
+        window.location.replace("/signin");
+      })["catch"](function (error) {});
     }
   }
 });
