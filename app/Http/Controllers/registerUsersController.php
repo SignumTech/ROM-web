@@ -116,7 +116,7 @@ class registerUsersController extends Controller
 
         auth()->login($user);
 
-        return redirect('/');
+        return $user;
     }
 
     public function resendOTP(Request $request){
