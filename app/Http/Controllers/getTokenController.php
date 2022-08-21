@@ -14,6 +14,9 @@ class getTokenController extends Controller
             "password" => "required|string"
         ]);
         $user = User::where('email', $request->email)->first();
+        if(!$user){
+            return response("Wrong credentials", 401);
+        }
         if(!in_array($user->account_type, ["USER"])){
             return response("Access Denied", 401);
         }
