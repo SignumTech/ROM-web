@@ -116,7 +116,9 @@ class registerUsersController extends Controller
 
         auth()->login($user);
 
-        return $user;
+        $user_token = $user->createToken($user->f_name);
+
+        return ['token' => $user_token->plainTextToken];
     }
 
     public function resendOTP(Request $request){
