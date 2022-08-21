@@ -8249,7 +8249,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.regLoading = true;
                 _context.next = 3;
                 return axios.post('/resetPassword', _this.formData).then(function (response) {
-                  window.location.replace('/signin');
+                  window.location.replace('/myProfile');
                 })["catch"](function (error) {
                   if (error.response.status == 422) {
                     _this.passErrors = error.response.data.errors;
