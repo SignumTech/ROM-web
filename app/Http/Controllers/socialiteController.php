@@ -43,7 +43,7 @@ class socialiteController extends Controller
             Auth::login($user);
         }
         Auth::login($user);
-        return redirect('/sigin');
+        return redirect('/signin');
     }
 
     public function facebook_redirect(){
@@ -78,6 +78,6 @@ class socialiteController extends Controller
             Auth::login($user);
         }
         Auth::login($user);
-        return redirect('/sigin');
+        return redirect('/signin');
     }
 }
