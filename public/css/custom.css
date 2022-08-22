@@ -86,3 +86,33 @@ a:hover{
     margin-top: -100px;
     display: block;
 }
+.hov-main{
+    background-color: rgb(236, 236, 236);
+    color: #000000e6;
+    width: 40px; 
+    height: 40px
+}
+.hov-main:hover{
+    background-color: #bf7f25;
+    color: white;
+    cursor: pointer;
+}
+.hov-color{
+    width: 40px; 
+    height: 40px;
+}
+.hov-color:hover{
+    border: solid 5px;
+    border-color: #000;
+    cursor: pointer;
+}
+.bg-main{
+    background-color: #bf7f25;
+}
+.border-main{
+    border: solid 3px;
+    border-color: #bf7f25;
+}
+.text-main{
+    color:#bf7f25
+}

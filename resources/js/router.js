@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 ///////////////////////////////////////////////////////////////
 import home from './components/home/home.vue'
-import product from './components/home/productCard.vue'
+import shopByCategory from './components/home/shopByCategory.vue'
 ///////////////////////////////////////////////////////////////
 import signin from './components/auth/signin.vue'
 import otp from './components/auth/otp.vue'
@@ -58,9 +58,9 @@ const routes = [
         props: true
     },   
     {
-        path: '/product',
-        component: product,
-        name: 'Product',
+        path: '/shopByCategory',
+        component: shopByCategory,
+        name: 'ShopByCategory',
         props: true
     },  
 ]
