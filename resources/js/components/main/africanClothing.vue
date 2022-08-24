@@ -37,31 +37,22 @@
                 <li class="nav-item me-1">
                     <a class="nav-link" href="#">NORTH AFRICAN FOR WOMEN</a>
                 </li>
-                                <li class="nav-item me-1">
+                <li class="nav-item me-1">
                     <a class="nav-link" href="#">NORTH AFRICAN FOR MEN</a>
                 </li>
-                                <li class="nav-item me-1">
+                <li class="nav-item me-1">
                     <a class="nav-link" href="#">NORTH AFRICAN FOR KIDS</a>
                 </li>
             </ul>
             </div>
         </div>
     </nav>
-    <hero :image="heroImage"></hero>
     <router-view></router-view>
 </div>      
 </template>
 <script>
-import hero from '../home/hero.vue'
 export default {
-        components:{
-        hero
-    },
-    data(){
-        return{
-            heroImage:"/storage/settings/african.jpg"
-        }
-    }
+
     
 }
 </script>

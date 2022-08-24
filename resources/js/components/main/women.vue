@@ -41,20 +41,11 @@
             </div>
         </div>
     </nav>
-    <hero :image="heroImage"></hero>
     <router-view></router-view>
 </div>   
 </template>
 <script>
-import hero from '../home/hero.vue'
 export default {
-    components:{
-        hero
-    },
-    data(){
-        return{
-            heroImage:"/storage/settings/front.jpg"
-        }
-    }
+
 }
 </script>

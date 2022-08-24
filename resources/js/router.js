@@ -11,6 +11,13 @@ import africanClothing from './components/main/africanClothing.vue'
 ///////////////////////////////////////////////////////////////
 //import home from './components/home/home.vue'
 import shopByCategory from './components/home/shopByCategory.vue'
+import womenHome from './components/home/womenHome.vue'
+import menHome from './components/home/menHome.vue'
+import curveHome from './components/home/curveHome.vue'
+import kidsHome from './components/home/kidsHome.vue'
+import homesHome from './components/home/homesHome.vue'
+import africanHome from './components/home/africanHome.vue'
+import beautyHome from './components/home/beautyHome.vue'
 ///////////////////////////////////////////////////////////////
 import signin from './components/auth/signin.vue'
 import otp from './components/auth/otp.vue'
@@ -29,6 +36,12 @@ const routes = [
         name: 'Women',
         children: [
             {
+                path: '/',
+                component: womenHome,
+                name: 'WomenHome'
+                
+            }, 
+            {
                 path: '/women/shopByCategory',
                 component: shopByCategory,
                 name: 'ShopByCategory'
@@ -41,6 +54,12 @@ const routes = [
         component: men,
         name: 'Men',
         children: [
+            {
+                path: '/',
+                component: menHome,
+                name: 'MenHome'
+                
+            },
             {
                 path: '/men/shopByCategory',
                 component: shopByCategory,
@@ -55,6 +74,12 @@ const routes = [
         name: 'Kids',
         children: [
             {
+                path: '/',
+                component: kidsHome,
+                name: 'KidsHome'
+                
+            },
+            {
                 path: '/kids/shopByCategory',
                 component: shopByCategory,
                 name: 'ShopByCategory',
@@ -67,6 +92,12 @@ const routes = [
         component: curvePlus,
         name: 'CurvePlus',
         children: [
+            {
+                path: '/',
+                component: curveHome,
+                name: 'CurveHome'
+                
+            },
             {
                 path: '/curvePlus/shopByCategory',
                 component: shopByCategory,
@@ -81,6 +112,12 @@ const routes = [
         name: 'Beauty',
         children: [
             {
+                path: '/',
+                component: beautyHome,
+                name: 'BeautyHome'
+                
+            },
+            {
                 path: '/beauty/shopByCategory',
                 component: shopByCategory,
                 name: 'ShopByCategory',
@@ -94,6 +131,12 @@ const routes = [
         name: 'Home',
         children: [
             {
+                path: '/',
+                component: homesHome,
+                name: 'HomesHome'
+                
+            },
+            {
                 path: '/home/shopByCategory',
                 component: shopByCategory,
                 name: 'ShopByCategory',
@@ -106,6 +149,12 @@ const routes = [
         component: africanClothing,
         name: 'AfricanClothing',
         children: [
+            {
+                path: '/',
+                component: africanHome,
+                name: 'AfricanHome'
+                
+            },
             {
                 path: '/africanClothing/shopByCategory',
                 component: shopByCategory,
@@ -151,9 +200,7 @@ const routes = [
     },  
     {
         path: '/',
-        component: women,
-        name: 'Women',
-        props: true
+        redirect: '/women'
     },    
 ]
 
