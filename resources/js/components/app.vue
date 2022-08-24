@@ -9,7 +9,7 @@
                 <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item me-3">
-                        <router-link :class="($route.path.includes(`/women`))? `nav-link nav-link-main nav-link-active`: `nav-link nav-link-main`" aria-current="page" to="/women"><h5 class="m-0">WOMEN</h5></router-link>
+                        <router-link :class="($route.path.includes(`/women`) || $route.path == '/')? `nav-link nav-link-main nav-link-active`: `nav-link nav-link-main`" aria-current="page" to="/women"><h5 class="m-0">WOMEN</h5></router-link>
                     </li>
                     <li class="nav-item me-3">
                         <router-link :class="($route.path.includes(`/curvePlus`))? `nav-link nav-link-main nav-link-active`: `nav-link nav-link-main `" to="/curvePlus"><h5 class="m-0">CURVE + PLUS</h5></router-link>

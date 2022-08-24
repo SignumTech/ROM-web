@@ -34420,9 +34420,11 @@ var render = function () {
                     _c(
                       "router-link",
                       {
-                        class: _vm.$route.path.includes("/women")
-                          ? "nav-link nav-link-main nav-link-active"
-                          : "nav-link nav-link-main",
+                        class:
+                          _vm.$route.path.includes("/women") ||
+                          _vm.$route.path == "/"
+                            ? "nav-link nav-link-main nav-link-active"
+                            : "nav-link nav-link-main",
                         attrs: { "aria-current": "page", to: "/women" },
                       },
                       [_c("h5", { staticClass: "m-0" }, [_vm._v("WOMEN")])]
