@@ -8964,6 +8964,159 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -37450,11 +37603,329 @@ var render = function () {
   return _c(
     "div",
     { staticClass: "p-0" },
-    [_c("hero", { attrs: { image: _vm.heroImage } })],
+    [
+      _c("hero", { attrs: { image: _vm.heroImage } }),
+      _vm._v(" "),
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "row m-0 ps-5 pe-5 pb-5 pt-3" }, [
+        _c(
+          "div",
+          { staticClass: "col-md-2 mt-4" },
+          [
+            _c("router-link", { attrs: { to: "/women/shopByCategory" } }, [
+              _c("div", { staticClass: "bg-white rounded-1 shadow-sm" }, [
+                _c("div", { staticClass: "row m-0" }, [
+                  _c("div", { staticClass: "col-6 ps-0 align-self-center" }, [
+                    _c("img", {
+                      staticClass: "img img-fluid",
+                      attrs: { src: "/storage/settings/dresses.jpg", alt: "" },
+                    }),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-6 align-self-center" }, [
+                    _c("h6", { staticClass: "m-0" }, [
+                      _c("strong", [_vm._v("DRESSES")]),
+                    ]),
+                  ]),
+                ]),
+              ]),
+            ]),
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _vm._m(1),
+        _vm._v(" "),
+        _vm._m(2),
+        _vm._v(" "),
+        _vm._m(3),
+        _vm._v(" "),
+        _vm._m(4),
+        _vm._v(" "),
+        _vm._m(5),
+        _vm._v(" "),
+        _vm._m(6),
+        _vm._v(" "),
+        _vm._m(7),
+        _vm._v(" "),
+        _vm._m(8),
+        _vm._v(" "),
+        _vm._m(9),
+        _vm._v(" "),
+        _vm._m(10),
+        _vm._v(" "),
+        _vm._m(11),
+      ]),
+    ],
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row m-0" }, [
+      _c("div", { staticClass: "col-12 mt-4" }, [
+        _c("h4", { staticClass: "text-center" }, [
+          _c("strong", [_vm._v("Shop By Category")]),
+        ]),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-2 mt-4" }, [
+      _c("div", { staticClass: "bg-white rounded-1 shadow-sm" }, [
+        _c("div", { staticClass: "row m-0" }, [
+          _c("div", { staticClass: "col-6 ps-0 align-self-center" }, [
+            _c("img", {
+              staticClass: "img img-fluid",
+              attrs: { src: "/storage/settings/t-shirts.jpg", alt: "" },
+            }),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-6 align-self-center" }, [
+            _c("h6", { staticClass: "m-0" }, [
+              _c("strong", [_vm._v("T-SHIRTS")]),
+            ]),
+          ]),
+        ]),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-2 mt-4" }, [
+      _c("div", { staticClass: "bg-white rounded-1 shadow-sm" }, [
+        _c("div", { staticClass: "row m-0" }, [
+          _c("div", { staticClass: "col-6 ps-0 align-self-center" }, [
+            _c("img", {
+              staticClass: "img img-fluid",
+              attrs: { src: "/storage/settings/beachwear.jpg", alt: "" },
+            }),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-6 align-self-center" }, [
+            _c("h6", { staticClass: "m-0" }, [
+              _c("strong", [_vm._v("BEACH WEAR")]),
+            ]),
+          ]),
+        ]),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-2 mt-4" }, [
+      _c("div", { staticClass: "bg-white rounded-1 shadow-sm" }, [
+        _c("div", { staticClass: "row m-0" }, [
+          _c("div", { staticClass: "col-6 ps-0 align-self-center" }, [
+            _c("img", {
+              staticClass: "img img-fluid",
+              attrs: { src: "/storage/settings/tanktops.jpg", alt: "" },
+            }),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-6 align-self-center" }, [
+            _c("h6", { staticClass: "m-0" }, [
+              _c("strong", [_vm._v("TANK TOPS")]),
+            ]),
+          ]),
+        ]),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-2 mt-4" }, [
+      _c("div", { staticClass: "bg-white rounded-1 shadow-sm" }, [
+        _c("div", { staticClass: "row m-0" }, [
+          _c("div", { staticClass: "col-6 ps-0 align-self-center" }, [
+            _c("img", {
+              staticClass: "img img-fluid",
+              attrs: { src: "/storage/settings/outwear.jpg", alt: "" },
+            }),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-6 align-self-center" }, [
+            _c("h6", { staticClass: "m-0" }, [
+              _c("strong", [_vm._v("OUT WEAR")]),
+            ]),
+          ]),
+        ]),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-2 mt-4" }, [
+      _c("div", { staticClass: "bg-white rounded-1 shadow-sm" }, [
+        _c("div", { staticClass: "row m-0" }, [
+          _c("div", { staticClass: "col-6 ps-0 align-self-center" }, [
+            _c("img", {
+              staticClass: "img img-fluid",
+              attrs: { src: "/storage/settings/bottoms.jpg", alt: "" },
+            }),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-6 align-self-center" }, [
+            _c("h6", { staticClass: "m-0" }, [
+              _c("strong", [_vm._v("BOTTOMS")]),
+            ]),
+          ]),
+        ]),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-2 mt-4" }, [
+      _c("div", { staticClass: "bg-white rounded-1 shadow-sm" }, [
+        _c("div", { staticClass: "row m-0" }, [
+          _c("div", { staticClass: "col-6 ps-0 align-self-center" }, [
+            _c("img", {
+              staticClass: "img img-fluid",
+              attrs: { src: "/storage/settings/lingerie.jpg", alt: "" },
+            }),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-6 align-self-center" }, [
+            _c("h6", { staticClass: "m-0" }, [
+              _c("strong", [_vm._v("LINGERIE & LOUNGE")]),
+            ]),
+          ]),
+        ]),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-2 mt-4" }, [
+      _c("div", { staticClass: "bg-white rounded-1 shadow-sm" }, [
+        _c("div", { staticClass: "row m-0" }, [
+          _c("div", { staticClass: "col-6 ps-0 align-self-center" }, [
+            _c("img", {
+              staticClass: "img img-fluid",
+              attrs: { src: "/storage/settings/sweatshirts.jpg", alt: "" },
+            }),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-6 align-self-center" }, [
+            _c("h6", { staticClass: "m-0" }, [
+              _c("strong", [_vm._v("SWEAT SHIRTS")]),
+            ]),
+          ]),
+        ]),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-2 mt-4" }, [
+      _c("div", { staticClass: "bg-white rounded-1 shadow-sm" }, [
+        _c("div", { staticClass: "row m-0" }, [
+          _c("div", { staticClass: "col-6 ps-0 align-self-center" }, [
+            _c("img", {
+              staticClass: "img img-fluid",
+              attrs: { src: "/storage/settings/skirts.jpg", alt: "" },
+            }),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-6 align-self-center" }, [
+            _c("h6", { staticClass: "m-0" }, [
+              _c("strong", [_vm._v("SKIRTS")]),
+            ]),
+          ]),
+        ]),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-2 mt-4" }, [
+      _c("div", { staticClass: "bg-white rounded-1 shadow-sm" }, [
+        _c("div", { staticClass: "row m-0" }, [
+          _c("div", { staticClass: "col-6 ps-0 align-self-center" }, [
+            _c("img", {
+              staticClass: "img img-fluid",
+              attrs: { src: "/storage/settings/blouses.jpg", alt: "" },
+            }),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-6 align-self-center" }, [
+            _c("h6", { staticClass: "m-0" }, [
+              _c("strong", [_vm._v("BLOUSES")]),
+            ]),
+          ]),
+        ]),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-2 mt-4" }, [
+      _c("div", { staticClass: "bg-white rounded-1 shadow-sm" }, [
+        _c("div", { staticClass: "row m-0" }, [
+          _c("div", { staticClass: "col-6 ps-0 align-self-center" }, [
+            _c("img", {
+              staticClass: "img img-fluid",
+              attrs: { src: "/storage/settings/shoes.jpg", alt: "" },
+            }),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-6 align-self-center" }, [
+            _c("h6", { staticClass: "m-0" }, [_c("strong", [_vm._v("SHOES")])]),
+          ]),
+        ]),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-2 mt-4" }, [
+      _c("div", { staticClass: "bg-white rounded-1 shadow-sm" }, [
+        _c("div", { staticClass: "row m-0" }, [
+          _c("div", { staticClass: "col-6 ps-0 align-self-center" }, [
+            _c("img", {
+              staticClass: "img img-fluid",
+              attrs: { src: "/storage/settings/jewelry.jpg", alt: "" },
+            }),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-6 align-self-center" }, [
+            _c("h6", { staticClass: "m-0" }, [
+              _c("strong", [_vm._v("JEWELERY")]),
+            ]),
+          ]),
+        ]),
+      ]),
+    ])
+  },
+]
 render._withStripped = true
 
 
