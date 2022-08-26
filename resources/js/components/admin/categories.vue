@@ -69,7 +69,7 @@
                                 <td class="align-middle">
                                     
                                     <button class="btn btn-danger btn-sm float-end ms-3"><span class="fa fa-trash-alt"></span></button>
-                                    <button class="btn btn-success btn-sm float-end "><span class="fa fa-edit"></span></button>
+                                    <button @click="editSubModal(sc)" class="btn btn-success btn-sm float-end "><span class="fa fa-edit"></span></button>
                                 </td>
                             </tr>
                         </tbody>

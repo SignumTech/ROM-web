@@ -8161,7 +8161,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     group: 'foo',
                     type: 'success',
                     title: 'Main Category',
-                    text: 'The main category was updated successfully'
+                    text: 'The sub category was updated successfully'
                   });
 
                   _this3.$emit('close');
@@ -36853,7 +36853,22 @@ var render = function () {
                       _vm._v(_vm._s(sc.parent_name)),
                     ]),
                     _vm._v(" "),
-                    _vm._m(7, true),
+                    _c("td", { staticClass: "align-middle" }, [
+                      _vm._m(7, true),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-success btn-sm float-end",
+                          on: {
+                            click: function ($event) {
+                              return _vm.editSubModal(sc)
+                            },
+                          },
+                        },
+                        [_c("span", { staticClass: "fa fa-edit" })]
+                      ),
+                    ]),
                   ])
                 }),
                 0
@@ -36951,15 +36966,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", { staticClass: "align-middle" }, [
-      _c("button", { staticClass: "btn btn-danger btn-sm float-end ms-3" }, [
-        _c("span", { staticClass: "fa fa-trash-alt" }),
-      ]),
-      _vm._v(" "),
-      _c("button", { staticClass: "btn btn-success btn-sm float-end" }, [
-        _c("span", { staticClass: "fa fa-edit" }),
-      ]),
-    ])
+    return _c(
+      "button",
+      { staticClass: "btn btn-danger btn-sm float-end ms-3" },
+      [_c("span", { staticClass: "fa fa-trash-alt" })]
+    )
   },
 ]
 render._withStripped = true
@@ -37305,7 +37316,14 @@ var render = function () {
                     },
                   },
                 },
-                [_c("option", { attrs: { value: "" } })]
+                _vm._l(_vm.mainCategories, function (cat) {
+                  return _c(
+                    "option",
+                    { key: cat.id, domProps: { value: cat.id } },
+                    [_vm._v(_vm._s(cat.cat_name))]
+                  )
+                }),
+                0
               ),
             ]),
             _vm._v(" "),

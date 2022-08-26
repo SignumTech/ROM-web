@@ -12,7 +12,7 @@
         <div class="col-md-12 mt-3">
             <label for="">Parent Category</label>
             <select v-model="formData.parent_id" class="form-select">
-                <option value=""></option>
+                <option v-for="cat in mainCategories" :key="cat.id" :value="cat.id">{{cat.cat_name}}</option>
             </select>
         </div>
         <div class="col-md-12 mt-3">
@@ -85,7 +85,7 @@ export default {
                     group: 'foo',
                     type: 'success',
                     title: 'Main Category',
-                    text: 'The main category was updated successfully'
+                    text: 'The sub category was updated successfully'
                 });
                 this.$emit('close')
             })

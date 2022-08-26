@@ -151,4 +151,9 @@ class categoriesController extends Controller
         }
         return $count;
     }
+
+    public function showSubCategories($id){
+        $categories = Category::where('parent_id', $id)->get();
+        return $categories;
+    }
 }
