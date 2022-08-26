@@ -66,7 +66,7 @@
                   </div>
               </div>
           </nav>
-        <div class="row m-0">
+        <div class="row m-0 main_dis">
             <div class="col-md-12">   
                 <router-view></router-view>             
             </div>

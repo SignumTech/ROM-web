@@ -211,13 +211,6 @@ ul ul a {
 .mt-n5 {
     margin-top: -3rem !important;
 }
-.bg-danger {
-    background-color: #bf7f25 !important;
-}
-.btn-danger {
-    background-color: #bf7f25 !important;
-    border-color: #a56f23 !important;
-}
 .hov-main:hover{
     background-color: #a56f23 !important;
     cursor: pointer;
@@ -248,4 +241,13 @@ ul ul a {
 .bg-warning-badge {
     background-color: #ffc1072c !important;
     color: #ffc107 !important;
+}
+.main_dis{
+    max-height: 90vh;
+    overflow-y: auto;
+    padding-bottom: 60px;
+}
+.cat_img{
+    width: 60px;
+    height: auto
 }
