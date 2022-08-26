@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\registerUsersController;
 use App\Http\Controllers\getTokenController;
+use App\Http\Controllers\categoriesController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -15,6 +16,10 @@ use App\Http\Controllers\getTokenController;
 |
 */
 Auth::routes();
+////////////////////////////////////Categories//////////////////////////////////////////////////////
+Route::get('/getMainCategories', [categoriesController::class, 'getMainCategories']);
+Route::get('/getSubCategories', [categoriesController::class, 'getSubCategories']);
+/////////////////////////////////auth//////////////////////////////////////////////////////////////////
 Route::post('/getUserToken', [getTokenController::class, 'getUserToken']);
 Route::post('/registerUser', [registerUsersController::class, 'registerUser']);
 Route::post('/verifyOTP', [registerUsersController::class, 'verifyOTP']);

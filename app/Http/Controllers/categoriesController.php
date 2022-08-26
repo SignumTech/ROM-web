@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Category;
+use App\Models\Product;
 class categoriesController extends Controller
 {
     /**
@@ -45,7 +46,7 @@ class categoriesController extends Controller
         $category->cat_type = $request->cat_type;
         if($request->cat_type == "PARENT")
         {
-            $category->parent_id = null;
+            $category->parent_id = 0;
         }
         else
         {
@@ -98,7 +99,7 @@ class categoriesController extends Controller
         $category->cat_type = $request->cat_type;
         if($request->cat_type == "PARENT")
         {
-            $category->parent_id = null;
+            $category->parent_id = 0;
         }
         else
         {
@@ -118,5 +119,36 @@ class categoriesController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getMainCategories(){
+
+        $categories = Category::where('cat_type', 'PARENT')->get();
+        foreach($categories as $cat){
+            $cat->items = $this->categoryItemCount($cat->id);
+        }
+        return $categories;
+    }
+
+    public function getSubCategories(){
+
+        $categories = Category::where('cat_type', 'CHILD')->get();
+        foreach($categories as $cat){
+            $cat->items = $this->categoryItemCount($cat->id);
+            $cat->parent_name = Category::where('id', $cat->parent_id)->select('cat_name')->first()->cat_name;
+        }
+        return $categories;
+    }
+
+    public function categoryItemCount($id){
+        $count = 0;
+        $category = Category::where('parent_id', $id)->get();
+        if(count($category)>0){
+            foreach($category as $cat){
+                $count = $count + Product::where('cat_id', $cat->id)->count();
+                $this->categoryItemCount($cat->id); 
+            }
+        }
+        return $count;
     }
 }

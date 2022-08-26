@@ -1,11 +1,13 @@
 <?php
 
 use Illuminate\Http\Request;
+use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\registerUsersController;
 use App\Http\Controllers\socialiteController;
-use Laravel\Socialite\Facades\Socialite;
+use App\Http\Controllers\categoriesController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,14 +28,19 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+///////////////////////////////////resources///////////////////////////////////////////////////////
+Route::middleware('auth:sanctum')->resource('/categories', categoriesController::class);
+//////////////////////////////////auth//////////////////////////////////////////////////////////////
 Route::post('/registerUser', [registerUsersController::class, 'registerUser']);
 Route::post('/verifyOTP', [registerUsersController::class, 'verifyOTP']);
 Route::post('/foregetPasswordMailer', [registerUsersController::class, 'foregetPasswordMailer']);
 Route::post('/resetVerify', [registerUsersController::class, 'resetVerify']);
 Route::post('/resetPassword', [registerUsersController::class, 'reset_password']);
 Route::post('/resendOTP', [registerUsersController::class, 'resendOTP']);
-
-///////////////socialites//////////////
+////////////////////////////////////Categories//////////////////////////////////////////////////////
+Route::middleware('auth:sanctum')->get('/getMainCategories', [categoriesController::class, 'getMainCategories']);
+Route::middleware('auth:sanctum')->get('/getSubCategories', [categoriesController::class, 'getSubCategories']);
+///////////////socialites///////////////////////////////////////////////////////////////////////////
 Route::get('/auth/google/redirect', [socialiteController::class, 'google_redirect']);
  
 Route::get('/auth/google/callback', [socialiteController::class, 'google_callback']);
