@@ -177,10 +177,17 @@ export default {
                     this.$notify({
                         group: 'foo',
                         type: 'success',
-                        title: 'Important message',
-                        text: 'Hello user! This is a notification!'
+                        title: 'Successfully signed in',
+                        text: 'you have successfully signed in!'
                     });
-                    window.location.replace('/myProfile')
+                    if(this.$store.state.auth.permissions == 'ADMIN'){
+                        window.location.replace('/adminDash')
+                    }
+                    else{
+                        window.location.replace('/myProfile')
+                    }
+                    
+                    
                     
                 })
                 .catch( error =>{

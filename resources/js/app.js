@@ -7,8 +7,9 @@
 require('./bootstrap');
 
 window.Vue = require('vue').default;
-import router from './router'
+
 import store from './store'
+import router from './router'
 import VModal from 'vue-js-modal'
 import 'vue-js-modal/dist/styles.css'
 import OtpInput from "@bachdgvn/vue-otp-input";

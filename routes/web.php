@@ -45,6 +45,9 @@ Route::get('/auth/facebook/callback', [socialiteController::class, 'facebook_cal
 Route::any('{slug}', function () {
     return view('home');
 });
+Route::any('/admin/{slug}', function () {
+    return view('home');
+});
 Route::any('{slug}/shopByCategory', function () {
     return view('home');
 });

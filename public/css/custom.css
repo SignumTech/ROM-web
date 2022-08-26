@@ -116,3 +116,136 @@ a:hover{
 .text-main{
     color:#bf7f25
 }
+
+/* admin */
+.wrapper {
+    display: flex;
+    align-items: stretch;
+}
+#sidebar.active {
+    margin-left: -250px;
+}
+#sidebar {
+
+    min-height: 100vh;
+}
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+.dropdown-toggle::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
+.p-admin {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1em;
+    font-weight: 300;
+    line-height: 1.7em;
+    color: #999;
+}
+
+.a-admin, .a-admin:hover, a-admin:focus {
+    color: white !important;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+#sidebar {
+    /* don't forget to add all the previously mentioned styles here too */
+    background: #2c2c2c;
+    color: #fff;
+    transition: all 0.3s;
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+    background: #bf7f25;
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+
+}
+
+#sidebar ul p {
+    color: #fff;
+    padding: 10px;
+}
+
+#sidebar ul li a {
+    padding: 10px;
+    padding-left: 20px;
+    font-size: 1em;
+    display: block;
+}
+#sidebar ul li a:hover {
+    color: #d6f8dc;
+    background: rgb(156, 156, 156);
+}
+
+#sidebar ul li.active > a, a[aria-expanded="true"] {
+    color: #fff;
+   background: #bf7f25;
+}
+ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+    background:#1d1d1d;
+}
+.mt-n1 {
+    margin-top: -0.25rem !important;
+}
+.mt-n2 {
+    margin-top: -0.5rem !important;
+}
+.mt-n3 {
+    margin-top: -1rem !important;
+}
+.mt-n4 {
+    margin-top: -1.5rem !important;
+}
+.mt-n5 {
+    margin-top: -3rem !important;
+}
+.bg-danger {
+    background-color: #bf7f25 !important;
+}
+.btn-danger {
+    background-color: #bf7f25 !important;
+    border-color: #a56f23 !important;
+}
+.hov-main:hover{
+    background-color: #a56f23 !important;
+    cursor: pointer;
+}
+.hov-row:hover{
+    background-color: #f8d8b9 !important;
+    cursor: pointer;
+}
+.border-danger {
+    border-color: #bf7f25 !important;
+}
+.bg-danger-badge {
+    background-color: #dc354633 !important;
+    color: #dc3545 !important;
+}
+.bg-primary-badge {
+    background-color: #0d6dfd3b !important;
+    color: #0d6efd !important;
+}
+.bg-success-badge {
+    background-color: #1987542c !important;
+    color: #198754 !important;
+}
+.bg-info-badge {
+    background-color: #0dcaf02c !important;
+    color: #0dcaf0 !important;
+}
+.bg-warning-badge {
+    background-color: #ffc1072c !important;
+    color: #ffc107 !important;
+}

@@ -1,5 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from './store'
+//////////////////////admin////////////////////////////////////
+import adminDash from './components/admin/adminDash.vue'
+import categories from './components/admin/categories.vue'
+import products from './components/admin/products.vue'
 /////////////////////main//////////////////////////////////////
 import women from './components/main/women.vue'
 import men from './components/main/men.vue'
@@ -30,6 +35,21 @@ import myProfile from './components/profile/myProfile.vue'
 Vue.use(Router)
 
 const routes = [
+    {
+        path: '/admin/adminDash',
+        component: adminDash,
+        name: 'AdminDash'
+    },
+    {
+        path: '/admin/categories',
+        component: categories,
+        name: 'Categories'
+    },
+    {
+        path: '/admin/products',
+        component: products,
+        name: 'Categories'
+    },
     {
         path: '/women',
         component: women,
@@ -200,7 +220,15 @@ const routes = [
     },  
     {
         path: '/',
-        redirect: '/women'
+        beforeEnter: (to, from, next)=>{
+            if(store.state.auth.permissions == 'ADMIN'){
+                next('/adminDash')
+            }
+            else{
+                next('/women')
+            }
+        }
+        
     },    
 ]
 
