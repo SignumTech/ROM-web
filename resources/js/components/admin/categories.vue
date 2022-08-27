@@ -62,7 +62,10 @@
                         </thead>
                         <tbody>
                             <tr v-for="sc in subCategories" :key="sc.id">
-                                <td><img src="/storage/settings/dresses.jpg" class="img img-fluid img-thumb cat_img rounded" alt=""></td>
+                                <td>
+                                    <img :src="`/storage/settings/`+sc.cat_image" class="img img-fluid img-thumb cat_img rounded" alt="">
+                                    <span @click="addPictureModal(sc.id,sc.cat_image)" class="fa fa-pencil-alt ml-1" style="cursor:pointer"></span>
+                                </td>
                                 <td class="align-middle">{{sc.cat_name}}</td>
                                 <td class="align-middle">{{sc.items}}</td>
                                 <td class="align-middle">{{sc.parent_name}}</td>
@@ -83,6 +86,7 @@
 <script>
 import mainCatModal from './mainCatModal.vue'
 import subCatModal from './subCatModal.vue'
+import addPictureModal from './addPictureModal.vue'
 export default {
     data(){
         return{
@@ -98,6 +102,14 @@ export default {
         updateData(){
             this.getMainCategories()
             this.getSubCategories()
+        },
+        addPictureModal(id, cat_img){
+            this.$modal.show(
+                addPictureModal,
+                { "type": "add", "id":id, "cat_img":cat_img},
+                {width: '300px', height: 'auto'},
+                { "closed" : this.updateData}
+            )
         },
         addSubModal(){
             this.$modal.show(

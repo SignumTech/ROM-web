@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
+use Image;
 class categoriesController extends Controller
 {
     /**
@@ -155,5 +156,42 @@ class categoriesController extends Controller
     public function showSubCategories($id){
         $categories = Category::where('parent_id', $id)->get();
         return $categories;
+    }
+
+    public function uploadSubPic(Request $request){
+        $this->validate($request, [
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2084',
+            'cat_id' => 'required'
+        ]);
+        //dd($request->cat_id);
+        if($request->hasFile('photo')){
+            
+            //Get filename with the extention
+            $filenameWithExt = $request->file('photo')->getClientOriginalName();
+            $thumbnailImage = Image::make($request->file('photo'));
+            
+            //Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            //get just ext
+            $extension = $request->file('photo')->getClientOriginalExtension();
+            //Filename to store
+            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            //upload Image
+            $thumbnailPath = public_path().'\storage\settings\\';
+            /*$thumbnailImage->resize(null, 320, function ($constraint){
+                $constraint->aspectRatio();
+            });*/
+            $thumbnailImage->save($thumbnailPath.$fileNameToStore);
+
+            $subCat = Category::find($request->cat_id);
+            $subCat->cat_image = $fileNameToStore;
+            $subCat->save();
+
+            return $subCat; 
+        }
+        else{
+            return response(422, "No file");
+        }
+
     }
 }
