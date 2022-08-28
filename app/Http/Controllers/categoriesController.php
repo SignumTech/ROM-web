@@ -52,6 +52,7 @@ class categoriesController extends Controller
         else
         {
             $category->parent_id = $request->parent_id;
+            $category->cat_image = 'placeholder.jpg';
         }
         $category->save();
 
@@ -105,6 +106,7 @@ class categoriesController extends Controller
         else
         {
             $category->parent_id = $request->parent_id;
+            $category->cat_image = 'placeholder.jpg';
         }
         $category->save();
 

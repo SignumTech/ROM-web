@@ -14,6 +14,10 @@ import VModal from 'vue-js-modal'
 import 'vue-js-modal/dist/styles.css'
 import OtpInput from "@bachdgvn/vue-otp-input";
 import Notifications from 'vue-notification'
+import {ColorPicker, ColorPanel} from 'one-colorpicker'
+
+Vue.use(ColorPanel)
+Vue.use(ColorPicker)
 Vue.use(Notifications)
 Vue.component("v-otp-input", OtpInput);
 Vue.use(VModal)
