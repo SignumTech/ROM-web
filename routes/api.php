@@ -16,6 +16,8 @@ use App\Http\Controllers\categoriesController;
 |
 */
 Auth::routes();
+////////////////////////////////////Products////////////////////////////////////////////////////////
+
 ////////////////////////////////////Categories//////////////////////////////////////////////////////
 Route::get('/getMainCategories', [categoriesController::class, 'getMainCategories']);
 Route::get('/getSubCategories', [categoriesController::class, 'getSubCategories']);

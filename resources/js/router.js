@@ -6,6 +6,7 @@ import adminDash from './components/admin/adminDash.vue'
 import categories from './components/admin/categories.vue'
 import products from './components/admin/products.vue'
 import addProducts from './components/admin/addProduct.vue'
+import editProducts from './components/admin/editProduct.vue'
 /////////////////////main//////////////////////////////////////
 import women from './components/main/women.vue'
 import men from './components/main/men.vue'
@@ -54,7 +55,14 @@ const routes = [
     {
         path: '/admin/addProducts',
         component: addProducts,
-        name: 'AddProducts'
+        name: 'AddProducts',
+        props: true
+    },
+    {
+        path: '/admin/editProduct/:id',
+        component: editProducts,
+        name: 'EditProduct',
+        props: true
     },
     {
         path: '/women',

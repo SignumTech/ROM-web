@@ -251,3 +251,8 @@ ul ul a {
     width: 60px;
     height: auto
 }
+.color-choice{
+    border: solid 5px;
+    border-color: #000;
+    cursor: pointer;
+}

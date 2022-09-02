@@ -78,6 +78,7 @@ export default {
     mounted() {
         this.authenticated = this.$store.state.auth.authenticated
         this.user = this.$store.state.auth.user
+        feather.replace();
     },
     methods:{
         logout: function(){

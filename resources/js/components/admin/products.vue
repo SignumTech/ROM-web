@@ -6,7 +6,7 @@
     <div class="col-md-12 mt-3">
         <div class="bg-white rounded-1 p-3 shadow-sm">
              <router-link to="/admin/addProducts" class="btn btn-primary btn-sm float-end shadow text-white"><span class="fa fa-plus"></span> Add Product</router-link>
-            <table class="table table-striped px-2 table-sm mt-2">
+            <table class="table px-2 table-sm mt-2">
                 <thead>
                     <tr>
                         <th>Product</th>
@@ -20,19 +20,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr v-for="product in products" :key="product.id">
                         <td class="align-middle">
-                            <img src="/storage/products/dress.jpg" class="img img-fluid img-thumb cat_img rounded" alt="">
+                            <img :src="`/storage/products/`+JSON.parse(product.p_image).main" class="img img-fluid img-thumb cat_img rounded" alt="">
                         </td>
-                        <td class="align-middle">Puff Sleeve Tie Front Shirred Waist Ruffle Hem Dress</td>
-                        <td class="align-middle">1500 Birr</td>
-                        <td class="align-middle">13</td>
-                        <td class="align-middle">122</td>
-                        <td class="align-middle">ACTIVE</td>
+                        <td class="align-middle">{{product.p_name}}</td>
+                        <td class="align-middle">{{product.price}} Birr</td>
+                        <td class="align-middle">-</td>
+                        <td class="align-middle">{{product.stock}}</td>
+                        <td class="align-middle">{{product.p_status}}</td>
                         <td class="align-middle">26 Aug, 2022</td>
                         <td class="align-middle">
                             <button class="btn btn-danger btn-sm float-end ms-3"><span class="fa fa-trash-alt"></span></button>
-                            <button class="btn btn-success btn-sm float-end "><span class="fa fa-edit"></span></button>
+                            <router-link :to="`/admin/editProduct/`+product.id" class="btn btn-success btn-sm float-end "><span class="fa fa-edit"></span></router-link>
                         </td>
                     </tr>
                 </tbody>
@@ -43,6 +43,29 @@
 </template>
 <script>
 export default {
-    
+    data(){
+        return{
+            products:{}
+        }
+    },
+    mounted(){
+        this.getProducts()
+    },
+    methods:{
+        async getProducts(){
+            await axios.get('/getProductsList')
+            .then( response =>{
+                this.products = response.data
+                console.log(response.data)
+                console.log(JSON.parse(response.data[0].p_image).main)
+            })
+        },
+        editProduct(product){
+            this.$router.push({name:'EditProduct', params:{
+                    type: 'edit',
+                    item: product
+                }})
+        }
+    }
 }
 </script>

@@ -196,4 +196,18 @@ class categoriesController extends Controller
         }
 
     }
+
+    public function chooseSubCategories(){
+
+        $data = [];
+        $index = 0;
+        $parents = Category::where('cat_type', 'PARENT')->get();
+        foreach($parents as $parent){
+            $data[$index]['parent'] = $parent->cat_name;
+            $data[$index]['children'] = Category::where('parent_id', $parent->id)->get();
+            $index++;
+        }
+
+        return $data;
+    }
 }

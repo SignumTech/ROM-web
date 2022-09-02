@@ -12,25 +12,25 @@
           <nav id="sidebar" style="height: 100vh; overflow-y: auto">
             <ul class="list-unstyled components">
               <li :class="$route.path == `/admin/adminDash` ? `active nav-item` : ``">
-                <router-link class="nav-link a-admin" to="/admin/adminDash"><span class="fa fa-home"></span> Dashboard <span class="sr-only">(current)</span></router-link>
+                <router-link class="nav-link a-admin" to="/admin/adminDash"><i data-feather="home"></i> Dashboard <span class="sr-only">(current)</span></router-link>
               </li>
               <li :class="$route.path == `/admin/products` ? `active nav-item` : ``">
-                <router-link class="nav-link a-admin" to="/admin/products"><span class="fa fa-tshirt"></span> Products</router-link>
+                <router-link class="nav-link a-admin" to="/admin/products"><i data-feather="box"></i> Products</router-link>
               </li>
               <li :class="$route.path == `/admin/orders` ? `active nav-item` : ``">
-                <router-link class="nav-link a-admin" to="/admin/orders"><span class="fa fa-shopping-cart"></span> Orders</router-link>
+                <router-link class="nav-link a-admin" to="/admin/orders"><i data-feather="shopping-cart"></i> Orders</router-link>
               </li>
               <li :class="$route.path == `/admin/categories` ? `active nav-item` : ``">
-                <router-link class="nav-link a-admin" to="/admin/categories"><span class="fa fa-list"></span> Categories</router-link>
+                <router-link class="nav-link a-admin" to="/admin/categories"><i data-feather="grid"></i> Categories</router-link>
               </li>
               <li :class="$route.path == `/users` ? `active nav-item` : ``">
-                <router-link class="nav-link a-admin" to="/users"><span class="fa fa-users"></span> Users Management</router-link>
+                <router-link class="nav-link a-admin" to="/users"><i data-feather="user"></i> Users Management</router-link>
               </li>
               <li :class="$route.path == `/setting` ? `active nav-item` : ``">
-                <router-link class="nav-link a-admin" to="/setting"><span class="fa fa-chart-line"></span> Sales Report</router-link>
+                <router-link class="nav-link a-admin" to="/setting"><i data-feather="trending-up"></i> Sales Report</router-link>
               </li>
               <li :class="$route.path == `/customers` ? `active nav-item` : ``">
-                <router-link class="nav-link a-admin" to="/customers"><span class="fa fa-user-friends"></span> Customers</router-link>
+                <router-link class="nav-link a-admin" to="/customers"><i data-feather="users"></i> Customers</router-link>
               </li>
             </ul>
           </nav>            
