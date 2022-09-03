@@ -136,8 +136,10 @@ class categoriesController extends Controller
     public function getSubCategories(){
 
         $categories = Category::where('cat_type', 'CHILD')->get();
+        
         foreach($categories as $cat){
-            $cat->items = $this->categoryItemCount($cat->id);
+            $count = Product::where('cat_id', $cat->id)->count();
+            $cat->items = $count + $this->categoryItemCount($cat->id);
             $cat->parent_name = Category::where('id', $cat->parent_id)->select('cat_name')->first()->cat_name;
         }
         return $categories;
@@ -210,4 +212,10 @@ class categoriesController extends Controller
 
         return $data;
     }
+
+    public function getCatByName($name){
+        $cat = Category::where("cat_name", $name)->first();
+        return $cat;
+    }
+
 }

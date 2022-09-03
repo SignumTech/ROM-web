@@ -8,6 +8,7 @@ use App\Http\Controllers\registerUsersController;
 use App\Http\Controllers\socialiteController;
 use App\Http\Controllers\categoriesController;
 use App\Http\Controllers\productsController;
+use App\Http\Controllers\cartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +32,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 ///////////////////////////////////resources///////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->resource('/categories', categoriesController::class);
-Route::middleware('auth:sanctum')->resource('/products', productsController::class);
+Route::resource('/products', productsController::class);
+///////////////////////////////////cart/////////////////////////////////////////////////////////////
+Route::post('/addToCart', [cartController::class, 'addToCart']);
+Route::post('/getCart', [cartController::class, 'getCart']);
 ///////////////////////////////////products/////////////////////////////////////////////////////////
 Route::post('/uploadProductPic', [productsController::class, 'uploadProductPic']);
 Route::post('/deleteProductImage', [productsController::class, 'deleteProductImage']);
@@ -42,6 +46,7 @@ Route::get('/getColorInventory/{id}', [productsController::class, 'getColorInven
 Route::get('/getInventory/{id}', [productsController::class, 'getInventory']);
 Route::post('/updateSizes', [productsController::class, 'updateSizes']);
 Route::post('/publishProduct', [productsController::class, 'publishProduct']);
+Route::get('/productsByCategory/{id}', [productsController::class, 'productsByCategory']);
 //////////////////////////////////auth//////////////////////////////////////////////////////////////
 Route::post('/registerUser', [registerUsersController::class, 'registerUser']);
 Route::post('/verifyOTP', [registerUsersController::class, 'verifyOTP']);
@@ -52,9 +57,10 @@ Route::post('/resendOTP', [registerUsersController::class, 'resendOTP']);
 ////////////////////////////////////Categories//////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getMainCategories', [categoriesController::class, 'getMainCategories']);
 Route::middleware('auth:sanctum')->get('/getSubCategories', [categoriesController::class, 'getSubCategories']);
-Route::middleware('auth:sanctum')->get('/showSubCategories/{id}', [categoriesController::class, 'showSubCategories']);
+Route::get('/showSubCategories/{id}', [categoriesController::class, 'showSubCategories']);
 Route::middleware('auth:sanctum')->post('/uploadSubPic', [categoriesController::class, 'uploadSubPic']);
 Route::middleware('auth:sanctum')->get('/chooseSubCategories', [categoriesController::class, 'chooseSubCategories']);
+Route::get('/getCatByName/{name}', [categoriesController::class, 'getCatByName']);
 ///////////////socialites///////////////////////////////////////////////////////////////////////////
 Route::get('/auth/google/redirect', [socialiteController::class, 'google_redirect']);
  
@@ -74,5 +80,8 @@ Route::any('/admin/editProduct/{slug}', function () {
     return view('home');
 });
 Route::any('{slug}/shopByCategory', function () {
+    return view('home');
+});
+Route::any('{slug}/shopByCategory/{slug2}', function () {
     return view('home');
 });

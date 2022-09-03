@@ -252,7 +252,11 @@ ul ul a {
     height: auto
 }
 .color-choice{
-    border: solid 5px;
-    border-color: #000;
+    border: solid 3px;
+    border-color: rgb(51, 51, 51);
     cursor: pointer;
+}
+.size-choice{
+    background-color: #bf7f25;
+    color: white;
 }

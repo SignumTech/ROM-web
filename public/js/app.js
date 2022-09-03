@@ -10789,9 +10789,12 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {};
   },
+  props: ['item'],
   methods: {
-    detailsModal: function detailsModal() {
-      this.$modal.show(_productDetailsModal_vue__WEBPACK_IMPORTED_MODULE_0__["default"], {}, {
+    detailsModal: function detailsModal(id) {
+      this.$modal.show(_productDetailsModal_vue__WEBPACK_IMPORTED_MODULE_0__["default"], {
+        "id": id
+      }, {
         "height": "auto",
         "width": "900px"
       }, {});
@@ -10812,6 +10815,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -10845,15 +10856,129 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['id'],
+  data: function data() {
+    return {
+      product: {},
+      pictures: {
+        main: ""
+      },
+      productIdentity: {},
+      colors: {},
+      sizes: {},
+      currentColor: '',
+      currentSize: '',
+      main: '',
+      sizeError: false
+    };
+  },
+  mounted: function mounted() {
+    this.getProduct();
+    this.getInventory();
+  },
+  methods: {
+    addToBag: function addToBag() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!(_this.currentSize == '')) {
+                  _context.next = 4;
+                  break;
+                }
+
+                _this.sizeError = true;
+                _context.next = 6;
+                break;
+
+              case 4:
+                _context.next = 6;
+                return axios.post('/addToCart', {
+                  product: _this.product,
+                  color: _this.currentColor,
+                  size: _this.currentSize
+                }).then(function (response) {
+                  console.log(response.data);
+                });
+
+              case 6:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    makeMain: function makeMain(pic) {
+      this.main = pic;
+    },
+    makeCurrentColor: function makeCurrentColor(color) {
+      this.currentColor = color;
+      this.currentSize = '';
+      this.main = this.pictures[this.currentColor][0];
+    },
+    makeCurrentSize: function makeCurrentSize(size) {
+      this.currentSize = size;
+    },
+    getProduct: function getProduct() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return axios.get('/products/' + _this2.id).then(function (response) {
+                  _this2.product = response.data;
+                  _this2.pictures = JSON.parse(_this2.product.p_image);
+                  _this2.colors = JSON.parse(response.data.color);
+                  _this2.currentColor = _this2.colors[0];
+                  _this2.productIdentity = {
+                    p_name: response.data.p_name,
+                    cat_id: response.data.cat_id,
+                    price: response.data.price,
+                    brand: response.data.brand_id,
+                    description: response.data.description
+                  };
+                  _this2.main = _this2.pictures[_this2.currentColor][0];
+                });
+
+              case 2:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    getInventory: function getInventory() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return axios.get('/getInventory/' + _this3.id).then(function (response) {
+                  _this3.sizes = response.data;
+                });
+
+              case 2:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    }
+  }
+});
 
 /***/ }),
 
@@ -10869,27 +10994,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _productCard_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./productCard.vue */ "./resources/js/components/home/productCard.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -10960,6 +11072,57 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     productCard: _productCard_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  data: function data() {
+    return {
+      items: {}
+    };
+  },
+  mounted: function mounted() {
+    this.getCatProducts();
+    this.getCart();
+  },
+  methods: {
+    getCart: function getCart() {
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return axios.post('/getCart').then(function (response) {
+                  console.log(response.data);
+                });
+
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    getCatProducts: function getCatProducts() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return axios.get('/productsByCategory/' + _this.$route.params.id).then(function (response) {
+                  _this.items = response.data;
+                });
+
+              case 2:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    }
   }
 });
 
@@ -10977,138 +11140,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _hero_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./hero.vue */ "./resources/js/components/home/hero.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -11140,10 +11179,63 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     hero: _hero_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
+  mounted: function mounted() {
+    this.getCatByName();
+  },
   data: function data() {
     return {
+      cat_id: {},
+      categories: {},
       heroImage: "/storage/settings/front.jpg"
     };
+  },
+  methods: {
+    getCatByName: function getCatByName() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var name;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                name = "WOMEN";
+                _context.next = 3;
+                return axios.get('/getCatByName/' + name).then(function (response) {
+                  _this.cat_id = response.data.id;
+
+                  _this.getCategories();
+                });
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    getCategories: function getCategories() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return axios.get('/showSubCategories/' + _this2.cat_id).then(function (response) {
+                  _this2.categories = response.data;
+                });
+
+              case 2:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    }
   }
 });
 
@@ -11844,98 +11936,92 @@ var routes = [{
 }, {
   path: '/women',
   component: _components_main_women_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
-  name: 'Women',
   children: [{
     path: '/',
     component: _components_home_womenHome_vue__WEBPACK_IMPORTED_MODULE_14__["default"],
     name: 'WomenHome'
   }, {
-    path: '/women/shopByCategory',
+    path: '/women/shopByCategory/:id',
     component: _components_home_shopByCategory_vue__WEBPACK_IMPORTED_MODULE_13__["default"],
-    name: 'ShopByCategory'
+    name: 'WomenCat',
+    props: true
   }]
 }, {
   path: '/men',
   component: _components_main_men_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
-  name: 'Men',
   children: [{
     path: '/',
     component: _components_home_menHome_vue__WEBPACK_IMPORTED_MODULE_15__["default"],
     name: 'MenHome'
   }, {
-    path: '/men/shopByCategory',
+    path: '/men/shopByCategory/:id',
     component: _components_home_shopByCategory_vue__WEBPACK_IMPORTED_MODULE_13__["default"],
-    name: 'ShopByCategory',
+    name: 'MenCat',
     props: true
   }]
 }, {
   path: '/kids',
   component: _components_main_kids_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
-  name: 'Kids',
   children: [{
     path: '/',
     component: _components_home_kidsHome_vue__WEBPACK_IMPORTED_MODULE_17__["default"],
     name: 'KidsHome'
   }, {
-    path: '/kids/shopByCategory',
+    path: '/kids/shopByCategory/:id',
     component: _components_home_shopByCategory_vue__WEBPACK_IMPORTED_MODULE_13__["default"],
-    name: 'ShopByCategory',
+    name: 'KidsCat',
     props: true
   }]
 }, {
   path: '/curvePlus',
   component: _components_main_curvePlus_vue__WEBPACK_IMPORTED_MODULE_10__["default"],
-  name: 'CurvePlus',
   children: [{
     path: '/',
     component: _components_home_curveHome_vue__WEBPACK_IMPORTED_MODULE_16__["default"],
     name: 'CurveHome'
   }, {
-    path: '/curvePlus/shopByCategory',
+    path: '/curvePlus/shopByCategory/:id',
     component: _components_home_shopByCategory_vue__WEBPACK_IMPORTED_MODULE_13__["default"],
-    name: 'ShopByCategory',
+    name: 'CurveCat',
     props: true
   }]
 }, {
   path: '/beauty',
   component: _components_main_beauty_vue__WEBPACK_IMPORTED_MODULE_11__["default"],
-  name: 'Beauty',
   children: [{
     path: '/',
     component: _components_home_beautyHome_vue__WEBPACK_IMPORTED_MODULE_20__["default"],
     name: 'BeautyHome'
   }, {
-    path: '/beauty/shopByCategory',
+    path: '/beauty/shopByCategory/:id',
     component: _components_home_shopByCategory_vue__WEBPACK_IMPORTED_MODULE_13__["default"],
-    name: 'ShopByCategory',
+    name: 'BeautyCat',
     props: true
   }]
 }, {
   path: '/home',
   component: _components_main_home_vue__WEBPACK_IMPORTED_MODULE_9__["default"],
-  name: 'Home',
   children: [{
     path: '/',
     component: _components_home_homesHome_vue__WEBPACK_IMPORTED_MODULE_18__["default"],
-    name: 'HomesHome'
+    name: 'HomeHome'
   }, {
-    path: '/home/shopByCategory',
+    path: '/home/shopByCategory/:id',
     component: _components_home_shopByCategory_vue__WEBPACK_IMPORTED_MODULE_13__["default"],
-    name: 'ShopByCategory',
+    name: 'HomeCat',
     props: true
   }]
 }, {
   path: '/africanClothing',
   component: _components_main_africanClothing_vue__WEBPACK_IMPORTED_MODULE_12__["default"],
-  name: 'AfricanClothing',
   children: [{
     path: '/',
     component: _components_home_africanHome_vue__WEBPACK_IMPORTED_MODULE_19__["default"],
     name: 'AfricanHome'
   }, {
-    path: '/africanClothing/shopByCategory',
+    path: '/africanClothing/shopByCategory/:id',
     component: _components_home_shopByCategory_vue__WEBPACK_IMPORTED_MODULE_13__["default"],
-    name: 'ShopByCategory',
+    name: 'AfricanCat',
     props: true
   }]
 }, {
@@ -43304,7 +43390,15 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row m-0 show-add-btn" }, [
-    _vm._m(0),
+    _c("div", { staticClass: "col-12 text-center" }, [
+      _c("img", {
+        staticClass: "img img-fluid",
+        attrs: {
+          src: "/storage/products/" + JSON.parse(_vm.item.p_image)["main"],
+          alt: "",
+        },
+      }),
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "col-md-12 text-center" }, [
       _c("span", { staticClass: "add-cart" }, [
@@ -43314,7 +43408,7 @@ var render = function () {
             staticClass: "btn btn-light rounded-1 ps-4 pe-4 shadow",
             on: {
               click: function ($event) {
-                return _vm.detailsModal()
+                return _vm.detailsModal(_vm.item.id)
               },
             },
           },
@@ -43323,43 +43417,20 @@ var render = function () {
       ]),
     ]),
     _vm._v(" "),
-    _vm._m(1),
+    _c("div", { staticClass: "col-12 mt-1 mb-0" }, [
+      _c("h6", { staticClass: "mb-0" }, [_vm._v(_vm._s(_vm.item.p_name))]),
+    ]),
     _vm._v(" "),
-    _vm._m(2),
+    _c("div", { staticClass: "col-8 mt-1 mb-0" }, [
+      _c("h5", { staticClass: "mb-0" }, [
+        _c("strong", [_vm._v(_vm._s(_vm.item.price) + " Birr")]),
+      ]),
+    ]),
     _vm._v(" "),
-    _vm._m(3),
+    _vm._m(0),
   ])
 }
 var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-12 text-center" }, [
-      _c("img", {
-        staticClass: "img img-fluid",
-        attrs: { src: "/storage/products/dress_3.jpg", alt: "" },
-      }),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-12 mt-1 mb-0" }, [
-      _c("h6", { staticClass: "mb-0" }, [
-        _vm._v("Sheek orange robe dress....."),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-8 mt-1 mb-0" }, [
-      _c("h5", { staticClass: "mb-0" }, [_c("strong", [_vm._v("1,500 Birr")])]),
-    ])
-  },
   function () {
     var _vm = this
     var _h = _vm.$createElement
@@ -43393,148 +43464,146 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "row m-0 p-4" }, [
+    _c(
+      "div",
+      { staticClass: "col-md-1 p-0" },
+      _vm._l(_vm.pictures[_vm.currentColor], function (pic) {
+        return _c("div", { key: pic, staticClass: "row" }, [
+          _c("div", { staticClass: "col-md-12" }, [
+            _c("img", {
+              class:
+                pic == _vm.main
+                  ? "img img-fluid mt-2 color-choice"
+                  : "img img-fluid mt-2",
+              staticStyle: { cursor: "pointer" },
+              attrs: { src: "/storage/productsThumb/" + pic, alt: "" },
+              on: {
+                click: function ($event) {
+                  return _vm.makeMain(pic)
+                },
+              },
+            }),
+          ]),
+        ])
+      }),
+      0
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-md-5" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-12" }, [
+          _c("img", {
+            staticClass: "img img-fluid mt-2",
+            attrs: { src: "/storage/products/" + _vm.main, alt: "" },
+          }),
+        ]),
+      ]),
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "col-md-6" },
+      [
+        _c("h5", { staticClass: "mb-0 mt-2" }, [
+          _c("strong", [_vm._v(_vm._s(_vm.product.p_name) + " ")]),
+        ]),
+        _vm._v(" "),
+        _c("h6", { staticClass: "mb-0 mt-2" }, [
+          _vm._v(_vm._s(_vm.product.description)),
+        ]),
+        _vm._v(" "),
+        _c("h2", { staticClass: "mt-3" }, [
+          _c("strong", [_vm._v(_vm._s(_vm.product.price) + " Birr")]),
+        ]),
+        _vm._v(" "),
+        _c("hr", { staticClass: "mt-3" }),
+        _vm._v(" "),
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "h5",
+          _vm._l(_vm.colors, function (color) {
+            return _c(
+              "span",
+              {
+                key: color.id,
+                class:
+                  _vm.currentColor == color
+                    ? "hov-color badge rounded-1 p-2 shadow-sm m-1 color-choice"
+                    : "hov-color badge rounded-1 p-2 shadow m-1",
+                style: { backgroundColor: color },
+                on: {
+                  click: function ($event) {
+                    return _vm.makeCurrentColor(color)
+                  },
+                },
+              },
+              [_c("h5", { staticClass: "m-0" })]
+            )
+          }),
+          0
+        ),
+        _vm._v(" "),
+        _vm._m(1),
+        _vm._v(" "),
+        _vm._l(_vm.sizes[_vm.currentColor], function (size) {
+          return _c(
+            "span",
+            {
+              key: size.id,
+              class:
+                _vm.currentSize == size["size"]
+                  ? "hov-main badge rounded-1 p-2 shadow-sm m-1 size-choice"
+                  : "hov-main badge rounded-1 p-2 shadow-sm m-1",
+              on: {
+                click: function ($event) {
+                  return _vm.makeCurrentSize(size["size"])
+                },
+              },
+            },
+            [_c("h5", { staticClass: "m-0" }, [_vm._v(_vm._s(size["size"]))])]
+          )
+        }),
+        _vm._v(" "),
+        _vm.sizeError
+          ? _c("h6", { staticClass: "text-danger mt-1" }, [
+              _vm._v("Please choose a size before add to bag."),
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary form-control rounded-1 mt-4",
+            on: {
+              click: function ($event) {
+                return _vm.addToBag()
+              },
+            },
+          },
+          [
+            _c("span", { staticClass: "fa fa-shopping-bag" }),
+            _vm._v(" ADD TO BAG"),
+          ]
+        ),
+      ],
+      2
+    ),
+  ])
 }
 var staticRenderFns = [
   function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row m-0 p-4" }, [
-      _c("div", { staticClass: "col-6 ps-0" }, [
-        _c("div", { staticClass: "row m-0" }, [
-          _c("div", { staticClass: "col-md-2 p-0" }, [
-            _c("img", {
-              staticClass: "img img-fluid mt-2",
-              attrs: { src: "/storage/products/dress_3.jpg", alt: "" },
-            }),
-            _vm._v(" "),
-            _c("img", {
-              staticClass: "img img-fluid mt-2",
-              attrs: { src: "/storage/products/dress_3.jpg", alt: "" },
-            }),
-            _vm._v(" "),
-            _c("img", {
-              staticClass: "img img-fluid mt-2",
-              attrs: { src: "/storage/products/dress_3.jpg", alt: "" },
-            }),
-            _vm._v(" "),
-            _c("img", {
-              staticClass: "img img-fluid mt-2",
-              attrs: { src: "/storage/products/dress_3.jpg", alt: "" },
-            }),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-10" }, [
-            _c("img", {
-              staticClass: "img img-fluid mt-2",
-              attrs: { src: "/storage/products/dress_3.jpg", alt: "" },
-            }),
-          ]),
-        ]),
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-6 pe-0" }, [
-        _c("h5", { staticClass: "mb-0 mt-2" }, [
-          _vm._v("Puff Sleeve Tie Front Shirred Waist Ruffle Hem Dress"),
-        ]),
-        _vm._v(" "),
-        _c("h2", { staticClass: "mt-4" }, [
-          _c("strong", [_vm._v("1,5000 Birr")]),
-        ]),
-        _vm._v(" "),
-        _c("hr", { staticClass: "mt-4" }),
-        _vm._v(" "),
-        _c("h5", { staticClass: "mt-5" }, [_c("strong", [_vm._v("Sizes")])]),
-        _vm._v(" "),
-        _c(
-          "span",
-          { staticClass: "hov-main badge rounded-1 p-2 shadow-sm m-1" },
-          [_c("h5", { staticClass: "m-0" }, [_vm._v("XS")])]
-        ),
-        _vm._v(" "),
-        _c(
-          "span",
-          { staticClass: "hov-main badge rounded-1 p-2 shadow-sm m-1" },
-          [_c("h5", { staticClass: "m-0" }, [_vm._v("S")])]
-        ),
-        _vm._v(" "),
-        _c(
-          "span",
-          { staticClass: "hov-main badge rounded-1 p-2 shadow-sm m-1" },
-          [_c("h5", { staticClass: "m-0" }, [_vm._v("M")])]
-        ),
-        _vm._v(" "),
-        _c(
-          "span",
-          { staticClass: "hov-main badge rounded-1 p-2 shadow-sm m-1" },
-          [_c("h5", { staticClass: "m-0" }, [_vm._v("L")])]
-        ),
-        _vm._v(" "),
-        _c("h5", { staticClass: "mt-5" }, [_c("strong", [_vm._v("Colors")])]),
-        _vm._v(" "),
-        _c(
-          "span",
-          { staticClass: "hov-color badge bg-danger rounded-1 p-2 shadow m-1" },
-          [_c("h5", { staticClass: "m-0" })]
-        ),
-        _vm._v(" "),
-        _c(
-          "span",
-          {
-            staticClass: "hov-color badge bg-warning rounded-1 p-2 shadow m-1",
-          },
-          [_c("h5", { staticClass: "m-0" })]
-        ),
-        _vm._v(" "),
-        _c(
-          "span",
-          { staticClass: "hov-color badge bg-dark rounded-1 p-2 shadow m-1" },
-          [_c("h5", { staticClass: "m-0" })]
-        ),
-        _vm._v(" "),
-        _c(
-          "span",
-          {
-            staticClass: "hov-color badge bg-primary rounded-1 p-2 shadow m-1",
-          },
-          [_c("h5", { staticClass: "m-0" })]
-        ),
-        _vm._v(" "),
-        _c(
-          "span",
-          {
-            staticClass: "hov-color badge bg-success rounded-1 p-2 shadow m-1",
-          },
-          [_c("h5", { staticClass: "m-0" })]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "row mt-3" }, [
-          _c("div", { staticClass: "col-md-10" }, [
-            _c(
-              "button",
-              {
-                staticClass:
-                  "btn-primary rounded-1 btn-auth form-control form-control-auth-btn",
-              },
-              [
-                _c("h5", { staticClass: "m-0" }, [
-                  _c("strong", [_vm._v("ADD TO BAG")]),
-                ]),
-              ]
-            ),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-2 align-self-center" }, [
-            _c("span", {
-              staticClass:
-                "fa fa-heart p-2 bg-white border-main text-main shadow-sm rounded-circle fs-4",
-              staticStyle: { cursor: "pointer" },
-            }),
-          ]),
-        ]),
-      ]),
-    ])
+    return _c("h5", { staticClass: "mt-3" }, [_c("strong", [_vm._v("Colors")])])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h5", { staticClass: "mt-3" }, [_c("strong", [_vm._v("Sizes")])])
   },
 ]
 render._withStripped = true
@@ -43567,23 +43636,19 @@ var render = function () {
     _vm._m(2),
     _vm._v(" "),
     _c("div", { staticClass: "col-md-10 ps-0 pe-0" }, [
-      _c("div", { staticClass: "row m-0" }, [
-        _c("div", { staticClass: "col-md-3 mt-5" }, [_c("product-card")], 1),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-3 mt-5" }, [_c("product-card")], 1),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-3 mt-5" }, [_c("product-card")], 1),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-3 mt-5" }, [_c("product-card")], 1),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-3 mt-5" }, [_c("product-card")], 1),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-3 mt-5" }, [_c("product-card")], 1),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-3 mt-5" }, [_c("product-card")], 1),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-3 mt-5" }, [_c("product-card")], 1),
-      ]),
+      _c(
+        "div",
+        { staticClass: "row m-0" },
+        _vm._l(_vm.items, function (item) {
+          return _c(
+            "div",
+            { key: item.id, staticClass: "col-md-3 mt-5" },
+            [_c("product-card", { attrs: { item: item } })],
+            1
+          )
+        }),
+        0
+      ),
     ]),
   ])
 }
@@ -43753,55 +43818,49 @@ var render = function () {
       _vm._v(" "),
       _vm._m(0),
       _vm._v(" "),
-      _c("div", { staticClass: "row m-0 ps-5 pe-5 pb-5 pt-3" }, [
-        _c(
-          "div",
-          { staticClass: "col-md-2 mt-4" },
-          [
-            _c("router-link", { attrs: { to: "/women/shopByCategory" } }, [
-              _c("div", { staticClass: "bg-white rounded-1 shadow-sm" }, [
-                _c("div", { staticClass: "row m-0" }, [
-                  _c("div", { staticClass: "col-6 ps-0 align-self-center" }, [
-                    _c("img", {
-                      staticClass: "img img-fluid",
-                      attrs: { src: "/storage/settings/dresses.jpg", alt: "" },
-                    }),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-6 align-self-center" }, [
-                    _c("h6", { staticClass: "m-0" }, [
-                      _c("strong", [_vm._v("DRESSES")]),
+      _c(
+        "div",
+        { staticClass: "row m-0 ps-5 pe-5 pb-5 pt-3" },
+        _vm._l(_vm.categories, function (category) {
+          return _c(
+            "div",
+            { key: category.id, staticClass: "col-md-2 mt-4" },
+            [
+              _c(
+                "router-link",
+                { attrs: { to: "/women/shopByCategory/" + category.id } },
+                [
+                  _c("div", { staticClass: "bg-white rounded-1 shadow-sm" }, [
+                    _c("div", { staticClass: "row m-0" }, [
+                      _c(
+                        "div",
+                        { staticClass: "col-6 ps-0 align-self-center" },
+                        [
+                          _c("img", {
+                            staticClass: "img img-fluid",
+                            attrs: {
+                              src: "/storage/settings/" + category.cat_image,
+                              alt: "",
+                            },
+                          }),
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-6 align-self-center" }, [
+                        _c("h6", { staticClass: "m-0" }, [
+                          _c("strong", [_vm._v(_vm._s(category.cat_name))]),
+                        ]),
+                      ]),
                     ]),
                   ]),
-                ]),
-              ]),
-            ]),
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _vm._m(1),
-        _vm._v(" "),
-        _vm._m(2),
-        _vm._v(" "),
-        _vm._m(3),
-        _vm._v(" "),
-        _vm._m(4),
-        _vm._v(" "),
-        _vm._m(5),
-        _vm._v(" "),
-        _vm._m(6),
-        _vm._v(" "),
-        _vm._m(7),
-        _vm._v(" "),
-        _vm._m(8),
-        _vm._v(" "),
-        _vm._m(9),
-        _vm._v(" "),
-        _vm._m(10),
-        _vm._v(" "),
-        _vm._m(11),
-      ]),
+                ]
+              ),
+            ],
+            1
+          )
+        }),
+        0
+      ),
     ],
     1
   )
@@ -43815,257 +43874,6 @@ var staticRenderFns = [
       _c("div", { staticClass: "col-12 mt-4" }, [
         _c("h4", { staticClass: "text-center" }, [
           _c("strong", [_vm._v("Shop By Category")]),
-        ]),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-2 mt-4" }, [
-      _c("div", { staticClass: "bg-white rounded-1 shadow-sm" }, [
-        _c("div", { staticClass: "row m-0" }, [
-          _c("div", { staticClass: "col-6 ps-0 align-self-center" }, [
-            _c("img", {
-              staticClass: "img img-fluid",
-              attrs: { src: "/storage/settings/t-shirts.jpg", alt: "" },
-            }),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-6 align-self-center" }, [
-            _c("h6", { staticClass: "m-0" }, [
-              _c("strong", [_vm._v("T-SHIRTS")]),
-            ]),
-          ]),
-        ]),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-2 mt-4" }, [
-      _c("div", { staticClass: "bg-white rounded-1 shadow-sm" }, [
-        _c("div", { staticClass: "row m-0" }, [
-          _c("div", { staticClass: "col-6 ps-0 align-self-center" }, [
-            _c("img", {
-              staticClass: "img img-fluid",
-              attrs: { src: "/storage/settings/beachwear.jpg", alt: "" },
-            }),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-6 align-self-center" }, [
-            _c("h6", { staticClass: "m-0" }, [
-              _c("strong", [_vm._v("BEACH WEAR")]),
-            ]),
-          ]),
-        ]),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-2 mt-4" }, [
-      _c("div", { staticClass: "bg-white rounded-1 shadow-sm" }, [
-        _c("div", { staticClass: "row m-0" }, [
-          _c("div", { staticClass: "col-6 ps-0 align-self-center" }, [
-            _c("img", {
-              staticClass: "img img-fluid",
-              attrs: { src: "/storage/settings/tanktops.jpg", alt: "" },
-            }),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-6 align-self-center" }, [
-            _c("h6", { staticClass: "m-0" }, [
-              _c("strong", [_vm._v("TANK TOPS")]),
-            ]),
-          ]),
-        ]),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-2 mt-4" }, [
-      _c("div", { staticClass: "bg-white rounded-1 shadow-sm" }, [
-        _c("div", { staticClass: "row m-0" }, [
-          _c("div", { staticClass: "col-6 ps-0 align-self-center" }, [
-            _c("img", {
-              staticClass: "img img-fluid",
-              attrs: { src: "/storage/settings/outwear.jpg", alt: "" },
-            }),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-6 align-self-center" }, [
-            _c("h6", { staticClass: "m-0" }, [
-              _c("strong", [_vm._v("OUT WEAR")]),
-            ]),
-          ]),
-        ]),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-2 mt-4" }, [
-      _c("div", { staticClass: "bg-white rounded-1 shadow-sm" }, [
-        _c("div", { staticClass: "row m-0" }, [
-          _c("div", { staticClass: "col-6 ps-0 align-self-center" }, [
-            _c("img", {
-              staticClass: "img img-fluid",
-              attrs: { src: "/storage/settings/bottoms.jpg", alt: "" },
-            }),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-6 align-self-center" }, [
-            _c("h6", { staticClass: "m-0" }, [
-              _c("strong", [_vm._v("BOTTOMS")]),
-            ]),
-          ]),
-        ]),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-2 mt-4" }, [
-      _c("div", { staticClass: "bg-white rounded-1 shadow-sm" }, [
-        _c("div", { staticClass: "row m-0" }, [
-          _c("div", { staticClass: "col-6 ps-0 align-self-center" }, [
-            _c("img", {
-              staticClass: "img img-fluid",
-              attrs: { src: "/storage/settings/lingerie.jpg", alt: "" },
-            }),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-6 align-self-center" }, [
-            _c("h6", { staticClass: "m-0" }, [
-              _c("strong", [_vm._v("LINGERIE & LOUNGE")]),
-            ]),
-          ]),
-        ]),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-2 mt-4" }, [
-      _c("div", { staticClass: "bg-white rounded-1 shadow-sm" }, [
-        _c("div", { staticClass: "row m-0" }, [
-          _c("div", { staticClass: "col-6 ps-0 align-self-center" }, [
-            _c("img", {
-              staticClass: "img img-fluid",
-              attrs: { src: "/storage/settings/sweatshirts.jpg", alt: "" },
-            }),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-6 align-self-center" }, [
-            _c("h6", { staticClass: "m-0" }, [
-              _c("strong", [_vm._v("SWEAT SHIRTS")]),
-            ]),
-          ]),
-        ]),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-2 mt-4" }, [
-      _c("div", { staticClass: "bg-white rounded-1 shadow-sm" }, [
-        _c("div", { staticClass: "row m-0" }, [
-          _c("div", { staticClass: "col-6 ps-0 align-self-center" }, [
-            _c("img", {
-              staticClass: "img img-fluid",
-              attrs: { src: "/storage/settings/skirts.jpg", alt: "" },
-            }),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-6 align-self-center" }, [
-            _c("h6", { staticClass: "m-0" }, [
-              _c("strong", [_vm._v("SKIRTS")]),
-            ]),
-          ]),
-        ]),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-2 mt-4" }, [
-      _c("div", { staticClass: "bg-white rounded-1 shadow-sm" }, [
-        _c("div", { staticClass: "row m-0" }, [
-          _c("div", { staticClass: "col-6 ps-0 align-self-center" }, [
-            _c("img", {
-              staticClass: "img img-fluid",
-              attrs: { src: "/storage/settings/blouses.jpg", alt: "" },
-            }),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-6 align-self-center" }, [
-            _c("h6", { staticClass: "m-0" }, [
-              _c("strong", [_vm._v("BLOUSES")]),
-            ]),
-          ]),
-        ]),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-2 mt-4" }, [
-      _c("div", { staticClass: "bg-white rounded-1 shadow-sm" }, [
-        _c("div", { staticClass: "row m-0" }, [
-          _c("div", { staticClass: "col-6 ps-0 align-self-center" }, [
-            _c("img", {
-              staticClass: "img img-fluid",
-              attrs: { src: "/storage/settings/shoes.jpg", alt: "" },
-            }),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-6 align-self-center" }, [
-            _c("h6", { staticClass: "m-0" }, [_c("strong", [_vm._v("SHOES")])]),
-          ]),
-        ]),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-2 mt-4" }, [
-      _c("div", { staticClass: "bg-white rounded-1 shadow-sm" }, [
-        _c("div", { staticClass: "row m-0" }, [
-          _c("div", { staticClass: "col-6 ps-0 align-self-center" }, [
-            _c("img", {
-              staticClass: "img img-fluid",
-              attrs: { src: "/storage/settings/jewelry.jpg", alt: "" },
-            }),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-6 align-self-center" }, [
-            _c("h6", { staticClass: "m-0" }, [
-              _c("strong", [_vm._v("JEWELERY")]),
-            ]),
-          ]),
         ]),
       ]),
     ])

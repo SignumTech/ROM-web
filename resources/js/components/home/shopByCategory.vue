@@ -57,29 +57,8 @@
     </div>
     <div class="col-md-10 ps-0 pe-0">
         <div class="row m-0">
-            <div class="col-md-3 mt-5">
-                <product-card></product-card>
-            </div>
-            <div class="col-md-3 mt-5">
-                <product-card></product-card>
-            </div>
-            <div class="col-md-3 mt-5">
-                <product-card></product-card>
-            </div>
-            <div class="col-md-3 mt-5">
-                <product-card></product-card>
-            </div>
-            <div class="col-md-3 mt-5">
-                <product-card></product-card>
-            </div>
-            <div class="col-md-3 mt-5">
-                <product-card></product-card>
-            </div>
-            <div class="col-md-3 mt-5">
-                <product-card></product-card>
-            </div>
-            <div class="col-md-3 mt-5">
-                <product-card></product-card>
+            <div v-for="item in items" :key="item.id" class="col-md-3 mt-5">
+                <product-card :item="item"></product-card>
             </div>
         </div>
     </div>
@@ -90,6 +69,29 @@ import productCard from './productCard.vue';
 export default {
     components:{
         productCard
+    },
+    data(){
+        return{
+            items:{}
+        }
+    },
+    mounted(){
+        this.getCatProducts()
+        this.getCart()
+    },
+    methods:{
+        async getCart(){
+            await axios.post('/getCart')
+            .then( response => {
+                console.log(response.data)
+            })
+        },
+        async getCatProducts(){
+            await axios.get('/productsByCategory/'+this.$route.params.id)
+            .then( response =>{
+                this.items = response.data
+            })
+        }
     }
 }
 </script>

@@ -67,7 +67,6 @@ const routes = [
     {
         path: '/women',
         component: women,
-        name: 'Women',
         children: [
             {
                 path: '/',
@@ -76,9 +75,10 @@ const routes = [
                 
             }, 
             {
-                path: '/women/shopByCategory',
+                path: '/women/shopByCategory/:id',
                 component: shopByCategory,
-                name: 'ShopByCategory'
+                name: 'WomenCat',
+                props: true
                 
             }, 
         ]
@@ -86,7 +86,6 @@ const routes = [
     {
         path: '/men',
         component: men,
-        name: 'Men',
         children: [
             {
                 path: '/',
@@ -95,9 +94,9 @@ const routes = [
                 
             },
             {
-                path: '/men/shopByCategory',
+                path: '/men/shopByCategory/:id',
                 component: shopByCategory,
-                name: 'ShopByCategory',
+                name: 'MenCat',
                 props: true
             }, 
         ]
@@ -105,7 +104,6 @@ const routes = [
     {
         path: '/kids',
         component: kids,
-        name: 'Kids',
         children: [
             {
                 path: '/',
@@ -114,9 +112,9 @@ const routes = [
                 
             },
             {
-                path: '/kids/shopByCategory',
+                path: '/kids/shopByCategory/:id',
                 component: shopByCategory,
-                name: 'ShopByCategory',
+                name: 'KidsCat',
                 props: true
             }, 
         ]
@@ -124,7 +122,6 @@ const routes = [
     {
         path: '/curvePlus',
         component: curvePlus,
-        name: 'CurvePlus',
         children: [
             {
                 path: '/',
@@ -133,9 +130,9 @@ const routes = [
                 
             },
             {
-                path: '/curvePlus/shopByCategory',
+                path: '/curvePlus/shopByCategory/:id',
                 component: shopByCategory,
-                name: 'ShopByCategory',
+                name: 'CurveCat',
                 props: true
             }, 
         ]
@@ -143,7 +140,6 @@ const routes = [
     {
         path: '/beauty',
         component: beauty,
-        name: 'Beauty',
         children: [
             {
                 path: '/',
@@ -152,9 +148,9 @@ const routes = [
                 
             },
             {
-                path: '/beauty/shopByCategory',
+                path: '/beauty/shopByCategory/:id',
                 component: shopByCategory,
-                name: 'ShopByCategory',
+                name: 'BeautyCat',
                 props: true
             }, 
         ]
@@ -162,18 +158,17 @@ const routes = [
     {
         path: '/home',
         component: home,
-        name: 'Home',
         children: [
             {
                 path: '/',
                 component: homesHome,
-                name: 'HomesHome'
+                name: 'HomeHome'
                 
             },
             {
-                path: '/home/shopByCategory',
+                path: '/home/shopByCategory/:id',
                 component: shopByCategory,
-                name: 'ShopByCategory',
+                name: 'HomeCat',
                 props: true
             }, 
         ]
@@ -181,7 +176,6 @@ const routes = [
     {
         path: '/africanClothing',
         component: africanClothing,
-        name: 'AfricanClothing',
         children: [
             {
                 path: '/',
@@ -190,9 +184,9 @@ const routes = [
                 
             },
             {
-                path: '/africanClothing/shopByCategory',
+                path: '/africanClothing/shopByCategory/:id',
                 component: shopByCategory,
-                name: 'ShopByCategory',
+                name: 'AfricanCat',
                 props: true
             }, 
         ]

@@ -1,18 +1,18 @@
 <template>
 <div class="row m-0 show-add-btn">
     <div class="col-12  text-center">
-        <img class="img img-fluid" src="/storage/products/dress_3.jpg" alt="">
+        <img class="img img-fluid" :src="`/storage/products/`+JSON.parse(item.p_image)['main']" alt="">
     </div>
     <div class="col-md-12 text-center">
         <span class="add-cart">
-            <button @click="detailsModal()" class="btn btn-light rounded-1 ps-4 pe-4 shadow"><strong>ADD TO BAG</strong></button>
+            <button @click="detailsModal(item.id)" class="btn btn-light rounded-1 ps-4 pe-4 shadow"><strong>ADD TO BAG</strong></button>
         </span>
     </div>
     <div class="col-12 mt-1 mb-0">
-        <h6 class="mb-0">Sheek orange robe dress.....</h6>
+        <h6 class="mb-0">{{item.p_name}}</h6>
     </div>
     <div class="col-8 mt-1 mb-0">
-        <h5 class="mb-0"><strong>1,500 Birr</strong></h5>
+        <h5 class="mb-0"><strong>{{item.price}} Birr</strong></h5>
     </div>
     <div class="col-4 mt-1 mb-0">
         <h5 class="float-end mb-0"><span class="fa fa-heart "></span></h5>
@@ -27,11 +27,12 @@ export default {
 
         }
     },
+    props:['item'],
     methods:{
-        detailsModal(){
+        detailsModal(id){
             this.$modal.show(
                 productDetailsModal,
-                {},
+                {"id":id},
                 { "height" : "auto", "width" : "900px"},
                 {}
             )
