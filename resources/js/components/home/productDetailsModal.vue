@@ -52,6 +52,12 @@ export default {
         this.getInventory()
     },
     methods:{
+        async getCart(){
+            await axios.post('/getCart')
+            .then( response => {
+                this.$store.state.auth.cart = JSON.parse(response.data.items)
+            })
+        },
         async addToBag(){
             if(this.currentSize == ''){
                 this.sizeError = true
@@ -59,7 +65,14 @@ export default {
             else{
                 await axios.post('/addToCart', {product:this.product,color:this.currentColor,size:this.currentSize})
                 .then( response =>{
-                    console.log(response.data)
+                    this.getCart()
+                    this.$notify({
+                        group: 'foo',
+                        type: 'success',
+                        title: 'Item add to bag!',
+                        text: 'Your item was added to your shopping bag.'
+                    });
+                    this.$emit('close')
                 })
             }
         },

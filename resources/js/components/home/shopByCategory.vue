@@ -77,15 +77,9 @@ export default {
     },
     mounted(){
         this.getCatProducts()
-        this.getCart()
+
     },
     methods:{
-        async getCart(){
-            await axios.post('/getCart')
-            .then( response => {
-                console.log(response.data)
-            })
-        },
         async getCatProducts(){
             await axios.get('/productsByCategory/'+this.$route.params.id)
             .then( response =>{

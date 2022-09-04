@@ -6,7 +6,8 @@ export default({
     state: {
       authenticated: false,
       user: null,
-      permissions: null
+      permissions: null,
+      cart: {}
     },
   
     getters: {

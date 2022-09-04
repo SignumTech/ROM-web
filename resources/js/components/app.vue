@@ -43,7 +43,7 @@
                             </ul>
                         </li>
                         <li class="nav-item  me-4">
-                            <router-link class="nav-link nav-link-main" to="/"><h5 class="m-0"><span class="fa fa-shopping-bag"></span></h5></router-link>
+                            <router-link class="nav-link nav-link-main" to="/"><h5 class="m-0"><span class="fa fa-shopping-bag"></span> <span class="fs-6">{{$store.state.auth.cart.length}}</span></h5></router-link>
                         </li>
                         <li class="nav-item">
                             <router-link class="nav-link nav-link-main" to="/"><h5 class="m-0"><span class="fa fa-heart"></span></h5></router-link>
@@ -76,11 +76,19 @@ export default {
         }
     },
     mounted() {
+        this.getCart()
         this.authenticated = this.$store.state.auth.authenticated
         this.user = this.$store.state.auth.user
         feather.replace();
+        
     },
     methods:{
+        async getCart(){
+            await axios.post('/getCart')
+            .then( response => {
+                this.$store.state.auth.cart = JSON.parse(response.data.items)
+            })
+        },
         logout: function(){
             axios.post("logout").then(response => { 
                 window.location.replace("/signin");
