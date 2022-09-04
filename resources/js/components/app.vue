@@ -46,10 +46,32 @@
                             <a class="nav-link nav-link-main dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                                 <h5 class="m-0"><span class="fa fa-shopping-bag"></span> <span class="fs-6">{{$store.state.auth.cart.length}}</span></h5>
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><button class="dropdown-item" type="button">Action</button></li>
-                                <li><button class="dropdown-item" type="button">Another action</button></li>
-                                <li><button class="dropdown-item" type="button">Something else here</button></li>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="width:400px">
+                                
+                                <div v-for="cart in $store.state.auth.cart" :key="cart.id" class="row m-0 p-2">
+                                    <div class="col-md-3">
+                                        <img class="img img-fluid" :src="`/storage/productsThumb/`+cart.p_image" alt="" style="">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <p class="m-0">{{cart.p_name}}</p>
+                                        <p class="m-0">Color - <span class="badge rounded-pill"  :style="{backgroundColor:cart.color}">{{cart.color}}</span></p>
+                                        <p class="m-0">Size - {{cart.size}}</p>
+                                        <h5 class="mt-2"><strong>{{cart.price}} Birr</strong></h5>
+                                    </div>
+                                </div>
+                            
+                                <div class="row m-0 p-2">
+                                    <div class="col-md-12">
+                                        <h5 class="text-end">Total: <strong>{{sumPrice($store.state.auth.cart)}} Birr</strong></h5>
+                                    </div>
+                                </div>
+                                <div class="row m-0 p-2">
+                                    <div class="col-md-12">
+                                        <button class="btn btn-primary form-control rounded-1" type="button"><h5 class="m-0"><strong>VIEW BAG</strong></h5> </button>
+                                    </div>
+                                    
+                                </div>
+                                
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -90,6 +112,13 @@ export default {
         
     },
     methods:{
+        sumPrice(cart){
+            var sum = 0;
+            cart.forEach(function(c){
+                sum = sum + c.price
+            })
+            return sum;
+        },
         async getCart(){
             await axios.post('/getCart')
             .then( response => {

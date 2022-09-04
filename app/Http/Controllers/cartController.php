@@ -17,7 +17,10 @@ class cartController extends Controller
         ]);
         if (Auth::check()) {
             $product = [];
-            $product['p_name'] = $request->produc['p_name'];
+            $product['p_name'] = $request->product['p_name'];
+            $color = $request['color'];
+
+            $product['p_image'] = json_decode($request->product['p_image'])->$color[0];
             $product['price'] = $request->product['price'];
             $product['p_id'] = $request->product['id'];
             $product['color'] = $request['color'];
@@ -37,8 +40,10 @@ class cartController extends Controller
                     return $cart;
                 }
                 else{
+                    $data = [];
+                    array_push($data,$product);
                     $cart = new Cart;
-                    $cart->items = json_encode($cartData);
+                    $cart->items = json_encode($data);
                     $cart->user_id = auth()->user()->id;
                     $cart->save();
                     $request->session()->forget('cart');
@@ -57,8 +62,10 @@ class cartController extends Controller
                     return $cart;
                 }
                 else{
+                    $data = [];
+                    array_push($data,$product);
                     $cart = new Cart;
-                    $cart->items = json_encode($product);
+                    $cart->items = json_encode($data);
                     $cart->user_id = auth()->user()->id;
                     $cart->save();
                     return $cart;
@@ -69,6 +76,9 @@ class cartController extends Controller
             if($request->session()->has('cart')) {
                 $product = [];
                 $product['p_name'] = $request->product['p_name'];
+                $color = $request['color'];
+
+                $product['p_image'] = json_decode($request->product['p_image'])->$color[0];
                 $product['price'] = $request->product['price'];
                 $product['p_id'] = $request->product['id'];
                 $product['color'] = $request['color'];
@@ -84,6 +94,9 @@ class cartController extends Controller
                 $product = [];
                 
                 $product['p_name'] = $request->product['p_name'];
+                $color = $request['color'];
+                
+                $product['p_image'] = json_decode($request->product['p_image'])->$color[0];
                 $product['price'] = $request->product['price'];
                 $product['p_id'] = $request->product['id'];
                 $product['color'] = $request['color'];

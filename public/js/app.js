@@ -9632,6 +9632,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -9650,6 +9672,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     feather.replace();
   },
   methods: {
+    sumPrice: function sumPrice(cart) {
+      var sum = 0;
+      cart.forEach(function (c) {
+        sum = sum + c.price;
+      });
+      return sum;
+    },
     getCart: function getCart() {
       var _this = this;
 
@@ -41751,7 +41780,127 @@ var render = function () {
                                   ]
                                 ),
                                 _vm._v(" "),
-                                _vm._m(5),
+                                _c(
+                                  "ul",
+                                  {
+                                    staticClass: "dropdown-menu",
+                                    staticStyle: { width: "400px" },
+                                    attrs: {
+                                      "aria-labelledby": "navbarDropdown",
+                                    },
+                                  },
+                                  [
+                                    _vm._l(
+                                      _vm.$store.state.auth.cart,
+                                      function (cart) {
+                                        return _c(
+                                          "div",
+                                          {
+                                            key: cart.id,
+                                            staticClass: "row m-0 p-2",
+                                          },
+                                          [
+                                            _c(
+                                              "div",
+                                              { staticClass: "col-md-3" },
+                                              [
+                                                _c("img", {
+                                                  staticClass: "img img-fluid",
+                                                  attrs: {
+                                                    src:
+                                                      "/storage/productsThumb/" +
+                                                      cart.p_image,
+                                                    alt: "",
+                                                  },
+                                                }),
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "div",
+                                              { staticClass: "col-md-8" },
+                                              [
+                                                _c(
+                                                  "p",
+                                                  { staticClass: "m-0" },
+                                                  [_vm._v(_vm._s(cart.p_name))]
+                                                ),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "p",
+                                                  { staticClass: "m-0" },
+                                                  [
+                                                    _vm._v("Color - "),
+                                                    _c(
+                                                      "span",
+                                                      {
+                                                        staticClass:
+                                                          "badge rounded-pill",
+                                                        style: {
+                                                          backgroundColor:
+                                                            cart.color,
+                                                        },
+                                                      },
+                                                      [
+                                                        _vm._v(
+                                                          _vm._s(cart.color)
+                                                        ),
+                                                      ]
+                                                    ),
+                                                  ]
+                                                ),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "p",
+                                                  { staticClass: "m-0" },
+                                                  [
+                                                    _vm._v(
+                                                      "Size - " +
+                                                        _vm._s(cart.size)
+                                                    ),
+                                                  ]
+                                                ),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "h5",
+                                                  { staticClass: "mt-2" },
+                                                  [
+                                                    _c("strong", [
+                                                      _vm._v(
+                                                        _vm._s(cart.price) +
+                                                          " Birr"
+                                                      ),
+                                                    ]),
+                                                  ]
+                                                ),
+                                              ]
+                                            ),
+                                          ]
+                                        )
+                                      }
+                                    ),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "row m-0 p-2" }, [
+                                      _c("div", { staticClass: "col-md-12" }, [
+                                        _c("h5", { staticClass: "text-end" }, [
+                                          _vm._v("Total: "),
+                                          _c("strong", [
+                                            _vm._v(
+                                              _vm._s(
+                                                _vm.sumPrice(
+                                                  _vm.$store.state.auth.cart
+                                                )
+                                              ) + " Birr"
+                                            ),
+                                          ]),
+                                        ]),
+                                      ]),
+                                    ]),
+                                    _vm._v(" "),
+                                    _vm._m(5),
+                                  ],
+                                  2
+                                ),
                               ]
                             ),
                             _vm._v(" "),
@@ -41877,38 +42026,22 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "ul",
-      {
-        staticClass: "dropdown-menu",
-        attrs: { "aria-labelledby": "navbarDropdown" },
-      },
-      [
-        _c("li", [
-          _c(
-            "button",
-            { staticClass: "dropdown-item", attrs: { type: "button" } },
-            [_vm._v("Action")]
-          ),
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c(
-            "button",
-            { staticClass: "dropdown-item", attrs: { type: "button" } },
-            [_vm._v("Another action")]
-          ),
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _c(
-            "button",
-            { staticClass: "dropdown-item", attrs: { type: "button" } },
-            [_vm._v("Something else here")]
-          ),
-        ]),
-      ]
-    )
+    return _c("div", { staticClass: "row m-0 p-2" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary form-control rounded-1",
+            attrs: { type: "button" },
+          },
+          [
+            _c("h5", { staticClass: "m-0" }, [
+              _c("strong", [_vm._v("VIEW BAG")]),
+            ]),
+          ]
+        ),
+      ]),
+    ])
   },
 ]
 render._withStripped = true
