@@ -9625,6 +9625,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -41714,13 +41719,14 @@ var render = function () {
                             _vm._v(" "),
                             _c(
                               "li",
-                              { staticClass: "nav-item me-4" },
+                              { staticClass: "nav-item me-4 dropdown" },
                               [
                                 _c(
-                                  "router-link",
+                                  "a",
                                   {
-                                    staticClass: "nav-link nav-link-main",
-                                    attrs: { to: "/" },
+                                    staticClass:
+                                      "nav-link nav-link-main dropdown-toggle",
+                                    attrs: { href: "#" },
                                   },
                                   [
                                     _c("h5", { staticClass: "m-0" }, [
@@ -41738,8 +41744,24 @@ var render = function () {
                                     ]),
                                   ]
                                 ),
-                              ],
-                              1
+                                _vm._v(" "),
+                                _c(
+                                  "ul",
+                                  {
+                                    staticClass: "dropdown-menu",
+                                    attrs: {
+                                      "aria-labelledby": "navbarDropdown",
+                                    },
+                                  },
+                                  [
+                                    _vm._m(5),
+                                    _vm._v(" "),
+                                    _vm._m(6),
+                                    _vm._v(" "),
+                                    _vm.authenticated ? _c("li") : _vm._e(),
+                                  ]
+                                ),
+                              ]
                             ),
                             _vm._v(" "),
                             _c(
@@ -41843,6 +41865,22 @@ var staticRenderFns = [
         ]),
       ]
     )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [_c("hr", { staticClass: "dropdown-divider" })])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+        _vm._v("My orders"),
+      ]),
+    ])
   },
   function () {
     var _vm = this

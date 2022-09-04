@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\registerUsersController;
 use App\Http\Controllers\getTokenController;
 use App\Http\Controllers\categoriesController;
+use App\Http\Controllers\productsController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,7 +18,7 @@ use App\Http\Controllers\categoriesController;
 */
 Auth::routes();
 ////////////////////////////////////Products////////////////////////////////////////////////////////
-
+Route::get('/productsByCategory/{id}', [productsController::class, 'productsByCategory']);
 ////////////////////////////////////Categories//////////////////////////////////////////////////////
 Route::get('/getMainCategories', [categoriesController::class, 'getMainCategories']);
 Route::get('/getSubCategories', [categoriesController::class, 'getSubCategories']);
