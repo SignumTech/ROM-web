@@ -66,6 +66,12 @@ a:hover{
 }
 .dropdown:hover .dropdown-menu{
     display: block;
+    right: 0;
+    left: auto;
+}
+.show{
+    right: 0 !important;
+    left: auto !important;
 }
 .dropdown-menu{
     margin-top: 0;

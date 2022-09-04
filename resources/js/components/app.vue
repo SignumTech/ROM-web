@@ -42,12 +42,14 @@
                                 <li v-if="authenticated"><a class="dropdown-item" @click="logout()" style="cursor:pointer">Sign out</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item  me-4 dropdown">
-                            <a class="nav-link nav-link-main dropdown-toggle" href="#"><h5 class="m-0"><span class="fa fa-shopping-bag"></span> <span class="fs-6">{{$store.state.auth.cart.length}}</span></h5></a>
+                        <li class="nav-item me-4 dropdown">
+                            <a class="nav-link nav-link-main dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                <h5 class="m-0"><span class="fa fa-shopping-bag"></span> <span class="fs-6">{{$store.state.auth.cart.length}}</span></h5>
+                            </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">My orders</a></li>
-                                <li v-if="authenticated"></li>
+                                <li><button class="dropdown-item" type="button">Action</button></li>
+                                <li><button class="dropdown-item" type="button">Another action</button></li>
+                                <li><button class="dropdown-item" type="button">Something else here</button></li>
                             </ul>
                         </li>
                         <li class="nav-item">

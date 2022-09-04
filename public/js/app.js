@@ -9630,6 +9630,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -41726,7 +41728,11 @@ var render = function () {
                                   {
                                     staticClass:
                                       "nav-link nav-link-main dropdown-toggle",
-                                    attrs: { href: "#" },
+                                    attrs: {
+                                      href: "#",
+                                      role: "button",
+                                      "data-bs-toggle": "dropdown",
+                                    },
                                   },
                                   [
                                     _c("h5", { staticClass: "m-0" }, [
@@ -41745,22 +41751,7 @@ var render = function () {
                                   ]
                                 ),
                                 _vm._v(" "),
-                                _c(
-                                  "ul",
-                                  {
-                                    staticClass: "dropdown-menu",
-                                    attrs: {
-                                      "aria-labelledby": "navbarDropdown",
-                                    },
-                                  },
-                                  [
-                                    _vm._m(5),
-                                    _vm._v(" "),
-                                    _vm._m(6),
-                                    _vm._v(" "),
-                                    _vm.authenticated ? _c("li") : _vm._e(),
-                                  ]
-                                ),
+                                _vm._m(5),
                               ]
                             ),
                             _vm._v(" "),
@@ -41886,17 +41877,38 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("li", [_c("hr", { staticClass: "dropdown-divider" })])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-        _vm._v("My orders"),
-      ]),
-    ])
+    return _c(
+      "ul",
+      {
+        staticClass: "dropdown-menu",
+        attrs: { "aria-labelledby": "navbarDropdown" },
+      },
+      [
+        _c("li", [
+          _c(
+            "button",
+            { staticClass: "dropdown-item", attrs: { type: "button" } },
+            [_vm._v("Action")]
+          ),
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c(
+            "button",
+            { staticClass: "dropdown-item", attrs: { type: "button" } },
+            [_vm._v("Another action")]
+          ),
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c(
+            "button",
+            { staticClass: "dropdown-item", attrs: { type: "button" } },
+            [_vm._v("Something else here")]
+          ),
+        ]),
+      ]
+    )
   },
 ]
 render._withStripped = true

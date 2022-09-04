@@ -17,8 +17,12 @@ use App\Http\Controllers\productsController;
 |
 */
 Auth::routes();
+///////////////////////////////////resources///////////////////////////////////////////////////////
+Route::middleware('auth:sanctum')->resource('/categories', categoriesController::class);
+Route::resource('/products', productsController::class);
 ////////////////////////////////////Products////////////////////////////////////////////////////////
 Route::get('/productsByCategory/{id}', [productsController::class, 'productsByCategory']);
+Route::get('/getInventory/{id}', [productsController::class, 'getInventory']);
 ////////////////////////////////////Categories//////////////////////////////////////////////////////
 Route::get('/getMainCategories', [categoriesController::class, 'getMainCategories']);
 Route::get('/getSubCategories', [categoriesController::class, 'getSubCategories']);
