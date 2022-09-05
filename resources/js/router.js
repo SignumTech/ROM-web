@@ -7,6 +7,8 @@ import categories from './components/admin/categories.vue'
 import products from './components/admin/products.vue'
 import addProducts from './components/admin/addProduct.vue'
 import editProducts from './components/admin/editProduct.vue'
+/////////////////////checkout process/////////////////////////
+import cart from './components/home/cart.vue'
 /////////////////////main//////////////////////////////////////
 import women from './components/main/women.vue'
 import men from './components/main/men.vue'
@@ -34,9 +36,15 @@ import resetPassword from './components/auth/resetPassword.vue'
 ///////////////////////////////////////////////////////////////
 import myProfile from './components/profile/myProfile.vue'
 
+
 Vue.use(Router)
 
 const routes = [
+    {
+        path: '/cart',
+        component: cart,
+        name: 'Cart'
+    },
     {
         path: '/admin/adminDash',
         component: adminDash,

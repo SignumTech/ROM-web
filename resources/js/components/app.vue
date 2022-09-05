@@ -48,7 +48,7 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="width:400px">
                                 
-                                <div v-for="cart in $store.state.auth.cart" :key="cart.id" class="row m-0 p-2">
+                                <div v-for="cart in $store.state.auth.cart" :key="cart.id" class="row m-0 p-2 border-bottom">
                                     <div class="col-md-3">
                                         <img class="img img-fluid" :src="`/storage/productsThumb/`+cart.p_image" alt="" style="">
                                     </div>
@@ -62,12 +62,12 @@
                             
                                 <div class="row m-0 p-2">
                                     <div class="col-md-12">
-                                        <h5 class="text-end">Total: <strong>{{sumPrice($store.state.auth.cart)}} Birr</strong></h5>
+                                        <h5 class="text-end m-0">Total: <strong>{{sumPrice($store.state.auth.cart)}} Birr</strong></h5>
                                     </div>
                                 </div>
-                                <div class="row m-0 p-2">
+                                <div class="row m-0 p-2 border-top">
                                     <div class="col-md-12">
-                                        <button class="btn btn-primary form-control rounded-1" type="button"><h5 class="m-0"><strong>VIEW BAG</strong></h5> </button>
+                                        <router-link to="/cart" class="btn btn-primary form-control rounded-1 py-3 text-white"><h5 class="m-0"><strong><span class="fa fa-shopping-bag"></span> VIEW BAG</strong></h5> </router-link>
                                     </div>
                                     
                                 </div>
