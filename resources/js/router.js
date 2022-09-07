@@ -9,6 +9,9 @@ import addProducts from './components/admin/addProduct.vue'
 import editProducts from './components/admin/editProduct.vue'
 /////////////////////checkout process/////////////////////////
 import cart from './components/home/cart.vue'
+import placeOrder from './components/home/placeOrder.vue'
+import pay from './components/home/pay.vue'
+import orderComplete from './components/home/orderComplete.vue'
 /////////////////////main//////////////////////////////////////
 import women from './components/main/women.vue'
 import men from './components/main/men.vue'
@@ -40,6 +43,24 @@ import myProfile from './components/profile/myProfile.vue'
 Vue.use(Router)
 
 const routes = [
+    {
+        path: '/orderComplete',
+        component: orderComplete,
+        name: 'OrderComplete',
+        props: true
+    },
+    {
+        path: '/pay',
+        component: pay,
+        name: 'Pay',
+        props: true
+    },
+    {
+        path: '/placeOrder',
+        component: placeOrder,
+        name: 'PlaceOrder',
+        props: true
+    },
     {
         path: '/cart',
         component: cart,

@@ -14,22 +14,22 @@
                 </div>
                 <div class="col-md-7">
                     <h5><strong>{{cart.p_name}}</strong></h5>
-                    <h5>Price - {{cart.price}} Birr</h5>
-                    <h5>Color - <span class="badge rounded-pill"  :style="{backgroundColor:cart.color}">{{cart.color}}</span></h5>
-                    <h5>Size - {{cart.size}}</h5>
+                    <h6 class="mt-4">Price - {{cart.price | numFormat}} Birr</h6>
+                    <h6  style="cursor:pointer">Color - <span @click="detailsModal(cart.p_id,index,cart)" class="badge rounded-pill px-3"  :style="{backgroundColor:cart.color}">{{cart.color}}</span></h6>
+                    <h6  style="cursor:pointer">Size - <span @click="detailsModal(cart.p_id,index,cart)" class="badge rounded-pill bg-light shadow-sm text-dark px-3"><strong>{{cart.size}}</strong></span></h6>
                 </div>
                 <div class="col-md-3 text-end">
-                    <h3><strong>{{subTotal(index)}} Birr</strong></h3>
+                    <h4><strong>{{subTotal(index) | numFormat}} Birr</strong></h4>
                     <div class="row ms-md-5 ms-sm-3">
                         <div class="input-group mb-3 mt-2 float-end">
-                            <button @click="subtract(index)" class="btn btn-outline-secondary" type="button" id="button-addon1"><span class="fa fa-minus"></span></button>
+                            <button @click="subtract(index)" class="btn btn-outline-secondary btn-sm" type="button" id="button-addon1"><span class="fa fa-minus"></span></button>
                             <input disabled v-model="cart.quantity" type="text" class="form-control text-center" placeholder=""  aria-describedby="button-addon1">
-                            <button @click="add(index)" class="btn btn-outline-secondary" type="button" id="button-addon1"><span class="fa fa-plus"></span></button>
+                            <button @click="add(index)" class="btn btn-outline-secondary btn-sm" type="button" id="button-addon1"><span class="fa fa-plus"></span></button>
                         </div>                        
                     </div>
                     <div class="row mt-5">
                         <div class="col-md-6">
-                            <h6><span class="fa fa-trash-alt"></span> Delete</h6>
+                            <h6 @click="deleteItem(index)" style="cursor:pointer"><span class="fa fa-trash-alt"></span> Delete</h6>
                         </div>
                         <div class="col-md-6">
                             <h6><span class="fa fa-heart"></span> Save</h6>
@@ -42,24 +42,63 @@
     <div class="col-md-4 mt-3">
         <div class="bg-white rounded-1 p-3 shadow-sm">
             <h4 class="m-0"><strong>Order Summary</strong></h4>
-            <h6 class="mt-4">Subtotal <span class="float-end fs-3"><strong>{{orderSummary()}} ETB</strong></span></h6>
+            <h6 class="mt-4"><strong>Subtotal</strong> <span class="float-end fs-3"><strong>{{orderSummary() | numFormat}} ETB</strong></span></h6>
         </div>
-        <button class="btn btn-primary py-3 form-control mt-3"><h4 class="m-0"><strong>Secure Checkout</strong></h4></button>
+        <button @click="checkout()" class="btn btn-primary py-2 form-control mt-3"><h4 class="m-0"><strong>Secure Checkout</strong></h4></button>
     </div>
 </div>    
 </template>
 <script>
+import editSizesColorsVue from './editSizesColors.vue';
+import signinModal from './signinModal.vue';
 export default {
     data(){
         return{
-            cartItems:{}
+            cartItems:[],
+            cart_id:""
         }
     },
     mounted(){
         this.getCart()
-
+        this.orderSummary()
     },
     methods:{
+        async deleteItem(index){
+            var check = confirm('Do you want to remove this item from your shopping bag?')
+            if(check){
+                await axios.post('/deleteItem', {cartItems:this.cartItems, index:index})
+                .then(response =>{
+                    this.getCart()
+                })
+            }
+
+        },
+        detailsModal(id,index,toEdit){
+            this.$modal.show(
+                editSizesColorsVue,
+                {"id":id, "index":index, "toEdit":toEdit},
+                { "height" : "auto", "width" : "900px"},
+                { "closed" : this.getCart}
+            )
+        },
+        async checkout(){
+            if(!this.$store.state.auth.authenticated){
+                this.$modal.show(
+                    signinModal,
+                    {},
+                    {"width":"900px", "height":"500px"},
+                    {}
+                )
+            }
+            else{
+                await axios.put('/updateCart/'+this.cart_id, {items:this.cartItems})
+                .then( response =>{
+                    this.$router.push({name:'PlaceOrder', params:{
+                        cart_id:response.data.id
+                    }})
+                })
+            }
+        },
         orderSummary(){
             var sum = 0;
             this.cartItems.forEach(function(cart){
@@ -80,6 +119,7 @@ export default {
         async getCart(){
             await axios.post('/getCart')
             .then( response => {
+                this.cart_id = response.data.id
                 this.cartItems = JSON.parse(response.data.items)
             })
         },

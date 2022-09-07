@@ -9,7 +9,8 @@ use App\Http\Controllers\socialiteController;
 use App\Http\Controllers\categoriesController;
 use App\Http\Controllers\productsController;
 use App\Http\Controllers\cartController;
-
+use App\Http\Controllers\addressBookController;
+use App\Http\Controllers\ordersController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,9 +34,14 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 ///////////////////////////////////resources///////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->resource('/categories', categoriesController::class);
 Route::resource('/products', productsController::class);
+Route::resource('/orders', ordersController::class);
+Route::resource('/addressBooks', addressBookController::class);
 ///////////////////////////////////cart/////////////////////////////////////////////////////////////
 Route::post('/addToCart', [cartController::class, 'addToCart']);
+Route::post('/editCart', [cartController::class, 'editCart']);
 Route::post('/getCart', [cartController::class, 'getCart']);
+Route::put('/updateCart/{id}', [cartController::class, 'updateCart']);
+Route::post('/deleteItem', [cartController::class, 'deleteItem']);
 ///////////////////////////////////products/////////////////////////////////////////////////////////
 Route::post('/uploadProductPic', [productsController::class, 'uploadProductPic']);
 Route::post('/deleteProductImage', [productsController::class, 'deleteProductImage']);

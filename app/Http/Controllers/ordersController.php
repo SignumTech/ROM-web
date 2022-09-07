@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\Cart;
 class ordersController extends Controller
 {
     /**
@@ -35,18 +36,31 @@ class ordersController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'items' => 'required | string',
-            'total' => 'required | double',
-            'delivery_details' => 'required | string'
+            'cart_id' => 'required | integer',
+            'total' => 'required | numeric',
+            'address' => 'required | integer'
         ]);
+        $cart = Cart::find($request->cart_id);
+        $items = json_decode($cart->items);
+
         $order = new Order;
-        $order->items = json_encode($request->items);
-        $order->order_no = 'to be determined';
+        $order->items = json_encode($items);
+
+        $latestOrder = Order::orderBy('created_at','DESC')->first();
+        if($latestOrder){
+            $order->order_no = '#'.str_pad($latestOrder->id + 1, 8, "0", STR_PAD_LEFT);
+        }
+        else{
+            $order->order_no = '#'.str_pad(1, 8, "0", STR_PAD_LEFT);
+        }
+
         $order->total = $request->total;
         $order->order_status = 'PROCESSING';
         $order->user_id = auth()->user()->id;
-        $order->delivery_details = $request->delivery_details;
+        $order->delivery_details = $request->address;
         $order->save();
+
+        $cart->delete();
 
         return $order;
     }
