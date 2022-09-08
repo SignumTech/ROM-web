@@ -184,7 +184,7 @@ export default {
                         window.location.replace('/adminDash')
                     }
                     else{
-                        window.location.replace('/myProfile')
+                        window.location.replace('/myAccount')
                     }
                     
                     

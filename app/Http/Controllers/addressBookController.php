@@ -130,4 +130,9 @@ class addressBookController extends Controller
     {
         //
     }
+
+    public function showAddress($id){
+        $address = AddressBook::find($id);
+        return $address;
+    }
 }

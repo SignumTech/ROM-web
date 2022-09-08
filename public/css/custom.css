@@ -76,11 +76,15 @@ a:hover{
 .dropdown-menu{
     margin-top: 0;
 }
-.orders-hover:hover{
+/*.orders-hover:hover{
     background-color: #bf7f25;
     color: white;
     cursor:pointer
-}
+}*/
+/*.o_active{
+    border-bottom: #bf7f25 3px;
+    cursor:pointer
+}*/
 .vh-75{
     height: 75vh;
 }

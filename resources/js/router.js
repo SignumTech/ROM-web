@@ -12,6 +12,7 @@ import cart from './components/home/cart.vue'
 import placeOrder from './components/home/placeOrder.vue'
 import pay from './components/home/pay.vue'
 import orderComplete from './components/home/orderComplete.vue'
+
 /////////////////////main//////////////////////////////////////
 import women from './components/main/women.vue'
 import men from './components/main/men.vue'
@@ -37,7 +38,12 @@ import forgetPassword from './components/auth/forgetPassword.vue'
 import resetOTP from './components/auth/resetOTP.vue'
 import resetPassword from './components/auth/resetPassword.vue'
 ///////////////////////////////////////////////////////////////
+import myAccount from './components/profile/myAccount.vue'
+import myAccountHome from './components/profile/myAccountHome.vue'
 import myProfile from './components/profile/myProfile.vue'
+import myOrders from './components/profile/myOrders.vue'
+import addressBook from './components/profile/addressBook.vue'
+import orderDetails from './components/profile/orderDetails.vue'
 
 
 Vue.use(Router)
@@ -250,10 +256,40 @@ const routes = [
         props: true
     },   
     {
-        path: '/myProfile',
-        component: myProfile,
-        name: 'MyProfile',
-        props: true
+        path: '/myAccount',
+        component: myAccount,
+        name: 'MyAccount',
+        props: true,
+        children:[
+            {
+                path: '/',
+                component: myAccountHome,
+                name: 'MyAccountHome'
+            },
+            {
+                path: '/myAccount/myProfile',
+                component: myProfile,
+                name: 'MyProfile'
+            }
+            ,
+            {
+                path: '/myAccount/myOrders',
+                component: myOrders,
+                name: 'MyOrders'
+            }
+            ,
+            {
+                path: '/myAccount/addressBook',
+                component: addressBook,
+                name: 'AddressBook'
+            }
+            ,
+            {
+                path: '/myAccount/orderDetails/:id',
+                component: orderDetails,
+                name: 'OrderDetails'
+            }
+        ]
     },  
     {
         path: '/',

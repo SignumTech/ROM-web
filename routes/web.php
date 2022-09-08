@@ -36,12 +36,18 @@ Route::middleware('auth:sanctum')->resource('/categories', categoriesController:
 Route::resource('/products', productsController::class);
 Route::resource('/orders', ordersController::class);
 Route::resource('/addressBooks', addressBookController::class);
+///////////////////////////////////address/////////////////////////////////////////////////////////////
+Route::get('/showAddress/{id}', [addressBookController::class, 'showAddress']);
 ///////////////////////////////////cart/////////////////////////////////////////////////////////////
 Route::post('/addToCart', [cartController::class, 'addToCart']);
 Route::post('/editCart', [cartController::class, 'editCart']);
 Route::post('/getCart', [cartController::class, 'getCart']);
 Route::put('/updateCart/{id}', [cartController::class, 'updateCart']);
 Route::post('/deleteItem', [cartController::class, 'deleteItem']);
+///////////////////////////////////orders/////////////////////////////////////////////////////////
+Route::get('/getMyOrders', [ordersController::class, 'getMyOrders']);
+Route::get('/getMyOrdersStatus/{status}', [ordersController::class, 'getMyOrdersStatus']);
+
 ///////////////////////////////////products/////////////////////////////////////////////////////////
 Route::post('/uploadProductPic', [productsController::class, 'uploadProductPic']);
 Route::post('/deleteProductImage', [productsController::class, 'deleteProductImage']);
@@ -80,6 +86,12 @@ Route::any('{slug}', function () {
     return view('home');
 });
 Route::any('/admin/{slug}', function () {
+    return view('home');
+});
+Route::any('/myAccount/{slug}', function () {
+    return view('home');
+});
+Route::any('/myAccount/{slug}/{slug2}', function () {
     return view('home');
 });
 Route::any('/admin/editProduct/{slug}', function () {

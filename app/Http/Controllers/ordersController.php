@@ -144,4 +144,43 @@ class ordersController extends Controller
 
         return $order;
     }
+
+    public function getMyOrders(){
+        $orders = Order::where('user_id', auth()->user()->id)->get();
+        $items = 0;
+        $pic = null;
+        foreach($orders as $order){
+            $o_items = json_decode($order->items);
+            foreach($o_items as $ot){
+                $items = $items + $ot->quantity;
+                if($pic == null){
+                    $pic = $ot->p_image;
+                }
+            }
+            $order->no_items = $items;
+            $order->p_image = $pic;
+            $items = 0;
+        }
+        return $orders;
+    }
+
+    public function getMyOrdersStatus($status){
+        $orders = Order::where('user_id', auth()->user()->id)
+                        ->where('order_status', $status)->get();
+        $items = 0;
+        $pic = null;
+        foreach($orders as $order){
+            $o_items = json_decode($order->items);
+            foreach($o_items as $ot){
+                $items = $items + $ot->quantity;
+                if($pic == null){
+                    $pic = $ot->p_image;
+                }
+            }
+            $order->no_items = $items;
+            $order->p_image = $pic;
+            $items = 0;
+        }
+        return $orders;
+    }
 }
