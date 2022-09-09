@@ -66,8 +66,9 @@ Route::post('/foregetPasswordMailer', [registerUsersController::class, 'foregetP
 Route::post('/resetVerify', [registerUsersController::class, 'resetVerify']);
 Route::post('/resetPassword', [registerUsersController::class, 'reset_password']);
 Route::post('/resendOTP', [registerUsersController::class, 'resendOTP']);
+Route::post('/updateInfo', [registerUsersController::class, 'updateInfo']);
 ////////////////////////////////////Categories//////////////////////////////////////////////////////
-Route::middleware('auth:sanctum')->get('/getMainCategories', [categoriesController::class, 'getMainCategories']);
+Route::get('/getMainCategories', [categoriesController::class, 'getMainCategories']);
 Route::middleware('auth:sanctum')->get('/getSubCategories', [categoriesController::class, 'getSubCategories']);
 Route::get('/showSubCategories/{id}', [categoriesController::class, 'showSubCategories']);
 Route::middleware('auth:sanctum')->post('/uploadSubPic', [categoriesController::class, 'uploadSubPic']);

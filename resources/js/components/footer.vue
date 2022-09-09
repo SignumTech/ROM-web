@@ -1,8 +1,8 @@
 <template>
 <!-- Footer -->
 <footer
-          class="text-center text-lg-start text-white mt-5"
-          style="background-color: #1c2331"
+          class="text-center text-lg-start text-white"
+          style="background-color: #1c2331; margin-top:200px"
           >
     <!-- Section: Social media -->
     <section
