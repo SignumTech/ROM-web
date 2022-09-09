@@ -14,10 +14,10 @@
             </div>
             <div class="bg-white rounded-1 p-3 mt-3">
                 <router-link to="/myAccount/myOrders"><h5 class="m-0"><b>My Orders</b></h5></router-link>
-                <h6 class="mt-3 ms-3">All orders</h6>
-                <h6 class="mt-3 ms-3">Processing</h6>
-                <h6 class="mt-3 ms-3">Shipped</h6>
-                <h6 class="mt-3 ms-3">Delivered</h6>
+                <!--<h6 class="mt-3 ms-3" style="cursor:pointer">All orders</h6>
+                <h6 class="mt-3 ms-3" style="cursor:pointer">Processing</h6>
+                <h6  class="mt-3 ms-3" style="cursor:pointer">Shipped</h6>
+                <h6  class="mt-3 ms-3" style="cursor:pointer">Delivered</h6>-->
             </div>
         </div>
         <router-view></router-view>
@@ -27,6 +27,10 @@
 </template>
 <script>
 export default {
-    
+    methods:{
+        myOrders(order_status){
+            this.$root.$refs.A.getMyOrdersStatus(order_status);
+        }
+    }
 }
 </script>

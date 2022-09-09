@@ -7,9 +7,9 @@
         <div class="bg-white rounded-1 p-3 shadow-sm">
             <h5 class="m-0">Shipping Address</h5>
         </div>
-        <div v-if="addressBookExists" class="row mx-0 mt-3 p-3 bg-white rounded-1 shadow-sm">
+        <div v-if="addressBookExists" class="row mx-0 mt-3 p-3">
             <div v-for="ad in addressData" :key="ad.id" class="col-md-6 mt-3">
-                <div @click="makeCurrentAddress(ad.id)" :class="(currentAddress == ad.id)?`bg-white shadow-sm rounded-1 border border-primary border-5 p-3`:`bg-white shadow-sm rounded-1 border-start border-secondary border-3 p-3`" style="cursor:pointer">
+                <div @click="makeDefault(ad.id)" :class="(ad.type == 'DEFAULT')?`bg-white shadow-sm rounded-1 border border-primary border-5 p-3`:`bg-white shadow-sm rounded-1 border-start border-secondary border-3 p-3`" style="cursor:pointer">
                     <h5><strong>{{ad.f_name}} {{ad.l_name}}</strong> <span @click="editAddress(ad)" class="fa fa-edit float-end" style="cursor:pointer"></span></h5>
                     <h6>+251-{{ad.phone_no}}</h6>
                     <h6>{{ad.city}} - {{ad.state}}</h6>
@@ -125,8 +125,12 @@ export default {
         this.getAddressBook()
     },
     methods:{
-        makeCurrentAddress(id){
-            this.currentAddress = id
+        async makeDefault(id){
+            await axios.get('/makeDefaultAddress/'+id)
+            .then( response =>{
+                this.currentAddress = id
+                this.getAddressBook()
+            })
         },
         async placeOrder(){
             if(this.paymentMethod == null){
@@ -167,8 +171,13 @@ export default {
         async getAddressBook(){
             await axios.get('/addressBooks/'+this.$store.state.auth.user.id)
             .then( response =>{
-                this.currentAddress = response.data[response.data.length - 1].id
                 this.addressData = response.data
+                
+                this.addressData.forEach((ad)=>{
+                    if(ad.type === 'DEFAULT'){
+                        this.currentAddress = ad.id
+                    }
+                })
                 this.addressBookExists = true
             })
             .catch( error =>{

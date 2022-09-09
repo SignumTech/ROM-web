@@ -38,6 +38,7 @@ Route::resource('/orders', ordersController::class);
 Route::resource('/addressBooks', addressBookController::class);
 ///////////////////////////////////address/////////////////////////////////////////////////////////////
 Route::get('/showAddress/{id}', [addressBookController::class, 'showAddress']);
+Route::get('/makeDefaultAddress/{id}', [addressBookController::class, 'makeDefaultAddress']);
 ///////////////////////////////////cart/////////////////////////////////////////////////////////////
 Route::post('/addToCart', [cartController::class, 'addToCart']);
 Route::post('/editCart', [cartController::class, 'editCart']);
@@ -47,7 +48,7 @@ Route::post('/deleteItem', [cartController::class, 'deleteItem']);
 ///////////////////////////////////orders/////////////////////////////////////////////////////////
 Route::get('/getMyOrders', [ordersController::class, 'getMyOrders']);
 Route::get('/getMyOrdersStatus/{status}', [ordersController::class, 'getMyOrdersStatus']);
-
+Route::post('/repurchaseOrder', [ordersController::class, 'repurchaseOrder']);
 ///////////////////////////////////products/////////////////////////////////////////////////////////
 Route::post('/uploadProductPic', [productsController::class, 'uploadProductPic']);
 Route::post('/deleteProductImage', [productsController::class, 'deleteProductImage']);

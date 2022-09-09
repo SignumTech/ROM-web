@@ -17,8 +17,7 @@
                 <table class="table table-bordered table-sm">
                     <thead>
                         <tr class="text-center">
-                            <th></th>
-                            <th>Products</th>
+                            <th colspan="2">Products</th>
                             <th>Quantity</th>
                             <th>Amount</th>
                             <th>Status</th>
@@ -50,8 +49,17 @@
                 <h6 class="mt-2">Sub Total: <span class="float-end">{{order.total | numFormat}} ETB</span></h6>
                 <h5 class="mt-2"><strong>Total: <span class="float-end">{{order.total | numFormat}} ETB</span></strong></h5>
              </div>
-             <div class="col-md-6 mt-3">
+             <div class="col-md-6 mt-5">
                 <h5 class="border-bottom">Shipping Information</h5>
+                <div class="rounded-1 border-start border-warning border-5 p-3" style="cursor:pointer">
+                    <h5><strong>{{address.f_name}} {{address.l_name}}</strong> </h5>
+                    <h6>+251-{{address.phone_no}}</h6>
+                    <h6>{{address.city}} - {{address.state}}</h6>
+                    <h6>{{address.address_1}}</h6>
+                </div>
+             </div>
+             <div class="col-md-6 mt-5">
+                <h5 class="border-bottom">Billing Information</h5>
                 <div class="rounded-1 border-start border-warning border-5 p-3" style="cursor:pointer">
                     <h5><strong>{{address.f_name}} {{address.l_name}}</strong> </h5>
                     <h6>+251-{{address.phone_no}}</h6>

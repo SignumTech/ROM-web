@@ -52,6 +52,9 @@ class addressBookController extends Controller
         $addressBook->state = $request->state;
         $addressBook->address_1 = $request->address_1;
         $addressBook->address_2 = $request->address_2;
+        if(!AddressBook::first()){
+            $addressBook->type = 'DEFAULT';
+        }
 
         $addressBook->save();
 
@@ -133,6 +136,21 @@ class addressBookController extends Controller
 
     public function showAddress($id){
         $address = AddressBook::find($id);
+        return $address;
+    }
+
+    public function makeDefaultAddress($id){
+
+        $current_default = AddressBook::where('user_id', auth()->user()->id)
+                                      ->where('type', 'DEFAULT')
+                                      ->first();
+        $current_default->type = null;
+        $current_default->save();
+
+        $address = AddressBook::find($id);
+        $address->type = "DEFAULT";
+        $address->save();
+
         return $address;
     }
 }

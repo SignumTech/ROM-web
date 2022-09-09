@@ -275,7 +275,8 @@ const routes = [
             {
                 path: '/myAccount/myOrders',
                 component: myOrders,
-                name: 'MyOrders'
+                name: 'MyOrders',
+                props: true
             }
             ,
             {

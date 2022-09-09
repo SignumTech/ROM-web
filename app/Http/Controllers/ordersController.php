@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Cart;
+use App\Models\Inventory;
+use DB;
 class ordersController extends Controller
 {
     /**
@@ -40,29 +42,53 @@ class ordersController extends Controller
             'total' => 'required | numeric',
             'address' => 'required | integer'
         ]);
-        $cart = Cart::find($request->cart_id);
-        $items = json_decode($cart->items);
+        try{
+            DB::beginTransaction();
+            $cart = Cart::find($request->cart_id);
+            $items = json_decode($cart->items);
+            //////////update inventory//////////////////////
+            foreach($items as $item){
+                $inventory = Inventory::where('p_id', $item->p_id)
+                                    ->where('size', $item->size)
+                                    ->where('color', $item->color)
+                                    ->lockForUpdate()->first();
+                if($inventory->quantity < $item->quantity){
+                    return response("Some of the items have been sold out", 422);
+                }
+                else{
+                    $inventory->quantity -= $item->quantity;
+                    $inventory->save();
+                }
+                
+            }
+            
+            ////////////////////////////////////////////////
+            $order = new Order;
+            $order->items = json_encode($items);
 
-        $order = new Order;
-        $order->items = json_encode($items);
+            $latestOrder = Order::orderBy('created_at','DESC')->first();
+            if($latestOrder){
+                $order->order_no = '#'.str_pad($latestOrder->id + 1, 8, "0", STR_PAD_LEFT);
+            }
+            else{
+                $order->order_no = '#'.str_pad(1, 8, "0", STR_PAD_LEFT);
+            }
 
-        $latestOrder = Order::orderBy('created_at','DESC')->first();
-        if($latestOrder){
-            $order->order_no = '#'.str_pad($latestOrder->id + 1, 8, "0", STR_PAD_LEFT);
+            $order->total = $request->total;
+            $order->order_status = 'PROCESSING';
+            $order->user_id = auth()->user()->id;
+            $order->delivery_details = $request->address;
+            $order->save();
+
+            $cart->delete();
+
+            return $order;
         }
-        else{
-            $order->order_no = '#'.str_pad(1, 8, "0", STR_PAD_LEFT);
+        catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+            return response('Order Error', 422);
         }
-
-        $order->total = $request->total;
-        $order->order_status = 'PROCESSING';
-        $order->user_id = auth()->user()->id;
-        $order->delivery_details = $request->address;
-        $order->save();
-
-        $cart->delete();
-
-        return $order;
     }
 
     /**
@@ -182,5 +208,48 @@ class ordersController extends Controller
             $items = 0;
         }
         return $orders;
+    }
+
+    public function repurchaseOrder(Request $request){
+        $this->validate($request, [
+            "order_id" => "required"
+        ]);
+
+        $order = Order::find($request->order_id);
+        $cart = Cart::where('user_id', auth()->user()->id)
+                    ->where('cart_status', 'ACTIVE')
+                    ->first();
+        
+        
+        if($cart){
+            $cartData = json_decode($cart->items);
+            $cart_db = json_decode($order->items);
+            foreach($cart_db as $cd){
+                foreach($cartData as $cart_data){
+                    if($cd->p_id == $cart_data->p_id && $cd->color == $cart_data->color && $cd->size == $cart_data->size){
+                        $cd->quantity += $cart_data->quantity;
+                        array_splice($cartData, array_search($cart_data, $cartData), 1);
+                    }
+                }
+
+            }
+            if(count($cartData)>0){
+                $cart_db = array_merge($cart_db,$cartData);
+            }
+
+            $cart->items = json_encode($cart_db);
+            $cart->save();
+            $request->session()->forget('cart');
+            return $cart;
+        }
+        else{
+            $cart = new Cart;
+            $cart->items = $order->items;
+            $cart->user_id = auth()->user()->id;
+            $cart->cart_status = "ACTIVE";
+            $cart->save();
+        }
+
+        return $cart;
     }
 }

@@ -10,7 +10,7 @@
         </div>
         <div v-if="addressBookExists" class="row mx-0 mt-3 p-3">
             <div v-for="ad in addressData" :key="ad.id" class="col-md-6 mt-3">
-                <div @click="makeCurrentAddress(ad.id)" :class="(currentAddress == ad.id)?`bg-white shadow-sm rounded-1 border border-primary border-5 p-3`:`bg-white shadow-sm rounded-1 border-start border-secondary border-3 p-3`" style="cursor:pointer">
+                <div @click="makeDefault(ad.id)" :class="(ad.type == 'DEFAULT')?`bg-white shadow-sm rounded-1 border border-primary border-5 p-3`:`bg-white shadow-sm rounded-1 border-start border-secondary border-3 p-3`" style="cursor:pointer">
                     <h5><strong>{{ad.f_name}} {{ad.l_name}}</strong> <span @click="editAddress(ad)" class="fa fa-edit float-end" style="cursor:pointer"></span></h5>
                     <h6>+251-{{ad.phone_no}}</h6>
                     <h6>{{ad.city}} - {{ad.state}}</h6>
@@ -90,6 +90,12 @@ export default {
         this.getAddressBook()
     },
     methods:{
+        async makeDefault(id){
+            await axios.get('/makeDefaultAddress/'+id)
+            .then( response =>{
+                this.getAddressBook()
+            })
+        },
         addAddress(){
             this.$modal.show(
                 addressModalVue,
