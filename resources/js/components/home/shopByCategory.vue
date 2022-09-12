@@ -1,10 +1,10 @@
 <template>
 <div class="row mx-0 bg-white pb-5">
     <div class="col-md-12 mt-3">
-        <h6>Home / Dresses</h6>
+        <h6>Home / {{catDetail.cat_name}}</h6>
     </div>
     <div class="col-md-12 mt-3">
-        <h4><strong>DRESSES</strong></h4>
+        <h4><strong>{{catDetail.cat_name}}</strong></h4>
     </div>
     <div class="col-md-2 mt-3 border-top mt-5">
         <div class="row m-0">
@@ -82,14 +82,22 @@ export default {
     data(){
         return{
             items:{},
-            loading:true
+            loading:true,
+            catDetail:{}
         }
     },
     mounted(){
         this.getCatProducts()
+        this.getCatDetail()
 
     },
     methods:{
+        async getCatDetail(){
+            await axios.get('/categories/'+this.$route.params.id)
+            .then( response =>{
+                this.catDetail = response.data
+            })
+        },
         async getCatProducts(){
             this.loading = true
             await axios.get('/productsByCategory/'+this.$route.params.id)

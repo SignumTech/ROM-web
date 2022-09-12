@@ -13002,14 +13002,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       items: {},
-      loading: true
+      loading: true,
+      catDetail: {}
     };
   },
   mounted: function mounted() {
     this.getCatProducts();
+    this.getCatDetail();
   },
   methods: {
-    getCatProducts: function getCatProducts() {
+    getCatDetail: function getCatDetail() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
@@ -13017,19 +13019,40 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _this.loading = true;
-                _context.next = 3;
-                return axios.get('/productsByCategory/' + _this.$route.params.id).then(function (response) {
-                  _this.items = response.data;
-                  _this.loading = false;
+                _context.next = 2;
+                return axios.get('/categories/' + _this.$route.params.id).then(function (response) {
+                  _this.catDetail = response.data;
                 });
 
-              case 3:
+              case 2:
               case "end":
                 return _context.stop();
             }
           }
         }, _callee);
+      }))();
+    },
+    getCatProducts: function getCatProducts() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _this2.loading = true;
+                _context2.next = 3;
+                return axios.get('/productsByCategory/' + _this2.$route.params.id).then(function (response) {
+                  _this2.items = response.data;
+                  _this2.loading = false;
+                });
+
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
       }))();
     }
   }
@@ -51690,11 +51713,15 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row mx-0 bg-white pb-5" }, [
+    _c("div", { staticClass: "col-md-12 mt-3" }, [
+      _c("h6", [_vm._v("Home / " + _vm._s(_vm.catDetail.cat_name))]),
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-md-12 mt-3" }, [
+      _c("h4", [_c("strong", [_vm._v(_vm._s(_vm.catDetail.cat_name))])]),
+    ]),
+    _vm._v(" "),
     _vm._m(0),
-    _vm._v(" "),
-    _vm._m(1),
-    _vm._v(" "),
-    _vm._m(2),
     _vm._v(" "),
     _vm.loading
       ? _c("div", { staticClass: "col-md-10 p-5" }, [
@@ -51727,22 +51754,6 @@ var render = function () {
   ])
 }
 var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-12 mt-3" }, [
-      _c("h6", [_vm._v("Home / Dresses")]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-12 mt-3" }, [
-      _c("h4", [_c("strong", [_vm._v("DRESSES")])]),
-    ])
-  },
   function () {
     var _vm = this
     var _h = _vm.$createElement
