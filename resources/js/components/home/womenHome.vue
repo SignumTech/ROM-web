@@ -6,7 +6,14 @@
             <h4 class="text-center"><strong>Shop By Category</strong></h4>
         </div>
     </div>  
-    <div class="row m-0 ps-5 pe-5 pb-5 pt-3">
+    <div v-if="loading" class="row m-0 mt-4">
+        <div class="col-md-12">
+            <div class="d-flex justify-content-center">
+                <pulse-loader :color="`#BF7F25`" :size="`15px`"></pulse-loader> 
+            </div>
+        </div>  
+    </div>
+    <div v-if="!loading" class="row m-0 ps-5 pe-5 pb-5 pt-3">
         <div v-for="category in categories" :key="category.id" class="col-md-2 mt-4">
             <router-link :to="`/women/shopByCategory/`+category.id">
                 <div class="bg-white rounded-1 shadow-sm">
@@ -25,16 +32,19 @@
 </div>
 </template>
 <script>
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 import hero from './hero.vue'
 export default {
     components:{
-        hero
+        hero,
+        PulseLoader
     },
     mounted(){
         this.getCatByName()
     },
     data(){
         return{
+            loading:true,
             cat_id:{},
             categories:{},
             heroImage:"/storage/settings/front.jpg"
@@ -42,6 +52,7 @@ export default {
     },
     methods:{
         async getCatByName(){
+            this.loading = true
             var name = "WOMEN";
             await axios.get('/getCatByName/'+name)
             .then( response =>{
@@ -53,6 +64,7 @@ export default {
             await axios.get('/showSubCategories/'+this.cat_id)
             .then( response =>{
                 this.categories = response.data
+                this.loading = false
             })
         }
     }
