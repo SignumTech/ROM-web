@@ -1,5 +1,5 @@
 <template>
-<div class="row m-0 bg-white">
+<div class="row mx-0 bg-white pb-5">
     <div class="col-md-12 mt-3">
         <h6>Home / Dresses</h6>
     </div>

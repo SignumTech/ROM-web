@@ -8,7 +8,15 @@
             <div class="bg-white rounded-1 p-3 shadow-sm">
             <h5 class="m-0">Shipping Address</h5>
         </div>
-        <div v-if="addressBookExists" class="row mx-0 mt-3 p-3">
+        <div v-if="loading" class="row mx-0 mt-3 p-3">
+            <div  class="col-md-12 p-5 mt-4">
+                <div class="d-flex justify-content-center align-self-center">
+                    <pulse-loader :color="`#BF7F25`" :size="`15px`"></pulse-loader> 
+                </div>
+            </div>
+        </div>
+  
+        <div v-if="addressBookExists && !loading" class="row mx-0 mt-3 p-3">
             <div v-for="ad in addressData" :key="ad.id" class="col-md-6 mt-3">
                 <div @click="makeDefault(ad.id)" :class="(ad.type == 'DEFAULT')?`bg-white shadow-sm rounded-1 border border-primary border-5 p-3`:`bg-white shadow-sm rounded-1 border-start border-secondary border-3 p-3`" style="cursor:pointer">
                     <h5><strong>{{ad.f_name}} {{ad.l_name}}</strong> <span @click="editAddress(ad)" class="fa fa-edit float-end" style="cursor:pointer"></span></h5>
@@ -21,7 +29,7 @@
                 <button @click="addAddress()" class="btn btn-outline-primary rounded-1"> <span class="fa fa-plus"></span> Add Shipping Address</button>
             </div>
         </div>
-        <form v-if="!addressBookExists" action="#" @submit.prevent="saveAddress">
+        <form v-if="!addressBookExists && !loading" action="#" @submit.prevent="saveAddress">
             <div class="row mx-0 mt-3 p-3 bg-white rounded-1 shadow-sm">
                 <div class="col-md-6">
                     <label>First Name</label>
@@ -54,9 +62,6 @@
                     <label>Address 2 (optional)</label>
                     <input v-model="addressData.address_2" type="text" class="form-control" placeholder="Address 2">
                 </div>
-                <div class="col-md-12 mt-2">
-                    <h6 v-if="addressError" class="text-danger text-center mt-2">Please add a shipping address!</h6>
-                </div>
                 <div class="col-md-12 mt-4 text-center">
                     <button type="submit" class="btn btn-primary px-3 rounded-1"><span class="fa fa-address-book"></span> Save Address</button>
                 </div>                
@@ -68,11 +73,16 @@
 </div>
 </template>
 <script>
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 import addressModalVue from '../home/addressModal.vue'
 import editAddressModalVue from '../home/editAddressModal.vue'
 export default {
+    components:{
+        PulseLoader
+    },
     data(){
         return{
+            loading:false,
             addressData:{
                 f_name:"",
                 l_name:"",
@@ -113,22 +123,27 @@ export default {
             )
         },
         async getAddressBook(){
+            this.loading = true
             await axios.get('/addressBooks/'+this.$store.state.auth.user.id)
             .then( response =>{
                 this.currentAddress = response.data[response.data.length - 1].id
                 this.addressData = response.data
                 this.addressBookExists = true
+                this.loading = false
             })
             .catch( error =>{
                 if(error.response.status == 422){
                     this.addressBookExists = false
+                    this.loading = false
                 }
             })
         },
         async saveAddress(){
+            this.loading = true
             await axios.post('/addressBooks', this.addressData)
             .then( response =>{
                 this.addressData = response.data
+                this.loading = false
             })
         },
     }

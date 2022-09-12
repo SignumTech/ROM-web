@@ -22,7 +22,12 @@
                 <h5 class="text-center m-0"><span class="fa fa-box-open"></span> Delivered</h5>
                 
             </div>
-            <div class="col-md-12 mt-4">
+            <div v-if="loading" class="col-md-12 p-5 mt-4">
+                <div class="d-flex justify-content-center align-self-center">
+                    <pulse-loader :color="`#BF7F25`" :size="`15px`"></pulse-loader> 
+                </div>
+            </div>  
+            <div v-if="!loading" class="col-md-12 mt-4">
                 <table v-for="order in orders" :key="order.id" class="table table-sm mt-2 table-bordered">
                     <thead>
                         <tr>
@@ -52,13 +57,19 @@
 </div>
 </template>
 <script>
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
+
 import repurchaseModalVue from './repurchaseModal.vue'
 export default {
     props:['orderStatus'],
+    components:{
+        PulseLoader
+    },
     data(){
         return{
             active:"all",
-            orders:{}
+            orders:{},
+            loading:true
         }
     },
     mounted(){
@@ -78,17 +89,20 @@ export default {
         },
         async getOrders(){
             this.active = 'all'
+            this.loading = true
             await axios.get('/getMyOrders')
             .then( response =>{
-                
                 this.orders = response.data
+                this.loading = false
             })
         },
         async getMyOrdersStatus(status){
             this.active = status
+            this.loading = true
             await axios.get('/getMyOrdersStatus/'+status)
             .then( response =>{
                 this.orders = response.data
+                this.loading = false
             })
         }
     }

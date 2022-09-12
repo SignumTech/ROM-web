@@ -2,7 +2,7 @@
 <div class="container-fluid">
     <div class="row m-0 px-3">
         <div class="col-md-12 mt-3">
-            <h6>Home / My Profile</h6>
+            <h6><router-link to="/">Home</router-link> / {{$route.name}}</h6>
         </div>
     </div>
     <div class="row mt-4 px-3">
@@ -27,6 +27,9 @@
 </template>
 <script>
 export default {
+    mounted(){
+        console.log(this.$route)
+    },
     methods:{
         myOrders(order_status){
             this.$root.$refs.A.getMyOrdersStatus(order_status);

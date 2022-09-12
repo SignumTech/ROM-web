@@ -1,7 +1,14 @@
 <template>
 <div class="col-md-9">
     <div class="bg-white rounded-1 p-3">
-        <div class="row m-0">
+        <div v-if="loading" class="row m-0">
+            <div class="col-md-12 p-5 mt-4">
+                <div class="d-flex justify-content-center align-self-center">
+                    <pulse-loader :color="`#BF7F25`" :size="`15px`"></pulse-loader> 
+                </div>
+            </div> 
+        </div>
+        <div v-if="!loading" class="row m-0">
             <div class="col-md-12">
                 <h4 class="text-center"><strong>ORDER DETAILS</strong></h4>
             </div>
@@ -72,12 +79,17 @@
 </div>
 </template>
 <script>
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 export default {
+    components:{
+        PulseLoader
+    },
     data(){
         return{
             order:{},
             orderItems:[],
-            address:{}
+            address:{},
+            loading:true
         }
     },
     mounted(){
@@ -85,6 +97,7 @@ export default {
     },
     methods:{
         async getOrder(){
+            this.loading = true
             await axios.get('/orders/'+this.$route.params.id)
             .then( response =>{
                 this.order = response.data
@@ -97,6 +110,7 @@ export default {
             await axios.get('/showAddress/'+id)
             .then( response =>{
                 this.address = response.data
+                this.loading = false
             })
         }
     }

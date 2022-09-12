@@ -6,7 +6,14 @@
         </div>
     </div>
     <div class="bg-white rounded-1 shadow-sm p-3 mt-4">
-        <form action="#" @submit.prevent="updateInfo">
+        <div v-if="loading" class="row mx-0 mt-3 p-3">
+            <div  class="col-md-12 p-5 mt-4">
+                <div class="d-flex justify-content-center align-self-center">
+                    <pulse-loader :color="`#BF7F25`" :size="`15px`"></pulse-loader> 
+                </div>
+            </div>
+        </div>
+        <form v-if="!loading" action="#" @submit.prevent="updateInfo">
             <div class="row mx-0">
                 <div class="col-md-12">
                     <h5><strong>Information</strong></h5>
@@ -25,7 +32,7 @@
             <div class="row mx-0 mt-5">
                 <div class="col-md-12">
                     <h5><strong>Style preferences</strong></h5>
-                    <span  v-for="cat in mainCategories" :key="cat.id" :class="(stylePreference.includes(cat.id))?`badge text-dark rounded-2 px-3 badge bg-light border border-dark border-1 shadow-sm ms-2`:`badge text-dark rounded-2 px-3 badge bg-light shadow-sm ms-2`"><h5 class="m-0"><span @click="(stylePreference.includes(cat.id))?'':addPreference(cat.id)" style="cursor:pointer">{{cat.cat_name}}</span> <span @click="removePreference(cat.id)" v-if="stylePreference.includes(cat.id)" class="fa fa-times ms-2 fs-6" style="cursor:pointer"></span></h5></span>
+                    <span  v-for="cat in mainCategories" :key="cat.id" :class="(stylePreference.includes(cat.id))?`badge text-dark rounded-2 px-3 badge bg-light border border-dark border-1 shadow-sm ms-3 mt-3`:`badge text-dark rounded-2 px-3 badge bg-light shadow-sm ms-3 mt-3`"><h5 class="m-0"><span @click="(stylePreference.includes(cat.id))?'':addPreference(cat.id)" style="cursor:pointer">{{cat.cat_name}}</span> <span @click="removePreference(cat.id)" v-if="stylePreference.includes(cat.id)" class="fa fa-times ms-2 fs-6" style="cursor:pointer"></span></h5></span>
                 </div>
             </div> 
             <div class="row mx-0 mt-5">
@@ -40,9 +47,14 @@
 </div>
 </template>
 <script>
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 export default {
+    components:{
+        PulseLoader
+    },
     data(){
         return{
+            loading:false,
             mainCategories:{},
             detailsForm:{
                 f_name:"",
@@ -62,6 +74,7 @@ export default {
     },
     methods:{
         async updateInfo(){
+            this.loading = true
             await axios.post('/updateInfo',{detailsForm:this.detailsForm,style_preference:this.stylePreference})
             .then( response =>{
                 this.$notify({
@@ -70,6 +83,7 @@ export default {
                     title: 'Informationa Updated!',
                     text: 'Your profile information was updated successfully'
                 });
+                this.loading = false
             })
         },
         addPreference(id){
