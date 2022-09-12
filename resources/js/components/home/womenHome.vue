@@ -13,7 +13,7 @@
             </div>
         </div>  
     </div>
-    <div v-if="!loading" class="row m-0 ps-5 pe-5 pb-5 pt-3">
+    <div v-if="!loading" class="row m-0 px-5 pb-5 pt-3">
         <div v-for="category in categories" :key="category.id" class="col-md-2 mt-4">
             <router-link :to="`/women/shopByCategory/`+category.id">
                 <div class="bg-white rounded-1 shadow-sm">
@@ -28,22 +28,85 @@
                 </div>
             </router-link>
         </div>
+    </div>
+    <div class="row m-0">
+        <div class="col-12 mt-4">
+            <h4 class="text-center"><strong>Deals Of The Day</strong></h4>
+           
+        </div>
+    </div>  
+    <div class="row m-0 px-5 pb-3 pt-3">
+        <div class="col-8 align-self-center">
+            <h2 class="fw-bolder"><strong>FLASH SALE</strong></h2>
+            
+        </div>
+        <div class="col-4">
+            <flip-countdown :class="`float-end`" deadline="2022-09-22 00:00:00" :showDays="false"></flip-countdown>
+        </div>
+    </div>
+    <div class="row m-0 px-5 pb-5 pt-3">
+        <div class="col-md-2">
+            <flash-card :item="item"></flash-card>
+        </div>
+        <div class="col-md-2">
+            <flash-card :item="item"></flash-card>
+        </div>
+        <div class="col-md-2">
+            <flash-card :item="item"></flash-card>
+        </div>
+        <div class="col-md-2">
+            <flash-card :item="item"></flash-card>
+        </div>
+        <div class="col-md-2">
+            <flash-card :item="item"></flash-card>
+        </div>
+        <div class="col-md-2">
+            <flash-card :item="item"></flash-card>
+        </div>
+    </div>
+    <div class="row m-0">
+        <div class="col-12 mt-4">
+            <h4 class="text-center"><strong>Style Gallery</strong></h4>
+        </div>
     </div> 
+    <div class="row m-0 px-5 pb-5 pt-3">
+        <div class="col-md-3">
+            <img src="/storage/products/dress.jpg" class="img img-fluid" alt="">
+        </div>
+        <div class="col-md-3">
+            <img src="/storage/products/dress_2.jpg" class="img img-fluid" alt="">
+        </div>
+        <div class="col-md-3">
+            <img src="/storage/products/dress_3.jpg" class="img img-fluid" alt="">
+        </div>
+        <div class="col-md-3">
+            <img src="/storage/products/dress.jpg" class="img img-fluid" alt="">
+        </div>
+    </div>
 </div>
 </template>
 <script>
+import FlipCountdown from 'vue2-flip-countdown'
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 import hero from './hero.vue'
+import FlashCard from './flashCard.vue'
 export default {
     components:{
         hero,
-        PulseLoader
+        PulseLoader,
+        FlashCard,
+        FlipCountdown
     },
     mounted(){
         this.getCatByName()
     },
     data(){
         return{
+            item:{
+                p_name: "this is a flash sale",
+                p_image: "dress.jpg",
+                price: "1000"
+            },
             loading:true,
             cat_id:{},
             categories:{},

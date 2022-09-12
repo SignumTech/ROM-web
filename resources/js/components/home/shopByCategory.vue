@@ -93,7 +93,7 @@ export default {
     },
     methods:{
         async getCatDetail(){
-            await axios.get('/categories/'+this.$route.params.id)
+            await axios.get('/categories'+this.$route.params.id)
             .then( response =>{
                 this.catDetail = response.data
             })
