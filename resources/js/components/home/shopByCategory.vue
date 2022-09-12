@@ -55,7 +55,14 @@
             
         </div>
     </div>
-    <div class="col-md-10 ps-0 pe-0">
+    
+    <div v-if="loading" class="col-md-10 p-5">
+        <div class="d-flex justify-content-center align-self-center">
+            <pulse-loader :color="`#BF7F25`" :size="`15px`"></pulse-loader> 
+        </div>
+    </div>  
+    
+    <div v-if="!loading" class="col-md-10 ps-0 pe-0">
         <div class="row m-0">
             <div v-for="item in items" :key="item.id" class="col-md-3 mt-5">
                 <product-card :item="item"></product-card>
@@ -65,14 +72,17 @@
 </div>
 </template>
 <script>
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 import productCard from './productCard.vue';
 export default {
     components:{
-        productCard
+        productCard,
+        PulseLoader
     },
     data(){
         return{
-            items:{}
+            items:{},
+            loading:true
         }
     },
     mounted(){
@@ -81,9 +91,11 @@ export default {
     },
     methods:{
         async getCatProducts(){
+            this.loading = true
             await axios.get('/productsByCategory/'+this.$route.params.id)
             .then( response =>{
                 this.items = response.data
+                this.loading = false
             })
         }
     }
