@@ -41,7 +41,7 @@
             
         </div>
         <div class="col-4">
-            <flip-countdown :class="`float-end`" deadline="2022-09-22 00:00:00" :showDays="false"></flip-countdown>
+            <flip-countdown :class="`float-end`" deadline="2022-09-24 00:00:00" :showDays="false"></flip-countdown>
         </div>
     </div>
     <div class="row m-0 px-5 pb-5 pt-3">

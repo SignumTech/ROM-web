@@ -52930,7 +52930,7 @@ var render = function () {
           [
             _c("flip-countdown", {
               class: "float-end",
-              attrs: { deadline: "2022-09-22 00:00:00", showDays: false },
+              attrs: { deadline: "2022-09-24 00:00:00", showDays: false },
             }),
           ],
           1
