@@ -9680,7 +9680,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     sumPrice: function sumPrice(cart) {
       var sum = 0;
       cart.forEach(function (c) {
-        sum = sum + c.price;
+        sum = sum + parseFloat(c.price);
       });
       return sum;
     },
@@ -11170,6 +11170,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 
 
@@ -11179,6 +11182,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
+      loading: true,
       cartItems: [],
       cart_id: "",
       btnLoading: false
@@ -11291,7 +11295,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     sumPrice: function sumPrice(cart) {
       var sum = 0;
       cart.forEach(function (c) {
-        sum = sum + c.price;
+        sum = sum + parseFloat(c.price);
       });
       return sum;
     },
@@ -11303,13 +11307,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                _context3.next = 2;
+                _this3.loading = true;
+                _context3.next = 3;
                 return axios.post('/getCart').then(function (response) {
                   _this3.cart_id = response.data.id;
                   _this3.cartItems = JSON.parse(response.data.items);
+                  _this3.loading = false;
                 });
 
-              case 2:
+              case 3:
               case "end":
                 return _context3.stop();
             }
@@ -47357,8 +47363,11 @@ var render = function () {
                                                   [
                                                     _c("strong", [
                                                       _vm._v(
-                                                        _vm._s(cart.price) +
-                                                          " Birr"
+                                                        _vm._s(
+                                                          _vm._f("numFormat")(
+                                                            cart.price
+                                                          )
+                                                        ) + " Birr"
                                                       ),
                                                     ]),
                                                   ]
@@ -47380,8 +47389,10 @@ var render = function () {
                                             _c("strong", [
                                               _vm._v(
                                                 _vm._s(
-                                                  _vm.sumPrice(
-                                                    _vm.$store.state.auth.cart
+                                                  _vm._f("numFormat")(
+                                                    _vm.sumPrice(
+                                                      _vm.$store.state.auth.cart
+                                                    )
                                                   )
                                                 ) + " Birr"
                                               ),
@@ -49649,6 +49660,22 @@ var render = function () {
       { staticClass: "col-md-8 mt-3" },
       [
         _vm._m(1),
+        _vm._v(" "),
+        _vm.loading
+          ? _c(
+              "div",
+              {
+                staticClass:
+                  "d-flex justify-content-center align-self-center mt-5",
+              },
+              [
+                _c("pulse-loader", {
+                  attrs: { color: "#BF7F25", size: "15px" },
+                }),
+              ],
+              1
+            )
+          : _vm._e(),
         _vm._v(" "),
         _vm._l(_vm.cartItems, function (cart, index) {
           return _c(

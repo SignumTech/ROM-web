@@ -7,6 +7,9 @@
         <div class="bg-white rounded-1 p-3 shadow-sm">
             <h5 class="m-0">Shopping bag items</h5>
         </div>
+        <div v-if="loading" class="d-flex justify-content-center align-self-center mt-5">
+            <pulse-loader :color="`#BF7F25`" :size="`15px`"></pulse-loader> 
+        </div>
         <div v-for="(cart,index) in cartItems" :key="index" class="bg-white rounded-1 p-3 shadow-sm mt-3">
             <div class="row">
                 <div class="col-md-2">
@@ -63,6 +66,7 @@ export default {
     },
     data(){
         return{
+            loading:true,
             cartItems:[],
             cart_id:"",
             btnLoading:false
@@ -124,15 +128,17 @@ export default {
         sumPrice(cart){
             var sum = 0;
             cart.forEach(function(c){
-                sum = sum + c.price
+                sum = sum + parseFloat(c.price)
             })
             return sum;
         },
         async getCart(){
+            this.loading = true
             await axios.post('/getCart')
             .then( response => {
                 this.cart_id = response.data.id
                 this.cartItems = JSON.parse(response.data.items)
+                this.loading = false
             })
         },
         subtract(index){

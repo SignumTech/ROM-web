@@ -56,13 +56,13 @@
                                         <p class="m-0">{{cart.p_name}}</p>
                                         <p class="m-0">Color - <span class="badge rounded-pill"  :style="{backgroundColor:cart.color}">{{cart.color}}</span></p>
                                         <p class="m-0">Size - {{cart.size}}</p>
-                                        <h5 class="mt-2"><strong>{{cart.price}} Birr</strong></h5>
+                                        <h5 class="mt-2"><strong>{{cart.price | numFormat}} Birr</strong></h5>
                                     </div>
                                 </div>
                             
                                 <div class="row m-0 p-2">
                                     <div class="col-md-12">
-                                        <h5 class="text-end m-0">Total: <strong>{{sumPrice($store.state.auth.cart)}} Birr</strong></h5>
+                                        <h5 class="text-end m-0">Total: <strong>{{sumPrice($store.state.auth.cart) | numFormat}} Birr</strong></h5>
                                     </div>
                                 </div>
                                 <div class="row m-0 p-2 border-top">
@@ -119,7 +119,7 @@ export default {
         sumPrice(cart){
             var sum = 0;
             cart.forEach(function(c){
-                sum = sum + c.price
+                sum = sum + parseFloat(c.price)
             })
             return sum;
         },
