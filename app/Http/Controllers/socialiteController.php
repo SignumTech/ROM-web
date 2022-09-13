@@ -18,20 +18,18 @@ class socialiteController extends Controller
     public function google_callback(){
         $socialite_user = Socialite::driver('google')->user();
 
-        $check_user = User::where("email", $socialite_user->getEmail())->first();
+        $check_user = User::where("email", $socialite_user->getEmail())
+                            ->where("provider", null)
+                            ->first();
         
-        $user = User::where(['provider' => 'google', 'provider_id' => $socialite_user->getId()])
-                    ->where("provider", null)
-                    ->first();
-        //dd($user);
+        $user = User::where(['provider' => 'google', 'provider_id' => $socialite_user->getId()])->first();
+        
         if(!$user){
     
            if($check_user){
                 return response('Email already being used by another sigin method!', 422);
-                //dd($check_user);
-                //return redirect('/signin')->withErrors(['msg' => "Email already being used by another sigin method!"]);
            }
-           //dd($check_user);
+           
             $user = new User;
             $user->f_name = $socialite_user->user["given_name"];
             $user->l_name = $socialite_user->user["family_name"];
