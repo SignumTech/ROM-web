@@ -232,6 +232,9 @@ ul ul a {
 .border-danger {
     border-color: #bf7f25 !important;
 }
+.border-danger-inv {
+    border-color: red !important;
+}
 .bg-danger-badge {
     background-color: #dc354633 !important;
     color: #dc3545 !important;

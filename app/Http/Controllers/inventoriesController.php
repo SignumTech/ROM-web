@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Inventory;
 class inventoriesController extends Controller
 {
     /**
@@ -80,5 +80,23 @@ class inventoriesController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function itemsInventory(Request $request){
+        $this->validate($request, [
+            "items" => "required"
+        ]);
+        $inventory = [];
+        $invIndex = 0;
+        foreach($request->items as $item){
+            $inv = Inventory::where('p_id', $item['p_id'])
+                            ->where('color', $item['color'])
+                            ->where('size', $item['size'])
+                            ->first();
+
+            $inventory[$invIndex] = $inv->quantity;
+            $invIndex++; 
+        }
+        return $inventory;
     }
 }

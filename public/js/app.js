@@ -11173,6 +11173,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 
@@ -11185,7 +11186,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       loading: true,
       cartItems: [],
       cart_id: "",
-      btnLoading: false
+      btnLoading: false,
+      invError: false,
+      invEr: {},
+      inventory: {}
     };
   },
   mounted: function mounted() {
@@ -11193,36 +11197,59 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.orderSummary();
   },
   methods: {
-    deleteItem: function deleteItem(index) {
+    getInventory: function getInventory() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var check;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                check = confirm('Do you want to remove this item from your shopping bag?');
-
-                if (!check) {
-                  _context.next = 4;
-                  break;
-                }
-
-                _context.next = 4;
-                return axios.post('/deleteItem', {
-                  cartItems: _this.cartItems,
-                  index: index
+                _context.next = 2;
+                return axios.post('/itemsInventory', {
+                  items: _this.cartItems
                 }).then(function (response) {
-                  _this.getCart();
+                  _this.inventory = response.data;
                 });
 
-              case 4:
+              case 2:
               case "end":
                 return _context.stop();
             }
           }
         }, _callee);
+      }))();
+    },
+    deleteItem: function deleteItem(index) {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        var check;
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                check = confirm('Do you want to remove this item from your shopping bag?');
+
+                if (!check) {
+                  _context2.next = 4;
+                  break;
+                }
+
+                _context2.next = 4;
+                return axios.post('/deleteItem', {
+                  cartItems: _this2.cartItems,
+                  index: index
+                }).then(function (response) {
+                  _this2.getCart();
+                });
+
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
       }))();
     },
     detailsModal: function detailsModal(id, index, toEdit) {
@@ -11238,48 +11265,56 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     },
     checkout: function checkout() {
-      var _this2 = this;
+      var _this3 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
           while (1) {
-            switch (_context2.prev = _context2.next) {
+            switch (_context3.prev = _context3.next) {
               case 0:
-                if (_this2.$store.state.auth.authenticated) {
-                  _context2.next = 4;
+                if (_this3.$store.state.auth.authenticated) {
+                  _context3.next = 4;
                   break;
                 }
 
-                _this2.$modal.show(_signinModal_vue__WEBPACK_IMPORTED_MODULE_2__["default"], {}, {
+                _this3.$modal.show(_signinModal_vue__WEBPACK_IMPORTED_MODULE_2__["default"], {}, {
                   "width": "900px",
                   "height": "500px"
                 }, {});
 
-                _context2.next = 7;
+                _context3.next = 7;
                 break;
 
               case 4:
-                _this2.btnLoading = true;
-                _context2.next = 7;
-                return axios.put('/updateCart/' + _this2.cart_id, {
-                  items: _this2.cartItems
+                _this3.btnLoading = true;
+                _context3.next = 7;
+                return axios.put('/updateCart/' + _this3.cart_id, {
+                  items: _this3.cartItems
                 }).then(function (response) {
-                  _this2.$router.push({
+                  _this3.$router.push({
                     name: 'PlaceOrder',
                     params: {
                       cart_id: response.data.id
                     }
                   });
 
-                  _this2.btnLoading = false;
+                  _this3.btnLoading = false;
+                  _this3.invError = false;
+                })["catch"](function (error) {
+                  if (error.response.status == 422) {
+                    _this3.invEr = error.response.data;
+                    console.log(_this3.invEr[57]['err']);
+                    _this3.invError = true;
+                    _this3.btnLoading = false;
+                  }
                 });
 
               case 7:
               case "end":
-                return _context2.stop();
+                return _context3.stop();
             }
           }
-        }, _callee2);
+        }, _callee3);
       }))();
     },
     orderSummary: function orderSummary() {
@@ -11300,27 +11335,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return sum;
     },
     getCart: function getCart() {
-      var _this3 = this;
+      var _this4 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
-                _this3.loading = true;
-                _context3.next = 3;
+                _this4.loading = true;
+                _context4.next = 3;
                 return axios.post('/getCart').then(function (response) {
-                  _this3.cart_id = response.data.id;
-                  _this3.cartItems = JSON.parse(response.data.items);
-                  _this3.loading = false;
+                  _this4.cart_id = response.data.id;
+                  _this4.cartItems = JSON.parse(response.data.items);
+                  _this4.loading = false;
+
+                  _this4.getInventory();
                 });
 
               case 3:
               case "end":
-                return _context3.stop();
+                return _context4.stop();
             }
           }
-        }, _callee3);
+        }, _callee4);
       }))();
     },
     subtract: function subtract(index) {
@@ -11329,7 +11366,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
     },
     add: function add(index) {
-      this.cartItems[index].quantity += 1;
+      if (this.cartItems[index].quantity > this.inventory[index]) {} else {
+        this.cartItems[index].quantity += 1;
+      }
     }
   }
 });
@@ -49780,10 +49819,14 @@ var render = function () {
                               expression: "cart.quantity",
                             },
                           ],
-                          staticClass: "form-control text-center",
+                          class:
+                            cart.quantity > _vm.inventory[index]
+                              ? "form-control text-center border-danger-inv border-2"
+                              : "form-control text-center",
                           attrs: {
                             disabled: "",
                             type: "text",
+                            max: _vm.inventory[index],
                             placeholder: "",
                             "aria-describedby": "button-addon1",
                           },
@@ -49813,6 +49856,10 @@ var render = function () {
                         ),
                       ]
                     ),
+                    _vm._v(" "),
+                    _vm.invError
+                      ? _c("h6", [_vm._v(_vm._s(_vm.invEr[cart.p_id]["err"]))])
+                      : _vm._e(),
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "row mt-5" }, [

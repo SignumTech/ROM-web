@@ -202,11 +202,31 @@ class cartController extends Controller
             "items" => "required"
         ]);
 
-        $cart = Cart::find($id);
-        $cart->items = json_encode($request->items);
-        $cart->save();
+        $invData = [];
+        $items = $request->items;
+        
+        foreach($items as $item){
+            $invCheck = Inventory::where('p_id', $item['p_id'])
+                                 ->where('color', $item['color'])
+                                 ->where('size', $item['size'])
+                                 ->first();
+            if($invCheck->quantity < $item['quantity']){
+                $invData[$item['p_id']]['err'] = 'Only '.$invCheck->quantity.' are available';
+                $invData[$item['p_id']]['invError'] = true;
+            }
+        }
 
-        return $cart;
+        if(count($invData) > 0){
+            return response($invData, 422);
+        }
+        else{
+            $cart = Cart::find($id);
+            $cart->items = json_encode($request->items);
+            $cart->save();
+
+            return $cart;            
+        }
+
     }
 
     public function deleteItem(Request $request){

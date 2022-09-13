@@ -26,9 +26,10 @@
                     <div class="row ms-md-5 ms-sm-3">
                         <div class="input-group mb-3 mt-2 float-end">
                             <button @click="subtract(index)" class="btn btn-outline-secondary btn-sm" type="button" id="button-addon1"><span class="fa fa-minus"></span></button>
-                            <input disabled v-model="cart.quantity" type="text" class="form-control text-center" placeholder=""  aria-describedby="button-addon1">
+                            <input disabled v-model="cart.quantity" type="text" :max="inventory[index]" :class="(cart.quantity > inventory[index])?`form-control text-center border-danger-inv border-2`:`form-control text-center`" placeholder=""  aria-describedby="button-addon1">
                             <button @click="add(index)" class="btn btn-outline-secondary btn-sm" type="button" id="button-addon1"><span class="fa fa-plus"></span></button>
-                        </div>                        
+                        </div>
+                        <h6 v-if="invError">{{invEr[cart.p_id]['err']}}</h6>                        
                     </div>
                     <div class="row mt-5">
                         <div class="col-md-6">
@@ -69,7 +70,10 @@ export default {
             loading:true,
             cartItems:[],
             cart_id:"",
-            btnLoading:false
+            btnLoading:false,
+            invError:false,
+            invEr:{},
+            inventory:{}
         }
     },
     mounted(){
@@ -77,6 +81,12 @@ export default {
         this.orderSummary()
     },
     methods:{
+        async getInventory(){
+            await axios.post('/itemsInventory', {items:this.cartItems})
+            .then( response =>{
+                this.inventory = response.data
+            })
+        },
         async deleteItem(index){
             var check = confirm('Do you want to remove this item from your shopping bag?')
             if(check){
@@ -112,6 +122,17 @@ export default {
                         cart_id:response.data.id
                     }})
                     this.btnLoading = false
+                    this.invError = false
+                })
+                .catch( error =>{
+                    if(error.response.status == 422){
+                        
+                        this.invEr = error.response.data
+                        console.log(this.invEr[57]['err'])
+                        this.invError = true
+                        this.btnLoading = false
+                    }
+                    
                 })
             }
         },
@@ -139,6 +160,7 @@ export default {
                 this.cart_id = response.data.id
                 this.cartItems = JSON.parse(response.data.items)
                 this.loading = false
+                this.getInventory()
             })
         },
         subtract(index){
@@ -150,7 +172,13 @@ export default {
             }
         },
         add(index){
-            this.cartItems[index].quantity += 1 
+            if(this.cartItems[index].quantity > this.inventory[index]){
+
+            }
+            else{
+                this.cartItems[index].quantity += 1
+            }
+             
         }
     }
 }

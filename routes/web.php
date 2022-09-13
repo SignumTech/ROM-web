@@ -11,6 +11,7 @@ use App\Http\Controllers\productsController;
 use App\Http\Controllers\cartController;
 use App\Http\Controllers\addressBookController;
 use App\Http\Controllers\ordersController;
+use App\Http\Controllers\inventoriesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,6 +37,8 @@ Route::middleware('auth:sanctum')->resource('/categories', categoriesController:
 Route::resource('/products', productsController::class);
 Route::resource('/orders', ordersController::class);
 Route::resource('/addressBooks', addressBookController::class);
+///////////////////////////////////inventory/////////////////////////////////////////////////////////////
+Route::post('/itemsInventory', [inventoriesController::class, 'itemsInventory']);
 ///////////////////////////////////address/////////////////////////////////////////////////////////////
 Route::get('/showAddress/{id}', [addressBookController::class, 'showAddress']);
 Route::get('/makeDefaultAddress/{id}', [addressBookController::class, 'makeDefaultAddress']);
