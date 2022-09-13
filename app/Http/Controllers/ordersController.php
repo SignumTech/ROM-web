@@ -174,8 +174,9 @@ class ordersController extends Controller
     public function getMyOrders(){
         $orders = Order::where('user_id', auth()->user()->id)->get();
         $items = 0;
-        $pic = null;
+        
         foreach($orders as $order){
+            $pic = null;
             $o_items = json_decode($order->items);
             foreach($o_items as $ot){
                 $items = $items + $ot->quantity;
