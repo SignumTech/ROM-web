@@ -132,7 +132,7 @@ class productsController extends Controller
 
     public function uploadProductPic(Request $request){
         $this->validate($request, [
-            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2084',
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2084',
         ]);
         //dd($request->cat_id);
         if($request->hasFile('photo')){
