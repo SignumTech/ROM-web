@@ -98,7 +98,9 @@ class socialiteController extends Controller
         }
         $user = User::where(['provider' => 'google', 'provider_id' => $request->id])->first();
         if($user){
-            Auth::login($user);
+            $user_token = $user->createToken($user->f_name);
+
+            return ['token' => $user_token->plainTextToken];
         }
         else{
             $names = explode(' ',$request->displayName);
@@ -112,10 +114,12 @@ class socialiteController extends Controller
             $user->account_type = 'USER';
             $user->verification_status = 'VERIFIED';
             $user->save();
-            Auth::login($user);
+
+            $user_token = $user->createToken($user->f_name);
+
+            return ['token' => $user_token->plainTextToken];
         }
 
-        return $user;
     }
 
     public function mobFacebookLogin(Request $request){
@@ -132,7 +136,9 @@ class socialiteController extends Controller
         }
         $user = User::where(['provider' => 'facebook', 'provider_id' => $request->id])->first();
         if($user){
-            Auth::login($user);
+            $user_token = $user->createToken($user->f_name);
+
+            return ['token' => $user_token->plainTextToken];
         }
         else{
             $names = explode(' ',$request->displayName);
@@ -146,9 +152,10 @@ class socialiteController extends Controller
             $user->account_type = 'USER';
             $user->verification_status = 'VERIFIED';
             $user->save();
-            Auth::login($user);
+            $user_token = $user->createToken($user->f_name);
+
+            return ['token' => $user_token->plainTextToken];
         }
 
-        return $user;
     }
 }

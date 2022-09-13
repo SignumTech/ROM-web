@@ -125,7 +125,9 @@ class productsController extends Controller
 
     public function productsByCategory($id)
     {
-        $products = Product::where('cat_id', $id)->get();
+        $products = Product::where('cat_id', $id)
+                           ->where('p_status', 'PUBLISHED')
+                           ->get();
         
         return $products;
     }
@@ -178,6 +180,7 @@ class productsController extends Controller
         $picturesData = [];
         $p_colors = [];
         $p_index = 0;
+        $picAdded = false;
         foreach($request->colorData as $data){
             if(count($data['pictures']) == 0){
                 return response("You need to insert atleast one picture to each color", 422);
@@ -192,7 +195,10 @@ class productsController extends Controller
                 $inventory->save();
             }
             $picturesData[$data['color']] = $data['pictures'];
-            $picturesData['main'] = $data['pictures'][0];
+            if(!$picAdded){
+                $picturesData['main'] = $data['pictures'][0];
+                $picAdded = true;
+            }
             $p_colors[$p_index] = $data['color'];
             $p_index++;
         }
@@ -211,6 +217,7 @@ class productsController extends Controller
             "product_id" => "required"
         ]);
         $picturesData = [];
+        $picAdded = false;
         foreach($request->colorData as $data){
             if(count($data['pictures']) == 0){
                 return response("You need to insert atleast one picture to each color", 422);
@@ -221,10 +228,15 @@ class productsController extends Controller
                     ['p_id' => $request->product_id],
                     ['size' => $size['size'], 'color' => $data['color'], 'quantity' => $size['quantity']]
                 );
-
+                
             }
             $picturesData[$data['color']] = $data['pictures'];
-            $picturesData['main'] = $data['pictures'][0];
+
+            if(!$picAdded){
+                $picturesData['main'] = $data['pictures'][0];
+                $picAdded = true;
+            }
+            
         }
         
         $product = Product::find($request->product_id);
