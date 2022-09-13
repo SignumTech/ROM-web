@@ -7,7 +7,15 @@
         <div class="bg-white rounded-1 p-3 shadow-sm">
             <h5 class="m-0">Shipping Address</h5>
         </div>
-        <div v-if="addressBookExists" class="row mx-0 mt-3 p-3">
+        <div v-if="loading" class="row mx-0 mt-3 p-3">
+            <div  class="col-md-12 p-5 mt-4">
+                <div class="d-flex justify-content-center align-self-center">
+                    <pulse-loader :color="`#BF7F25`" :size="`15px`"></pulse-loader> 
+                </div>
+            </div>         
+        </div>
+
+        <div v-if="addressBookExists && !loading" class="row mx-0 mt-3 p-3">
             <div v-for="ad in addressData" :key="ad.id" class="col-md-6 mt-3">
                 <div @click="makeDefault(ad.id)" :class="(ad.type == 'DEFAULT')?`bg-white shadow-sm rounded-1 border border-primary border-5 p-3`:`bg-white shadow-sm rounded-1 border-start border-secondary border-3 p-3`" style="cursor:pointer">
                     <h5><strong>{{ad.f_name}} {{ad.l_name}}</strong> <span @click="editAddress(ad)" class="fa fa-edit float-end" style="cursor:pointer"></span></h5>
@@ -20,7 +28,7 @@
                 <button @click="addAddress()" class="btn btn-outline-primary rounded-1"> <span class="fa fa-plus"></span> Add Shipping Address</button>
             </div>
         </div>
-        <form v-if="!addressBookExists" action="#" @submit.prevent="saveAddress">
+        <form v-if="!addressBookExists && !loading" action="#" @submit.prevent="saveAddress">
             <div class="row mx-0 mt-3 p-3 bg-white rounded-1 shadow-sm">
                 <div class="col-md-6">
                     <label>First Name</label>
@@ -87,7 +95,10 @@
             <h4 class="m-0"><strong>Order Summary</strong></h4>
             <h6 class="mt-4">Subtotal <span class="float-end fs-3"><strong>{{orderSummary() | numFormat}} ETB</strong></span></h6>
         </div>
-        <button @click="placeOrder()" class="btn btn-primary py-3 form-control mt-3"><h4 class="m-0"><strong>Place Order</strong></h4></button>
+        <div v-if="btnLoading" class="d-flex justify-content-center align-self-center">
+            <pulse-loader :color="`#BF7F25`" :size="`15px`"></pulse-loader> 
+        </div>
+        <button v-if="!btnLoading" @click="placeOrder()" class="btn btn-primary py-3 form-control mt-3"><h4 class="m-0"><strong>Place Order</strong></h4></button>
     </div>
 </div>    
 </template>
@@ -95,10 +106,16 @@
 import addressModalVue from './addressModal.vue'
 import editAddressModalVue from './editAddressModal.vue'
 
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 export default {
+    components:{
+        PulseLoader
+    },
     props:['cart_id'],
     data(){
         return{
+            btnLoading:false,
+            loading:false,
             c_id:this.cart_id,
             currentAddress:"",
             cartItems:[],
@@ -143,6 +160,7 @@ export default {
                 this.cartItemsError = true
             }
             else{
+                this.btnLoading = true
                 //await axios.post('/orders')
                 this.$router.push({name:'Pay', params:{
                     address:this.currentAddress,
@@ -150,6 +168,7 @@ export default {
                     cart_id:this.c_id
                     
                 }})
+                this.btnLoading = false
             }
         },
         addAddress(){
@@ -169,6 +188,7 @@ export default {
             )
         },
         async getAddressBook(){
+            this.loading = true
             await axios.get('/addressBooks/'+this.$store.state.auth.user.id)
             .then( response =>{
                 this.addressData = response.data
@@ -179,23 +199,29 @@ export default {
                     }
                 })
                 this.addressBookExists = true
+                this.loading = false
             })
             .catch( error =>{
                 if(error.response.status == 422){
                     this.addressBookExists = false
+                    this.loading = false
                 }
             })
         },
         async saveAddress(){
+            this.loading = true
             await axios.post('/addressBooks', this.addressData)
             .then( response =>{
                 this.addressData = response.data
+                this.addressBookExists = true
+                this.getAddressBook()
+                this.loading = false
             })
         },
         async getCart(){
             await axios.post('/getCart')
             .then( response => {
-                
+                this.c_id = response.data.id
                 this.cartItems = JSON.parse(response.data.items)
             })
         },

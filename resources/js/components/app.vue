@@ -38,7 +38,7 @@
                                 <li v-if="!authenticated"><router-link class="dropdown-item" to="/signin">SIGN IN / REGISTER</router-link></li>
                                 <li v-if="authenticated"><router-link class="dropdown-item" to="/myAccount"><strong>{{user.f_name}} {{user.l_name}}</strong></router-link></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">My orders</a></li>
+                                <li><router-link to="/myAccount/myOrders" class="dropdown-item">My orders</router-link></li>
                                 <li v-if="authenticated"><a class="dropdown-item" @click="logout()" style="cursor:pointer">Sign out</a></li>
                             </ul>
                         </li>

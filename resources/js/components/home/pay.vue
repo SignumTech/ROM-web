@@ -4,7 +4,12 @@
         <h5>Shopping Bag > Place Order > <strong>Pay</strong> > Order Complete</h5>
     </div>
     <div class="col-md-3"></div>
-    <div class="col-md-6 mt-2">
+    <div v-if="btnLoading" class="col-md-6 mt-2">
+        <div  class="d-flex justify-content-center align-self-center">
+            <pulse-loader :color="`#BF7F25`" :size="`15px`"></pulse-loader> 
+        </div>
+    </div>
+    <div v-if="!btnLoading" class="col-md-6 mt-2">
         <div class="bg-white shadow-sm rounded-1 p-4 ">
             <img src="/storage/settings/telebirr.png" class="img img-fluid" style="width:70px; height:auto" alt="">
             <h6 class="mt-3">Reciever Name: ROM Fashion</h6>
@@ -22,18 +27,24 @@
 </div>
 </template>
 <script>
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 export default {
+    components:{
+        PulseLoader,
+    },
     props:['address', 'total', 'cart_id'],
     data(){
         return{
-
+            btnLoading : false
         }
     },
     methods:{
         async completePayment(){
+            this.btnLoading = true
             await axios.post('/orders', {address:this.address,total:this.total,cart_id:this.cart_id})
             .then( response =>{
-                this.$router.push({name:'OrderComplete'})
+                window.location.replace('/orderComplete')
+                this.btnLoading = false
             })
         }
     }

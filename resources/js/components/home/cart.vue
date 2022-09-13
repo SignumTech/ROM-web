@@ -44,18 +44,28 @@
             <h4 class="m-0"><strong>Order Summary</strong></h4>
             <h6 class="mt-4"><strong>Subtotal</strong> <span class="float-end fs-3"><strong>{{orderSummary() | numFormat}} ETB</strong></span></h6>
         </div>
-        <button @click="checkout()" class="btn btn-primary py-2 form-control mt-3"><h4 class="m-0"><strong>Secure Checkout</strong></h4></button>
+        
+        <div v-if="btnLoading" class="d-flex justify-content-center align-self-center mt-3">
+            <pulse-loader :color="`#BF7F25`" :size="`15px`"></pulse-loader> 
+        </div>
+        
+        <button v-if="!btnLoading" @click="checkout()" class="btn btn-primary py-2 form-control mt-3"><h4 class="m-0"><strong>Secure Checkout</strong></h4></button>
     </div>
 </div>    
 </template>
 <script>
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 import editSizesColorsVue from './editSizesColors.vue';
 import signinModal from './signinModal.vue';
 export default {
+    components:{
+        PulseLoader
+    },
     data(){
         return{
             cartItems:[],
-            cart_id:""
+            cart_id:"",
+            btnLoading:false
         }
     },
     mounted(){
@@ -91,11 +101,13 @@ export default {
                 )
             }
             else{
+                this.btnLoading = true
                 await axios.put('/updateCart/'+this.cart_id, {items:this.cartItems})
                 .then( response =>{
                     this.$router.push({name:'PlaceOrder', params:{
                         cart_id:response.data.id
                     }})
+                    this.btnLoading = false
                 })
             }
         },

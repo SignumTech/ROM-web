@@ -57,7 +57,9 @@ class socialiteController extends Controller
     public function facebook_callback(){
         $socialite_user = Socialite::driver('facebook')->user();
         $names = explode(' ',$socialite_user->getName());
-        $check_user = User::where("email", $socialite_user->getEmail())->first();
+        $check_user = User::where("email", $socialite_user->getEmail())
+                          ->where("provider", null)
+                          ->first();
     
         $user = User::where(['provider' => 'facebook', 'provider_id' => $socialite_user->getId()])->first();
         if(!$user){
@@ -79,5 +81,74 @@ class socialiteController extends Controller
         }
         Auth::login($user);
         return redirect('/myAccount');
+    }
+
+    public function mobGoogleLogin(Request $request){
+        $this->validate($request, [
+            "displayName" => "required",
+            "email" => "required",
+            "id" => "required",
+        ]);
+        $check_user = User::where("email", $request->email)
+                          ->where("provider", null)
+                          ->first();
+        if($check_user){
+            return response("Email already being used by another sigin method!", 422);
+            
+        }
+        $user = User::where(['provider' => 'google', 'provider_id' => $request->id])->first();
+        if($user){
+            Auth::login($user);
+        }
+        else{
+            $names = explode(' ',$request->displayName);
+            $user = new User;
+            $user->f_name = $names[0];
+            $user->l_name = (count($names) > 1)? $names[1]: $names[0];
+            $user->email = $request->email;
+            $user->provider = 'google';
+            $user->provider_id = $request->id;
+            $user->email_verified_at = now();
+            $user->account_type = 'USER';
+            $user->verification_status = 'VERIFIED';
+            $user->save();
+            Auth::login($user);
+        }
+
+        return $user;
+    }
+
+    public function mobFacebookLogin(Request $request){
+        $this->validate($request, [
+            "displayName" => "required",
+            "email" => "required",
+            "id" => "required",
+        ]);
+        $check_user = User::where("email", $request->email)
+                          ->where("provider", null)
+                          ->first();
+        if($check_user){
+            return response("Email already being used by another sigin method!", 422);
+        }
+        $user = User::where(['provider' => 'facebook', 'provider_id' => $request->id])->first();
+        if($user){
+            Auth::login($user);
+        }
+        else{
+            $names = explode(' ',$request->displayName);
+            $user = new User;
+            $user->f_name = $names[0];
+            $user->l_name = (count($names) > 1)? $names[1]: $names[0];
+            $user->email = $request->email;
+            $user->provider = 'facebook';
+            $user->provider_id = $request->id;
+            $user->email_verified_at = now();
+            $user->account_type = 'USER';
+            $user->verification_status = 'VERIFIED';
+            $user->save();
+            Auth::login($user);
+        }
+
+        return $user;
     }
 }

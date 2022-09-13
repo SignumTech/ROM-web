@@ -258,13 +258,12 @@ const routes = [
     {
         path: '/myAccount',
         component: myAccount,
-        name: 'MyAccount',
         props: true,
         children:[
             {
                 path: '/',
                 component: myAccountHome,
-                name: 'MyAccountHome'
+                name: 'MyAccount'
             },
             {
                 path: '/myAccount/myProfile',

@@ -10,10 +10,10 @@
             <h4 class="text-center mt-3"><strong>Payment Successful</strong> </h4>
             <div class="row mx-0 mt-5">
                 <div class="col-md-6">
-                    <button class="btn btn-primary form-control">VIEW MY ORDERS</button>
+                    <router-link to="/myAccount/myOrders" class="btn btn-primary form-control text-white">VIEW MY ORDERS</router-link>
                 </div>
                 <div class="col-md-6">
-                    <button class="btn btn-success form-control">Continue Shopping</button>
+                    <router-link to="/" class="btn btn-success form-control text-white">Continue Shopping</router-link>
                 </div>
             </div>
         </div>

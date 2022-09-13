@@ -6,6 +6,7 @@ use App\Http\Controllers\registerUsersController;
 use App\Http\Controllers\getTokenController;
 use App\Http\Controllers\categoriesController;
 use App\Http\Controllers\productsController;
+use App\Http\Controllers\socialiteController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,6 +18,9 @@ use App\Http\Controllers\productsController;
 |
 */
 Auth::routes();
+///////////////////////////////////resources///////////////////////////////////////////////////////
+Route::post('/mobGoogleLogin', [socialiteController::class, 'mobGoogleLogin']);
+Route::post('/mobFacebookLogin', [socialiteController::class, 'mobFacebookLogin']);
 ///////////////////////////////////resources///////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->resource('/categories', categoriesController::class);
 Route::resource('/products', productsController::class);

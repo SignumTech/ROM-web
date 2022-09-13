@@ -81,7 +81,7 @@ class ordersController extends Controller
             $order->save();
 
             $cart->delete();
-
+            DB::commit();
             return $order;
         }
         catch (\Exception $e) {
