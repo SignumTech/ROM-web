@@ -52,7 +52,7 @@ class addressBookController extends Controller
         $addressBook->state = $request->state;
         $addressBook->address_1 = $request->address_1;
         $addressBook->address_2 = $request->address_2;
-        if(!AddressBook::first()){
+        if(!AddressBook::where("user_id", auth()->user()->id)->first()){
             $addressBook->type = 'DEFAULT';
         }
 
