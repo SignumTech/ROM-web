@@ -37,7 +37,7 @@ Route::get('/getMainCategories', [categoriesController::class, 'getMainCategorie
 Route::get('/getSubCategories', [categoriesController::class, 'getSubCategories']);
 Route::get('/showSubCategories/{id}', [categoriesController::class, 'showSubCategories']);
 ///////////////////////////////////cart/////////////////////////////////////////////////////////////
-Route::post('/getMobCart', [cartController::class, 'getMobCart']);
+Route::middleware('auth:sanctum')->post('/getMobCart', [cartController::class, 'getMobCart']);
 /////////////////////////////////auth//////////////////////////////////////////////////////////////////
 Route::post('/getUserToken', [getTokenController::class, 'getUserToken']);
 Route::post('/registerUser', [registerUsersController::class, 'registerUser']);
