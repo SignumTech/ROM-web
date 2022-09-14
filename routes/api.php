@@ -7,6 +7,7 @@ use App\Http\Controllers\getTokenController;
 use App\Http\Controllers\categoriesController;
 use App\Http\Controllers\productsController;
 use App\Http\Controllers\socialiteController;
+use App\Http\Controllers\inventoriesController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -24,6 +25,8 @@ Route::post('/mobFacebookLogin', [socialiteController::class, 'mobFacebookLogin'
 ///////////////////////////////////resources///////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->resource('/categories', categoriesController::class);
 Route::resource('/products', productsController::class);
+///////////////////////////////////inventory/////////////////////////////////////////////////////////////
+Route::post('/itemsInventory', [inventoriesController::class, 'itemsInventory']);
 ////////////////////////////////////Products////////////////////////////////////////////////////////
 Route::get('/productsByCategory/{id}', [productsController::class, 'productsByCategory']);
 Route::get('/getInventory/{id}', [productsController::class, 'getInventory']);
