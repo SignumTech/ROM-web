@@ -8,6 +8,7 @@ use App\Http\Controllers\categoriesController;
 use App\Http\Controllers\productsController;
 use App\Http\Controllers\socialiteController;
 use App\Http\Controllers\inventoriesController;
+use App\Http\Controllers\cartController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
