@@ -26,7 +26,8 @@ Route::post('/mobFacebookLogin', [socialiteController::class, 'mobFacebookLogin'
 Route::middleware('auth:sanctum')->resource('/categories', categoriesController::class);
 Route::resource('/products', productsController::class);
 ///////////////////////////////////inventory/////////////////////////////////////////////////////////////
-Route::post('/itemsInventory', [inventoriesController::class, 'itemsInventory']);
+Route::post('/itemsInventory', [inventoriesController::class, 'itemsMobInventory']);
+
 ////////////////////////////////////Products////////////////////////////////////////////////////////
 Route::get('/productsByCategory/{id}', [productsController::class, 'productsByCategory']);
 Route::get('/getInventory/{id}', [productsController::class, 'getInventory']);

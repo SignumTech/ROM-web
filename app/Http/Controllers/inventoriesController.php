@@ -99,4 +99,21 @@ class inventoriesController extends Controller
         }
         return $inventory;
     }
+    public function itemsMobInventory(Request $request){
+        $this->validate($request, [
+            "items" => "required"
+        ]);
+        $inventory = [];
+        $invIndex = 0;
+        foreach(json_decode($request->items) as $item){
+            $inv = Inventory::where('p_id', $item['p_id'])
+                            ->where('color', $item['color'])
+                            ->where('size', $item['size'])
+                            ->first();
+
+            $inventory[$invIndex] = $inv->quantity;
+            $invIndex++; 
+        }
+        return $inventory;
+    }
 }
