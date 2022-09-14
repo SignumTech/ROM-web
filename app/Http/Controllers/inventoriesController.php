@@ -106,9 +106,9 @@ class inventoriesController extends Controller
         $inventory = [];
         $invIndex = 0;
         foreach(json_decode($request->items) as $item){
-            $inv = Inventory::where('p_id', $item['p_id'])
-                            ->where('color', $item['color'])
-                            ->where('size', $item['size'])
+            $inv = Inventory::where('p_id', $item->p_id)
+                            ->where('color', $item->color)
+                            ->where('size', $item->size)
                             ->first();
 
             $inventory[$invIndex] = $inv->quantity;
