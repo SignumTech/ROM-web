@@ -257,5 +257,55 @@ class cartController extends Controller
 
     }
 
+    public function getMobCart(Request $request){
+        $this->validate($request, [
+            "items" => "required"
+        ]);
+        $cartData = $request->items;
+        if(count($cartData)>0){
+                
+                $cart = Cart::where('user_id', auth()->user()->id)
+                            ->where('cart_status', 'ACTIVE')
+                            ->first();
+                if($cart){
+                    $cart_db = json_decode($cart->items);
+                    foreach($cart_db as $cd){
+                        foreach($cartData as $cart_data){
+                            if($cd->p_id == $cart_data->p_id && $cd->color == $cart_data->color && $cd->size == $cart_data->size){
+                                $cd->quantity += 1;
+                                array_splice($cartData, array_search($cart_data, $cartData), 1);
+                            }
+                        }
+
+                    }
+                    if(count($cartData)>0){
+                        $cart_db = array_merge($cart_db,$cartData);
+                    }
+        
+                    $cart->items = json_encode($cart_db);
+                    $cart->save();
+                    
+                    return $cart;
+                }
+                else{
+                    $cart = new Cart;
+                    $cart->items = json_encode($cartData);
+                    $cart->user_id = auth()->user()->id;
+                    $cart->save();
+                    
+                    return $cart;
+                }
+                
+            }
+            else{
+                $cart = Cart::where('user_id', auth()->user()->id)
+                            ->where('cart_status', 'ACTIVE')
+                            ->first();
+                return $cart;
+            }
+        
+        return $cart;
+    }
+
 
 }

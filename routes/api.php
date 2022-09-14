@@ -34,6 +34,8 @@ Route::get('/getInventory/{id}', [productsController::class, 'getInventory']);
 Route::get('/getMainCategories', [categoriesController::class, 'getMainCategories']);
 Route::get('/getSubCategories', [categoriesController::class, 'getSubCategories']);
 Route::get('/showSubCategories/{id}', [categoriesController::class, 'showSubCategories']);
+///////////////////////////////////cart/////////////////////////////////////////////////////////////
+Route::post('/getMobCart', [cartController::class, 'getMobCart']);
 /////////////////////////////////auth//////////////////////////////////////////////////////////////////
 Route::post('/getUserToken', [getTokenController::class, 'getUserToken']);
 Route::post('/registerUser', [registerUsersController::class, 'registerUser']);
