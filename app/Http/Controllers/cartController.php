@@ -261,7 +261,7 @@ class cartController extends Controller
         $this->validate($request, [
             "items" => "required"
         ]);
-        $cartData = $request->items;
+        $cartData = json_decode($request->items);
         if(count($cartData)>0){
                 
                 $cart = Cart::where('user_id', auth()->user()->id)
