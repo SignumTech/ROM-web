@@ -38,6 +38,7 @@ Route::get('/getSubCategories', [categoriesController::class, 'getSubCategories'
 Route::get('/showSubCategories/{id}', [categoriesController::class, 'showSubCategories']);
 ///////////////////////////////////cart/////////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->post('/getMobCart', [cartController::class, 'getMobCart']);
+Route::middleware('auth:sanctum')->put('/updateMobCart/{id}', [cartController::class, 'updateMobCart']);
 /////////////////////////////////auth//////////////////////////////////////////////////////////////////
 Route::post('/getUserToken', [getTokenController::class, 'getUserToken']);
 Route::post('/registerUser', [registerUsersController::class, 'registerUser']);
