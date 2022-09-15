@@ -253,7 +253,7 @@ class cartController extends Controller
         }
         else{
             $cart = Cart::find($id);
-            $cart->items = json_encode($request->items);
+            $cart->items = json_encode(json_decode($request->items));
             $cart->save();
 
             return $cart;            
