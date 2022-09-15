@@ -242,7 +242,7 @@ class cartController extends Controller
                                  ->where('color', $item->color)
                                  ->where('size', $item->size)
                                  ->first();
-            if($invCheck->quantity < $item['quantity']){
+            if($invCheck->quantity < $item->quantity){
                 $invData[$item->p_id]['err'] = 'Only '.$invCheck->quantity.' are available';
                 $invData[$item->p_id]['invError'] = true;
             }
