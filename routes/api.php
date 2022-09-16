@@ -9,6 +9,7 @@ use App\Http\Controllers\productsController;
 use App\Http\Controllers\socialiteController;
 use App\Http\Controllers\inventoriesController;
 use App\Http\Controllers\cartController;
+use App\Http\Controllers\addressBookController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -26,9 +27,12 @@ Route::post('/mobFacebookLogin', [socialiteController::class, 'mobFacebookLogin'
 ///////////////////////////////////resources///////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->resource('/categories', categoriesController::class);
 Route::resource('/products', productsController::class);
+Route::middleware('auth:sanctum')->resource('/addressBooks', addressBookController::class);
 ///////////////////////////////////inventory/////////////////////////////////////////////////////////////
 Route::post('/itemsInventory', [inventoriesController::class, 'itemsMobInventory']);
-
+///////////////////////////////////address/////////////////////////////////////////////////////////////
+Route::middleware('auth:sanctum')->get('/showAddress/{id}', [addressBookController::class, 'showAddress']);
+Route::middleware('auth:sanctum')->get('/makeDefaultAddress/{id}', [addressBookController::class, 'makeDefaultAddress']);
 ////////////////////////////////////Products////////////////////////////////////////////////////////
 Route::get('/productsByCategory/{id}', [productsController::class, 'productsByCategory']);
 Route::get('/getInventory/{id}', [productsController::class, 'getInventory']);
