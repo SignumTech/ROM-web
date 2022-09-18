@@ -10530,7 +10530,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   });
 
                   if (_this.$store.state.auth.permissions == 'ADMIN') {
-                    window.location.replace('/adminDash');
+                    window.location.replace('/admin/adminDash');
                   } else {
                     window.location.replace('/myAccount');
                   }
@@ -15459,7 +15459,7 @@ var routes = [{
   path: '/',
   beforeEnter: function beforeEnter(to, from, next) {
     if (_store__WEBPACK_IMPORTED_MODULE_0__["default"].state.auth.permissions == 'ADMIN') {
-      next('/adminDash');
+      next('/admin/adminDash');
     } else {
       next('/women');
     }
@@ -47530,7 +47530,16 @@ var render = function () {
         1
       ),
       _vm._v(" "),
-      _c("div", { staticClass: "p-0" }, [_c("footer1")], 1),
+      _c(
+        "div",
+        { staticClass: "p-0" },
+        [
+          _vm.$store.state.auth.permissions != "ADMIN"
+            ? _c("footer1")
+            : _vm._e(),
+        ],
+        1
+      ),
       _vm._v(" "),
       _c("notifications", {
         attrs: { group: "foo", position: "bottom right" },

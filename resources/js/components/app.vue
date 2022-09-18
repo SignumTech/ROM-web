@@ -87,7 +87,7 @@
              <admin-nav v-if="$store.state.auth.permissions == `ADMIN` && $store.state.auth.authenticated"></admin-nav>
         </div>
         <div class="p-0">
-            <footer1></footer1>
+            <footer1 v-if="$store.state.auth.permissions != `ADMIN`"></footer1>
         </div>
         <notifications group="foo" position="bottom right"/>
         

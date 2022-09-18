@@ -295,7 +295,7 @@ const routes = [
         path: '/',
         beforeEnter: (to, from, next)=>{
             if(store.state.auth.permissions == 'ADMIN'){
-                next('/adminDash')
+                next('/admin/adminDash')
             }
             else{
                 next('/women')

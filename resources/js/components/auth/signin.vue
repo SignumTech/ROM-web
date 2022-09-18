@@ -181,7 +181,7 @@ export default {
                         text: 'you have successfully signed in!'
                     });
                     if(this.$store.state.auth.permissions == 'ADMIN'){
-                        window.location.replace('/adminDash')
+                        window.location.replace('/admin/adminDash')
                     }
                     else{
                         window.location.replace('/myAccount')
