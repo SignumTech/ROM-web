@@ -9,6 +9,7 @@ use App\Http\Controllers\productsController;
 use App\Http\Controllers\socialiteController;
 use App\Http\Controllers\inventoriesController;
 use App\Http\Controllers\cartController;
+use App\Http\Controllers\ordersController;
 use App\Http\Controllers\addressBookController;
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,11 @@ Auth::routes();
 ///////////////////////////////////resources///////////////////////////////////////////////////////
 Route::post('/mobGoogleLogin', [socialiteController::class, 'mobGoogleLogin']);
 Route::post('/mobFacebookLogin', [socialiteController::class, 'mobFacebookLogin']);
+Route::resource('/orders', ordersController::class);
+///////////////////////////////////orders/////////////////////////////////////////////////////////
+Route::get('/getMyOrders', [ordersController::class, 'getMyOrders']);
+Route::get('/getMyOrdersStatus/{status}', [ordersController::class, 'getMyOrdersStatus']);
+Route::post('/repurchaseOrder', [ordersController::class, 'repurchaseOrder']);
 ///////////////////////////////////resources///////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->resource('/categories', categoriesController::class);
 Route::resource('/products', productsController::class);
