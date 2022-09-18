@@ -28,7 +28,7 @@ Route::post('/mobFacebookLogin', [socialiteController::class, 'mobFacebookLogin'
 Route::middleware('auth:sanctum')->resource('/orders', ordersController::class);
 ///////////////////////////////////orders/////////////////////////////////////////////////////////
 Route::get('/getMyOrders', [ordersController::class, 'getMyOrders']);
-Route::get('/getMyOrdersStatus/{status}', [ordersController::class, 'getMyOrdersStatus']);
+Route::middleware('auth:sanctum')->get('/getMyOrdersStatus/{status}', [ordersController::class, 'getMyOrdersStatus']);
 Route::post('/repurchaseOrder', [ordersController::class, 'repurchaseOrder']);
 ///////////////////////////////////resources///////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->resource('/categories', categoriesController::class);
