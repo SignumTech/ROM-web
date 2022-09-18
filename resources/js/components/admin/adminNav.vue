@@ -1,15 +1,15 @@
 <template>
 <div class="container-fluid p-0 overflow-hidden mob_hide" style="height: 100vh">
   <div class="row m-0">
-      <div class="p-0" style="background-color:#2c2c2c; width:18%" >
-          <div class="row m-0">
-              <div class="col-md-12 mt-3">
-                  <div class="rounded-circle shadow m-auto d-flex align-items-center overflow-hidden" style="width: 100px; height: 100px;">
+      <div class="p-0 shadow-sm" style="background-color:#fff; width:18%" >
+          <div class="row m-0" style="background-color: #6b4715;">
+              <div class="col-md-12 mt-3 mb-4">
+                  <div class="rounded-circle shadow-sm m-auto d-flex align-items-center overflow-hidden" style="width: 100px; height: 100px;">
                       <img class="img img-fluid d-block m-auto" src="/storage/settings/company.png" style="width:200px; height: auto">
                   </div>
               </div>
           </div>
-          <nav id="sidebar" style="height: 100vh; overflow-y: auto">
+          <nav id="sidebar" class="border-end" style="height: 100vh; overflow-y: auto">
             <ul class="list-unstyled components">
               <li :class="$route.path == `/admin/adminDash` ? `active nav-item` : ``">
                 <router-link class="nav-link a-admin" to="/admin/adminDash"><i data-feather="home"></i> Dashboard <span class="sr-only">(current)</span></router-link>
@@ -52,7 +52,7 @@
                       <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                         <ul class="navbar-nav ml-auto">
                             <li class="text-white px-5">
-                                <router-link class="a-admin" to="/profile">
+                                <router-link class="a-admin" style="color:#fff !important" to="/profile">
                                     <span class="fa fa-user-cog pr-2 text-white" style="font-size: 20px"></span><strong>  {{$store.state.auth.user.f_name}} {{$store.state.auth.user.l_name}}</strong>
                                 </router-link>
                             </li>

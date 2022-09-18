@@ -22,7 +22,7 @@
                 <tbody>
                     <tr v-for="product in products" :key="product.id">
                         <td class="align-middle">
-                            <img :src="`/storage/products/`+JSON.parse(product.p_image).main" class="img img-fluid img-thumb cat_img rounded" alt="">
+                            <img :src="`/storage/products/`+JSON.parse(product.p_image).main" class="img img-fluid img-thumb cat_img rounded-1" alt="">
                         </td>
                         <td class="align-middle">{{product.p_name}}</td>
                         <td class="align-middle">{{product.price}} Birr</td>
@@ -31,8 +31,8 @@
                         <td class="align-middle">{{product.p_status}}</td>
                         <td class="align-middle">26 Aug, 2022</td>
                         <td class="align-middle">
-                            <button class="btn btn-danger btn-sm float-end ms-3"><span class="fa fa-trash-alt"></span></button>
-                            <router-link :to="`/admin/editProduct/`+product.id" class="btn btn-success btn-sm float-end "><span class="fa fa-edit"></span></router-link>
+                            <router-link to="#" class="float-end "><span class="fa fa-trash-alt"></span></router-link>
+                            <router-link :to="`/admin/editProduct/`+product.id" class="float-end me-3"><span class="fa fa-edit"></span></router-link>
                         </td>
                     </tr>
                 </tbody>
