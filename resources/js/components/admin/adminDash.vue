@@ -48,6 +48,9 @@ export default {
         linechart,
         doughnutchart
     },
+    mounted(){
+        feather.replace();
+    },
     data(){
         return{
             chartData: {

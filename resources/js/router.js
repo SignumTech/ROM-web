@@ -7,6 +7,8 @@ import categories from './components/admin/categories.vue'
 import products from './components/admin/products.vue'
 import addProducts from './components/admin/addProduct.vue'
 import editProducts from './components/admin/editProduct.vue'
+import orders from './components/admin/orders.vue'
+import adminOrderDetails from './components/admin/orderDetails.vue'
 /////////////////////checkout process/////////////////////////
 import cart from './components/home/cart.vue'
 import placeOrder from './components/home/placeOrder.vue'
@@ -86,6 +88,17 @@ const routes = [
         path: '/admin/products',
         component: products,
         name: 'Products'
+    },
+    {
+        path: '/admin/orders',
+        component: orders,
+        name: 'Orders'
+    },
+    ,
+    {
+        path: '/admin/orderDetails/:id',
+        component: adminOrderDetails,
+        name: 'AdminOrderDetails'
     },
     {
         path: '/admin/addProducts',

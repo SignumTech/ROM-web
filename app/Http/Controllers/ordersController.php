@@ -16,7 +16,23 @@ class ordersController extends Controller
      */
     public function index()
     {
-        return Order::all();
+        $orders = Order::all();
+        $items = 0;
+        
+        foreach($orders as $order){
+            $pic = null;
+            $o_items = json_decode($order->items);
+            foreach($o_items as $ot){
+                $items = $items + $ot->quantity;
+                if($pic == null){
+                    $pic = $ot->p_image;
+                }
+            }
+            $order->no_items = $items;
+            $order->p_image = $pic;
+            $items = 0;
+        }
+        return $orders;
     }
 
     /**
@@ -154,21 +170,63 @@ class ordersController extends Controller
     }
 
     public function getProcessing(){
-        $order = Order::where('order_status', 'PROCESSING')->get();
-
-        return $order;
+        $orders = Order::where('order_status', 'PROCESSING')->get();
+        $items = 0;
+        
+        foreach($orders as $order){
+            $pic = null;
+            $o_items = json_decode($order->items);
+            foreach($o_items as $ot){
+                $items = $items + $ot->quantity;
+                if($pic == null){
+                    $pic = $ot->p_image;
+                }
+            }
+            $order->no_items = $items;
+            $order->p_image = $pic;
+            $items = 0;
+        }
+        return $orders;
     }
 
     public function getShipped(){
-        $order = Order::where('order_status', 'SHIPPED')->get();
-
-        return $order;
+        $orders = Order::where('order_status', 'SHIPPED')->get();
+        $items = 0;
+        
+        foreach($orders as $order){
+            $pic = null;
+            $o_items = json_decode($order->items);
+            foreach($o_items as $ot){
+                $items = $items + $ot->quantity;
+                if($pic == null){
+                    $pic = $ot->p_image;
+                }
+            }
+            $order->no_items = $items;
+            $order->p_image = $pic;
+            $items = 0;
+        }
+        return $orders;
     }
 
     public function getDelivered(){
-        $order = Order::where('order_status', 'DELIVERED')->get();
-
-        return $order;
+        $orders = Order::where('order_status', 'DELIVERED')->get();
+        $items = 0;
+        
+        foreach($orders as $order){
+            $pic = null;
+            $o_items = json_decode($order->items);
+            foreach($o_items as $ot){
+                $items = $items + $ot->quantity;
+                if($pic == null){
+                    $pic = $ot->p_image;
+                }
+            }
+            $order->no_items = $items;
+            $order->p_image = $pic;
+            $items = 0;
+        }
+        return $orders;
     }
 
     public function getMyOrders(){
@@ -253,4 +311,16 @@ class ordersController extends Controller
 
         return $cart;
     }
+
+    public function shipOrder(Request $request){
+        $this->validate($request,[
+            "order_id" => "required"
+        ]);
+
+        $order = Order::find($request->order_id);
+        $order->order_status = 'SHIPPED';
+        $order->save();
+
+        return $order;
+    }   
 }

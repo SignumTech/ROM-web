@@ -49,9 +49,13 @@ Route::post('/getCart', [cartController::class, 'getCart']);
 Route::put('/updateCart/{id}', [cartController::class, 'updateCart']);
 Route::post('/deleteItem', [cartController::class, 'deleteItem']);
 ///////////////////////////////////orders/////////////////////////////////////////////////////////
-Route::get('/getMyOrders', [ordersController::class, 'getMyOrders']);
-Route::get('/getMyOrdersStatus/{status}', [ordersController::class, 'getMyOrdersStatus']);
-Route::post('/repurchaseOrder', [ordersController::class, 'repurchaseOrder']);
+Route::middleware('auth:sanctum')->get('/getMyOrders', [ordersController::class, 'getMyOrders']);
+Route::middleware('auth:sanctum')->get('/getMyOrdersStatus/{status}', [ordersController::class, 'getMyOrdersStatus']);
+Route::middleware('auth:sanctum')->post('/repurchaseOrder', [ordersController::class, 'repurchaseOrder']);
+Route::middleware('auth:sanctum')->get('/getProcessing', [ordersController::class, 'getProcessing']);
+Route::middleware('auth:sanctum')->get('/getDelivered', [ordersController::class, 'getDelivered']);
+Route::middleware('auth:sanctum')->get('/getShipped', [ordersController::class, 'getShipped']);
+Route::middleware('auth:sanctum')->post('/shipOrder', [ordersController::class, 'shipOrder']);
 ///////////////////////////////////products/////////////////////////////////////////////////////////
 Route::post('/uploadProductPic', [productsController::class, 'uploadProductPic']);
 Route::post('/deleteProductImage', [productsController::class, 'deleteProductImage']);
@@ -91,6 +95,9 @@ Route::any('{slug}', function () {
     return view('home');
 });
 Route::any('/admin/{slug}', function () {
+    return view('home');
+});
+Route::any('/admin/{slug}/{slug2}', function () {
     return view('home');
 });
 Route::any('/myAccount/{slug}', function () {

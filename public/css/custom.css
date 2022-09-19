@@ -194,12 +194,12 @@ a[data-toggle="collapse"] {
 }
 #sidebar ul li a:hover {
     color: #ffffff !important;
-    background: #6b4715;
+    background: #bf7f25;
 }
 
 #sidebar ul li.active > a, a[aria-expanded="true"] {
     color: #fff !important;
-   background: #6b4715;
+   background: #bf7f25;
 }
 ul ul a {
     font-size: 0.9em !important;
