@@ -59,6 +59,7 @@ Route::post('/resetVerify', [registerUsersController::class, 'resetVerify']);
 Route::post('/resetPassword', [registerUsersController::class, 'reset_password']);
 Route::post('/resendOTP', [registerUsersController::class, 'resendOTP']);
 Route::post('/updateInfo', [registerUsersController::class, 'updateInfo']);
+Route::post('/updateMobInfo', [registerUsersController::class, 'updateMobInfo']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

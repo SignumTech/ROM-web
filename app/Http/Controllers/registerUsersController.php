@@ -149,4 +149,19 @@ class registerUsersController extends Controller
         return $user;
     }
 
+    public function updateMobInfo(Request $request){
+        $this->validate($request, [
+            "detailsForm" => "required",
+            "style_preference" => "required"
+        ]);
+
+        $user = User::find($request->detailsForm->id);
+        $user->f_name = $request->detailsForm->f_name;
+        $user->l_name = $request->detailsForm->l_name;
+        $user->style_preference = json_encode($request->style_preference);
+
+        $user->save();
+
+        return $user;
+    }
 }
