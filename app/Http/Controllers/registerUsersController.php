@@ -158,7 +158,7 @@ class registerUsersController extends Controller
         $user = User::find($request->detailsForm->id);
         $user->f_name = $request->detailsForm->f_name;
         $user->l_name = $request->detailsForm->l_name;
-        $user->style_preference = json_encode($request->style_preference);
+        $user->style_preference = json_encode(json_decode($request->style_preference));
 
         $user->save();
 
