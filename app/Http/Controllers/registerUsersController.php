@@ -154,7 +154,7 @@ class registerUsersController extends Controller
             "detailsForm" => "required",
             "style_preference" => "required"
         ]);
-
+        $request->detailsForm = json_decode($request->detailsForm);
         $user = User::find($request->detailsForm->id);
         $user->f_name = $request->detailsForm->f_name;
         $user->l_name = $request->detailsForm->l_name;
