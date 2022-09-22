@@ -273,3 +273,7 @@ ul ul a {
     background-color: #bf7f25;
     color: white;
 }
+.flash-hov:hover{
+    border: #bf7f25 solid 2px;
+    cursor:pointer
+}

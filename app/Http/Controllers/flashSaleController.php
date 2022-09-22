@@ -16,7 +16,19 @@ class flashSaleController extends Controller
      */
     public function index()
     {
-        return FlashSell::orderBy('created_at', 'DESC')->get();
+        $flashSale = FlashSell::orderBy('created_at', 'DESC')->get();
+        $currentDate = Carbon::now();
+        //dd($currentDate);
+        foreach($flashSale as $fs){
+            if((Carbon::parse($fs->starts_at)->lt($currentDate) ) && ($currentDate->lt(Carbon::parse($fs->expiry_date)) )){
+                $fs->current = true;
+            }
+            else{
+                $fs->current = false;
+            }
+        }
+
+        return $flashSale;
     }
 
     /**
@@ -81,7 +93,15 @@ class flashSaleController extends Controller
      */
     public function show($id)
     {
-        //
+        $fs = FlashSell::find($id);
+        $currentDate = Carbon::now();
+        if((Carbon::parse($fs->starts_at)->lt($currentDate) ) && ($currentDate->lt(Carbon::parse($fs->expiry_date)) )){
+            $fs->current = true;
+        }
+        else{
+            $fs->current = false;
+        }
+        return $fs;
     }
 
     /**
@@ -136,5 +156,12 @@ class flashSaleController extends Controller
         $product->save();
         
         return $flashDetail;
+    }
+
+    public function getFlashProducts($id){
+        $products = FlashDetail::join('products', 'flash_details.p_id', '=', 'products.id')
+                             ->where('flash_id', $id)
+                             ->get();
+        return $products;
     }
 }

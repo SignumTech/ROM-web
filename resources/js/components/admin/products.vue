@@ -75,9 +75,9 @@ export default {
         },
         editProduct(product){
             this.$router.push({name:'EditProduct', params:{
-                    type: 'edit',
-                    item: product
-                }})
+                type: 'edit',
+                item: product
+            }})
         }
     }
 }

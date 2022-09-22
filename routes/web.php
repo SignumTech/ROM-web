@@ -41,6 +41,7 @@ Route::resource('/addressBooks', addressBookController::class);
 Route::resource('/flashSales', flashSaleController::class);
 ///////////////////////////////////FlashSale////////////////////////////////////////////////////////////
 Route::post('/addToflashSales', [flashSaleController::class, 'addToflashSales']);
+Route::get('/getFlashProducts/{id}', [flashSaleController::class, 'getFlashProducts']);
 ///////////////////////////////////inventory/////////////////////////////////////////////////////////////
 Route::post('/itemsInventory', [inventoriesController::class, 'itemsInventory']);
 ///////////////////////////////////address/////////////////////////////////////////////////////////////
@@ -102,6 +103,9 @@ Route::any('/admin/{slug}', function () {
     return view('home');
 });
 Route::any('/admin/{slug}/{slug2}', function () {
+    return view('home');
+});
+Route::any('/admin/{slug}/{slug2}/{slug3}', function () {
     return view('home');
 });
 Route::any('/myAccount/{slug}', function () {

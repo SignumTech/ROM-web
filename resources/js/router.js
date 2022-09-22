@@ -10,6 +10,7 @@ import editProducts from './components/admin/editProduct.vue'
 import orders from './components/admin/orders.vue'
 import adminOrderDetails from './components/admin/orderDetails.vue'
 import flashSale from './components/admin/flashSale.vue'
+import flashSaleDetail from './components/admin/flashSaleDetails.vue'
 /////////////////////checkout process/////////////////////////
 import cart from './components/home/cart.vue'
 import placeOrder from './components/home/placeOrder.vue'
@@ -79,6 +80,11 @@ const routes = [
         path: '/admin/flashSale',
         component: flashSale,
         name: 'FlashSale'
+    },
+    {
+        path: '/admin/flashSaleDetail/:id',
+        component: flashSaleDetail,
+        name: 'FlashSaleDetail'
     },
     {
         path: '/admin/adminDash',
