@@ -12,6 +12,7 @@ use App\Http\Controllers\cartController;
 use App\Http\Controllers\addressBookController;
 use App\Http\Controllers\ordersController;
 use App\Http\Controllers\inventoriesController;
+use App\Http\Controllers\flashSaleController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,6 +38,9 @@ Route::middleware('auth:sanctum')->resource('/categories', categoriesController:
 Route::resource('/products', productsController::class);
 Route::resource('/orders', ordersController::class);
 Route::resource('/addressBooks', addressBookController::class);
+Route::resource('/flashSales', flashSaleController::class);
+///////////////////////////////////FlashSale////////////////////////////////////////////////////////////
+Route::post('/addToflashSales', [flashSaleController::class, 'addToflashSales']);
 ///////////////////////////////////inventory/////////////////////////////////////////////////////////////
 Route::post('/itemsInventory', [inventoriesController::class, 'itemsInventory']);
 ///////////////////////////////////address/////////////////////////////////////////////////////////////

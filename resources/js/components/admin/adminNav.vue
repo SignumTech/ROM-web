@@ -23,6 +23,19 @@
               <li :class="$route.path == `/admin/categories` ? `active nav-item` : ``">
                 <router-link class="nav-link a-admin" to="/admin/categories"><i data-feather="grid"></i> Categories</router-link>
               </li>
+              <li>
+                <a data-bs-toggle="collapse" href="#us_ma" aria-expanded="false" aria-controls="collapseExample"><i data-feather="gift"></i> Marketing</a>
+                <div class="collapse" id="us_ma">
+                  <ul class="collapse list-unstyled" id="us_ma">
+                    <li :class="$route.path == `/admin/flashSale` ? `active` : ``">
+                        <router-link to="/admin/flashSale"><i data-feather="zap"></i> Flash Sale</router-link>
+                    </li>
+                    <li :class="$route.path == `/admin/regularSale` ? `active` : ``">
+                        <router-link to="/admin/regularSale"><i data-feather="award"></i> Regular Sale</router-link>
+                    </li>
+                  </ul>
+                </div>
+              </li>
               <li :class="$route.path == `/users` ? `active nav-item` : ``">
                 <router-link class="nav-link a-admin" to="/users"><i data-feather="user"></i> Users Management</router-link>
               </li>

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\FlashSell;
+use App\Models\FlashDetail;
+use App\Models\Product;
+use Carbon\Carbon;
 class flashSaleController extends Controller
 {
     /**
@@ -13,7 +16,7 @@ class flashSaleController extends Controller
      */
     public function index()
     {
-        //
+        return FlashSell::orderBy('created_at', 'DESC')->get();
     }
 
     /**
@@ -34,7 +37,40 @@ class flashSaleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            "starts_at" => "required",
+            "ends_at" => "required"
+        ]);
+        $starts_at = Carbon::parse($request->starts_at);
+        $ends_at = Carbon::parse($request->ends_at);
+        ///////////////////check/////////////////////
+        if($starts_at->gt($ends_at)){
+            return response("The start date should be earlier than the ends_at", 422);
+        }
+
+        $flash_check = FlashSell::latest()->first();
+        
+        if($flash_check){
+            if(Carbon::parse($flash_check->expiry_date)->gt($starts_at)){
+                return response("The time range clashes with the previous flash sale.", 422);
+            }
+            else{
+                $flash = new FlashSell;
+                $flash->starts_at = $starts_at;
+                $flash->expiry_date = $ends_at;
+                $flash->save();
+        
+                return $flash;
+            }
+        }
+        else{
+            $flash = new FlashSell;
+            $flash->starts_at = $starts_at;
+            $flash->expiry_date = $ends_at;
+            $flash->save();
+    
+            return $flash;
+        }
     }
 
     /**
@@ -80,5 +116,25 @@ class flashSaleController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function addToflashSales(Request $request){
+        $this->validate($request, [
+            "flashPeriod" => "required",
+            "discount" => "required",
+            "p_id" => "required"
+        ]);
+
+        $flashDetail = new FlashDetail;
+        $flashDetail->flash_id = $request->flashPeriod;
+        $flashDetail->discount = $request->discount;
+        $flashDetail->p_id = $request->p_id;
+        $flashDetail->save();
+
+        $product = Product::find($request->p_id);
+        $product->promotion_status = 'FLASH SALE';
+        $product->save();
+        
+        return $flashDetail;
     }
 }
