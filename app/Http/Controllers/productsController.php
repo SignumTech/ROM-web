@@ -127,6 +127,7 @@ class productsController extends Controller
     {
         $products = Product::where('cat_id', $id)
                            ->where('p_status', 'PUBLISHED')
+                           ->where('promotion_status', 'REGULAR')
                            ->get();
         
         return $products;
