@@ -175,6 +175,9 @@ export default {
                 this.loading = false
                 this.getInventory()
             })
+            .catch( response =>{
+                this.loading = false
+            })
         },
         subtract(index){
             if( (this.cartItems[index].quantity - 1) < 1){

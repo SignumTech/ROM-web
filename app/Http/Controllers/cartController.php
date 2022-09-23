@@ -180,7 +180,7 @@ class cartController extends Controller
                 return $data;
             }
             else{
-                return [];
+                return response("No items in cart", 422);
             }
         }
     }
