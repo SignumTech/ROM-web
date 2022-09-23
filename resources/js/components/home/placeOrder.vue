@@ -228,7 +228,13 @@ export default {
         orderSummary(){
             var sum = 0;
             this.cartItems.forEach(function(cart){
-                sum += (cart.quantity * cart.price);
+                if(cart.promotion_status == 'REGULAR'){
+                    sum += (cart.quantity * cart.price);
+                }
+                else{
+                    sum += (cart.quantity * cart.new_price)
+                }
+                
             })
             return sum
         }

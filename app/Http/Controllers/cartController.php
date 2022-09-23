@@ -22,6 +22,13 @@ class cartController extends Controller
 
             $product['p_image'] = json_decode($request->product['p_image'])->$color[0];
             $product['price'] = $request->product['price'];
+            $product['promotion_status'] = $request->product['promotion_status'];
+            if($request->product['promotion_status'] == 'FLASH SALE'){
+                $product['new_price'] = $request->product['price'] - ($request->product['price']*$request->product['discount']/100);
+            }
+            else{
+                $product['new_price'] = $request->product['price'];
+            }
             $product['p_id'] = $request->product['id'];
             $product['color'] = $request['color'];
             $product['size'] = $request['size'];
@@ -65,6 +72,13 @@ class cartController extends Controller
 
                 $product['p_image'] = json_decode($request->product['p_image'])->$color[0];
                 $product['price'] = $request->product['price'];
+                $product['promotion_status'] = $request->product['promotion_status'];
+                if($request->product['promotion_status'] == 'FLASH SALE'){
+                    $product['new_price'] = $request->product['price'] - ($request->product['price']*$request->product['discount']/100);
+                }
+                else{
+                    $product['new_price'] = $request->product['price'];
+                }
                 $product['p_id'] = $request->product['id'];
                 $product['color'] = $request['color'];
                 $product['size'] = $request['size'];
@@ -93,6 +107,13 @@ class cartController extends Controller
                 
                 $product['p_image'] = json_decode($request->product['p_image'])->$color[0];
                 $product['price'] = $request->product['price'];
+                $product['promotion_status'] = $request->product['promotion_status'];
+                if($request->product['promotion_status'] == 'FLASH SALE'){
+                    $product['new_price'] = $request->product['price'] - ($request->product['price']*$request->product['discount']/100);
+                }
+                else{
+                    $product['new_price'] = $request->product['price'];
+                }
                 $product['p_id'] = $request->product['id'];
                 $product['color'] = $request['color'];
                 $product['size'] = $request['size'];

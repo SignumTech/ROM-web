@@ -36,32 +36,17 @@
         </div>
     </div>  
     <div class="row m-0 px-5 pb-3 pt-3">
-        <div class="col-8 align-self-center">
+        <div class="col-6 align-self-center">
             <h2 class="fw-bolder"><strong>FLASH SALE</strong></h2>
             
         </div>
-        <div class="col-4">
-            <flip-countdown :class="`float-end`" deadline="2022-09-24 00:00:00" :showDays="false"></flip-countdown>
+        <div class="col-6">
+            <flip-countdown :class="`float-end`" :deadline="flashProducts[0].expiry_date" :showDays="true"></flip-countdown>
         </div>
     </div>
     <div class="row m-0 px-5 pb-5 pt-3">
-        <div class="col-md-2">
-            <flash-card :item="item"></flash-card>
-        </div>
-        <div class="col-md-2">
-            <flash-card :item="item"></flash-card>
-        </div>
-        <div class="col-md-2">
-            <flash-card :item="item"></flash-card>
-        </div>
-        <div class="col-md-2">
-            <flash-card :item="item"></flash-card>
-        </div>
-        <div class="col-md-2">
-            <flash-card :item="item"></flash-card>
-        </div>
-        <div class="col-md-2">
-            <flash-card :item="item"></flash-card>
+        <div v-for="flash,index in flashProducts" :key="index" class="col-md-2">
+            <flash-card :item="flash"></flash-card>
         </div>
     </div>
     <div class="row m-0">
@@ -95,10 +80,12 @@ export default {
         hero,
         PulseLoader,
         FlashCard,
-        FlipCountdown
+        FlipCountdown,
+        flashProducts:{}
     },
     mounted(){
         this.getCatByName()
+        this.getFlashSales()
     },
     data(){
         return{
@@ -114,6 +101,12 @@ export default {
         }
     },
     methods:{
+        async getFlashSales(){
+            await axios.get('/getFlashSales')
+            .then( response => {
+                this.flashProducts = response.data
+            })
+        },
         async getCatByName(){
             this.loading = true
             var name = "WOMEN";

@@ -42,6 +42,7 @@ Route::resource('/flashSales', flashSaleController::class);
 ///////////////////////////////////FlashSale////////////////////////////////////////////////////////////
 Route::post('/addToflashSales', [flashSaleController::class, 'addToflashSales']);
 Route::get('/getFlashProducts/{id}', [flashSaleController::class, 'getFlashProducts']);
+Route::get('/getFlashSales', [flashSaleController::class, 'getFlashSales']);
 ///////////////////////////////////inventory/////////////////////////////////////////////////////////////
 Route::post('/itemsInventory', [inventoriesController::class, 'itemsInventory']);
 ///////////////////////////////////address/////////////////////////////////////////////////////////////

@@ -53,10 +53,12 @@
                                         <img class="img img-fluid" :src="`/storage/productsThumb/`+cart.p_image" alt="" style="">
                                     </div>
                                     <div class="col-md-8">
-                                        <p class="m-0">{{cart.p_name}}</p>
+                                        <p class="m-0">{{cart.p_name}} </p>
                                         <p class="m-0">Color - <span class="badge rounded-pill"  :style="{backgroundColor:cart.color}">{{cart.color}}</span></p>
                                         <p class="m-0">Size - {{cart.size}}</p>
-                                        <h5 class="mt-2"><strong>{{cart.price | numFormat}} Birr</strong></h5>
+                                        <h5 v-if="cart.promotion_status == `REGULAR`" class="mt-2"><strong>{{cart.price | numFormat}} Birr</strong></h5>
+                                        <h5 v-if="cart.promotion_status == `FLASH SALE`" class="mt-2"><strong>{{cart.new_price | numFormat}} Birr</strong> <span class="text-muted fs-6"><s><strong>{{cart.price | numFormat}} ETB</strong></s></span></h5>
+                                        <h6 v-if="cart.promotion_status == `FLASH SALE`"><span class="bg-warning p-1"><span class="fa fa-bolt"></span> Flash Sale</span></h6>
                                     </div>
                                 </div>
                             

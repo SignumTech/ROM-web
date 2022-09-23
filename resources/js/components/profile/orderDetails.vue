@@ -39,10 +39,11 @@
                                     <span class="badge rounded-pill px-3"  :style="{backgroundColor:ot.color}">{{ot.color}}</span> / 
                                     <span class="badge rounded-pill bg-light shadow-sm text-dark px-3 border"><strong>{{ot.size}}</strong></span>
                                 </h6>
-                                
+                                <h6 v-if="ot.promotion_status == `FLASH SALE`" class="mt-3"><span class="bg-warning p-1"><span class="fa fa-bolt"></span> Flash Sale</span></h6>
                             </td>
                             <td class="ps-2 text-center">{{ot.quantity}}</td>
-                            <td class="ps-2 text-center">{{ot.price | numFormat}} ETB</td>
+                            <td v-if="ot.promotion_status == `REGULAR`" class="ps-2 text-center fs-5">{{ot.price | numFormat}} ETB</td>
+                            <td v-if="ot.promotion_status == `FLASH SALE`" class="ps-2 text-center"><span class="fs-5">{{ot.new_price | numFormat}} ETB</span> <span class="fs-6"><s>{{ot.price | numFormat}} ETB</s></span></td>
                             <td class="ps-2 text-center">{{order.order_status}}</td>
                         </tr>
                     </tbody>

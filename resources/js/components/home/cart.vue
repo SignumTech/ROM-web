@@ -17,9 +17,11 @@
                 </div>
                 <div class="col-md-7">
                     <h5><strong>{{cart.p_name}}</strong></h5>
-                    <h6 class="mt-4">Price - {{cart.price | numFormat}} Birr</h6>
-                    <h6  style="cursor:pointer">Color - <span @click="detailsModal(cart.p_id,index,cart)" class="badge rounded-pill px-3"  :style="{backgroundColor:cart.color}">{{cart.color}}</span></h6>
-                    <h6  style="cursor:pointer">Size - <span @click="detailsModal(cart.p_id,index,cart)" class="badge rounded-pill bg-light shadow-sm text-dark px-3"><strong>{{cart.size}}</strong></span></h6>
+                    <h5 v-if="cart.promotion_status == `REGULAR`" class="mt-4"><strong>{{cart.price | numFormat}} Birr</strong></h5>
+                    <h5 v-if="cart.promotion_status == `FLASH SALE`" class="mt-4"><strong>{{cart.new_price | numFormat}} Birr</strong> <span class="text-muted fs-6"><s><strong>{{cart.price | numFormat}} ETB</strong></s></span></h5>
+                    <h6 v-if="cart.promotion_status == `FLASH SALE`" class="mt-3"><span class="bg-warning p-1"><span class="fa fa-bolt"></span> Flash Sale</span></h6>
+                    <h6  style="cursor:pointer">Color - <span @click="detailsModal(cart.p_id,index,cart)" class="badge rounded-pill px-3 mt-2 shadow-sm"  :style="{backgroundColor:cart.color}">{{cart.color}}</span></h6>
+                    <h6  style="cursor:pointer">Size - <span @click="detailsModal(cart.p_id,index,cart)" class="badge rounded-pill border bg-light shadow-sm text-dark px-3 mt-2"><strong>{{cart.size}}</strong></span></h6>
                 </div>
                 <div class="col-md-3 text-end">
                     <h4><strong>{{subTotal(index) | numFormat}} Birr</strong></h4>
@@ -139,12 +141,23 @@ export default {
         orderSummary(){
             var sum = 0;
             this.cartItems.forEach(function(cart){
-                sum += (cart.quantity * cart.price);
+                if(cart.promotion_status == 'REGULAR'){
+                    sum += (cart.quantity * cart.price);
+                }
+                else{
+                    sum += (cart.quantity * cart.new_price)
+                }
+                
             })
             return sum
         },
         subTotal(index){
-            return this.cartItems[index].quantity * this.cartItems[index].price
+            if(this.cartItems[index].promotion_status == 'REGULAR'){
+                return this.cartItems[index].quantity * this.cartItems[index].price
+            }
+            else{
+                return this.cartItems[index].quantity * this.cartItems[index].new_price
+            }
         },
         sumPrice(cart){
             var sum = 0;

@@ -164,4 +164,23 @@ class flashSaleController extends Controller
                              ->get();
         return $products;
     }
+
+    public function getFlashSales(){
+        $flashSales = FlashSell::all();
+        
+        
+        $currentDate = Carbon::now();
+        
+        foreach($flashSales as $fs){
+            if((Carbon::parse($fs->starts_at)->lt($currentDate) ) && ($currentDate->lt(Carbon::parse($fs->expiry_date)) )){
+                
+                $flashProducts = FlashDetail::join('products', 'flash_details.p_id', '=', 'products.id')
+                                            ->join('flash_sells', 'flash_details.flash_id', '=', 'flash_sells.id')
+                                            ->where('flash_details.flash_id', $fs->id)->get();
+                
+                return $flashProducts;
+            }         
+        }
+        
+    }
 }
