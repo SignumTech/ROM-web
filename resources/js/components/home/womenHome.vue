@@ -81,7 +81,7 @@ export default {
         PulseLoader,
         FlashCard,
         FlipCountdown,
-        flashProducts:{}
+        flashProducts:[]
     },
     mounted(){
         this.getCatByName()
