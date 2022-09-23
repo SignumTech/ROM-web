@@ -103,9 +103,9 @@ Route::post('pay', 'App\Http\Controllers\ChapaController@initialize')->name('pay
 
 Route::get('callback/{reference}', 'App\Http\Controllers\ChapaController@callback')->name('callback');
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-/*Route::any('{slug}', function () {
+Route::any('{slug}', function () {
     return view('home');
-});*/
+});
 Route::any('/admin/{slug}', function () {
     return view('home');
 });
