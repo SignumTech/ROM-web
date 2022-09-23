@@ -26,7 +26,7 @@ class ChapaController extends Controller
         $data = [
             
             'amount' => 100,
-            'email' => request()->email,
+            'email' => 'fnote.md@gmail.com',
             'tx_ref' => $reference,
             'currency' => "ETB",
             'callback_url' => route('callback',[$reference]),
