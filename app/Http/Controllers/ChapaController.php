@@ -44,7 +44,7 @@ class ChapaController extends Controller
 
         if ($payment['status'] !== 'success') {
             // notify something went wrong
-            return;
+            return $payment;
         }
 
         return redirect($payment['data']['checkout_url']);
