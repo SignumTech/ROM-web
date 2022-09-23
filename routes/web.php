@@ -33,6 +33,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/chapaPay', [App\Http\Controllers\HomeController::class, 'chapaPay'])->name('chapaPay');
 ///////////////////////////////////resources///////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->resource('/categories', categoriesController::class);
 Route::resource('/products', productsController::class);
@@ -96,10 +97,15 @@ Route::get('/auth/google/callback', [socialiteController::class, 'google_callbac
 Route::get('/auth/facebook/redirect', [socialiteController::class, 'facebook_redirect']);
  
 Route::get('/auth/facebook/callback', [socialiteController::class, 'facebook_callback']);
-//////////////////////////////////////////////////
-Route::any('{slug}', function () {
+////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////chapa integration/////////////////////////////////////////////
+Route::post('pay', 'App\Http\Controllers\ChapaController@initialize')->name('pay');
+
+Route::get('callback/{reference}', 'App\Http\Controllers\ChapaController@callback')->name('callback');
+////////////////////////////////////////////////////////////////////////////////////////////////////
+/*Route::any('{slug}', function () {
     return view('home');
-});
+});*/
 Route::any('/admin/{slug}', function () {
     return view('home');
 });
