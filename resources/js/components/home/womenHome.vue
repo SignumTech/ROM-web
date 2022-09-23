@@ -35,7 +35,7 @@
            
         </div>
     </div>  
-    <div class="row m-0 px-5 pb-3 pt-3">
+    <div v-if="!noFlash" class="row m-0 px-5 pb-3 pt-3">
         <div class="col-6 align-self-center">
             <h2 class="fw-bolder"><strong>FLASH SALE</strong></h2>
             
@@ -97,7 +97,8 @@ export default {
             loading:true,
             cat_id:{},
             categories:{},
-            heroImage:"/storage/settings/front.jpg"
+            heroImage:"/storage/settings/front.jpg",
+            noFlash:false
         }
     },
     methods:{
@@ -105,6 +106,12 @@ export default {
             await axios.get('/getFlashSales')
             .then( response => {
                 this.flashProducts = response.data
+                if(this.flashProducts.length == 0){
+                    this.noFlash = true
+                }
+            })
+            .catch( error =>{
+                this.noFlash = true
             })
         },
         async getCatByName(){
