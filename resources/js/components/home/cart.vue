@@ -142,10 +142,10 @@ export default {
             var sum = 0;
             this.cartItems.forEach(function(cart){
                 if(cart.promotion_status == 'REGULAR'){
-                    sum += (cart.quantity * cart.price);
+                    sum += (parseInt(cart.quantity) * parseFloat(cart.price));
                 }
                 else{
-                    sum += (cart.quantity * cart.new_price)
+                    sum += (parseInt(cart.quantity) * parseFloat(cart.new_price))
                 }
                 
             })
@@ -153,10 +153,10 @@ export default {
         },
         subTotal(index){
             if(this.cartItems[index].promotion_status == 'REGULAR'){
-                return this.cartItems[index].quantity * this.cartItems[index].price
+                return parseInt(this.cartItems[index].quantity) * parseFloat(this.cartItems[index].price)
             }
             else{
-                return this.cartItems[index].quantity * this.cartItems[index].new_price
+                return parseInt(this.cartItems[index].quantity) * parseFloat(this.cartItems[index].new_price)
             }
         },
         sumPrice(cart){
