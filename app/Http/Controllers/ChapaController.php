@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Chapa\Chapa\Facades\Chapa as Chapa;
 use Illuminate\Http\Request;
+use App\Models\Order;
+use App\Models\Inventory;
+use App\Models\Cart;
 class ChapaController extends Controller
 {
     /**
@@ -19,12 +22,61 @@ class ChapaController extends Controller
     public function initialize()
     {
         $this->validate($request, [
-            "amount" => "required"
+            "amount" => "required",
+            "address" => "required",
+            "cart_id" => "required"
         ]);
         //This generates a payment reference
         $reference = $this->reference;
-        
+        //generate a session for the order
+        try{
+            DB::beginTransaction();
+            $cart = Cart::find($request->cart_id);
+            $items = json_decode($cart->items);
+            //////////update inventory//////////////////////
+            foreach($items as $item){
+                $inventory = Inventory::where('p_id', $item->p_id)
+                                    ->where('size', $item->size)
+                                    ->where('color', $item->color)
+                                    ->lockForUpdate()->first();
+                if($inventory->quantity < $item->quantity){
+                    return response("Some of the items have been sold out", 422);
+                }
+                else{
+                    $inventory->quantity -= $item->quantity;
+                    $inventory->save();
+                }
+                
+            }
+            
+            ////////////////////////////////////////////////
+            $order = new Order;
+            $order->items = json_encode($items);
 
+            $latestOrder = Order::orderBy('created_at','DESC')->first();
+            if($latestOrder){
+                $order->order_no = '#'.str_pad($latestOrder->id + 1, 8, "0", STR_PAD_LEFT);
+            }
+            else{
+                $order->order_no = '#'.str_pad(1, 8, "0", STR_PAD_LEFT);
+            }
+
+            $order->total = $request->amount;
+            $order->order_status = 'PROCESSING';
+            $order->user_id = auth()->user()->id;
+            $order->delivery_details = $request->address;
+            $order->save();
+
+            $cart->delete();
+            DB::commit();
+            $request->session()->put('order_id', $order->id);
+        }
+        catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+            return response('Order Error', 422);
+        }
+        
         // Enter the details of the payment
         $data = [
             
@@ -85,7 +137,18 @@ class ChapaController extends Controller
 
         //if payment is successful
         if ($data['status'] ==  'success') {
-            
+            if($request->session()->has('order_id')){
+                $order_id = $request->session()->get('order_id');
+                $order = Order::find($order_id);
+                $order->payment_status = "PAID";
+                $order->reference = $data["data"]["reference"];
+                $order->tx_ref = $data["data"]["tx_ref"];
+                $order->save();
+
+                $request->session()->forget('order');
+
+                return redirect('/pay');
+            }
         }
 
         else{

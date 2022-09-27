@@ -162,13 +162,17 @@ export default {
             else{
                 this.btnLoading = true
                 //await axios.post('/orders')
-                this.$router.push({name:'Pay', params:{
+                /*this.$router.push({name:'Pay', params:{
                     address:this.currentAddress,
                     total:this.orderSummary(),
                     cart_id:this.c_id
                     
                 }})
-                this.btnLoading = false
+                this.btnLoading = false*/
+                await axios.post('/pay', {amount:this.orderSummary(),address:this.currentAddress,cart_id:this.c_id})
+                .then( response =>{
+                    
+                })
             }
         },
         addAddress(){
