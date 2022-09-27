@@ -12,36 +12,10 @@
                 <h5><strong>Sizes</strong></h5>
             </div>
             <div class="col-md-6">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" >
+                <div v-for="filter,index in filters" :key="index" class="form-check">
+                    <input @change="filterProductData()" class="form-check-input" v-model="filterData" type="checkbox" :value="filter" >
                     <label class="form-check-label" for="flexCheckDefault">
-                        XS
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="">
-                    <label class="form-check-label" for="flexCheckDefault">
-                        M
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="">
-                    <label class="form-check-label" for="flexCheckDefault">
-                        XL
-                    </label>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="">
-                    <label class="form-check-label" for="flexCheckDefault">
-                        S
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="">
-                    <label class="form-check-label" for="flexCheckDefault">
-                        L
+                        {{filter}}
                     </label>
                 </div>
             </div>
@@ -49,8 +23,8 @@
         <div class="row m-0">
             <div class="col-md-12 mt-5">
                 <h5><strong>Price range</strong></h5>
-                <input type="range" class="form-range" min="100" max="1000" step="1" id="customRange3">
-                <h6>200 Birr <span class="float-end">10,000 Birr</span></h6>
+                <input @change="filterProductData()" type="range" class="form-range" :min="priceMin" :max="priceMax" step="1" v-model="filterRange">
+                <h6>{{priceMin}} ETB <span class="float-end">{{filterRange}} ETB</span></h6>
             </div>
             
         </div>
@@ -81,17 +55,41 @@ export default {
     },
     data(){
         return{
+            upHere:false,
+            filterRange:this.priceMax,
             items:{},
             loading:true,
-            catDetail:{}
+            catDetail:{},
+            filters:{},
+            filterData:[],
+            priceMax:{},
+            priceMin:{}
         }
     },
     mounted(){
         this.getCatProducts()
         this.getCatDetail()
+        this.getProductFilters()
+        this.priceRange()
+        
 
     },
     methods:{
+        mouseHov(){
+            console.log('hover')
+        },
+        async filterProductData(){
+            await axios.post('/filterData',{sizeData:this.filterData, cat_id:this.$route.params.id, priceData:this.filterRange})
+            .then( response =>{
+                this.items = response.data
+            })
+        },
+        async getProductFilters(){
+            await axios.get('/productFilters/'+this.$route.params.id)
+            .then( response =>{
+                this.filters = response.data
+            })
+        },
         async getCatDetail(){
             await axios.get('/categories'+this.$route.params.id)
             .then( response =>{
@@ -104,6 +102,14 @@ export default {
             .then( response =>{
                 this.items = response.data
                 this.loading = false
+            })
+        },
+        async priceRange(){
+            await axios.get('/priceRange/'+this.$route.params.id)
+            .then( response => {
+                this.priceMax = response.data.max
+                this.priceMin = response.data.min
+                this.filterRange = this.priceMax
             })
         }
     }

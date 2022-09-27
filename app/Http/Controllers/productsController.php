@@ -182,6 +182,7 @@ class productsController extends Controller
         $p_colors = [];
         $p_index = 0;
         $picAdded = false;
+        $p_sizes = [];
         foreach($request->colorData as $data){
             if(count($data['pictures']) == 0){
                 return response("You need to insert atleast one picture to each color", 422);
@@ -194,6 +195,10 @@ class productsController extends Controller
                 $inventory->color = $data['color'];
                 $inventory->quantity = $size['quantity'];
                 $inventory->save();
+
+                if(!in_array($size['size'], $p_sizes)){
+                    array_push($p_sizes, $size['size']);
+                }
             }
             $picturesData[$data['color']] = $data['pictures'];
             if(!$picAdded){
@@ -207,6 +212,7 @@ class productsController extends Controller
         $product = Product::find($request->product_id);
         $product->p_image = json_encode($picturesData);
         $product->color = json_encode($p_colors);
+        $product->sizes = json_encode($p_sizes);
         $product->save();
 
         return $product;
@@ -337,5 +343,65 @@ class productsController extends Controller
         $product->p_status = "PUBLISHED";
         $product->save();
         return $product;
+    }
+
+    public function productFilters($cat_id){
+        $products = Product::where('cat_id', $cat_id)
+                            ->where('p_status', 'PUBLISHED')
+                            ->where('promotion_status', 'REGULAR')
+                            ->get();
+        $sizes = [];
+        
+        foreach($products as $product){
+            //dd($product->sizes);
+            $sizes = array_unique(array_merge($sizes,json_decode($product->sizes)));
+        }
+        return $sizes;
+    }
+
+    public function filterData(Request $request){
+        $this->validate($request, [
+            "priceData" => "required",
+            "cat_id" => "required"
+        ]);
+        $data = [];
+        $products = Product::where('cat_id', $request->cat_id)
+                            ->where('p_status', 'PUBLISHED')
+                            ->where('promotion_status', 'REGULAR')
+                            ->where('price', '<=', $request->priceData)
+                            ->get();
+        if(count($request->sizeData) > 0){
+            foreach($products as $product){
+                foreach(json_decode($product->sizes) as $size){
+                    if(in_array($size, $request->sizeData)){
+                        array_push($data, $product);
+                        break;
+                    }
+                }
+
+            } 
+            return $data;           
+        }
+        else{
+            return $products;
+        }
+
+        
+    }
+
+    public function priceRange($cat_id){
+        $max = Product::where('cat_id', $cat_id)
+                            ->where('p_status', 'PUBLISHED')
+                            ->where('promotion_status', 'REGULAR')
+                            ->max('price');
+        $min = Product::where('cat_id', $cat_id)
+                        ->where('p_status', 'PUBLISHED')
+                        ->where('promotion_status', 'REGULAR')
+                        ->min('price');
+        $data = [];
+        $data['max'] = $max;
+        $data['min'] = $min;
+
+        return $data;
     }
 }

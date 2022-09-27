@@ -1,7 +1,7 @@
 <template>
-<div class="row m-0 show-add-btn">
+<div @mouseover="slideShow()" @mouseleave="backToStatic()" class="row m-0 show-add-btn">
     <div class="col-12  text-center">
-        <img class="img img-fluid" :src="`/storage/products/`+JSON.parse(item.p_image)['main']" alt="">
+        <img class="img img-fluid" :src="`/storage/products/`+mainPic" alt="">
     </div>
     <div class="col-md-12 text-center">
         <span class="add-cart">
@@ -24,7 +24,7 @@ import productDetailsModal from './productDetailsModal.vue';
 export default {
     data(){
         return{
-
+            mainPic:JSON.parse(this.item.p_image)['main']
         }
     },
     props:['item'],
@@ -36,6 +36,12 @@ export default {
                 { "height" : "auto", "width" : "900px"},
                 {}
             )
+        },
+        slideShow(){
+            //slideshow
+        },
+        backToStatic(){
+            //slideshow
         }
     }
 }

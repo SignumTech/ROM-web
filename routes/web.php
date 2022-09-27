@@ -68,12 +68,15 @@ Route::post('/uploadProductPic', [productsController::class, 'uploadProductPic']
 Route::post('/deleteProductImage', [productsController::class, 'deleteProductImage']);
 Route::post('/insertColors', [productsController::class, 'insertColors']);
 Route::post('/updateColors', [productsController::class, 'updateColors']);
+Route::post('/filterData', [productsController::class, 'filterData']);
 Route::get('/getProductsList', [productsController::class, 'getProductsList']);
 Route::get('/getColorInventory/{id}', [productsController::class, 'getColorInventory']);
 Route::get('/getInventory/{id}', [productsController::class, 'getInventory']);
 Route::post('/updateSizes', [productsController::class, 'updateSizes']);
 Route::post('/publishProduct', [productsController::class, 'publishProduct']);
 Route::get('/productsByCategory/{id}', [productsController::class, 'productsByCategory']);
+Route::get('/productFilters/{cat_id}', [productsController::class, 'productFilters']);
+Route::get('/priceRange/{cat_id}', [productsController::class, 'priceRange']);
 //////////////////////////////////auth//////////////////////////////////////////////////////////////
 Route::post('/registerUser', [registerUsersController::class, 'registerUser']);
 Route::post('/verifyOTP', [registerUsersController::class, 'verifyOTP']);

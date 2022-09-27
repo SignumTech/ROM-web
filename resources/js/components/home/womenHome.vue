@@ -86,6 +86,7 @@ export default {
     mounted(){
         this.getCatByName()
         this.getFlashSales()
+        
     },
     data(){
         return{
@@ -121,6 +122,7 @@ export default {
             .then( response =>{
                 this.cat_id = response.data.id
                 this.getCategories()
+            
             })
         },
         async getCategories(){
