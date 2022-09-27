@@ -131,7 +131,7 @@ class ChapaController extends Controller
 
     }
 
-    public function return_url($reference)
+    public function return_url($reference, Request $request)
     {
         
         $data = Chapa::verifyTransaction($reference);
