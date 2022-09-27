@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Inventory;
 use App\Models\Cart;
+use DB;
 class ChapaController extends Controller
 {
     /**
