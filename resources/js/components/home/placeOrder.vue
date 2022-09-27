@@ -71,34 +71,38 @@
         </form>
     </div>
     <div class="col-md-4 mt-3">
-        <div class="bg-white rounded-1 p-3 shadow-sm">
-            <h5><strong>
-                Payment Options
-            </strong></h5>
-            <table class="table table-borderless">
-                <tr class="align-self-center">
-                    <td><input class="form-check-input" value="telebirr" type="radio" v-model="paymentMethod" id="flexRadioDefault2"></td>
-                    <td>
-                        <img class="img img-fluid" src="/storage/settings/telebirr.png" style="max-width: 85px; height: auto" alt="">
-                    </td>                    
-                </tr>
-                <tr class="align-self-center">
-                    <td><input class="form-check-input" value="ebirr" type="radio" v-model="paymentMethod" id="flexRadioDefault2"></td>
-                    <td>
-                        <img class="img img-fluid" src="/storage/settings/ebirr.jpg" style="max-width: 85px; height: auto" alt="">
-                    </td>                    
-                </tr>
-            </table>
-            <h6 v-if="paymentError" class="text-danger mt-2">Please choose a payment method!</h6>
-        </div>
-        <div class="bg-white rounded-1 p-3 shadow-sm mt-3">
-            <h4 class="m-0"><strong>Order Summary</strong></h4>
-            <h6 class="mt-4">Subtotal <span class="float-end fs-3"><strong>{{orderSummary() | numFormat}} ETB</strong></span></h6>
-        </div>
-        <div v-if="btnLoading" class="d-flex justify-content-center align-self-center">
-            <pulse-loader :color="`#BF7F25`" :size="`15px`"></pulse-loader> 
-        </div>
-        <button v-if="!btnLoading" @click="placeOrder()" class="btn btn-primary py-3 form-control mt-3"><h4 class="m-0"><strong>Place Order</strong></h4></button>
+        <form action="#" @submit.prevent="placeOrder">
+            <input type="hidden" name="_token" :value="csrf">
+            <div class="bg-white rounded-1 p-3 shadow-sm">
+                <h5><strong>
+                    Payment Options
+                </strong></h5>
+                <table class="table table-borderless">
+                    <tr class="align-self-center">
+                        <td><input class="form-check-input" value="telebirr" type="radio" v-model="paymentMethod" id="flexRadioDefault2"></td>
+                        <td>
+                            <img class="img img-fluid" src="/storage/settings/telebirr.png" style="max-width: 85px; height: auto" alt="">
+                        </td>                    
+                    </tr>
+                    <tr class="align-self-center">
+                        <td><input class="form-check-input" value="ebirr" type="radio" v-model="paymentMethod" id="flexRadioDefault2"></td>
+                        <td>
+                            <img class="img img-fluid" src="/storage/settings/ebirr.jpg" style="max-width: 85px; height: auto" alt="">
+                        </td>                    
+                    </tr>
+                </table>
+                <h6 v-if="paymentError" class="text-danger mt-2">Please choose a payment method!</h6>
+            </div>
+            <div class="bg-white rounded-1 p-3 shadow-sm mt-3">
+                <h4 class="m-0"><strong>Order Summary</strong></h4>
+                <h6 class="mt-4">Subtotal <span class="float-end fs-3"><strong>{{orderSummary() | numFormat}} ETB</strong></span></h6>
+            </div>
+            <div v-if="btnLoading" class="d-flex justify-content-center mt-3 align-self-center">
+                <pulse-loader :color="`#BF7F25`" :size="`15px`"></pulse-loader> 
+            </div>
+            <button type="submit" v-if="!btnLoading" class="btn btn-primary py-3 form-control mt-3"><h4 class="m-0"><strong>Place Order</strong></h4></button>        
+        </form>
+
     </div>
 </div>    
 </template>
