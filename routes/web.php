@@ -105,6 +105,7 @@ Route::get('/auth/facebook/callback', [socialiteController::class, 'facebook_cal
 Route::post('pay', 'App\Http\Controllers\ChapaController@initialize')->name('pay');
 
 Route::get('callback/{reference}', 'App\Http\Controllers\ChapaController@callback')->name('callback');
+Route::get('return_url/{reference}', 'App\Http\Controllers\ChapaController@return_url')->name('return_url');
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 Route::any('{slug}', function () {
     return view('home');

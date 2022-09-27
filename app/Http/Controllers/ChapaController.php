@@ -30,6 +30,7 @@ class ChapaController extends Controller
             'tx_ref' => $reference,
             'currency' => "ETB",
             'callback_url' => route('callback',[$reference]),
+            'return_url' => route('return_url',[$reference]),
             'first_name' => "Abel",
             'last_name' => "Abera",
             "customization" => [
@@ -55,6 +56,26 @@ class ChapaController extends Controller
      * @return void
      */
     public function callback($reference)
+    {
+        
+        $data = Chapa::verifyTransaction($reference);
+        dd($data);
+
+        //if payment is successful
+        if ($data['status'] ==  'success') {
+        
+
+        dd($data);
+        }
+
+        else{
+            //oopsie something ain't right.
+        }
+
+
+    }
+
+    public function return_url($reference)
     {
         
         $data = Chapa::verifyTransaction($reference);

@@ -79,9 +79,11 @@ export default {
             console.log('hover')
         },
         async filterProductData(){
+            this.loading = true
             await axios.post('/filterData',{sizeData:this.filterData, cat_id:this.$route.params.id, priceData:this.filterRange})
             .then( response =>{
                 this.items = response.data
+                this.loading = false
             })
         },
         async getProductFilters(){
@@ -91,7 +93,7 @@ export default {
             })
         },
         async getCatDetail(){
-            await axios.get('/categories'+this.$route.params.id)
+            await axios.get('/categories/'+this.$route.params.id)
             .then( response =>{
                 this.catDetail = response.data
             })
