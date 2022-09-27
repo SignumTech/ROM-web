@@ -148,7 +148,7 @@ class ChapaController extends Controller
 
                 $request->session()->forget('order');
 
-                return redirect('/pay');
+                return redirect('/orderComplete');
             }
         }
 
