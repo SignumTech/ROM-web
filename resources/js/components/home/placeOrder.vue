@@ -132,7 +132,8 @@ export default {
             addressBookExists:false,
             paymentError:false,
             addressError:false,
-            cartItemsError:false
+            cartItemsError:false,
+            csrf: document.head.querySelector('meta[name="csrf-token"]').content
 
         }
     },
@@ -169,7 +170,7 @@ export default {
                     
                 }})
                 this.btnLoading = false*/
-                await axios.post('/pay', {amount:this.orderSummary(),address:this.currentAddress,cart_id:this.c_id})
+                await axios.post('/pay', {amount:this.orderSummary(),address:this.currentAddress,cart_id:this.c_id,csrf:this.csrf})
                 .then( response =>{
                     
                 })
