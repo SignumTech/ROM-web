@@ -19,7 +19,7 @@ class ChapaController extends Controller
         $this->reference = Chapa::generateReference();
 
     }
-    public function initialize()
+    public function initialize(Request $request)
     {
         $this->validate($request, [
             "amount" => "required",
