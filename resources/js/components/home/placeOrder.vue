@@ -71,8 +71,11 @@
         </form>
     </div>
     <div class="col-md-4 mt-3">
-        <form action="#" @submit.prevent="placeOrder">
+        <form method="POST" action="/pay" id="paymentForm">
             <input type="hidden" name="_token" :value="csrf">
+            <input type="hidden" name="address" :value="currentAddress">
+            <input type="hidden" name="amount" :value="orderSummary()">
+            <input type="hidden" name="cart_id" :value="c_id">
             <div class="bg-white rounded-1 p-3 shadow-sm">
                 <h5><strong>
                     Payment Options
@@ -100,7 +103,7 @@
             <div v-if="btnLoading" class="d-flex justify-content-center mt-3 align-self-center">
                 <pulse-loader :color="`#BF7F25`" :size="`15px`"></pulse-loader> 
             </div>
-            <button type="submit" v-if="!btnLoading" class="btn btn-primary py-3 form-control mt-3"><h4 class="m-0"><strong>Place Order</strong></h4></button>        
+            <button type="submit" value="Buy" v-if="!btnLoading" class="btn btn-primary py-3 form-control mt-3"><h4 class="m-0"><strong>Place Order</strong></h4></button>        
         </form>
 
     </div>
