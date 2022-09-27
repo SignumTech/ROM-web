@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Chapa\Chapa\Facades\Chapa as Chapa;
-
+use Illuminate\Http\Request;
 class ChapaController extends Controller
 {
     /**
@@ -18,6 +18,9 @@ class ChapaController extends Controller
     }
     public function initialize()
     {
+        $this->validate($request, [
+            "amount" => "required"
+        ]);
         //This generates a payment reference
         $reference = $this->reference;
         
@@ -25,17 +28,17 @@ class ChapaController extends Controller
         // Enter the details of the payment
         $data = [
             
-            'amount' => 100,
+            'amount' => $request->amount,
             'email' => 'fnote.md@gmail.com',
             'tx_ref' => $reference,
             'currency' => "ETB",
             'callback_url' => route('callback',[$reference]),
             'return_url' => route('return_url',[$reference]),
-            'first_name' => "Abel",
-            'last_name' => "Abera",
+            'first_name' => auth()->user()->f_name,
+            'last_name' => auth()->user()->l_name,
             "customization" => [
-                "title" => 'Test',
-                "description" => "Test"
+                "title" => 'Product purchase',
+                "description" => "A product purchase"
             ]
         ];
         
@@ -79,13 +82,10 @@ class ChapaController extends Controller
     {
         
         $data = Chapa::verifyTransaction($reference);
-        dd($data);
 
         //if payment is successful
         if ($data['status'] ==  'success') {
-        
-
-        dd($data);
+            
         }
 
         else{

@@ -11,6 +11,7 @@ use App\Http\Controllers\inventoriesController;
 use App\Http\Controllers\cartController;
 use App\Http\Controllers\ordersController;
 use App\Http\Controllers\addressBookController;
+use App\Http\Controllers\flashSaleController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -22,6 +23,9 @@ use App\Http\Controllers\addressBookController;
 |
 */
 Auth::routes();
+///////////////////////////////////FlashSale////////////////////////////////////////////////////////////
+Route::get('/getFlashProducts/{id}', [flashSaleController::class, 'getFlashProducts']);
+Route::get('/getFlashSales', [flashSaleController::class, 'getFlashSales']);
 ///////////////////////////////////resources///////////////////////////////////////////////////////
 Route::post('/mobGoogleLogin', [socialiteController::class, 'mobGoogleLogin']);
 Route::post('/mobFacebookLogin', [socialiteController::class, 'mobFacebookLogin']);
@@ -42,6 +46,8 @@ Route::middleware('auth:sanctum')->get('/makeDefaultAddress/{id}', [addressBookC
 ////////////////////////////////////Products////////////////////////////////////////////////////////
 Route::get('/productsByCategory/{id}', [productsController::class, 'productsByCategory']);
 Route::get('/getInventory/{id}', [productsController::class, 'getInventory']);
+Route::get('/productFilters/{cat_id}', [productsController::class, 'productFilters']);
+Route::get('/priceRange/{cat_id}', [productsController::class, 'priceRange']);
 ////////////////////////////////////Categories//////////////////////////////////////////////////////
 Route::get('/getMainCategories', [categoriesController::class, 'getMainCategories']);
 Route::get('/getSubCategories', [categoriesController::class, 'getSubCategories']);
