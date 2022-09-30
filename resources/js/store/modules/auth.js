@@ -7,6 +7,7 @@ export default({
       authenticated: false,
       user: null,
       permissions: null,
+      roles:null,
       cart: []
     },
   
@@ -36,6 +37,11 @@ export default({
       SET_PERMISSIONS (state, value){
         state.permissions = value
       }
+      ,
+
+      SET_ROLES (state, value){
+        state.roles = value
+      }
     },
   
     actions: {
@@ -63,12 +69,12 @@ export default({
         return axios.get('/user').then((response) => {
             commit('SET_AUTHENTICATED', true)
             commit('SET_USER', response.data)
-            commit('SET_PERMISSIONS', response.data.account_type)
+            commit('SET_ROLES', response.data.user_role)
 
         }).catch(() => {
             commit('SET_AUTHENTICATED', false)
             commit('SET_USER', null)
-            commit('SET_PERMISSIONS', null)
+            commit('SET_ROLES', null)
         })
         }
     }

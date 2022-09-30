@@ -25,6 +25,7 @@ class registerUsersController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->account_type = "USER";
+        $user->user_role = "USER";
         $user->otp = rand(1000 , 9999);
         $user->save();
 

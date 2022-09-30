@@ -13,6 +13,8 @@ use App\Http\Controllers\addressBookController;
 use App\Http\Controllers\ordersController;
 use App\Http\Controllers\inventoriesController;
 use App\Http\Controllers\flashSaleController;
+use App\Http\Controllers\rolePermissionController;
+use App\Http\Controllers\staffController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,6 +42,14 @@ Route::resource('/products', productsController::class);
 Route::resource('/orders', ordersController::class);
 Route::resource('/addressBooks', addressBookController::class);
 Route::resource('/flashSales', flashSaleController::class);
+///////////////////////////////////staff/////////////////////////////////////////////////////////////////
+Route::middleware('auth:sanctum')->post('/registerStaff', [staffController::class, 'registerStaff']);
+Route::middleware('auth:sanctum')->post('/searchStaff', [staffController::class, 'searchStaff']);
+Route::middleware('auth:sanctum')->get('/getStaff', [staffController::class, 'getStaff']);
+Route::middleware('auth:sanctum')->get('/showStaff/{id}', [staffController::class, 'showStaff']);
+Route::middleware('auth:sanctum')->post('/editStaff', [staffController::class, 'editStaff']);
+Route::middleware('auth:sanctum')->post('/resetStaffPass', [staffController::class, 'resetStaffPass']);
+Route::middleware('auth:sanctum')->get('/getStaffPermissions', [staffController::class, 'getStaffPermissions']);
 ///////////////////////////////////FlashSale////////////////////////////////////////////////////////////
 Route::post('/addToflashSales', [flashSaleController::class, 'addToflashSales']);
 Route::get('/getFlashProducts/{id}', [flashSaleController::class, 'getFlashProducts']);
@@ -101,6 +111,11 @@ Route::get('/auth/facebook/redirect', [socialiteController::class, 'facebook_red
  
 Route::get('/auth/facebook/callback', [socialiteController::class, 'facebook_callback']);
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+Route::middleware('auth:sanctum')->post('/createRolePermission', [rolePermissionController::class, 'createRolePermission']);
+Route::middleware('auth:sanctum')->post('/updateRolePermission', [rolePermissionController::class, 'updateRolePermission']);
+Route::middleware('auth:sanctum')->get('/getRoles', [rolePermissionController::class, 'getRoles']);
+Route::middleware('auth:sanctum')->get('/getRoles/{id}', [rolePermissionController::class, 'showRole']);
+Route::middleware('auth:sanctum')->delete('/deleteRole/{id}', [rolePermissionController::class, 'deleteRole']);
 //////////////////////////////////////chapa integration/////////////////////////////////////////////
 Route::post('pay', 'App\Http\Controllers\ChapaController@initialize')->name('pay');
 

@@ -48,11 +48,26 @@ import myProfile from './components/profile/myProfile.vue'
 import myOrders from './components/profile/myOrders.vue'
 import addressBook from './components/profile/addressBook.vue'
 import orderDetails from './components/profile/orderDetails.vue'
+///////////////////user management////////////////////////////////
+import rolePermission from './components/user_management/rolePermission.vue'
+import staffManagement from './components/user_management/staffManagement.vue'
 
 
 Vue.use(Router)
 
 const routes = [
+    {
+        path: '/admin/rolePermission',
+        component: rolePermission,
+        name: 'RolePermission',
+        props: true
+    },
+    {
+        path: '/admin/staffManagement',
+        component: staffManagement,
+        name: 'StaffManagement',
+        props: true
+    },
     {
         path: '/orderComplete',
         component: orderComplete,
@@ -319,7 +334,7 @@ const routes = [
     {
         path: '/',
         beforeEnter: (to, from, next)=>{
-            if(store.state.auth.permissions == 'ADMIN'){
+            if($store.state.auth.roles == 'ADMIN'){
                 next('/admin/adminDash')
             }
             else{

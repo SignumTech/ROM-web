@@ -180,7 +180,7 @@ export default {
                         title: 'Successfully signed in',
                         text: 'you have successfully signed in!'
                     });
-                    if(this.$store.state.auth.permissions == 'ADMIN'){
+                    if(this.$store.state.auth.roles == 'ADMIN'){
                         window.location.replace('/admin/adminDash')
                     }
                     else{

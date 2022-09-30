@@ -36,8 +36,18 @@
                   </ul>
                 </div>
               </li>
-              <li :class="$route.path == `/users` ? `active nav-item` : ``">
-                <router-link class="nav-link a-admin" to="/users"><i data-feather="user"></i> Users Management</router-link>
+              <li>
+                <a data-bs-toggle="collapse" href="#u_m" aria-expanded="false" aria-controls="collapseExample"><i data-feather="user"></i> User Management</a>
+                <div class="collapse" id="u_m">
+                  <ul class="collapse list-unstyled" id="u_m">
+                    <li :class="$route.path == `/admin/staffManagement` ? `active` : ``">
+                        <router-link to="/admin/staffManagement"><i class="fa fa-users"></i> Staff Management</router-link>
+                    </li>
+                    <li :class="$route.path == `/admin/rolePermission` ? `active` : ``">
+                        <router-link to="/admin/rolePermission"><i class="fa fa-key"></i> Role Permission</router-link>
+                    </li>
+                  </ul>
+                </div>
               </li>
               <li :class="$route.path == `/setting` ? `active nav-item` : ``">
                 <router-link class="nav-link a-admin" to="/setting"><i data-feather="trending-up"></i> Sales Report</router-link>
