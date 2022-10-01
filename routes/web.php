@@ -16,6 +16,7 @@ use App\Http\Controllers\flashSaleController;
 use App\Http\Controllers\rolePermissionController;
 use App\Http\Controllers\staffController;
 use App\Http\Controllers\customersController;
+use App\Http\Controllers\dashboardController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -43,6 +44,14 @@ Route::resource('/products', productsController::class);
 Route::resource('/orders', ordersController::class);
 Route::resource('/addressBooks', addressBookController::class);
 Route::resource('/flashSales', flashSaleController::class);
+/////////////////////////////////////dashboard////////////////////////////////////////////////////////
+Route::middleware('auth:sanctum')->get('/salesThirty', [dashboardController::class, 'salesThirty']);
+Route::middleware('auth:sanctum')->get('/ordersThirty', [dashboardController::class, 'ordersThirty']);
+Route::middleware('auth:sanctum')->get('/usersThirty', [dashboardController::class, 'usersThirty']);
+Route::middleware('auth:sanctum')->get('/getOrdersByGroup', [dashboardController::class, 'getOrdersByGroup']);
+Route::middleware('auth:sanctum')->get('/ordersSeven', [dashboardController::class, 'ordersSeven']);
+Route::middleware('auth:sanctum')->get('/salesSeven', [dashboardController::class, 'salesSeven']);
+Route::middleware('auth:sanctum')->get('/revenueYear', [dashboardController::class, 'revenueYear']);
 /////////////////////////////////////Customers////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getCustomers', [customersController::class, 'getCustomers']);
 ///////////////////////////////////staff/////////////////////////////////////////////////////////////////
