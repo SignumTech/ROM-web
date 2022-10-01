@@ -46,12 +46,15 @@ Route::resource('/addressBooks', addressBookController::class);
 Route::resource('/flashSales', flashSaleController::class);
 /////////////////////////////////////dashboard////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/salesThirty', [dashboardController::class, 'salesThirty']);
+Route::middleware('auth:sanctum')->get('/salesToday', [dashboardController::class, 'salesToday']);
 Route::middleware('auth:sanctum')->get('/ordersThirty', [dashboardController::class, 'ordersThirty']);
+Route::middleware('auth:sanctum')->get('/ordersToday', [dashboardController::class, 'ordersToday']);
 Route::middleware('auth:sanctum')->get('/usersThirty', [dashboardController::class, 'usersThirty']);
 Route::middleware('auth:sanctum')->get('/getOrdersByGroup', [dashboardController::class, 'getOrdersByGroup']);
 Route::middleware('auth:sanctum')->get('/ordersSeven', [dashboardController::class, 'ordersSeven']);
 Route::middleware('auth:sanctum')->get('/salesSeven', [dashboardController::class, 'salesSeven']);
 Route::middleware('auth:sanctum')->get('/revenueYear', [dashboardController::class, 'revenueYear']);
+Route::middleware('auth:sanctum')->post('/salesReport', [dashboardController::class, 'salesReport']);
 /////////////////////////////////////Customers////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getCustomers', [customersController::class, 'getCustomers']);
 ///////////////////////////////////staff/////////////////////////////////////////////////////////////////

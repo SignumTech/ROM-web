@@ -49,10 +49,10 @@
                   </ul>
                 </div>
               </li>
-              <li :class="$route.path == `/setting` ? `active nav-item` : ``">
-                <router-link class="nav-link a-admin" to="/setting"><i data-feather="trending-up"></i> Sales Report</router-link>
+              <li :class="$route.path == `/admin/salesReport` ? `active nav-item` : ``">
+                <router-link class="nav-link a-admin" to="/admin/salesReport"><i data-feather="trending-up"></i> Sales Report</router-link>
               </li>
-              <li :class="$route.path == `/customers` ? `active nav-item` : ``">
+              <li :class="$route.path == `/admin/customers` ? `active nav-item` : ``">
                 <router-link class="nav-link a-admin" to="/admin/customers"><i data-feather="users"></i> Customers</router-link>
               </li>
             </ul>
