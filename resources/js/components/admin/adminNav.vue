@@ -53,7 +53,7 @@
                 <router-link class="nav-link a-admin" to="/setting"><i data-feather="trending-up"></i> Sales Report</router-link>
               </li>
               <li :class="$route.path == `/customers` ? `active nav-item` : ``">
-                <router-link class="nav-link a-admin" to="/customers"><i data-feather="users"></i> Customers</router-link>
+                <router-link class="nav-link a-admin" to="/admin/customers"><i data-feather="users"></i> Customers</router-link>
               </li>
             </ul>
           </nav>            

@@ -11,6 +11,7 @@ import orders from './components/admin/orders.vue'
 import adminOrderDetails from './components/admin/orderDetails.vue'
 import flashSale from './components/admin/flashSale.vue'
 import flashSaleDetail from './components/admin/flashSaleDetails.vue'
+import customers from './components/admin/customers.vue'
 /////////////////////checkout process/////////////////////////
 import cart from './components/home/cart.vue'
 import placeOrder from './components/home/placeOrder.vue'
@@ -56,6 +57,12 @@ import staffManagement from './components/user_management/staffManagement.vue'
 Vue.use(Router)
 
 const routes = [
+    {
+        path: '/admin/customers',
+        component: customers,
+        name: 'Customrs',
+        props: true
+    },
     {
         path: '/admin/rolePermission',
         component: rolePermission,
@@ -334,7 +341,7 @@ const routes = [
     {
         path: '/',
         beforeEnter: (to, from, next)=>{
-            if($store.state.auth.roles == 'ADMIN'){
+            if(store.state.auth.roles == 'ADMIN'){
                 next('/admin/adminDash')
             }
             else{

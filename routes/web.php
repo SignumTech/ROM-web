@@ -15,6 +15,7 @@ use App\Http\Controllers\inventoriesController;
 use App\Http\Controllers\flashSaleController;
 use App\Http\Controllers\rolePermissionController;
 use App\Http\Controllers\staffController;
+use App\Http\Controllers\customersController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,6 +43,8 @@ Route::resource('/products', productsController::class);
 Route::resource('/orders', ordersController::class);
 Route::resource('/addressBooks', addressBookController::class);
 Route::resource('/flashSales', flashSaleController::class);
+/////////////////////////////////////Customers////////////////////////////////////////////////////////
+Route::middleware('auth:sanctum')->get('/getCustomers', [customersController::class, 'getCustomers']);
 ///////////////////////////////////staff/////////////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->post('/registerStaff', [staffController::class, 'registerStaff']);
 Route::middleware('auth:sanctum')->post('/searchStaff', [staffController::class, 'searchStaff']);
