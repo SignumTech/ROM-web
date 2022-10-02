@@ -5,7 +5,7 @@
             <h5>Sizes & quantities <span @click="addSizes()" class="fa fa-plus float-end"></span></h5>
         </div>
         <div class="col-md-12">
-            <div v-for="size in sizes[currentColor]" :key="size.id" class="row">
+            <div v-for="size,index in sizes[currentColor]" :key="index" class="row">
                 <div class="col-md-6 py-1">
                     <label for="">Size</label>
                     <input required v-model="size.size" type="text" class="form-control">
@@ -27,12 +27,11 @@ export default {
     props:['sizeData','currentColor', 'product_id'],
     data(){
         return{
-            sizes:{}
+            sizes:[]
         }
     },
     mounted(){
         this.sizes = this.sizeData
-        console.log(this.sizes)
     },
     methods:{
         async updateSizes(){
@@ -42,7 +41,9 @@ export default {
             })
         },
         addSizes(){
+            
             this.sizes[this.currentColor].push({size:'',quantity:'', id:0})
+            console.log(this.sizes[this.currentColor])
         }
     }
 

@@ -173,6 +173,49 @@ class productsController extends Controller
 
     }
 
+    public function updateProductPic(Request $request){
+        $this->validate($request, [
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2084',
+            'color' => "required",
+            "product_id" => "required"
+        ]);
+        $product = Product::find($request->product_id);
+        $pictures = collect(json_decode($product->p_image))->toArray();
+        //dd();
+        if($request->hasFile('photo')){
+            
+            //Get filename with the extention
+            $filenameWithExt = $request->file('photo')->getClientOriginalName();
+            $thumbnailImage = Image::make($request->file('photo'));
+            
+            //Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            //get just ext
+            $extension = $request->file('photo')->getClientOriginalExtension();
+            //Filename to store
+            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            //upload Image
+            //$realPath = public_path().'\storage\products\\';
+            $realPath = storage_path().'/app/public/products/';
+            //$thumbnailPath = public_path().'\storage\productsThumb\\';
+            $thumbnailPath = storage_path().'/app/public/productsThumb/';
+            $thumbnailImage->save($realPath.$fileNameToStore);
+
+            $thumbnailImage->resize(null, 320, function ($constraint){
+                $constraint->aspectRatio();
+            });
+            $thumbnailImage->save($thumbnailPath.$fileNameToStore);
+            
+            array_push($pictures[$request->color],$fileNameToStore);
+            $product->p_image = json_encode($pictures);
+            $product->save();
+            return $product; 
+        }
+        else{
+            return response(422, "No file");
+        }
+    }
+
     public function insertColors(Request $request){
         $this->validate($request, [
             "colorData" => "required",

@@ -90,6 +90,7 @@ Route::middleware('auth:sanctum')->get('/getShipped', [ordersController::class, 
 Route::middleware('auth:sanctum')->post('/shipOrder', [ordersController::class, 'shipOrder']);
 ///////////////////////////////////products/////////////////////////////////////////////////////////
 Route::post('/uploadProductPic', [productsController::class, 'uploadProductPic']);
+Route::post('/updateProductPic', [productsController::class, 'updateProductPic']);
 Route::post('/deleteProductImage', [productsController::class, 'deleteProductImage']);
 Route::post('/insertColors', [productsController::class, 'insertColors']);
 Route::post('/updateColors', [productsController::class, 'updateColors']);

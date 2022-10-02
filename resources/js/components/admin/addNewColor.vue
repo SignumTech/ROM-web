@@ -7,7 +7,7 @@
     </template>
     <script>
     export default {
-        props:['colors', 'sizes', 'product', 'pictures'],
+        props:['colors','pictures', 'sizes'],
         data(){
             return{
                 color:""
@@ -15,14 +15,10 @@
         },
         methods:{
             addColor(){
-                this.colorData.push(
-                    {
-                        color:this.color,
-                        price:"",
-                        sizes:[{size:'',quantity:''}],
-                        pictures:[]
-                    }
-                );
+                
+                this.colors.push(this.color)
+                this.pictures[this.color] = [];
+                this.sizes[this.color] = [];
                 this.$emit('close')
             }
         }

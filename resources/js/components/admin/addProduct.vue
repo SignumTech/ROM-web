@@ -125,6 +125,11 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div v-if="picLoading" class="col-md-3 align-self-center mt-2" >
+                                    <div class="d-flex justify-content-center mt-5 mb-5">
+                                        <pulse-loader :color="`#BF7F25`" :size="`15px`"></pulse-loader> 
+                                    </div>
+                                </div>
                                 <div class="col-md-3 align-self-center mt-2" >
                                     <div class="bg-secondary rounded p-2" style="height: 225px">
                                         <h5 class="text-center pt-2"><span class="fa fa-camera"></span></h5>
@@ -208,11 +213,34 @@
 </div>
 </template>
 <script>
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 import addColorModalVue from './addColorModal.vue';
 export default {
+    components:{
+        PulseLoader
+    },
     props:["type", "item"],
+    beforeMount() {
+        window.addEventListener("beforeunload", this.preventNav)
+        this.$once("hook:beforeDestroy", () => {
+        window.removeEventListener("beforeunload", this.preventNav);
+        })
+    },
+    beforeRouteLeave(to, from, next) {
+        if (this.isEditing) {
+            if (!window.confirm("Leave without saving?")) {
+                return;
+            }
+            else{
+                this.deleteProduct()
+            }
+        }
+        next();
+    },
     data(){
         return{
+            isEditing: false,
+            picLoading:false,
             product:{},
             pictures:{main:""},
             colors:{},
@@ -248,6 +276,17 @@ export default {
         feather.replace();
     },
     methods:{
+        async deleteProduct(){
+            await axios.delete('/products/'+this.product_id)
+            .then( response =>{
+
+            })
+        },
+        preventNav(event) {
+            if (!this.isEditing) return
+            event.preventDefault()
+            event.returnValue = ""
+        },
         saveDraft(){
             this.$notify({
                     group: 'foo',
@@ -322,20 +361,21 @@ export default {
             })  
         },
         async uploadPic($event, index){
+            this.picLoading = true
             const data = new FormData();
             this.photo = $event.target.files[0];
             data.append('photo', this.photo);
             this.img_loading = true;
             await axios.post('/uploadProductPic', data)
             .then( response => {
-                console.log(response.data.fileName)
                 this.colorData[index].pictures.push(response.data.fileName)
+                this.picLoading = false
             })
             .catch( error => {
                 if (error.response.status == 422){
                     this.validationErrors = error.response.data.errors.photo;
                 }
-                this.img_loading = false;
+                this.picLoading = false;
             })
         },
         async addIdentity(){
@@ -348,6 +388,7 @@ export default {
                     this.identityAdded = true
                     this.product_id = response.data.id
                     this.displayColors()
+                    this.isEditing = true
                 })                
             }
 

@@ -6,13 +6,15 @@
     <div class="col-md-12 mt-3">
         <div class="bg-white rounded-1 p-3 shadow-sm">
             <router-link to="/admin/addProducts" class="btn btn-primary btn-sm float-end shadow text-white"><span class="fa fa-plus"></span> Add Product</router-link>
-            <table class="table px-2 table-sm mt-2">
+            <div v-if="loading" class="d-flex justify-content-center mt-5 mb-5">
+                <pulse-loader :color="`#BF7F25`" :size="`15px`"></pulse-loader> 
+            </div>
+            <table v-if="!loading" class="table px-2 table-sm mt-2">
                 <thead>
                     <tr>
                         <th>Product</th>
                         <th>Name</th>
                         <th>Price</th>
-                        
                         <th>Stock</th>
                         <th>Status</th>
                         <th>Promotion</th>
@@ -46,10 +48,15 @@
 </template>
 <script>
 import makeFlash from './makeFlash.vue'
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 export default {
+    components:{
+        PulseLoader
+    },
     data(){
         return{
-            products:{}
+            products:{},
+            loading:true,
         }
     },
     mounted(){
@@ -66,11 +73,11 @@ export default {
             );
         },
         async getProducts(){
+            this.loading = true
             await axios.get('/getProductsList')
             .then( response =>{
                 this.products = response.data
-                console.log(response.data)
-                console.log(JSON.parse(response.data[0].p_image).main)
+                this.loading = false
             })
         },
         editProduct(product){
