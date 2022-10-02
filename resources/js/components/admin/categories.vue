@@ -15,21 +15,23 @@
             </div>
             <div class="row mt-1 mx-0">
                 <div class="col-md-12 px-0">
-                    <table class="table table-striped table-sm">
+                    <table class="table table-sm">
                         <thead>
                             <tr>
+                                <th>#</th>
                                 <th>Category Name</th>
                                 <th>Items</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="mc in mainCategories" :key="mc.id">
+                            <tr v-for="mc,index in mainCategories" :key="mc.id">
+                                <td>{{index +1}}</td>
                                 <td class="align-middle">{{mc.cat_name}}</td>
                                 <td class="align-middle">{{mc.items}}</td>
-                                <td class="align-middle">
-                                    <button class="btn btn-danger btn-sm float-end ms-3"><span class="fa fa-trash-alt"></span></button>
-                                    <button @click="editMainModal(mc)" class="btn btn-success btn-sm float-end "><span class="fa fa-edit"></span></button>
+                                <td class="align-middle text-center">
+                                    <span class="fa fa-trash-alt me-3"></span>
+                                    <span @click="editMainModal(mc)" class="fa fa-edit me-3"></span>
                                 </td>
                             </tr>
                         </tbody>
@@ -50,9 +52,10 @@
             </div>
             <div class="row mt-1 mx-0">
                 <div class="col-md-12 px-0">
-                    <table class="table table-striped table-sm">
+                    <table class="table table-sm">
                         <thead>
                             <tr>
+                                <th>#</th>
                                 <th></th>
                                 <th>Category Name</th>
                                 <th>Items</th>
@@ -61,7 +64,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="sc in subCategories" :key="sc.id">
+                            <tr v-for="sc,index in subCategories" :key="sc.id">
+                                <td class="align-middle">{{index+1}}</td>
                                 <td>
                                     <img :src="`/storage/settings/`+sc.cat_image" class="img img-fluid img-thumb cat_img rounded" alt="">
                                     <span @click="addPictureModal(sc.id,sc.cat_image)" class="fa fa-pencil-alt ml-1" style="cursor:pointer"></span>
@@ -69,10 +73,9 @@
                                 <td class="align-middle">{{sc.cat_name}}</td>
                                 <td class="align-middle">{{sc.items}}</td>
                                 <td class="align-middle">{{sc.parent_name}}</td>
-                                <td class="align-middle">
-                                    
-                                    <button class="btn btn-danger btn-sm float-end ms-3"><span class="fa fa-trash-alt"></span></button>
-                                    <button @click="editSubModal(sc)" class="btn btn-success btn-sm float-end "><span class="fa fa-edit"></span></button>
+                                <td class="align-middle text-center">
+                                    <span class="fa fa-trash-alt me-3"></span>
+                                    <span @click="editSubModal(sc)" class="fa fa-edit me-3"></span>
                                 </td>
                             </tr>
                         </tbody>
