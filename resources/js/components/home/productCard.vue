@@ -15,7 +15,7 @@
         <h5 class="mb-0"><strong>{{item.price}} Birr</strong></h5>
     </div>
     <div class="col-4 mt-1 mb-0">
-        <h5 class="float-end mb-0"><span class="fa fa-heart "></span></h5>
+        <h6 class="float-end mb-0"><i data-feather="heart"></i></h6>
     </div>
 </div>   
 </template>
@@ -28,6 +28,9 @@ export default {
         }
     },
     props:['item'],
+    mounted(){
+        feather.replace();
+    },
     methods:{
         detailsModal(id){
             this.$modal.show(

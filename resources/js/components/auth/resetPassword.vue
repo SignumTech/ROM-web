@@ -57,7 +57,7 @@ export default {
             this.regLoading = true
             await axios.post('/resetPassword', this.formData)
             .then( response =>{
-                window.location.replace('/myProfile');
+                window.location.replace('/myAccount');
             })
             .catch( error =>{
                 if(error.response.status == 422){

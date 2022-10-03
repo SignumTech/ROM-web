@@ -118,7 +118,7 @@ export default {
                     title: 'Verification Successful',
                     text: 'You have successfuly verfied your account!'
                 });
-                window.location.replace('/myProfile');
+                window.location.replace('/myAccount');
             })
             .catch( error =>{
                 if(error.response.status == 422){

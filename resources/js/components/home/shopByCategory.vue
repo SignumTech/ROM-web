@@ -71,8 +71,7 @@ export default {
         this.getCatDetail()
         this.getProductFilters()
         this.priceRange()
-        
-
+        feather.replace();
     },
     methods:{
         mouseHov(){

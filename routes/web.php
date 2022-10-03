@@ -17,6 +17,7 @@ use App\Http\Controllers\rolePermissionController;
 use App\Http\Controllers\staffController;
 use App\Http\Controllers\customersController;
 use App\Http\Controllers\dashboardController;
+use App\Http\Controllers\wishlistController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,6 +45,9 @@ Route::resource('/products', productsController::class);
 Route::resource('/orders', ordersController::class);
 Route::resource('/addressBooks', addressBookController::class);
 Route::resource('/flashSales', flashSaleController::class);
+/////////////////////////////////////whishlists///////////////////////////////////////////////////////
+Route::middleware('auth:sanctum')->get('/addToWishlist/{id}', [wishlistController::class, 'addToWishlists']);
+Route::middleware('auth:sanctum')->get('/getMyWishlist', [wishlistController::class, 'getMyWishlist']);
 /////////////////////////////////////dashboard////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/salesThirty', [dashboardController::class, 'salesThirty']);
 Route::middleware('auth:sanctum')->get('/salesToday', [dashboardController::class, 'salesToday']);
