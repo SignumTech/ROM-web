@@ -8,7 +8,8 @@ export default({
       user: null,
       permissions: null,
       roles:null,
-      cart: []
+      cart: [],
+      account_type: null
     },
   
     getters: {
@@ -22,6 +23,16 @@ export default({
 
       permissions: state => {
         return state.permissions
+      },
+      permissions: state => {
+        return state.roles
+      },
+      permissions: state => {
+        return state.cart
+      }
+      ,
+      permissions: state => {
+        return state.account_type
       }
     },
   
@@ -41,6 +52,9 @@ export default({
 
       SET_ROLES (state, value){
         state.roles = value
+      },
+      SET_ACCOUNT_TYPE (state, value){
+        state.account_type = value
       }
     },
   
@@ -70,11 +84,13 @@ export default({
             commit('SET_AUTHENTICATED', true)
             commit('SET_USER', response.data)
             commit('SET_ROLES', response.data.user_role)
+            commit('SET_ACCOUNT_TYPE', response.data.account_type)
 
         }).catch(() => {
             commit('SET_AUTHENTICATED', false)
             commit('SET_USER', null)
             commit('SET_ROLES', null)
+            commit('SET_ACCOUNT_TYPE', null)
         })
         }
     }

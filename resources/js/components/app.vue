@@ -1,6 +1,6 @@
 <template>
     <div class="row m-0">
-        <div class="p-0" v-if="$store.state.auth.roles != `ADMIN` || !$store.state.auth.authenticated">
+        <div class="p-0" v-if="$store.state.auth.account_type != `Staff` || !$store.state.auth.authenticated">
             <nav class="navbar navbar-expand-lg pe-2 ps-2 main-nav">
                 <div class="container-fluid">
                     <a class="navbar-brand text-white" href="/"><h2 class="m-0"><strong>ROM</strong></h2></a>
@@ -86,10 +86,10 @@
             <router-view></router-view>          
         </div>
         <div class="p-0">
-             <admin-nav v-if="$store.state.auth.roles == `ADMIN` && $store.state.auth.authenticated"></admin-nav>
+             <admin-nav v-if="$store.state.auth.account_type == `Staff` && $store.state.auth.authenticated"></admin-nav>
         </div>
         <div class="p-0">
-            <footer1 v-if="$store.state.auth.roles != `ADMIN`"></footer1>
+            <footer1 v-if="$store.state.auth.account_type != `Staff`"></footer1>
         </div>
         <notifications group="foo" position="bottom right"/>
         
@@ -114,12 +114,11 @@ export default {
         this.getCart()
         this.authenticated = this.$store.state.auth.authenticated
         this.user = this.$store.state.auth.user
-        feather.replace();
         this.$store.dispatch('auth/permissions')
         .then( () =>{
             this.permissions = this.$store.state.auth.permissions
         })
-        
+        feather.replace();
     },
     methods:{
         sumPrice(cart){

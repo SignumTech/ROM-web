@@ -27,12 +27,12 @@ use App\Http\Controllers\dashboardController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Auth::routes();
 Route::get('/', function () {
     return view('home');
 });
 
-Auth::routes();
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -141,7 +141,7 @@ Route::get('return_url/{reference}', 'App\Http\Controllers\ChapaController@retur
 Route::any('{slug}', function () {
     return view('home');
 });
-Route::any('/admin/{slug}', function () {
+Route::middleware(['pagePermission'])->any('/admin/{slug}', function () {
     return view('home');
 });
 Route::any('/admin/{slug}/{slug2}', function () {

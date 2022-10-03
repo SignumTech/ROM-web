@@ -180,8 +180,8 @@ export default {
                         title: 'Successfully signed in',
                         text: 'you have successfully signed in!'
                     });
-                    if(this.$store.state.auth.roles == 'ADMIN'){
-                        window.location.replace('/admin/adminDash')
+                    if(this.$store.state.auth.account_type == 'Staff'){
+                        window.location.replace('/admin')
                     }
                     else{
                         window.location.replace('/myAccount')

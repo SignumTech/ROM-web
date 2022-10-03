@@ -53,13 +53,14 @@ export default {
         doughnutchart
     },
     mounted(){
-        feather.replace();
+        
         this.getSalesThirty();
         this.getOrdersThirty();
         this.getUsersThirty();
         this.getRevenueYear();
         this.getSalesSeven();
         this.getOrdersSeven();
+        feather.replace();
     },
     data(){
         return{

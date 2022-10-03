@@ -13,6 +13,7 @@ import flashSale from './components/admin/flashSale.vue'
 import flashSaleDetail from './components/admin/flashSaleDetails.vue'
 import customers from './components/admin/customers.vue'
 import salesReport from './components/admin/salesReport.vue'
+import staffHome from './components/admin/staffHome.vue'
 /////////////////////checkout process/////////////////////////
 import cart from './components/home/cart.vue'
 import placeOrder from './components/home/placeOrder.vue'
@@ -58,6 +59,23 @@ import staffManagement from './components/user_management/staffManagement.vue'
 Vue.use(Router)
 
 const routes = [
+    {
+        path: '/admin',
+        beforeEnter: (to, from, next)=>{
+            if(store.state.auth.roles == 'ADMIN'){
+                next('/admin/adminDash')
+            }
+            else{
+                next('/admin/staffHome')
+            }
+        }
+    },
+    {
+        path: '/admin/staffHome',
+        component: staffHome,
+        name: 'StaffHome',
+        props: true
+    },
     {
         path: '/admin/salesReport',
         component: salesReport,
@@ -348,8 +366,8 @@ const routes = [
     {
         path: '/',
         beforeEnter: (to, from, next)=>{
-            if(store.state.auth.roles == 'ADMIN'){
-                next('/admin/adminDash')
+            if(store.state.auth.account_type == 'Staff'){
+                next('/admin')
             }
             else{
                 next('/women')
