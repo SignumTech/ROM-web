@@ -9,6 +9,7 @@ export default({
       permissions: null,
       roles:null,
       cart: [],
+      wishlist: [],
       account_type: null
     },
   
@@ -24,15 +25,19 @@ export default({
       permissions: state => {
         return state.permissions
       },
-      permissions: state => {
+      roles: state => {
         return state.roles
       },
-      permissions: state => {
+      cart: state => {
         return state.cart
       }
       ,
-      permissions: state => {
+      account_type: state => {
         return state.account_type
+      }
+      ,
+      wishlist: state => {
+        return state.wishlist
       }
     },
   

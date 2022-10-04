@@ -51,6 +51,7 @@ import myProfile from './components/profile/myProfile.vue'
 import myOrders from './components/profile/myOrders.vue'
 import addressBook from './components/profile/addressBook.vue'
 import orderDetails from './components/profile/orderDetails.vue'
+import wishlist from './components/profile/myWishlist.vue'
 ///////////////////user management////////////////////////////////
 import rolePermission from './components/user_management/rolePermission.vue'
 import staffManagement from './components/user_management/staffManagement.vue'
@@ -360,6 +361,12 @@ const routes = [
                 path: '/myAccount/orderDetails/:id',
                 component: orderDetails,
                 name: 'OrderDetails'
+            }
+            ,
+            {
+                path: '/myAccount/myWishlist',
+                component: wishlist,
+                name: 'Wishlist'
             }
         ]
     },  

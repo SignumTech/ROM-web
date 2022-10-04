@@ -48,6 +48,11 @@
         <div class="col-md-4">
             <div class="bg-white rounded-1 p-3">
                 <h5 class="m-0"><b><span class="fa fa-heart"></span> Wishlist</b></h5>
+                <div class="p-5">
+                    <wishlist-card v-if="$store.state.auth.wishlist.length > 0" :item="$store.state.auth.wishlist[0]"></wishlist-card>
+                </div>
+                
+                <router-link to="/myAccount/myWishlist"><h5><strong>View all >></strong></h5></router-link>
             </div>
         </div>             
     </div>
@@ -57,10 +62,13 @@
 </template>
 
 <script>
+import wishlistCard from '../home/wishlistCard.vue'
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 export default {
+
     components:{
-        PulseLoader
+        PulseLoader,
+        wishlistCard
     },
     data(){
         return{

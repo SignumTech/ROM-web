@@ -46,8 +46,9 @@ Route::resource('/orders', ordersController::class);
 Route::resource('/addressBooks', addressBookController::class);
 Route::resource('/flashSales', flashSaleController::class);
 /////////////////////////////////////whishlists///////////////////////////////////////////////////////
-Route::middleware('auth:sanctum')->get('/addToWishlist/{id}', [wishlistController::class, 'addToWishlists']);
+Route::middleware('auth:sanctum')->get('/addToWishlist/{id}', [wishlistController::class, 'addToWishlist']);
 Route::middleware('auth:sanctum')->get('/getMyWishlist', [wishlistController::class, 'getMyWishlist']);
+Route::middleware('auth:sanctum')->delete('/removeFromWishlist/{id}', [wishlistController::class, 'removeFromWishlist']);
 /////////////////////////////////////dashboard////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/salesThirty', [dashboardController::class, 'salesThirty']);
 Route::middleware('auth:sanctum')->get('/salesToday', [dashboardController::class, 'salesToday']);

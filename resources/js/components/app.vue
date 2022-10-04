@@ -44,7 +44,7 @@
                         </li>
                         <li class="nav-item me-4 dropdown">
                             <a class="nav-link nav-link-main dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                                <h5 class="m-0"><span class="fa fa-shopping-bag"></span> <span class="fs-6">{{$store.state.auth.cart.length}}</span></h5>
+                                <h5 class="m-0"><span class="fa fa-shopping-bag"></span> <span v-if="$store.state.auth.cart.length > 0" class="fs-6">{{$store.state.auth.cart.length}}</span></h5>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="width:400px">
                                 
@@ -77,7 +77,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <router-link class="nav-link nav-link-main" to="/"><h5 class="m-0"><span class="fa fa-heart"></span></h5></router-link>
+                            <router-link class="nav-link nav-link-main" to="/myAccount/myWishlist"><h5 class="m-0"><span class="fa fa-heart"></span><span v-if="$store.state.auth.wishlist.length > 0" class="fs-6 ms-1">{{$store.state.auth.wishlist.length}}</span></h5></router-link>
                         </li>
                     </ul>
                     </div>
@@ -112,6 +112,7 @@ export default {
     },
     mounted() {
         this.getCart()
+        this.getWishlist()
         this.authenticated = this.$store.state.auth.authenticated
         this.user = this.$store.state.auth.user
         this.$store.dispatch('auth/permissions')
@@ -132,6 +133,12 @@ export default {
             await axios.post('/getCart')
             .then( response => {
                 this.$store.state.auth.cart = JSON.parse(response.data.items)
+            })
+        },
+        async getWishlist(){
+            await axios.get('/getMyWishlist')
+            .then( response =>{
+                this.$store.state.auth.wishlist = response.data
             })
         },
         logout: function(){
