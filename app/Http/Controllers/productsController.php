@@ -151,6 +151,32 @@ class productsController extends Controller
         return $products;
     }
 
+    public function productsAuthByCategory($id)
+    {
+        $products = Product::where('cat_id', $id)
+                           ->where('p_status', 'PUBLISHED')
+                           ->where('promotion_status', 'REGULAR')
+                           ->get();
+        foreach($products as $product){
+            if(Auth::check()){
+                $item = Wishlist::where('p_id',$product->id)
+                                ->where('user_id', auth()->user()->id)
+                                ->first();
+                if($item){
+                $product->wishlist = true;
+                }
+                else{
+                $product->wishlist = false;
+                }
+            }
+            else{
+                $product->wishlist = false;
+            }
+
+        }
+        return $products;
+    }
+
     public function uploadProductPic(Request $request){
         $this->validate($request, [
             'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2084',

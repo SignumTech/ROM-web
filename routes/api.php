@@ -50,6 +50,7 @@ Route::middleware('auth:sanctum')->get('/showAddress/{id}', [addressBookControll
 Route::middleware('auth:sanctum')->get('/makeDefaultAddress/{id}', [addressBookController::class, 'makeDefaultAddress']);
 ////////////////////////////////////Products////////////////////////////////////////////////////////
 Route::get('/productsByCategory/{id}', [productsController::class, 'productsByCategory']);
+Route::middleware('auth:sanctum')->get('/productsAuthByCategory/{id}', [productsController::class, 'productsAuthByCategory']);
 Route::get('/getInventory/{id}', [productsController::class, 'getInventory']);
 Route::get('/productFilters/{cat_id}', [productsController::class, 'productFilters']);
 Route::get('/priceRange/{cat_id}', [productsController::class, 'priceRange']);
