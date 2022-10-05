@@ -12,6 +12,7 @@ use App\Http\Controllers\cartController;
 use App\Http\Controllers\ordersController;
 use App\Http\Controllers\addressBookController;
 use App\Http\Controllers\flashSaleController;
+use App\Http\Controllers\wishlistController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -30,6 +31,10 @@ Route::get('/getFlashSales', [flashSaleController::class, 'getFlashSales']);
 Route::post('/mobGoogleLogin', [socialiteController::class, 'mobGoogleLogin']);
 Route::post('/mobFacebookLogin', [socialiteController::class, 'mobFacebookLogin']);
 Route::middleware('auth:sanctum')->resource('/orders', ordersController::class);
+/////////////////////////////////////whishlists///////////////////////////////////////////////////////
+Route::middleware('auth:sanctum')->get('/addToWishlist/{id}', [wishlistController::class, 'addToWishlist']);
+Route::middleware('auth:sanctum')->get('/getMyWishlist', [wishlistController::class, 'getMyWishlist']);
+Route::middleware('auth:sanctum')->delete('/removeFromWishlist/{id}', [wishlistController::class, 'removeFromWishlist']);
 ///////////////////////////////////orders/////////////////////////////////////////////////////////
 Route::get('/getMyOrders', [ordersController::class, 'getMyOrders']);
 Route::middleware('auth:sanctum')->get('/getMyOrdersStatus/{status}', [ordersController::class, 'getMyOrdersStatus']);
