@@ -54,6 +54,7 @@ Route::middleware('auth:sanctum')->get('/productsAuthByCategory/{id}', [products
 Route::get('/getInventory/{id}', [productsController::class, 'getInventory']);
 Route::get('/productFilters/{cat_id}', [productsController::class, 'productFilters']);
 Route::get('/priceRange/{cat_id}', [productsController::class, 'priceRange']);
+Route::post('/filterData', [productsController::class, 'filterData']);
 ////////////////////////////////////Categories//////////////////////////////////////////////////////
 Route::get('/getMainCategories', [categoriesController::class, 'getMainCategories']);
 Route::get('/getSubCategories', [categoriesController::class, 'getSubCategories']);
