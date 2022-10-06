@@ -532,7 +532,7 @@ class productsController extends Controller
             "min" => "required",
             "cat_id" => "required"
         ]);
-        $request->sizeData = json_decode($request->sizeData);
+        $request->sizeData = json_decode(json_encode($request->sizeData));
         $data = [];
         $products = Product::where('cat_id', $request->cat_id)
                             ->where('p_status', 'PUBLISHED')

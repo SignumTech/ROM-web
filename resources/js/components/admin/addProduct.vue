@@ -297,6 +297,7 @@ export default {
                 this.$router.push({name:'Products'})
         },
         async publishProduct(){
+            this.isEditing = false
             await axios.post('/publishProduct', {p_id:this.product_id})
             .then( response =>{
                 this.$notify({
