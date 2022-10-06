@@ -79,7 +79,7 @@ export default {
         },
         async filterProductData(){
             this.loading = true
-            await axios.post('/filterData',{sizeData:this.filterData, cat_id:this.$route.params.id, priceData:this.filterRange})
+            await axios.post('/filterData',{sizeData:this.filterData, cat_id:this.$route.params.id, max:this.filterRange, min:this.priceMin})
             .then( response =>{
                 this.items = response.data
                 this.loading = false

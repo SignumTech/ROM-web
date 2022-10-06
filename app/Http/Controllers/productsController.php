@@ -448,14 +448,16 @@ class productsController extends Controller
 
     public function filterData(Request $request){
         $this->validate($request, [
-            "priceData" => "required",
+            "max" => "required",
+            "min" => "required",
             "cat_id" => "required"
         ]);
         $data = [];
         $products = Product::where('cat_id', $request->cat_id)
                             ->where('p_status', 'PUBLISHED')
                             ->where('promotion_status', 'REGULAR')
-                            ->where('price', '<=', $request->priceData)
+                            ->where('price', '<=', $request->max)
+                            ->where('price', '>=', $request->min)
                             ->get();
         if(count($request->sizeData) > 0){
             foreach($products as $product){
