@@ -56,6 +56,7 @@ Route::get('/productFilters/{cat_id}', [productsController::class, 'productFilte
 Route::get('/priceRange/{cat_id}', [productsController::class, 'priceRange']);
 Route::post('/filterData', [productsController::class, 'filterData']);
 Route::post('/filterMobData', [productsController::class, 'filterMobData']);
+Route::post('/filterMobAuthData', [productsController::class, 'filterMobAuthData']);
 ////////////////////////////////////Categories//////////////////////////////////////////////////////
 Route::get('/getMainCategories', [categoriesController::class, 'getMainCategories']);
 Route::get('/getSubCategories', [categoriesController::class, 'getSubCategories']);

@@ -540,6 +540,22 @@ class productsController extends Controller
                             ->where('price', '<=', $request->max)
                             ->where('price', '>=', $request->min)
                             ->get();
+        foreach($products as $product){
+            if(Auth::check()){
+                $item = Wishlist::where('p_id',$product->id)
+                                ->where('user_id', auth()->user()->id)
+                                ->first();
+                if($item){
+                $product->wishlist = true;
+                }
+                else{
+                $product->wishlist = false;
+                }
+            }
+            else{
+                $product->wishlist = false;
+            }
+        }
         if(count($request->sizeData) > 0){
             foreach($products as $product){
                 
