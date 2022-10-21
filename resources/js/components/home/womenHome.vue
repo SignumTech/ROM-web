@@ -13,8 +13,8 @@
             </div>
         </div>  
     </div>
-    <div v-if="!loading" class="row m-0 px-5 pb-5 pt-3">
-        <div v-for="category in categories" :key="category.id" class="col-md-2 mt-4">
+    <div v-if="!loading" class="row m-0 px-md-5 px-sm-1 pb-5 pt-3">
+        <div v-for="category in categories" :key="category.id" class="col-md-2 col-6 mt-4">
             <router-link :to="`/women/shopByCategory/`+category.id">
                 <div class="bg-white rounded-1 shadow-sm">
                     <div class="row m-0 ">
@@ -29,32 +29,40 @@
             </router-link>
         </div>
     </div>
-    <div class="row m-0">
+    <!--<div class="row m-0">
         <div class="col-12 mt-4">
             <h4 class="text-center"><strong>Deals Of The Day</strong></h4>
            
         </div>
-    </div>  
-    <div v-if="!noFlash" class="row m-0 px-5 pb-3 pt-3">
-        <div class="col-6 align-self-center">
+    </div> --> 
+    <div v-if="!noFlash" class="row m-0 px-md-5 px-sm-1 pb-3 pt-3">
+        <div class="col-md-6 col-12 align-self-center">
             <h2 class="fw-bolder"><strong>FLASH SALE</strong></h2>
             
         </div>
-        <div class="col-6">
+        <div class="col-md-6 col-12">
             <flip-countdown :class="`float-end`" :deadline="flashProducts[0].expiry_date" :showDays="true"></flip-countdown>
         </div>
     </div>
-    <div class="row m-0 px-5 pb-5 pt-3">
-        <div v-for="flash,index in flashProducts" :key="index" class="col-md-2">
+    <div class="row m-0 px-md-5 px-sm-1 pb-5 pt-3">
+        <div v-for="flash,index in flashProducts" :key="index" class="col-md-2 col-6">
             <flash-card :item="flash"></flash-card>
         </div>
     </div>
-    <div class="row m-0">
+    <div class="row m-0 px-md-5 px-sm-1 pb-5 pt-3">
+        <div class="col-md-12 mt-4">
+            <h4 class="text-center"><strong>Featured Products</strong></h4>
+        </div>
+        <div v-for="item in featuredItems" :key="item.id" class="col-md-2 col-6 mt-5">
+            <product-card :item="item"></product-card>
+        </div>
+    </div>
+    <div class="row m-0 px-md-5 px-sm-1">
         <div class="col-12 mt-4">
             <h4 class="text-center"><strong>Style Gallery</strong></h4>
         </div>
     </div> 
-    <div class="row m-0 px-5 pb-5 pt-3">
+    <div class="row m-0 px-md-5 px-sm-1 pb-5 pt-3">
         <div class="col-md-3">
             <img src="/storage/products/dress.jpg" class="img img-fluid" alt="">
         </div>
@@ -75,13 +83,15 @@ import FlipCountdown from 'vue2-flip-countdown'
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 import hero from './hero.vue'
 import FlashCard from './flashCard.vue'
+import productCard from './productCard.vue';
 export default {
     components:{
         hero,
         PulseLoader,
         FlashCard,
         FlipCountdown,
-        flashProducts:[]
+        flashProducts:[],
+        productCard
     },
     mounted(){
         this.getCatByName()
@@ -90,6 +100,7 @@ export default {
     },
     data(){
         return{
+            featuredItems:{},
             item:{
                 p_name: "this is a flash sale",
                 p_image: "dress.jpg",
@@ -103,6 +114,12 @@ export default {
         }
     },
     methods:{
+        async getFeaturedItems(){
+            await axios.get('/getFeatured/'+this.cat_id)
+            .then( response =>{
+                this.featuredItems = response.data
+            })
+        },
         async getFlashSales(){
             await axios.get('/getFlashSales')
             .then( response => {
@@ -122,7 +139,7 @@ export default {
             .then( response =>{
                 this.cat_id = response.data.id
                 this.getCategories()
-            
+                this.getFeaturedItems()
             })
         },
         async getCategories(){

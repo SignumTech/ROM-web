@@ -1,5 +1,5 @@
 <template>
-<div @mouseover="slideShow()" @mouseleave="backToStatic()" class="row m-0 show-add-btn">
+<div @mouseover="slideShow()" @mouseleave="backToStatic()" class="row show-add-btn">
     <div class="col-12  text-center">
         <img class="img img-fluid" :src="`/storage/products/`+mainPic" alt="">
     </div>
@@ -14,7 +14,7 @@
     <div class="col-8 mt-1 mb-0">
         <h5 class="mb-0"><strong>{{item.price}} Birr</strong></h5>
     </div>
-    <div class="col-4 mt-1 mb-0">
+    <div class="col-4 mt-1 mb-0 fs-6">
         <h6 v-if="!item.wishlist" @click="addToWishlist()" class="float-end mb-0" style="cursor:pointer"><i data-feather="heart"></i></h6>
         <h4 v-if="item.wishlist" @click="removeFromWishlist()" class="float-end mb-0" style="cursor:pointer"><i class="fa fa-heart"></i></h4>
     </div>

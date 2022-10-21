@@ -108,6 +108,8 @@ Route::post('/publishProduct', [productsController::class, 'publishProduct']);
 Route::get('/productsByCategory/{id}', [productsController::class, 'productsByCategory']);
 Route::get('/productFilters/{cat_id}', [productsController::class, 'productFilters']);
 Route::get('/priceRange/{cat_id}', [productsController::class, 'priceRange']);
+Route::put('/toggleFeature/{id}', [productsController::class, 'toggleFeature']);
+Route::get('/getFeatured/{id}', [productsController::class, 'getFeatured']);
 //////////////////////////////////auth//////////////////////////////////////////////////////////////
 Route::post('/registerUser', [registerUsersController::class, 'registerUser']);
 Route::post('/verifyOTP', [registerUsersController::class, 'verifyOTP']);

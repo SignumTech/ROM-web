@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Inventory;
 use App\Models\Wishlist;
+use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Image;
 use Storage;
@@ -588,6 +589,37 @@ class productsController extends Controller
         $data['max'] = $max;
         $data['min'] = $min;
 
+        return $data;
+    }
+
+    public function toggleFeature(Request $request, $id){
+        $product = Product::find($id);
+        if($product->featured == 'FEATURED'){
+            $product->featured = 'NOT_FEATURED';
+            $product->save();
+        }
+        else{
+            $product->featured = 'FEATURED';
+            $product->save();
+        }
+        return $product;
+    }
+
+    public function getFeatured($id){
+        $data = [];
+        $categories = Category::where('parent_id', $id)->get();
+        foreach($categories as $category){
+            $products = Product::where('featured', 'FEATURED')
+                          ->where('cat_id', $category->id)
+                          ->get();
+            if(count($products)>0){
+                foreach($products as $product){
+                    array_push($data,$product);
+                }
+            }
+            
+        }
+        
         return $data;
     }
 }

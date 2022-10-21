@@ -6,13 +6,13 @@
     <div class="col-md-12 mt-3">
         <h4><strong>{{catDetail.cat_name}}</strong></h4>
     </div>
-    <div class="col-md-2 mt-3 border-top mt-5">
+    <div class="col-md-2 mt-3 border-top mt-md-5 mt-sm-2">
         <div class="row m-0">
             <div class="col-md-12 mt-3 mb-2">
                 <h5><strong>Sizes</strong></h5>
             </div>
-            <div class="col-md-6">
-                <div v-for="filter,index in filters" :key="index" class="form-check">
+            <div v-for="filter,index in filters" :key="index" class="col-md-6 col-2">
+                <div  class="form-check">
                     <input @change="filterProductData()" class="form-check-input" v-model="filterData" type="checkbox" :value="filter" >
                     <label class="form-check-label" for="flexCheckDefault">
                         {{filter}}
@@ -38,7 +38,7 @@
     
     <div v-if="!loading" class="col-md-10 ps-0 pe-0">
         <div class="row m-0">
-            <div v-for="item in items" :key="item.id" class="col-md-3 mt-5">
+            <div v-for="item in items" :key="item.id" class="col-md-3 col-6 mt-5">
                 <product-card :item="item"></product-card>
             </div>
         </div>
