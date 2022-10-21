@@ -82,19 +82,19 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" >
+                                        <input v-model="registerData.prefrences" value="Women" class="form-check-input" type="checkbox" >
                                         <label class="form-check-label" for="flexCheckDefault">
                                             Women
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="">
+                                        <input v-model="registerData.prefrences" value="Men" class="form-check-input" type="checkbox">
                                         <label class="form-check-label" for="flexCheckDefault">
                                             Men
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="">
+                                        <input v-model="registerData.prefrences" value="Home" class="form-check-input" type="checkbox">
                                         <label class="form-check-label" for="flexCheckDefault">
                                             Home
                                         </label>
@@ -102,19 +102,19 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="">
+                                        <input v-model="registerData.prefrences" value="Plus Size" class="form-check-input" type="checkbox">
                                         <label class="form-check-label" for="flexCheckDefault">
                                             Plus Size
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="">
+                                        <input v-model="registerData.prefrences" value="Kids" class="form-check-input" type="checkbox">
                                         <label class="form-check-label" for="flexCheckDefault">
                                             Kids
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="">
+                                        <input v-model="registerData.prefrences" value="Pets" class="form-check-input" type="checkbox">
                                         <label class="form-check-label" for="flexCheckDefault">
                                             Pets
                                         </label>
@@ -154,6 +154,7 @@ export default {
                     email:null,
                     password:null,
                     password_confirmation:null,
+                    prefrences:[]
                 },
                 logForm: {
                     email: null,
