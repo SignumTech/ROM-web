@@ -14,7 +14,7 @@ class registerUsersController extends Controller
         $this->validate($request, [
             'f_name' => ['required', 'string', 'max:255'],
             'l_name' => ['required', 'string', 'max:255'],
-            'preference' => ['required', 'max:255'],
+            'preferences' => ['required', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -26,7 +26,7 @@ class registerUsersController extends Controller
         $user->password = Hash::make($request->password);
         $user->account_type = "USER";
         $user->user_role = "USER";
-        $user->style_preference = json_encode(json_decode($request->preference));
+        $user->style_preference = json_encode(json_decode($request->preferences));
         $user->otp = rand(1000 , 9999);
         $user->save();
 
