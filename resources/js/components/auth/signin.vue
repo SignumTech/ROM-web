@@ -154,7 +154,7 @@ export default {
                     email:null,
                     password:null,
                     password_confirmation:null,
-                    prefrences:[]
+                    preferences:[]
                 },
                 logForm: {
                     email: null,
