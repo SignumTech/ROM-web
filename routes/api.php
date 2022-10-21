@@ -57,6 +57,7 @@ Route::get('/priceRange/{cat_id}', [productsController::class, 'priceRange']);
 Route::post('/filterData', [productsController::class, 'filterData']);
 Route::post('/filterMobData', [productsController::class, 'filterMobData']);
 Route::middleware('auth:sanctum')->post('/filterMobAuthData', [productsController::class, 'filterMobAuthData']);
+Route::post('/searchItems', [productsController::class, 'searchItems']);
 ////////////////////////////////////Categories//////////////////////////////////////////////////////
 Route::get('/getMainCategories', [categoriesController::class, 'getMainCategories']);
 Route::get('/getSubCategories', [categoriesController::class, 'getSubCategories']);
