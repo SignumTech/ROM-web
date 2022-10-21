@@ -110,6 +110,7 @@ Route::get('/productFilters/{cat_id}', [productsController::class, 'productFilte
 Route::get('/priceRange/{cat_id}', [productsController::class, 'priceRange']);
 Route::put('/toggleFeature/{id}', [productsController::class, 'toggleFeature']);
 Route::get('/getFeatured/{id}', [productsController::class, 'getFeatured']);
+Route::post('/searchItems', [productsController::class, 'searchItems']);
 //////////////////////////////////auth//////////////////////////////////////////////////////////////
 Route::post('/registerUser', [registerUsersController::class, 'registerUser']);
 Route::post('/verifyOTP', [registerUsersController::class, 'verifyOTP']);
@@ -169,6 +170,10 @@ Route::any('/admin/editProduct/{slug}', function () {
 Route::any('{slug}/shopByCategory', function () {
     return view('home');
 });
+Route::any('/search/{slug}', function () {
+    return view('home');
+});
+
 Route::any('{slug}/shopByCategory/{slug2}', function () {
     return view('home');
 });

@@ -28,6 +28,7 @@ import home from './components/main/home.vue'
 import curvePlus from './components/main/curvePlus.vue'
 import beauty from './components/main/beauty.vue'
 import africanClothing from './components/main/africanClothing.vue'
+import searchResults from './components/main/searchResults.vue'
 ///////////////////////////////////////////////////////////////
 //import home from './components/home/home.vue'
 import shopByCategory from './components/home/shopByCategory.vue'
@@ -382,6 +383,13 @@ const routes = [
         }
         
     },    
+    {
+        path: '/search/:query',
+        component: searchResults,
+        name: 'SearchResults',
+        props: true
+    },
+    
 ]
 
 export default new  Router({
