@@ -80,43 +80,11 @@
                                 <div class="col-md-12">
                                     <h6>Style preference</h6>
                                 </div>
-                                <div class="col-md-6">
+                                <div v-for="category,index in mainCategories" :key="index" class="col-md-6">
                                     <div class="form-check">
-                                        <input v-model="registerData.preferences" value="Women" class="form-check-input" type="checkbox" >
+                                        <input v-model="registerData.preferences" :value="category.id" class="form-check-input" type="checkbox" >
                                         <label class="form-check-label" for="flexCheckDefault">
-                                            Women
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input v-model="registerData.preferences" value="Men" class="form-check-input" type="checkbox">
-                                        <label class="form-check-label" for="flexCheckDefault">
-                                            Men
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input v-model="registerData.preferences" value="Home" class="form-check-input" type="checkbox">
-                                        <label class="form-check-label" for="flexCheckDefault">
-                                            Home
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-check">
-                                        <input v-model="registerData.preferences" value="Plus Size" class="form-check-input" type="checkbox">
-                                        <label class="form-check-label" for="flexCheckDefault">
-                                            Plus Size
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input v-model="registerData.preferences" value="Kids" class="form-check-input" type="checkbox">
-                                        <label class="form-check-label" for="flexCheckDefault">
-                                            Kids
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input v-model="registerData.preferences" value="Pets" class="form-check-input" type="checkbox">
-                                        <label class="form-check-label" for="flexCheckDefault">
-                                            Pets
+                                            {{category.cat_name}}
                                         </label>
                                     </div>
                                 </div>
@@ -148,6 +116,7 @@ export default {
         },
         data(){
             return{
+                mainCategories:{},
                 registerData:{
                     f_name:null,
                     l_name:null,
@@ -165,6 +134,9 @@ export default {
                 valErrors: false,
                 loginErrors:{}
             }
+        },
+        mounted(){
+            this.getCategories()
         },
         methods:{
             ...mapActions({
@@ -214,6 +186,12 @@ export default {
                     
                 })
             },
+            async getCategories(){
+                await axios.get('/getMainCategories')
+                .then( response =>{
+                    this.mainCategories = response.data
+                })
+            }
 
         }
     }
