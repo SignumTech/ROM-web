@@ -26,7 +26,7 @@ class registerUsersController extends Controller
         $user->password = Hash::make($request->password);
         $user->account_type = "USER";
         $user->user_role = "USER";
-        $user->style_preference = json_encode(json_decode($request->preferences));
+        $user->style_preference = json_encode($request->preferences);
         $user->otp = rand(1000 , 9999);
         $user->save();
 
