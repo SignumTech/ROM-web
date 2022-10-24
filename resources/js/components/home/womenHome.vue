@@ -1,6 +1,7 @@
 <template>
 <div class="p-0">
     <hero :image="heroImage"></hero>
+    <mob-navigation></mob-navigation>
     <div class="row m-0">
         <div class="col-12 mt-4">
             <h4 class="text-center"><strong>Shop By Category</strong></h4>
@@ -84,15 +85,17 @@ import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 import hero from './hero.vue'
 import FlashCard from './flashCard.vue'
 import productCard from './productCard.vue';
+import MobNavigation from './mobNavigation.vue';
 export default {
     components:{
-        hero,
-        PulseLoader,
-        FlashCard,
-        FlipCountdown,
-        flashProducts:[],
-        productCard
-    },
+    hero,
+    PulseLoader,
+    FlashCard,
+    FlipCountdown,
+    flashProducts: [],
+    productCard,
+    MobNavigation
+},
     mounted(){
         this.getCatByName()
         this.getFlashSales()
