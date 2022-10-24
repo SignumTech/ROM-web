@@ -39,6 +39,7 @@ import kidsHome from './components/home/kidsHome.vue'
 import homesHome from './components/home/homesHome.vue'
 import africanHome from './components/home/africanHome.vue'
 import beautyHome from './components/home/beautyHome.vue'
+import productDetail from './components/home/mobProductDetail.vue'
 ///////////////////////////////////////////////////////////////
 import signin from './components/auth/signin.vue'
 import otp from './components/auth/otp.vue'
@@ -190,6 +191,12 @@ const routes = [
                 props: true
                 
             }, 
+            {
+                path: '/women/productDetail/:id',
+                component: productDetail,
+                name: 'productDetail',
+                props: true
+            },
         ]
     },
     {
@@ -389,6 +396,7 @@ const routes = [
         name: 'SearchResults',
         props: true
     },
+    
     
 ]
 

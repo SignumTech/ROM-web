@@ -1,7 +1,10 @@
 <template>
 <div @mouseover="slideShow()" @mouseleave="backToStatic()" class="row show-add-btn">
     <div class="col-12  text-center">
-        <img class="img img-fluid" :src="`/storage/products/`+mainPic" alt="">
+        <router-link :to="`/productDetail/`+item.id">
+            <img class="img img-fluid" :src="`/storage/products/`+mainPic" alt="">
+        </router-link>
+        
     </div>
     <div class="col-md-12 text-center">
         <span class="add-cart">
