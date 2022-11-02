@@ -1,5 +1,5 @@
 <template>
-<div class="row m-0 px-5 mb-5">
+<div class="row m-0 px-md-5 px-sm-2 mb-5">
     <div class="col-md-12 mt-5 text-center">
         <h5><strong>Shopping Bag</strong> > Place Order > Pay > Order Complete</h5>
     </div>
@@ -12,32 +12,37 @@
         </div>
         <div v-for="(cart,index) in cartItems" :key="index" class="bg-white rounded-1 p-3 shadow-sm mt-3">
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-md-2 col-4">
                     <img :src="`/storage/productsThumb/`+cart.p_image" class="img img-fluid" alt="">
                 </div>
-                <div class="col-md-7">
+                <div class="col-md-7 col-8">
                     <h5><strong>{{cart.p_name}}</strong></h5>
-                    <h5 v-if="cart.promotion_status == `REGULAR`" class="mt-4"><strong>{{cart.price | numFormat}} Birr</strong></h5>
-                    <h5 v-if="cart.promotion_status == `FLASH SALE`" class="mt-4"><strong>{{cart.new_price | numFormat}} Birr</strong> <span class="text-muted fs-6"><s><strong>{{cart.price | numFormat}} ETB</strong></s></span></h5>
-                    <h6 v-if="cart.promotion_status == `FLASH SALE`" class="mt-3"><span class="bg-warning p-1"><span class="fa fa-bolt"></span> Flash Sale</span></h6>
+                    <h5 v-if="cart.promotion_status == `REGULAR`" class="mt-md-4 mt-sm-2"><strong>{{cart.price | numFormat}} Birr</strong></h5>
+                    <h5 v-if="cart.promotion_status == `FLASH SALE`" class="mt-md-4 mt-sm-2"><strong>{{cart.new_price | numFormat}} Birr</strong> <span class="text-muted fs-6"><s><strong>{{cart.price | numFormat}} ETB</strong></s></span></h5>
+                    <h6 v-if="cart.promotion_status == `FLASH SALE`" class="mt-md-3 mt-sm-2"><span class="bg-warning p-1"><span class="fa fa-bolt"></span> Flash Sale</span></h6>
                     <h6  style="cursor:pointer">Color - <span @click="detailsModal(cart.p_id,index,cart)" class="badge rounded-pill px-3 mt-2 shadow-sm"  :style="{backgroundColor:cart.color}">{{cart.color}}</span></h6>
                     <h6  style="cursor:pointer">Size - <span @click="detailsModal(cart.p_id,index,cart)" class="badge rounded-pill border bg-light shadow-sm text-dark px-3 mt-2"><strong>{{cart.size}}</strong></span></h6>
                 </div>
-                <div class="col-md-3 text-end">
-                    <h4><strong>{{subTotal(index) | numFormat}} Birr</strong></h4>
+                <div class="col-md-3 col-12 text-md-end mt-md-0 mt-sm-3">
                     <div class="row ms-md-5 ms-sm-3">
-                        <div class="input-group mb-3 mt-2 float-end">
-                            <button @click="subtract(index)" class="btn btn-outline-secondary btn-sm" type="button" id="button-addon1"><span class="fa fa-minus"></span></button>
-                            <input disabled v-model="cart.quantity" type="text" :max="inventory[index]" :class="(cart.quantity > inventory[index])?`form-control text-center border-danger-inv border-2`:`form-control text-center`" placeholder=""  aria-describedby="button-addon1">
-                            <button @click="add(index)" class="btn btn-outline-secondary btn-sm" type="button" id="button-addon1"><span class="fa fa-plus"></span></button>
+                        <div class="col-md-12 col-7 align-self-center">
+                            <h4><strong>{{subTotal(index) | numFormat}} Birr</strong></h4>
                         </div>
-                        <h6 v-if="invError">{{invEr[cart.p_id]['err']}}</h6>                        
+                        <div class="col-md-12 col-5">
+                            <div class="input-group mb-3 mt-2 float-end">
+                                <button @click="subtract(index)" class="btn btn-outline-secondary btn-sm" type="button" id="button-addon1"><span class="fa fa-minus"></span></button>
+                                <input disabled v-model="cart.quantity" type="text" :max="inventory[index]" :class="(cart.quantity > inventory[index])?`form-control text-center border-danger-inv border-2`:`form-control text-center`" placeholder=""  aria-describedby="button-addon1">
+                                <button @click="add(index)" class="btn btn-outline-secondary btn-sm" type="button" id="button-addon1"><span class="fa fa-plus"></span></button>
+                            </div>
+                            <h6 v-if="invError">{{invEr[cart.p_id]['err']}}</h6> 
+                        </div>
+                                               
                     </div>
-                    <div class="row mt-5">
-                        <div class="col-md-6">
+                    <div class="row mt-md-5">
+                        <div class="col-md-6 col-6">
                             <h6 @click="deleteItem(index)" style="cursor:pointer"><span class="fa fa-trash-alt"></span> Delete</h6>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 col-6 text-end">
                             <h6><span class="fa fa-heart"></span> Save</h6>
                         </div>
                     </div>
