@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Cart;
+use App\Models\CartItem;
+use App\Models\OrderItem;
 use App\Models\Inventory;
 use DB;
 class ordersController extends Controller
@@ -16,23 +18,7 @@ class ordersController extends Controller
      */
     public function index()
     {
-        $orders = Order::all();
-        $items = 0;
-        
-        foreach($orders as $order){
-            $pic = null;
-            $o_items = json_decode($order->items);
-            foreach($o_items as $ot){
-                $items = $items + $ot->quantity;
-                if($pic == null){
-                    $pic = $ot->p_image;
-                }
-            }
-            $order->no_items = $items;
-            $order->p_image = $pic;
-            $items = 0;
-        }
-        return $orders;
+
     }
 
     /**
@@ -61,26 +47,10 @@ class ordersController extends Controller
         try{
             DB::beginTransaction();
             $cart = Cart::find($request->cart_id);
-            $items = json_decode($cart->items);
-            //////////update inventory//////////////////////
-            foreach($items as $item){
-                $inventory = Inventory::where('p_id', $item->p_id)
-                                    ->where('size', $item->size)
-                                    ->where('color', $item->color)
-                                    ->lockForUpdate()->first();
-                if($inventory->quantity < $item->quantity){
-                    return response("Some of the items have been sold out", 422);
-                }
-                else{
-                    $inventory->quantity -= $item->quantity;
-                    $inventory->save();
-                }
-                
-            }
-            
+            $items = CartItem::where('cart_id', $request->cart_id)-get();
+
             ////////////////////////////////////////////////
             $order = new Order;
-            $order->items = json_encode($items);
 
             $latestOrder = Order::orderBy('created_at','DESC')->first();
             if($latestOrder){
@@ -95,6 +65,27 @@ class ordersController extends Controller
             $order->user_id = auth()->user()->id;
             $order->delivery_details = $request->address;
             $order->save();
+            //////////update inventory//////////////////////
+            foreach($items as $item){
+                $inventory = Inventory::where('inventory_id', $item->inventory_id)
+                                    ->lockForUpdate()->first();
+                if($inventory->quantity < $item->quantity){
+                    return response("Some of the items have been sold out", 422);
+                }
+                else{
+                    $inventory->quantity -= $item->quantity;
+                    $inventory->save();
+
+                    $order_items = new OrderItem;
+                    $order_items->order_id = $order->id;
+                    $order_items->inventory_id = $item->inventory_id;
+                    $order_items->quantity = $item->quantity;
+                    $order_items->save();
+                }
+                
+            }
+            
+
 
             $cart->delete();
             DB::commit();
@@ -138,21 +129,7 @@ class ordersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'items' => 'required | string',
-            'total' => 'required | double',
-            'delivery_details' => 'required | string'
-        ]);
-        $order = Order::find($id);
-        $order->items = json_encode($request->items);
-        $order->order_no = 'to be determined';
-        $order->total = $request->total;
-        $order->order_status = 'PROCESSING';
-        $order->user_id = auth()->user()->id;
-        $order->delivery_details = $request->delivery_details;
-        $order->save();
 
-        return $order;
     }
 
     /**
@@ -169,102 +146,31 @@ class ordersController extends Controller
         return $order;
     }
 
-    public function getProcessing(){
-        $orders = Order::where('order_status', 'PROCESSING')->get();
-        $items = 0;
-        
-        foreach($orders as $order){
-            $pic = null;
-            $o_items = json_decode($order->items);
-            foreach($o_items as $ot){
-                $items = $items + $ot->quantity;
-                if($pic == null){
-                    $pic = $ot->p_image;
-                }
-            }
-            $order->no_items = $items;
-            $order->p_image = $pic;
-            $items = 0;
-        }
-        return $orders;
-    }
-
-    public function getShipped(){
-        $orders = Order::where('order_status', 'SHIPPED')->get();
-        $items = 0;
-        
-        foreach($orders as $order){
-            $pic = null;
-            $o_items = json_decode($order->items);
-            foreach($o_items as $ot){
-                $items = $items + $ot->quantity;
-                if($pic == null){
-                    $pic = $ot->p_image;
-                }
-            }
-            $order->no_items = $items;
-            $order->p_image = $pic;
-            $items = 0;
-        }
-        return $orders;
-    }
-
-    public function getDelivered(){
-        $orders = Order::where('order_status', 'DELIVERED')->get();
-        $items = 0;
-        
-        foreach($orders as $order){
-            $pic = null;
-            $o_items = json_decode($order->items);
-            foreach($o_items as $ot){
-                $items = $items + $ot->quantity;
-                if($pic == null){
-                    $pic = $ot->p_image;
-                }
-            }
-            $order->no_items = $items;
-            $order->p_image = $pic;
-            $items = 0;
-        }
-        return $orders;
-    }
-
     public function getMyOrders(){
         $orders = Order::where('user_id', auth()->user()->id)->get();
-        $items = 0;
+       
         
         foreach($orders as $order){
-            $pic = null;
-            $o_items = json_decode($order->items);
-            foreach($o_items as $ot){
-                $items = $items + $ot->quantity;
-                if($pic == null){
-                    $pic = $ot->p_image;
-                }
-            }
-            $order->no_items = $items;
-            $order->p_image = $pic;
-            $items = 0;
+            $order->no_items = OrderItem::where('order_id', $order->id)->count();
+            $order->p_image = OrderItem::join('inventories', 'order_items.inventory_id', '=', 'inventories.id')
+                                       ->join('product_images', 'inventories.color_id', '=', 'product_images.color_id')
+                                       ->where('order_items.order_id', $order->id)->first()->p_image;
+            
         }
         return $orders;
     }
 
     public function getMyOrdersStatus($status){
         $orders = Order::where('user_id', auth()->user()->id)
-                        ->where('order_status', $status)->get();
-        $items = 0;
-        $pic = null;
+                       ->where('order_status', $status)->get();
+        
+        
         foreach($orders as $order){
-            $o_items = json_decode($order->items);
-            foreach($o_items as $ot){
-                $items = $items + $ot->quantity;
-                if($pic == null){
-                    $pic = $ot->p_image;
-                }
-            }
-            $order->no_items = $items;
-            $order->p_image = $pic;
-            $items = 0;
+            $order->no_items = OrderItem::where('order_id', $order->id)->count();
+            $order->p_image = OrderItem::join('inventories', 'order_items.inventory_id', '=', 'inventories.id')
+                                       ->join('product_images', 'inventories.color_id', '=', 'product_images.color_id')
+                                       ->where('order_items.order_id', $order->id)->first()->p_image;
+            
         }
         return $orders;
     }
@@ -311,16 +217,5 @@ class ordersController extends Controller
 
         return $cart;
     }
-
-    public function shipOrder(Request $request){
-        $this->validate($request,[
-            "order_id" => "required"
-        ]);
-
-        $order = Order::find($request->order_id);
-        $order->order_status = 'SHIPPED';
-        $order->save();
-
-        return $order;
-    }   
+ 
 }
