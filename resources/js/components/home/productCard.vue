@@ -2,7 +2,7 @@
 <div @mouseover="slideShow()" @mouseleave="backToStatic()" class="row show-add-btn">
     <div class="col-12  text-center">
         <router-link :to="`/productDetail/`+item.id">
-            <img class="img img-fluid" :src="`/storage/products/`+mainPic" alt="">
+            <img class="img img-fluid" :src="`/storage/products/`+item.p_image" alt="">
         </router-link>
         
     </div>

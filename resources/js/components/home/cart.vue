@@ -20,8 +20,8 @@
                     <h5 v-if="cart.promotion_status == `REGULAR`" class="mt-md-4 mt-sm-2"><strong>{{cart.price | numFormat}} Birr</strong></h5>
                     <h5 v-if="cart.promotion_status == `FLASH SALE`" class="mt-md-4 mt-sm-2"><strong>{{cart.new_price | numFormat}} Birr</strong> <span class="text-muted fs-6"><s><strong>{{cart.price | numFormat}} ETB</strong></s></span></h5>
                     <h6 v-if="cart.promotion_status == `FLASH SALE`" class="mt-md-3 mt-sm-2"><span class="bg-warning p-1"><span class="fa fa-bolt"></span> Flash Sale</span></h6>
-                    <h6  style="cursor:pointer">Color - <span @click="detailsModal(cart.p_id,index,cart)" class="badge rounded-pill px-3 mt-2 shadow-sm"  :style="{backgroundColor:cart.color}">{{cart.color}}</span></h6>
-                    <h6  style="cursor:pointer">Size - <span @click="detailsModal(cart.p_id,index,cart)" class="badge rounded-pill border bg-light shadow-sm text-dark px-3 mt-2"><strong>{{cart.size}}</strong></span></h6>
+                    <h6  style="cursor:pointer">Color - <span @click="detailsModal(cart.item_id,cart.color,cart.size)" class="badge rounded-pill px-3 mt-2 shadow-sm"  :style="{backgroundColor:cart.color}">{{cart.color}}</span></h6>
+                    <h6  style="cursor:pointer">Size - <span @click="detailsModal(cart.item_id,cart.color,cart.size)" class="badge rounded-pill border bg-light shadow-sm text-dark px-3 mt-2"><strong>{{cart.size}}</strong></span></h6>
                 </div>
                 <div class="col-md-3 col-12 text-md-end mt-md-0 mt-sm-3">
                     <div class="row ms-md-5 ms-sm-3">
@@ -176,7 +176,7 @@ export default {
             await axios.post('/getCart')
             .then( response => {
                 this.cart_id = response.data.id
-                this.cartItems = JSON.parse(response.data.items)
+                this.cartItems = response.data
                 this.loading = false
                 this.getInventory()
             })

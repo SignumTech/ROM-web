@@ -132,7 +132,7 @@ export default {
         async getCart(){
             await axios.post('/getCart')
             .then( response => {
-                this.$store.state.auth.cart = JSON.parse(response.data.items)
+                this.$store.state.auth.cart = response.data
             })
         },
         async getWishlist(){

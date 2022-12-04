@@ -33,6 +33,9 @@ Route::get('/', function () {
     return view('home');
 });
 
+Route::get('/forget', function (Request $request) {
+    $request->session()->forget('cart');
+});
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -80,9 +83,9 @@ Route::post('/itemsInventory', [inventoriesController::class, 'itemsInventory'])
 Route::get('/showAddress/{id}', [addressBookController::class, 'showAddress']);
 Route::get('/makeDefaultAddress/{id}', [addressBookController::class, 'makeDefaultAddress']);
 ///////////////////////////////////cart/////////////////////////////////////////////////////////////
-Route::post('/addToCart', [cartController::class, 'addToCart']);
+Route::post('/addToCart', [cartController::class, 'addToCartNew']);
 Route::post('/editCart', [cartController::class, 'editCart']);
-Route::post('/getCart', [cartController::class, 'getCart']);
+Route::post('/getCart', [cartController::class, 'getCartNew']);
 Route::put('/updateCart/{id}', [cartController::class, 'updateCart']);
 Route::post('/deleteItem', [cartController::class, 'deleteItem']);
 ///////////////////////////////////orders/////////////////////////////////////////////////////////
@@ -99,6 +102,7 @@ Route::get('/productFilters/{cat_id}', [productsController::class, 'productFilte
 Route::get('/priceRange/{cat_id}', [productsController::class, 'priceRange']);
 Route::get('/getFeatured/{id}', [productsController::class, 'getFeatured']);
 Route::post('/searchItems', [productsController::class, 'searchItems']);
+Route::get('/getPreviewData/{id}', [productsController::class, 'getPreviewData']);
 //////////////////////////////////auth//////////////////////////////////////////////////////////////
 Route::post('/registerUser', [registerUsersController::class, 'registerUser']);
 Route::post('/verifyOTP', [registerUsersController::class, 'verifyOTP']);

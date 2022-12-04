@@ -5,10 +5,194 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Cart;
+use App\Models\CartItem;
 use App\Models\Product;
 use App\Models\Inventory;
 class cartController extends Controller
 {
+    public function addToCartNew(Request $request){
+        $this->validate( $request, [
+            "product_id" => "required",
+            "color_id" => "required",
+            "size_id" => "required"
+        ]);
+        $inventory = Inventory::where('p_id', $request->product_id)
+                            ->where('color_id', $request->color_id)
+                            ->where('size_id', $request->size_id)
+                            ->first();
+        
+        return (Auth::check())?$this->addAuthCart($inventory, $request):$this->addSessionCart($inventory, $request);
+
+    }
+    public function addAuthCart($inventory, $request){
+        $cart = Cart::where('user_id', auth()->user()->id)->first();
+        
+        if($cart){
+            $cart_item = CartItem::where('cart_id', $cart->id)
+                                 ->where('inventory_id', $inventory->id)
+                                 ->first();
+            if($cart_item){
+                $cart_item->quantity =  $cart_item->quantity + 1;
+                $cart_item->save();
+            }
+            else{
+                $new_item = new CartItem;
+                $new_item->inventory_id = $inventory->id;
+                $new_item->cart_id = $cart->id;
+                $new_item->quantity = 1;
+                $new_item->save();
+            }
+            
+        }
+        else{
+            $cart = new Cart;
+            $cart->user_id = auth()->user()->id;
+            $cart->save();
+
+            $new_item = new CartItem;
+            $new_item->inventory_id = $inventory->id;
+            $new_item->cart_id = $cart->id;
+            $new_item->quantity = 1;
+            $new_item->save();
+        }
+        return response(200);
+    }
+
+    public function addSessionCart($inventory, $request){
+        if($request->session()->has('cart')) {
+                
+            $cartData = $request->session()->get('cart');
+            
+            $invIds = array_column($cartData, 'inventory_id');
+            
+            if(in_array($inventory->id, $invIds)){
+                $index = array_search($inventory->id, array_column($cartData, 'inventory_id'));
+                $cartData[$index]['quantity'] = $cartData[$index]['quantity']+1;
+                $request->session()->put('cart', $cartData);
+            }
+            else{
+                $data = [];
+                $data['inventory_id'] = $inventory->id;
+                $data['quantity'] = 1;
+                $data['p_id'] = $inventory->p_id;
+                $data['color_id'] = $inventory->color_id;
+                $data['size_id'] = $inventory->size_id;
+                $data['id'] = 0; 
+                $data['cart_id'] = 0;
+                array_push($cartData, $data);
+                $request->session()->put('cart', $cartData);
+            }
+            return response(200);
+        }
+        else{
+            $cartData = [];
+            $data = [];
+            $data['inventory_id'] = $inventory->id;
+            $data['quantity'] = 1;
+            $data['p_id'] = $inventory->p_id;
+            $data['color_id'] = $inventory->color_id;
+            $data['size_id'] = $inventory->size_id;
+            $data['id'] = 0; 
+            $data['cart_id'] = 0;
+
+            array_push($cartData, $data);
+            $request->session()->put('cart', $cartData);
+            return response(200);
+        }
+    }
+
+    public function getCartNew(Request $request){
+
+        return (Auth::check())?$this->getDBcart($request):$this->getSessionCart($request);
+
+    }
+
+    public function getDBcart($request){
+        $data = [];
+        $index = 0;
+        if($request->session()->has('cart')){
+            $cart = $this->migrateSessionCart($request->session()->get('cart'));
+            
+            $cart_items = CartItem::where('cart_id', $cart->id)->get();
+            $request->session()->forget('cart');
+            return $this->getFinalCartData($cart_items);
+        }
+        else{
+            $cart = Cart::where('user_id', auth()->user()->id)->first();
+            $cart_items = CartItem::where('cart_id', $cart->id)->get();
+            return $this->getFinalCartData($cart_items);
+        }
+    }
+
+    public function getFinalCartData($cart_items){
+        $data = [];
+        if(!$cart_items)
+        {
+            return [];
+        }
+        foreach($cart_items as $item){
+            
+            $item_detail = Inventory::join('products', 'inventories.p_id', '=', 'products.id')
+                            ->join('sizes', 'inventories.size_id', '=', 'sizes.id')
+                            ->join('product_colors', 'inventories.color_id', '=', 'product_colors.id')
+                            ->join('product_images', 'product_colors.id', '=', 'product_images.color_id')
+                            ->where('inventories.id', $item['inventory_id'])
+                            ->select('products.p_name', 'product_colors.color', 'sizes.size', 'products.price', 'product_images.p_image', 'products.promotion_status', 'inventories.p_id')
+                            ->first();
+            $item_detail->quantity = $item['quantity'];
+            $item_detail->item_id = $item['id'];
+            $item_detail->cart_id = $item['cart_id'];                 
+            array_push($data,$item_detail);
+        }
+        return $data;
+    }
+
+    public function getSessionCart($request){
+        $cart_items = $request->session()->get('cart');
+        
+        return $this->getFinalCartData($cart_items);
+    }
+
+    public function migrateSessionCart($cart){
+        $item = [];
+        $cart_detail = Cart::where('user_id',auth()->user()->id)->first();
+        
+        if($cart_detail){
+            foreach($cart as $c){
+                $item = CartItem::where('inventory_id', $c['inventory_id'])
+                                 ->where('cart_id', $cart_detail->id)
+                                 ->first();
+                if($item){
+                    $item->quantity = $item->quantity + $c['quantity'];
+                    $item->save();
+                }
+                else{
+                    $item = new CartItem;
+                    $item->cart_id = $cart_detail->id;
+                    $item->inventory_id = $c['inventory_id'];
+                    $item->quantity = $c['quantity'];
+                    $item->save();
+                }
+            }
+            return $cart_detail;
+        }
+        else{
+            $cart_detail = new Cart;
+            $cart_detail->user_id = auth()->user()->id;
+            $cart_detail->save();
+
+            foreach($cart as $c){
+                $item = new CartItem;
+                $item->cart_id = $cart_detail->id;
+                $item->inventory_id = $c['inventory_id'];
+                $item->quantity = $c['quantity'];
+                $item->save();
+            }
+
+            return $cart_detail;
+        }
+    }
+
     public function addToCart(Request $request){
         $this->validate( $request, [
             "product" => "required",

@@ -7,6 +7,9 @@ use App\Models\Product;
 use App\Models\Inventory;
 use App\Models\Wishlist;
 use App\Models\Category;
+use App\Models\ProductImage;
+use App\Models\ProductColor;
+use App\Models\Size;
 use Illuminate\Support\Facades\Auth;
 use Image;
 use Storage;
@@ -53,6 +56,8 @@ class productsController extends Controller
     public function show($id)
     {
         $product = Product::find($id);
+        $product->colors = ProductColor::where('product_id', $id)->select('color', 'id')->get();
+        $product->sizes = Size::where('product_id', $id)->select('size', 'id')->get();
         
         return $product;
     }
@@ -98,6 +103,7 @@ class productsController extends Controller
                            ->where('promotion_status', 'REGULAR')
                            ->get();
         foreach($products as $product){
+            $product->p_image = ProductImage::where('product_id', $product->id)->first()->p_image;
             if(Auth::check()){
                 $item = Wishlist::where('p_id',$product->id)
                                 ->where('user_id', auth()->user()->id)
@@ -124,6 +130,7 @@ class productsController extends Controller
                            ->where('promotion_status', 'REGULAR')
                            ->get();
         foreach($products as $product){
+            $product->p_image = ProductImage::where('product_id', $product->id)->first()->p_image;
             if(Auth::check()){
                 $item = Wishlist::where('p_id',$product->id)
                                 ->where('user_id', auth()->user()->id)
@@ -378,6 +385,22 @@ class productsController extends Controller
         $products = Product::where('p_name', 'LIKE', '%'.$request->searchQuery.'%')->get()->toArray();
         $data = array_merge($data, $products);
 
+        return $data;
+    }
+
+    public function getPreviewData($id){
+        $data = [];
+        $colorsData = ProductColor::where("product_id", $id)->get();
+        foreach($colorsData as $cd){
+            $data[$cd->color]['images'] = ProductImage::where('color_id', $cd->id)
+                                            ->where('product_id', $id)
+                                            ->select('p_image')
+                                            ->get();
+            $data[$cd->color]['inventory'] = Inventory::join('sizes', 'sizes.id', 'inventories.size_id')
+                                                ->where('color_id', $cd->id)
+                                                ->where('p_id', $id)
+                                                ->get();
+        }
         return $data;
     }
 }
