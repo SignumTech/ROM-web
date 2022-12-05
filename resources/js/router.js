@@ -1,19 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import store from './store'
-//////////////////////admin////////////////////////////////////
-import adminDash from './components/admin/adminDash.vue'
-import categories from './components/admin/categories.vue'
-import products from './components/admin/products.vue'
-import addProducts from './components/admin/addProduct.vue'
-import editProducts from './components/admin/editProduct.vue'
-import orders from './components/admin/orders.vue'
-import adminOrderDetails from './components/admin/orderDetails.vue'
-import flashSale from './components/admin/flashSale.vue'
-import flashSaleDetail from './components/admin/flashSaleDetails.vue'
-import customers from './components/admin/customers.vue'
-import salesReport from './components/admin/salesReport.vue'
-import staffHome from './components/admin/staffHome.vue'
+
 /////////////////////checkout process/////////////////////////
 import cart from './components/home/cart.vue'
 import placeOrder from './components/home/placeOrder.vue'
@@ -22,23 +10,12 @@ import orderComplete from './components/home/orderComplete.vue'
 
 /////////////////////main//////////////////////////////////////
 import women from './components/main/women.vue'
-import men from './components/main/men.vue'
-import kids from './components/main/kids.vue'
 import home from './components/main/home.vue'
-import curvePlus from './components/main/curvePlus.vue'
-import beauty from './components/main/beauty.vue'
-import africanClothing from './components/main/africanClothing.vue'
 import searchResults from './components/main/searchResults.vue'
 ///////////////////////////////////////////////////////////////
 //import home from './components/home/home.vue'
 import shopByCategory from './components/home/shopByCategory.vue'
 import womenHome from './components/home/womenHome.vue'
-import menHome from './components/home/menHome.vue'
-import curveHome from './components/home/curveHome.vue'
-import kidsHome from './components/home/kidsHome.vue'
-import homesHome from './components/home/homesHome.vue'
-import africanHome from './components/home/africanHome.vue'
-import beautyHome from './components/home/beautyHome.vue'
 import productDetail from './components/home/mobProductDetail.vue'
 ///////////////////////////////////////////////////////////////
 import signin from './components/auth/signin.vue'
@@ -54,53 +31,15 @@ import myOrders from './components/profile/myOrders.vue'
 import addressBook from './components/profile/addressBook.vue'
 import orderDetails from './components/profile/orderDetails.vue'
 import wishlist from './components/profile/myWishlist.vue'
-///////////////////user management////////////////////////////////
-import rolePermission from './components/user_management/rolePermission.vue'
-import staffManagement from './components/user_management/staffManagement.vue'
 
 
 Vue.use(Router)
 
 const routes = [
     {
-        path: '/admin',
-        beforeEnter: (to, from, next)=>{
-            if(store.state.auth.roles == 'ADMIN'){
-                next('/admin/adminDash')
-            }
-            else{
-                next('/admin/staffHome')
-            }
-        }
-    },
-    {
-        path: '/admin/staffHome',
-        component: staffHome,
-        name: 'StaffHome',
-        props: true
-    },
-    {
-        path: '/admin/salesReport',
-        component: salesReport,
-        name: 'SalesReport',
-        props: true
-    },
-    {
-        path: '/admin/customers',
-        component: customers,
-        name: 'Customrs',
-        props: true
-    },
-    {
-        path: '/admin/rolePermission',
-        component: rolePermission,
-        name: 'RolePermission',
-        props: true
-    },
-    {
-        path: '/admin/staffManagement',
-        component: staffManagement,
-        name: 'StaffManagement',
+        path: '/home/:id',
+        component: home,
+        name: 'Home',
         props: true
     },
     {
@@ -127,54 +66,6 @@ const routes = [
         name: 'Cart'
     },
     {
-        path: '/admin/flashSale',
-        component: flashSale,
-        name: 'FlashSale'
-    },
-    {
-        path: '/admin/flashSaleDetail/:id',
-        component: flashSaleDetail,
-        name: 'FlashSaleDetail'
-    },
-    {
-        path: '/admin/adminDash',
-        component: adminDash,
-        name: 'AdminDash'
-    },
-    {
-        path: '/admin/categories',
-        component: categories,
-        name: 'Categories'
-    },
-    {
-        path: '/admin/products',
-        component: products,
-        name: 'Products'
-    },
-    {
-        path: '/admin/orders',
-        component: orders,
-        name: 'Orders'
-    },
-    ,
-    {
-        path: '/admin/orderDetails/:id',
-        component: adminOrderDetails,
-        name: 'AdminOrderDetails'
-    },
-    {
-        path: '/admin/addProducts',
-        component: addProducts,
-        name: 'AddProducts',
-        props: true
-    },
-    {
-        path: '/admin/editProduct/:id',
-        component: editProducts,
-        name: 'EditProduct',
-        props: true
-    },
-    {
         path: '/women',
         component: women,
         children: [
@@ -197,114 +88,6 @@ const routes = [
                 name: 'productDetail',
                 props: true
             },
-        ]
-    },
-    {
-        path: '/men',
-        component: men,
-        children: [
-            {
-                path: '/',
-                component: menHome,
-                name: 'MenHome'
-                
-            },
-            {
-                path: '/men/shopByCategory/:id',
-                component: shopByCategory,
-                name: 'MenCat',
-                props: true
-            }, 
-        ]
-    },
-    {
-        path: '/kids',
-        component: kids,
-        children: [
-            {
-                path: '/',
-                component: kidsHome,
-                name: 'KidsHome'
-                
-            },
-            {
-                path: '/kids/shopByCategory/:id',
-                component: shopByCategory,
-                name: 'KidsCat',
-                props: true
-            }, 
-        ]
-    },
-    {
-        path: '/curvePlus',
-        component: curvePlus,
-        children: [
-            {
-                path: '/',
-                component: curveHome,
-                name: 'CurveHome'
-                
-            },
-            {
-                path: '/curvePlus/shopByCategory/:id',
-                component: shopByCategory,
-                name: 'CurveCat',
-                props: true
-            }, 
-        ]
-    },
-    {
-        path: '/beauty',
-        component: beauty,
-        children: [
-            {
-                path: '/',
-                component: beautyHome,
-                name: 'BeautyHome'
-                
-            },
-            {
-                path: '/beauty/shopByCategory/:id',
-                component: shopByCategory,
-                name: 'BeautyCat',
-                props: true
-            }, 
-        ]
-    },
-    {
-        path: '/home',
-        component: home,
-        children: [
-            {
-                path: '/',
-                component: homesHome,
-                name: 'HomeHome'
-                
-            },
-            {
-                path: '/home/shopByCategory/:id',
-                component: shopByCategory,
-                name: 'HomeCat',
-                props: true
-            }, 
-        ]
-    },
-    {
-        path: '/africanClothing',
-        component: africanClothing,
-        children: [
-            {
-                path: '/',
-                component: africanHome,
-                name: 'AfricanHome'
-                
-            },
-            {
-                path: '/africanClothing/shopByCategory/:id',
-                component: shopByCategory,
-                name: 'AfricanCat',
-                props: true
-            }, 
         ]
     },
     {
@@ -380,15 +163,7 @@ const routes = [
     },  
     {
         path: '/',
-        beforeEnter: (to, from, next)=>{
-            if(store.state.auth.account_type == 'Staff'){
-                next('/admin')
-            }
-            else{
-                next('/women')
-            }
-        }
-        
+        component: home,
     },    
     {
         path: '/search/:query',

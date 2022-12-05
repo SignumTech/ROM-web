@@ -9,26 +9,8 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarText">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item me-3">
-                            <router-link :class="($route.path.includes(`/women`) || $route.path == '/')? `nav-link nav-link-main nav-link-active`: `nav-link nav-link-main`" aria-current="page" to="/women"><h5 class="m-0">WOMEN</h5></router-link>
-                        </li>
-                        <li class="nav-item me-3">
-                            <router-link :class="($route.path.includes(`/curvePlus`))? `nav-link nav-link-main nav-link-active`: `nav-link nav-link-main `" to="/curvePlus"><h5 class="m-0">CURVE + PLUS</h5></router-link>
-                        </li>
-                        <li class="nav-item me-3">
-                            <router-link :class="($route.path.includes(`/kids`))? `nav-link nav-link-main nav-link-active`: `nav-link nav-link-main`" to="/kids"><h5 class="m-0">KIDS</h5></router-link>
-                        </li>
-                        <li class="nav-item me-3">
-                            <router-link :class="($route.path.includes(`/men`))? `nav-link nav-link-main nav-link-active`: `nav-link nav-link-main`" to="/men"><h5 class="m-0">MEN</h5></router-link>
-                        </li>
-                        <li class="nav-item me-3">
-                            <router-link :class="($route.path.includes(`/beauty`))? `nav-link nav-link-main nav-link-active`: `nav-link nav-link-main`" to="/beauty"><h5 class="m-0">BEAUTY</h5></router-link>
-                        </li>
-                        <li class="nav-item me-3">
-                            <router-link :class="($route.path.includes(`/home`))? `nav-link nav-link-main nav-link-active`: `nav-link nav-link-main`" to="/home"><h5 class="m-0">HOME</h5></router-link>
-                        </li>
-                        <li class="nav-item me-3">
-                            <router-link :class="($route.path.includes(`/africanClothing`))? `nav-link nav-link-main nav-link-active`: `nav-link nav-link-main`" to="/africanClothing"><h5 class="m-0">AFRICAN CLOTHING</h5></router-link>
+                        <li v-for="(category,index) in categories" :key="index" class="nav-item me-3">
+                            <router-link :class="($route.path == `/home/`+category.id)? `nav-link nav-link-main nav-link-active`: `nav-link nav-link-main`" aria-current="page" :to="(`/home/`+category.id)"><h5 class="m-0">{{category.cat_name}}</h5></router-link>
                         </li>
                     </ul>
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -86,10 +68,7 @@
             <router-view></router-view>          
         </div>
         <div class="p-0">
-             <admin-nav v-if="$store.state.auth.account_type == `Staff` && $store.state.auth.authenticated"></admin-nav>
-        </div>
-        <div class="p-0">
-            <footer1 v-if="$store.state.auth.account_type != `Staff`"></footer1>
+            <footer1></footer1>
         </div>
         <notifications group="foo" position="bottom right"/>
         
@@ -97,31 +76,42 @@
 </template>
 
 <script>
-import adminNav from './admin/adminNav.vue'
+
 import footer1 from './footer.vue'
 export default {
     components:{
-        adminNav,
+        
         footer1
     },
     data(){
         return{
             authenticated:false,
-            user:{}
+            user:{},
+            categories:{}
         }
     },
     mounted() {
+        this.getMainCategories()
         this.getCart()
         this.getWishlist()
         this.authenticated = this.$store.state.auth.authenticated
         this.user = this.$store.state.auth.user
-        this.$store.dispatch('auth/permissions')
-        .then( () =>{
-            this.permissions = this.$store.state.auth.permissions
-        })
         feather.replace();
     },
     methods:{
+        async getMainCategories(){
+            await axios.get('/getMainCategories')
+            .then( response =>{
+                this.categories = response.data
+                
+                if(this.$router.currentRoute.fullPath == '/'){
+                    this.$router.push({name:'Home', params:{
+                        id:this.categories[0].id
+                    }})
+                }
+                
+            })
+        },
         sumPrice(cart){
             var sum = 0;
             cart.forEach(function(c){

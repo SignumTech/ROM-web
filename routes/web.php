@@ -165,6 +165,9 @@ Route::any('{slug}/shopByCategory', function () {
 Route::any('/search/{slug}', function () {
     return view('home');
 });
+Route::any('/home/{slug}', function () {
+    return view('home');
+});
 
 Route::any('{slug}/shopByCategory/{slug2}', function () {
     return view('home');
