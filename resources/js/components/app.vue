@@ -11,7 +11,7 @@
                     <div class="collapse navbar-collapse" id="navbarText">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li v-for="(category,index) in categories" :key="index" class="nav-item me-3">
-                            <router-link :class="($route.path == `/home/`+category.id)? `nav-link nav-link-main nav-link-active`: `nav-link nav-link-main`" aria-current="page" :to="(`/home/`+category.id)"><h5 class="m-0">{{category.cat_name}}</h5></router-link>
+                            <router-link :class="($route.path == `/home/`+category.id || $route.path.includes(`/home/`+category.id+'/shop/'))? `nav-link nav-link-main nav-link-active`: `nav-link nav-link-main`" aria-current="page" :to="(`/home/`+category.id)"><h5 class="m-0">{{category.cat_name}}</h5></router-link>
                         </li>
                     </ul>
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">

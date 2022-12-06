@@ -36,7 +36,7 @@ export default {
     props:['subCats'],
     data(){
         return{
-            query
+            query:null
         }
     },
     

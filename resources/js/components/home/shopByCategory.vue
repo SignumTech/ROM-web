@@ -1,5 +1,6 @@
 <template>
 <div class="row mx-0 bg-white pb-5">
+    <subnavVue class="mob_hide" :subCats="subCats" :mainCat="mainCat"></subnavVue>
     <div class="col-md-12 mt-3">
         <h6>Home / {{catDetail.cat_name}}</h6>
     </div>
@@ -46,15 +47,18 @@
 </div>
 </template>
 <script>
+import subnavVue from '../main/subnav.vue';
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 import productCard from './productCard.vue';
 export default {
     components:{
         productCard,
-        PulseLoader
+        PulseLoader,
+        subnavVue
     },
     data(){
         return{
+            query:null,
             upHere:false,
             filterRange:this.priceMax,
             items:{},
@@ -63,7 +67,9 @@ export default {
             filters:{},
             filterData:[],
             priceMax:{},
-            priceMin:{}
+            priceMin:{},
+            mainCat:{},
+            subCats:{}
         }
     },
     mounted(){
@@ -71,9 +77,23 @@ export default {
         this.getCatDetail()
         this.getProductFilters()
         this.priceRange()
+        this.getSubCats()
         feather.replace();
     },
     methods:{
+        async getMainCat(){
+            await axios.get('/showMainCat/'+this.$route.params.id)
+            .then( response =>{
+                this.mainCat = response.data
+            })
+        },
+        async getSubCats(){
+            await axios.get('/showSubCategories/'+this.$route.params.id)
+            .then( response =>{
+                this.subCats = response.data
+                this.loading = false
+            })
+        },
         mouseHov(){
             console.log('hover')
         },
@@ -92,14 +112,14 @@ export default {
             })
         },
         async getCatDetail(){
-            await axios.get('/categories/'+this.$route.params.id)
+            await axios.get('/showMainCat/'+this.$route.params.cat_id)
             .then( response =>{
                 this.catDetail = response.data
             })
         },
         async getCatProducts(){
             this.loading = true
-            await axios.get('/productsByCategory/'+this.$route.params.id)
+            await axios.get('/productsByCategory/'+this.$route.params.cat_id)
             .then( response =>{
                 this.items = response.data
                 this.loading = false

@@ -181,6 +181,7 @@ class flashSaleController extends Controller
                 return $flashProducts;
             }         
         }
+        return [];
         
     }
 }

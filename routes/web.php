@@ -141,6 +141,10 @@ Route::get('return_url/{reference}', 'App\Http\Controllers\ChapaController@retur
 Route::any('{slug}', function () {
     return view('home');
 });
+
+Route::any('home/{slug}/shop/{slug2}', function () {
+    return view('home');
+});
 Route::middleware(['pagePermission'])->any('/admin/{slug}', function () {
     return view('home');
 });

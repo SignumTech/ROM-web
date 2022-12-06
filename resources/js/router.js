@@ -43,6 +43,12 @@ const routes = [
         props: true
     },
     {
+        path: '/home/:id/shop/:cat_id',
+        component: shopByCategory,
+        name: 'ShopByCategory',
+        props: true
+    },
+    {
         path: '/orderComplete',
         component: orderComplete,
         name: 'OrderComplete',

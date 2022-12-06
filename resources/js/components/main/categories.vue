@@ -1,7 +1,7 @@
 <template>
 <div class="row m-0 px-md-5 px-sm-1 pb-5 pt-3">
     <div v-for="category in categories" :key="category.id" class="col-md-2 col-6 mt-4">
-        <router-link :to="`/women/shopByCategory/`+category.id">
+        <router-link :to="`/home/`+mainCatId+`/shop/`+category.id">
             <div class="bg-white rounded-1 shadow-sm">
                 <div class="row m-0 ">
                     <div class="col-6 ps-0 align-self-center">
@@ -18,6 +18,6 @@
 </template>
 <script>
 export default {
-    props:['categories']
+    props:['categories', 'mainCatId']
 }
 </script>

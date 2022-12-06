@@ -15,7 +15,7 @@
                 </div>
             </div>  
         </div>
-        <categoriesVue :categories="subCats"></categoriesVue>
+        <categoriesVue :categories="subCats" :mainCatId="mainCat.id"></categoriesVue>
         <div v-if="!noFlash" class="row m-0 px-md-5 px-sm-1 pb-3 pt-3">
             <div class="col-md-6 col-12 align-self-center">
                 <h2 class="fw-bolder"><strong>FLASH SALE</strong></h2>
@@ -57,7 +57,6 @@ export default {
         PulseLoader,
         FlashCard,
         FlipCountdown,
-        flashProducts: [],
         productCard,
         MobNavigation
     },
@@ -65,11 +64,12 @@ export default {
         return{
             featuredItems:{},
             loading:true,
-            noFlash:false,
+            noFlash:true,
             subCats:{},
             mainCat:{},
             heroImage:"/storage/settings/front.jpg",
             noFeatured:false,
+            flashProducts:{}
         }
     },
     mounted(){
@@ -96,9 +96,7 @@ export default {
             await axios.get('/getFlashSales')
             .then( response => {
                 this.flashProducts = response.data
-                if(this.flashProducts.length == 0){
-                    this.noFlash = true
-                }
+                this.noFlash = (this.flashProducts.length == 0)? true:false
             })
             .catch( error =>{
                 this.noFlash = true
