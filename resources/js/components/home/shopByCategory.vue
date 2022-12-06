@@ -99,14 +99,14 @@ export default {
         },
         async filterProductData(){
             this.loading = true
-            await axios.post('/filterData',{sizeData:this.filterData, cat_id:this.$route.params.id, max:this.filterRange, min:this.priceMin})
+            await axios.post('/filterData',{sizeData:this.filterData, cat_id:this.$route.params.cat_id, max:this.filterRange, min:this.priceMin})
             .then( response =>{
                 this.items = response.data
                 this.loading = false
             })
         },
         async getProductFilters(){
-            await axios.get('/productFilters/'+this.$route.params.id)
+            await axios.get('/productFilters/'+this.$route.params.cat_id)
             .then( response =>{
                 this.filters = response.data
             })
@@ -126,7 +126,7 @@ export default {
             })
         },
         async priceRange(){
-            await axios.get('/priceRange/'+this.$route.params.id)
+            await axios.get('/priceRange/'+this.$route.params.cat_id)
             .then( response => {
                 this.priceMax = response.data.max
                 this.priceMin = response.data.min

@@ -186,8 +186,12 @@ class productsController extends Controller
     }
 
     public function getInventory($id){
-        $inventory = Inventory::where('p_id', $id)->get()->groupBy('color');
-
+        $inventory = Inventory::where('p_id', $id)->get()->groupBy('color_id');
+        foreach($inventory as $inv){
+            foreach($inv as $size){
+                $size->size = Size::find($size->size_id)->size;
+            }
+        }
         return $inventory;
     }
 
@@ -199,8 +203,9 @@ class productsController extends Controller
         $sizes = [];
         
         foreach($products as $product){
-            //dd($product->sizes);
-            $sizes = array_unique(array_merge($sizes,json_decode($product->sizes)));
+            
+            $sizeData = Size::where('product_id', $product->id)->pluck('size')->toArray();
+            $sizes = array_unique(array_merge($sizes,$sizeData));
         }
         return $sizes;
     }
@@ -219,8 +224,18 @@ class productsController extends Controller
                             ->where('price', '>=', $request->min)
                             ->get();
 
+        foreach($products as $product){
+            $product->p_image = ProductImage::where('product_id', $product->id)->first()->p_image;
+        }
         if(count($request->sizeData) > 0){
             foreach($products as $product){
+                $sizes = Size::where('product_id', $product->id)->pluck('size')->toArray();
+                if(!empty(array_intersect($sizes, $request->sizeData))){
+                    array_push($data, $product);
+                }
+
+            }
+            /*foreach($products as $product){
                 foreach(json_decode($product->sizes) as $size){
                     if(in_array($size, $request->sizeData)){
                         array_push($data, $product);
@@ -228,7 +243,7 @@ class productsController extends Controller
                     }
                 }
 
-            } 
+            } */
             return $data;           
         }
         else{

@@ -95,8 +95,11 @@ export default {
     mounted() {
         this.getMainCategories()
         this.getCart()
-        this.getWishlist()
+        
         this.authenticated = this.$store.state.auth.authenticated
+        if(this.authenticated){
+            this.getWishlist()
+        }
         this.user = this.$store.state.auth.user
         feather.replace();
     },

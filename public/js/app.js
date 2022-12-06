@@ -7656,8 +7656,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   mounted: function mounted() {
     this.getMainCategories();
     this.getCart();
-    this.getWishlist();
     this.authenticated = this.$store.state.auth.authenticated;
+
+    if (this.authenticated) {
+      this.getWishlist();
+    }
+
     this.user = this.$store.state.auth.user;
     feather.replace();
   },
@@ -10725,9 +10729,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
-    return {
-      mainPic: JSON.parse(this.item.p_image)['main']
-    };
+    return {};
   },
   props: ['item'],
   mounted: function mounted() {
@@ -10928,7 +10930,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       chosenSize: '',
       currentSize: '',
       main: '',
-      sizeError: false
+      sizeError: false,
+      sizesData: {},
+      sizes: {}
     };
   },
   mounted: function mounted() {
@@ -10970,7 +10974,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context2.next = 2;
                 return axios.post('/getCart').then(function (response) {
-                  _this2.$store.state.auth.cart = JSON.parse(response.data.items);
+                  _this2.$store.state.auth.cart = response.data;
                 });
 
               case 2:
@@ -11037,6 +11041,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.currentSize = '';
       this.main = this.previewData[this.currentColor].images[0].p_image;
       this.chosenColor = id;
+      this.sizes = this.sizesData[id];
     },
     makeCurrentSize: function makeCurrentSize(size, id) {
       this.currentSize = size;
@@ -11077,7 +11082,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context5.next = 2;
                 return axios.get('/getInventory/' + _this5.id).then(function (response) {
-                  _this5.sizes = response.data;
+                  _this5.sizesData = response.data;
+                  _this5.sizes = _this5.sizesData[_this5.chosenColor];
                   _this5.loading = false;
                 });
 
@@ -11256,7 +11262,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context3.next = 3;
                 return axios.post('/filterData', {
                   sizeData: _this3.filterData,
-                  cat_id: _this3.$route.params.id,
+                  cat_id: _this3.$route.params.cat_id,
                   max: _this3.filterRange,
                   min: _this3.priceMin
                 }).then(function (response) {
@@ -11281,7 +11287,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context4.prev = _context4.next) {
               case 0:
                 _context4.next = 2;
-                return axios.get('/productFilters/' + _this4.$route.params.id).then(function (response) {
+                return axios.get('/productFilters/' + _this4.$route.params.cat_id).then(function (response) {
                   _this4.filters = response.data;
                 });
 
@@ -11346,7 +11352,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context7.prev = _context7.next) {
               case 0:
                 _context7.next = 2;
-                return axios.get('/priceRange/' + _this7.$route.params.id).then(function (response) {
+                return axios.get('/priceRange/' + _this7.$route.params.cat_id).then(function (response) {
                   _this7.priceMax = response.data.max;
                   _this7.priceMin = response.data.min;
                   _this7.filterRange = _this7.priceMax;
@@ -46742,7 +46748,7 @@ var render = function () {
             _vm._v(" "),
             _vm._m(1),
             _vm._v(" "),
-            _vm._l(_vm.product.sizes, function (size, index) {
+            _vm._l(_vm.sizes, function (size, index) {
               return _c(
                 "span",
                 {
@@ -46753,7 +46759,7 @@ var render = function () {
                       : "hov-main badge rounded-1 p-2 shadow-sm m-1",
                   on: {
                     click: function ($event) {
-                      return _vm.makeCurrentSize(size.size, size.id)
+                      return _vm.makeCurrentSize(size.size, size.size_id)
                     },
                   },
                 },

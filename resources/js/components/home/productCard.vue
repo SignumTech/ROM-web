@@ -29,7 +29,6 @@ import productDetailsModal from './productDetailsModal.vue';
 export default {
     data(){
         return{
-            mainPic:JSON.parse(this.item.p_image)['main']
         }
     },
     props:['item'],

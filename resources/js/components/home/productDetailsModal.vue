@@ -30,7 +30,7 @@
         </h5>
         
         <h5 class="mt-3"><strong>Sizes</strong></h5>
-        <span @click="makeCurrentSize(size.size,size.id)" v-for="size,index in product.sizes" :key="`color`+index" :class="(currentSize == size.size)?`hov-main badge rounded-1 p-2 shadow-sm m-1 size-choice` : `hov-main badge rounded-1 p-2 shadow-sm m-1`"><h5 class="m-0">{{size.size}}</h5></span>  
+        <span @click="makeCurrentSize(size.size,size.size_id)" v-for="size,index in sizes" :key="`color`+index" :class="(currentSize == size.size)?`hov-main badge rounded-1 p-2 shadow-sm m-1 size-choice` : `hov-main badge rounded-1 p-2 shadow-sm m-1`"><h5 class="m-0">{{size.size}}</h5></span>  
         <h6 v-if="sizeError" class="text-danger mt-1">Please choose a size before add to bag.</h6>
         <div v-if="btnLoading" class="d-flex justify-content-center align-self-center mt-3">
             <pulse-loader :color="`#BF7F25`" :size="`15px`"></pulse-loader> 
@@ -57,7 +57,9 @@ export default {
             chosenSize:'',
             currentSize:'',
             main:'',
-            sizeError:false
+            sizeError:false,
+            sizesData:{},
+            sizes:{}
         }
     },
     mounted(){
@@ -76,7 +78,7 @@ export default {
         async getCart(){
             await axios.post('/getCart')
             .then( response => {
-                this.$store.state.auth.cart = JSON.parse(response.data.items)
+                this.$store.state.auth.cart = response.data
             })
         },
         async addToBag(){
@@ -107,6 +109,7 @@ export default {
             this.currentSize = ''
             this.main = this.previewData[this.currentColor].images[0].p_image
             this.chosenColor = id
+            this.sizes = this.sizesData[id]
         },
         makeCurrentSize(size,id){
             this.currentSize = size
@@ -124,7 +127,8 @@ export default {
         async getInventory(){
             await axios.get('/getInventory/'+this.id)
             .then( response =>{
-                this.sizes = response.data
+                this.sizesData = response.data
+                this.sizes = this.sizesData[this.chosenColor]
                 this.loading = false
             })
         }
