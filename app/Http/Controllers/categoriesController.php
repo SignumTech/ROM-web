@@ -213,8 +213,8 @@ class categoriesController extends Controller
         return $data;
     }
 
-    public function getCatByName($name){
-        $cat = Category::where("cat_name", $name)->first();
+    public function showMainCat($id){
+        $cat = Category::find($id);
         return $cat;
     }
 

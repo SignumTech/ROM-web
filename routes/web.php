@@ -117,7 +117,7 @@ Route::middleware('auth:sanctum')->get('/getSubCategories', [categoriesControlle
 Route::get('/showSubCategories/{id}', [categoriesController::class, 'showSubCategories']);
 Route::middleware('auth:sanctum')->post('/uploadSubPic', [categoriesController::class, 'uploadSubPic']);
 Route::middleware('auth:sanctum')->get('/chooseSubCategories', [categoriesController::class, 'chooseSubCategories']);
-Route::get('/getCatByName/{name}', [categoriesController::class, 'getCatByName']);
+Route::get('/showMainCat/{id}', [categoriesController::class, 'showMainCat']);
 ///////////////socialites///////////////////////////////////////////////////////////////////////////
 Route::get('/auth/google/redirect', [socialiteController::class, 'google_redirect']);
  

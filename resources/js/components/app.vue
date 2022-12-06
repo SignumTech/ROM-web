@@ -1,7 +1,8 @@
 <template>
     <div class="row m-0">
-        <div class="p-0" v-if="$store.state.auth.account_type != `Staff` || !$store.state.auth.authenticated">
-            <nav class="navbar navbar-expand-lg pe-2 ps-2 main-nav">
+        <div class="p-0" v-if="!$store.state.auth.authenticated">
+            <mob-navigation class="mob_display" :categories="categories"></mob-navigation>
+            <nav class="navbar navbar-expand-lg pe-2 ps-2 main-nav mob_hide">
                 <div class="container-fluid">
                     <a class="navbar-brand text-white" href="/"><h2 class="m-0"><strong>ROM</strong></h2></a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,6 +68,7 @@
             </nav>  
             <router-view></router-view>          
         </div>
+        
         <div class="p-0">
             <footer1></footer1>
         </div>
@@ -76,11 +78,11 @@
 </template>
 
 <script>
-
+import MobNavigation from './home/mobNavigation.vue';
 import footer1 from './footer.vue'
 export default {
     components:{
-        
+        MobNavigation,
         footer1
     },
     data(){

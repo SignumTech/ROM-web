@@ -277,3 +277,29 @@ ul ul a {
     border: #bf7f25 solid 2px;
     cursor:pointer
 }
+.hide-scroll::-webkit-scrollbar{
+    display: none;
+}
+.hide-scroll{
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+@media screen and (max-width: 720px) { 
+
+.mob_hide{
+    display: none;
+    
+}
+.mob_display{
+    display: block
+}
+}
+@media screen and (min-width: 721px) { 
+
+.mob_hide{
+    display: block;
+}
+.mob_display{
+    display: none
+}
+}
