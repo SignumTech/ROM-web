@@ -544,5 +544,51 @@ class cartController extends Controller
         return $cart;
     }
 
+    public function syncCart(Request $request){
+        $this->validate($request, [
+            "items" => "required",
+        ]);
+        $items = json_decode($request->items);
+        $cart = Cart::where('user_id', auth()->user()->id)->first();
+        if($cart){
+            foreach($items as $item){
+                $inv = Inventory::where('p_id', $item->p_id)
+                                ->where('size_id', $item->size_id)
+                                ->where('color_id', $item->color_id)
+                                ->first();
+                $cartItem = CartItem::where('cart_id', $cart->id)
+                                     ->where('inventory_id', $inv->id)
+                                     ->first();
+                if($cartItem){
+                    $cartItem->quantity = $cartItem->quantity + $item->quantity;
+                    $cartItem->save();
+                }
+                else{
+                    $cartItem = new CartItem;
+                    $cartItem->cart_id = $cart->id;
+                    $cartItem->inventory_id = $inv->id;
+                    $cartItem->quantity = $item->quantity;
+                    $cartItem->save();
+                }
+            }
+        }
+        else{
+            $cart = new Cart;
+            $cart->user_id = auth()->user()->id;
+            $cart->cart_status = 'ACTIVE';
+            $cart->save();
+
+            foreach($items as $item){
+                $cartItem = new CartItem;
+                $cartItem->cart_id = $cart->id;
+                $cartItem->inventory_id = $inv->id;
+                $cartItem->quantity = $item->quantity;
+                $cartItem->save();
+            }
+        }
+        
+        return $cart;
+    }
+
 
 }
