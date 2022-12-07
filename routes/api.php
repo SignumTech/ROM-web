@@ -58,6 +58,7 @@ Route::post('/filterData', [productsController::class, 'filterData']);
 Route::post('/filterMobData', [productsController::class, 'filterMobData']);
 Route::middleware('auth:sanctum')->post('/filterMobAuthData', [productsController::class, 'filterMobAuthData']);
 Route::post('/searchItems', [productsController::class, 'searchItems']);
+Route::get('/getPreviewData/{id}', [productsController::class, 'getPreviewData']);
 ////////////////////////////////////Categories//////////////////////////////////////////////////////
 Route::get('/getMainCategories', [categoriesController::class, 'getMainCategories']);
 Route::get('/getSubCategories', [categoriesController::class, 'getSubCategories']);
