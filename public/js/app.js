@@ -11203,6 +11203,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.getSubCats();
     feather.replace();
   },
+  watch: {
+    $route: function $route(to, from) {
+      this.getCatProducts();
+      this.getCatDetail();
+      this.getProductFilters();
+      this.priceRange();
+      this.getSubCats();
+    }
+  },
   methods: {
     getMainCat: function getMainCat() {
       var _this = this;

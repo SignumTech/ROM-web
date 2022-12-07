@@ -80,6 +80,15 @@ export default {
         this.getSubCats()
         feather.replace();
     },
+    watch: {
+        $route (to, from) {
+            this.getCatProducts()
+            this.getCatDetail()
+            this.getProductFilters()
+            this.priceRange()
+            this.getSubCats()
+        }
+    },
     methods:{
         async getMainCat(){
             await axios.get('/showMainCat/'+this.$route.params.id)
