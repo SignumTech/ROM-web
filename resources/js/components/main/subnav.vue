@@ -16,7 +16,7 @@
                         <a class="nav-link" href="#">SALE</a>
                     </li>
                     <li v-for="subCat,index in subCats" :key="index" class="nav-item me-1">
-                        <a class="nav-link" href="#">{{subCat.cat_name}}</a>
+                        <router-link class="nav-link" :to="`/home/`+$route.params.id+`/shop/`+subCat.id">{{subCat.cat_name}}</router-link>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -33,7 +33,7 @@
 </template>
 <script>
 export default {
-    props:['subCats'],
+    props:['subCats', 'mainCat'],
     data(){
         return{
             query:null

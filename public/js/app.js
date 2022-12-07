@@ -12749,7 +12749,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['subCats'],
+  props: ['subCats', 'mainCat'],
   data: function data() {
     return {
       query: null
@@ -49059,11 +49059,21 @@ var render = function () {
                     { key: index, staticClass: "nav-item me-1" },
                     [
                       _c(
-                        "a",
-                        { staticClass: "nav-link", attrs: { href: "#" } },
+                        "router-link",
+                        {
+                          staticClass: "nav-link",
+                          attrs: {
+                            to:
+                              "/home/" +
+                              _vm.$route.params.id +
+                              "/shop/" +
+                              subCat.id,
+                          },
+                        },
                         [_vm._v(_vm._s(subCat.cat_name))]
                       ),
-                    ]
+                    ],
+                    1
                   )
                 }),
               ],
