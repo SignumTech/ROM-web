@@ -1,12 +1,13 @@
 <template>
 <div @mouseover="slideShow()" @mouseleave="backToStatic()" class="row show-add-btn">
-    <div class="col-12  text-center">
-        <router-link :to="`/productDetail/`+item.id">
-            <img class="img img-fluid" :src="`/storage/products/`+item.p_image" alt="">
-        </router-link>
+    <div @click="mobileDetailsModal(item.id)" class="col-12  text-center mob_display">
+        <img class="img img-fluid " :src="`/storage/products/`+item.p_image" alt="">
         
     </div>
-    <div class="col-md-12 text-center">
+    <div  class="col-12  text-center mob_hide">
+        <img class="img img-fluid " :src="`/storage/products/`+item.p_image" alt="">
+    </div>
+    <div class="col-md-12 text-center mob_hide">
         <span class="add-cart">
             <button @click="detailsModal(item.id)" class="btn btn-light rounded-1 ps-4 pe-4 shadow"><strong>ADD TO BAG</strong></button>
         </span>
@@ -26,6 +27,7 @@
 <script>
 import wishlistSignin from './wishlistSignin.vue';
 import productDetailsModal from './productDetailsModal.vue';
+import mobileDetailsModalVue from './mobileDetailsModal.vue';
 export default {
     data(){
         return{
@@ -82,7 +84,15 @@ export default {
             this.$modal.show(
                 productDetailsModal,
                 {"id":id},
-                { "height" : "auto", "width" : "900px"},
+                { "height" : "auto", "width" : "70%"},
+                {}
+            )
+        },
+        mobileDetailsModal(id){
+            this.$modal.show(
+                mobileDetailsModalVue,
+                {"id":id},
+                {height: "85%", width: "100%", shiftY: 1, scrollable: true},
                 {}
             )
         },

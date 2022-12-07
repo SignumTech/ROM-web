@@ -3,12 +3,11 @@
     <div class="main-nav shadow-sm">
         <div class="row m-0 p-2">
             <div class="col-6">
-                <h5 class="text-white m-0"><strong>ROM</strong></h5>
+                <h5 class="text-white m-0"><a href="/" class="text-white"><strong>ROM</strong></a></h5>
             </div>
             <div class="col-6 text-end">
-                <router-link to="/cart"><span class="fa fa-user mx-3 text-white"></span></router-link>
-                
-                <router-link to="/cart"><span class="fa fa-shopping-bag mx-3 text-white"></span></router-link>
+                <router-link to="/signin" class="mx-3"><span class="fa fa-user  text-white"></span></router-link>
+                <router-link to="/cart" class="mx-3"><span class="fa fa-shopping-bag  text-white"></span> <span v-if="$store.state.auth.cart.length > 0" class="badge bg-light text-dark">{{$store.state.auth.cart.length}}</span></router-link>
                 <span class="fa fa-search ms-3 text-white"></span>
             </div>
         </div>

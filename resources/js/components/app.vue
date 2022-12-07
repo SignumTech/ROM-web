@@ -16,7 +16,7 @@
                     </ul>
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item me-4 dropdown">
-                            <a class="nav-link nav-link-main dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"><h5 class="m-0"><span class="fa fa-user"></span></h5></a>
+                            <a class="nav-link nav-link-main dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"><span class="fa fa-user fs-5"></span></a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li v-if="!authenticated"><router-link class="dropdown-item" to="/signin">SIGN IN / REGISTER</router-link></li>
                                 <li v-if="authenticated"><router-link class="dropdown-item" to="/myAccount"><strong>{{user.f_name}} {{user.l_name}}</strong></router-link></li>
@@ -27,7 +27,7 @@
                         </li>
                         <li class="nav-item me-4 dropdown">
                             <a class="nav-link nav-link-main dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                                <h5 class="m-0"><span class="fa fa-shopping-bag"></span> <span v-if="$store.state.auth.cart.length > 0" class="fs-6">{{$store.state.auth.cart.length}}</span></h5>
+                                <span class="fa fa-shopping-bag fs-5"></span> <span v-if="$store.state.auth.cart.length > 0" class="badge bg-light text-dark">{{$store.state.auth.cart.length}}</span>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="width:400px">
                                 
@@ -60,7 +60,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <router-link class="nav-link nav-link-main" to="/myAccount/myWishlist"><h5 class="m-0"><span class="fa fa-heart"></span><span v-if="$store.state.auth.wishlist.length > 0" class="fs-6 ms-1">{{$store.state.auth.wishlist.length}}</span></h5></router-link>
+                            <router-link class="nav-link nav-link-main" to="/myAccount/myWishlist"><span class="fa fa-heart fs-5"></span><span v-if="$store.state.auth.wishlist.length > 0" class="fs-6 ms-1">{{$store.state.auth.wishlist.length}}</span></router-link>
                         </li>
                     </ul>
                     </div>
