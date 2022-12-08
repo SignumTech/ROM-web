@@ -152,6 +152,7 @@ class cartController extends Controller
                 $item_detail->new_price = null;
                 $item_detail->expiry_date = null;
             }
+            $item_detail->product_id = $item_detail->p_id;
             $item_detail->quantity = $item['quantity'];
             $item_detail->item_id = $item['id'];
             $item_detail->cart_id = $item['cart_id'];                 
