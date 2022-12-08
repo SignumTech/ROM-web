@@ -4,7 +4,7 @@
         <span class="bg-info text-white p-2 fs-5"><strong>-{{item.discount}}%</strong></span>
     </div>
     <div class="col-12  text-center">
-        <img class="img img-fluid" :src="`/storage/productsThumb/`+JSON.parse(item.p_image)['main']" alt="">
+        <img class="img img-fluid" :src="`/storage/productsThumb/`+item.p_image" alt="">
     </div>
     <div class="col-md-12 text-center">
         <span class="add-cart">

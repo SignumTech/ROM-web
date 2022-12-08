@@ -45305,10 +45305,7 @@ var render = function () {
     _c("div", { staticClass: "col-12 text-center" }, [
       _c("img", {
         staticClass: "img img-fluid",
-        attrs: {
-          src: "/storage/productsThumb/" + JSON.parse(_vm.item.p_image)["main"],
-          alt: "",
-        },
+        attrs: { src: "/storage/productsThumb/" + _vm.item.p_image, alt: "" },
       }),
     ]),
     _vm._v(" "),

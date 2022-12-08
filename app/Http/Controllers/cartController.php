@@ -144,7 +144,7 @@ class cartController extends Controller
             $product = Product::find($item_detail->p_id);
             if($product->promotion_status == 'FLASH SALE'){
                 $flashDetail = FlashDetail::where('p_id', $product->id)->first();
-                $flashSale = FlashSell::find($flashDetail->id);
+                $flashSale = FlashSell::find($flashDetail->flash_id);
                 $item_detail->new_price = $product->price - ($flashDetail->discount/100 * $product->price);
                 $item_detail->expiry_date = $flashSale->expiry_date;
             }
