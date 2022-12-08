@@ -1,6 +1,6 @@
 <template>
     <div class="row m-0">
-        <div class="p-0" v-if="!$store.state.auth.authenticated">
+        <div class="p-0">
             <mob-navigation class="mob_display" :categories="categories"></mob-navigation>
             <nav class="navbar navbar-expand-lg pe-2 ps-2 main-nav mob_hide">
                 <div class="container-fluid">

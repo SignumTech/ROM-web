@@ -67,6 +67,7 @@
 <script>
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 import editSizesColorsVue from './editSizesColors.vue';
+import invErrorModalVue from './invErrorModal.vue';
 import signinModal from './signinModal.vue';
 export default {
     components:{
@@ -171,6 +172,21 @@ export default {
             })
             return sum;
         },
+        async updateCartItem(id){
+            await axios.put('/updateCartItem/'+id)
+            .then( response =>{
+                this.getCart()
+            })
+            .catch( error =>{
+                this.$modal.show(
+                    invErrorModalVue,
+                    {error:error.response},
+                    {height:auto,width:'300px'},
+                    {}
+                )
+            })
+        },
+        
         async getCart(){
             this.loading = true
             await axios.post('/getCart')
@@ -178,7 +194,7 @@ export default {
                 this.cart_id = response.data.id
                 this.cartItems = response.data
                 this.loading = false
-                this.getInventory()
+                //this.getInventory()
             })
             .catch( response =>{
                 this.loading = false
@@ -198,6 +214,7 @@ export default {
             }
             else{
                 this.cartItems[index].quantity += 1
+                
             }
              
         }

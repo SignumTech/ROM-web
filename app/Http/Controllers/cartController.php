@@ -368,6 +368,31 @@ class cartController extends Controller
             }
         }
     }
+    
+    public function updateCartItem(Request $request, $id){
+        $this->validate($request, [
+            "quantity" => "required",
+            "color_id" => "required",
+            "size_id" => "required"
+        ]);
+
+        $cartItem = CartItem::find($id);
+        $inventory = Inventory::where('p_id', $cartItem->p_id)
+                              ->where('color_id', $request->color_id)
+                              ->where('size_id', $request->size_id)
+                              ->first();
+        if($inventory->quantity < $request->quantity){
+            return response("Item quantity exceeds stock", 422);
+        }
+        else{
+            $cartItem->quantity = $request->quantity;
+            $cartItem->inv_id = $inventory->id;
+            $cartItem->save();
+            return $cartItem;
+        }
+        
+        
+    }
 
     public function editCart(Request $request){
         $this->validate( $request, [
@@ -587,7 +612,7 @@ class cartController extends Controller
             }
         }
         
-        return $cart;
+        return CartItem::where('cart_id', $cart->id)->get();
     }
 
 

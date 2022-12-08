@@ -30,10 +30,7 @@
             <div class="col-1">
                 <span class="fa fa-chevron-right text-secondary"></span>
             </div>
-            
         </div>
-        
-        
     </div>
 </div>
 </template>
