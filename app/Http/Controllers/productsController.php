@@ -66,10 +66,12 @@ class productsController extends Controller
             $flashSale = FlashSell::find($flashDetail->flash_id);
             $product->new_price = $product->price - ($flashDetail->discount/100 * $product->price);
             $product->expiry_date = $flashSale->expiry_date;
+            $product->discount = $flashDetail->discount;
         }
         else{
             $product->new_price = null;
             $product->expiry_date = null;
+            $product->discount = null;
         }
         
         return $product;
