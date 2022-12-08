@@ -10,6 +10,8 @@ use App\Models\Category;
 use App\Models\ProductImage;
 use App\Models\ProductColor;
 use App\Models\Size;
+use App\Models\FlashSell;
+use App\Models\FlashDetail;
 use Illuminate\Support\Facades\Auth;
 use Image;
 use Storage;
@@ -58,6 +60,17 @@ class productsController extends Controller
         $product = Product::find($id);
         $product->colors = ProductColor::where('product_id', $id)->select('color', 'id')->get();
         $product->sizes = Size::where('product_id', $id)->select('size', 'id')->get();
+
+        if($product->promotion_status == 'FLASH SALE'){
+            $flashDetail = FlashDetail::where('p_id', $product->id)->first();
+            $flashSale = FlashSell::find($flashDetail->flash_id);
+            $product->new_price = $product->price - ($flashDetail->discount/100 * $product->price);
+            $product->expiry_date = $flashSale->expiry_date;
+        }
+        else{
+            $product->new_price = null;
+            $product->expiry_date = null;
+        }
         
         return $product;
     }

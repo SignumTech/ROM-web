@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\FlashSell;
 use App\Models\FlashDetail;
 use App\Models\Product;
+use App\Models\ProductImage;
 use Carbon\Carbon;
 class flashSaleController extends Controller
 {
