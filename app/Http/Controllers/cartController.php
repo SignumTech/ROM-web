@@ -521,7 +521,22 @@ class cartController extends Controller
         }
 
     }
-
+    public function getMobCartNew(){
+        $cart = Cart::where('user_id', auth()->user()->id)->first();
+        $cartItems = CartItem::where('cart_id', $cart->id)->get();
+        
+        return $this->getFinalCartData($cart_items);
+        /*foreach($cartItems as $item){
+            $item->item_id = $item->id;
+            $item->color
+        }
+        $cartItems = CartItem::join('inventories', 'cart_items.inventory_id', '=', 'inventories.id')
+                             ->join('products', 'inventories.p_id', '=', 'products.id')
+                             ->join('product_colors', 'inventories.color_id', '=', 'product_colors.id')
+                             ->join('sizes', 'inventories.size_id', 'sizes.id')
+                             ->select('inventories.*', 'products.p_name', 'products.p_image')
+                             ->get();*/
+    }
     public function getMobCart(Request $request){
         $this->validate($request, [
             "items" => "required"

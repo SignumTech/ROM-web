@@ -179,12 +179,15 @@ export default {
                 this.getCart()
             })
             .catch( error =>{
-                this.$modal.show(
-                    invErrorModalVue,
-                    {error:error.response},
-                    {height:auto,width:'300px'},
-                    {}
-                )
+                if(error.response.status == 422){
+                    this.$modal.show(
+                        invErrorModalVue,
+                        {error:error.response},
+                        {height:auto,width:'300px'},
+                        {}
+                    )
+                }
+                
             })
         },
         

@@ -9147,12 +9147,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return axios.put('/updateCartItem/' + id, cartItem).then(function (response) {
                   _this4.getCart();
                 })["catch"](function (error) {
-                  _this4.$modal.show(_invErrorModal_vue__WEBPACK_IMPORTED_MODULE_2__["default"], {
-                    error: error.response
-                  }, {
-                    height: auto,
-                    width: '300px'
-                  }, {});
+                  if (error.response.status == 422) {
+                    _this4.$modal.show(_invErrorModal_vue__WEBPACK_IMPORTED_MODULE_2__["default"], {
+                      error: error.response
+                    }, {
+                      height: auto,
+                      width: '300px'
+                    }, {});
+                  }
                 });
 
               case 3:
