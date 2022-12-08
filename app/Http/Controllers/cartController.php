@@ -525,7 +525,7 @@ class cartController extends Controller
         $cart = Cart::where('user_id', auth()->user()->id)->first();
         $cartItems = CartItem::where('cart_id', $cart->id)->get();
         
-        return $this->getFinalCartData($cart_items);
+        return $this->getFinalCartData($cartItems);
         /*foreach($cartItems as $item){
             $item->item_id = $item->id;
             $item->color
