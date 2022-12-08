@@ -142,7 +142,7 @@ class cartController extends Controller
                             ->select('products.p_name', 'products.promotion_status', 'product_colors.color', 'inventories.color_id', 'sizes.size', 'inventories.size_id', 'products.price', 'product_images.p_image', 'products.promotion_status', 'inventories.p_id')
                             ->first();
             $product = Product::find($item_detail->p_id);
-            if($product->promotion_status == 'FLASH_SALE'){
+            if($product->promotion_status == 'FLASH SALE'){
                 $flashDetail = FlashDetail::where('p_id', $product->id)->first();
                 $flashSale = FlashSell::find($flashDetail->id);
                 $item_detail->new_price = $product->price - ($flashDetail->discount/100 * $product->price);
