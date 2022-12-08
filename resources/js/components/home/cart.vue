@@ -180,11 +180,12 @@ export default {
             })
             .catch( error =>{
                 if(error.response.status == 422){
+                    console.log('test')
                     this.$modal.show(
                         invErrorModalVue,
                         {error:error.response},
-                        {height:auto,width:'300px'},
-                        {}
+                        {height:'auto',width:'400px'},
+                        {'closed':this.getCart}
                     )
                 }
                 

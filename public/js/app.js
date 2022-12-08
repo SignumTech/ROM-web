@@ -9148,12 +9148,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this4.getCart();
                 })["catch"](function (error) {
                   if (error.response.status == 422) {
+                    console.log('test');
+
                     _this4.$modal.show(_invErrorModal_vue__WEBPACK_IMPORTED_MODULE_2__["default"], {
                       error: error.response
                     }, {
-                      height: auto,
-                      width: '300px'
-                    }, {});
+                      height: 'auto',
+                      width: '400px'
+                    }, {
+                      'closed': _this4.getCart
+                    });
                   }
                 });
 
@@ -9912,6 +9916,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
 //
 //
 //
@@ -45728,11 +45734,35 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row p-4" }, [
     _c("div", { staticClass: "col-md-12 text-center" }, [
-      _c("h5", [_vm._v(_vm._s(_vm.error.data))]),
+      _vm._m(0),
+      _vm._v(" "),
+      _c("h5", { staticClass: "mt-3" }, [_vm._v(_vm._s(_vm.error.data))]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-warning mt-3",
+          on: {
+            click: function ($event) {
+              return _vm.$emit("close")
+            },
+          },
+        },
+        [_c("span", { staticClass: "fa fa-times" }), _vm._v(" Close")]
+      ),
     ]),
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h3", [
+      _c("span", { staticClass: "fa fa-exclamation-triangle text-warning" }),
+    ])
+  },
+]
 render._withStripped = true
 
 

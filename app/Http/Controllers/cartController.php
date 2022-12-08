@@ -8,6 +8,8 @@ use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Product;
 use App\Models\Inventory;
+use App\Models\FlashSell;
+use App\Models\FlashDetail;
 class cartController extends Controller
 {
     public function addToCartNew(Request $request){
@@ -137,8 +139,19 @@ class cartController extends Controller
                             ->join('product_colors', 'inventories.color_id', '=', 'product_colors.id')
                             ->join('product_images', 'product_colors.id', '=', 'product_images.color_id')
                             ->where('inventories.id', $item['inventory_id'])
-                            ->select('products.p_name', 'product_colors.color', 'inventories.color_id', 'sizes.size', 'inventories.size_id', 'products.price', 'product_images.p_image', 'products.promotion_status', 'inventories.p_id')
+                            ->select('products.p_name', 'products.promotional_status', 'product_colors.color', 'inventories.color_id', 'sizes.size', 'inventories.size_id', 'products.price', 'product_images.p_image', 'products.promotion_status', 'inventories.p_id')
                             ->first();
+            $product = Product::find($item_detail->p_id);
+            if($product->promotional_status == 'FLASH_SALE'){
+                $flashDetail = FlashDetail::where('p_id', $product->id)->first();
+                $flashSale = FlashSell::find($flashDetail->id);
+                $item_detail->new_price = $product->price - ($flashDetail->discount/100 * $product->price);
+                $item_detail->expiry_date = $flashSale->expiry_date;
+            }
+            else{
+                $item_detail->new_price = null;
+                $item_detail->expiry_date = null;
+            }
             $item_detail->quantity = $item['quantity'];
             $item_detail->item_id = $item['id'];
             $item_detail->cart_id = $item['cart_id'];                 
@@ -385,7 +398,7 @@ class cartController extends Controller
                            ->where('size_id', $request->size_id)
                            ->first();
         if($inventory->quantity < $request->quantity){
-            return response("Item quantity exceeds stock", 422);
+            return response("The quantity you entered exceeds stock! The available stock is ".$inventory->quantity, 422);
         }
         else{
             $cartItem->quantity = $request->quantity;
