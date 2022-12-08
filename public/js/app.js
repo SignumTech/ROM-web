@@ -9689,30 +9689,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   components: {
     PulseLoader: vue_spinner_src_PulseLoader_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  props: ['item'],
+  props: ['id', 'item'],
   data: function data() {
     return {
       loading: true,
       btnLoading: false,
       product: {},
-      pictures: {
-        main: ""
-      },
-      productIdentity: {},
-      colors: {},
-      sizes: {},
+      previewData: {},
       currentColor: '',
+      chosenColor: '',
+      chosenSize: '',
       currentSize: '',
       main: '',
-      sizeError: false
+      sizeError: false,
+      sizesData: {},
+      sizes: {}
     };
   },
   mounted: function mounted() {
     this.getProduct();
-    this.item.id = this.item.p_id;
   },
   methods: {
-    getCart: function getCart() {
+    getPreviewData: function getPreviewData() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
@@ -9720,12 +9718,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
-                return axios.post('/getCart').then(function (response) {
-                  _this.$store.state.auth.cart = JSON.parse(response.data.items);
+                _this.loading = true;
+                _context.next = 3;
+                return axios.get('/getPreviewData/' + _this.item.p_id).then(function (response) {
+                  _this.previewData = response.data;
+                  _this.main = _this.previewData[_this.currentColor].images[0].p_image;
+
+                  _this.getInventory();
                 });
 
-              case 2:
+              case 3:
               case "end":
                 return _context.stop();
             }
@@ -9733,7 +9735,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
-    addToBag: function addToBag() {
+    getCart: function getCart() {
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
@@ -9741,39 +9743,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                if (!(_this2.currentSize == '')) {
-                  _context2.next = 4;
-                  break;
-                }
-
-                _this2.sizeError = true;
-                _context2.next = 7;
-                break;
-
-              case 4:
-                _this2.btnLoading = true;
-                _context2.next = 7;
-                return axios.post('/addToCart', {
-                  product: _this2.item,
-                  color: _this2.currentColor,
-                  size: _this2.currentSize,
-                  quantity: 1
-                }).then(function (response) {
-                  _this2.getCart();
-
-                  _this2.$notify({
-                    group: 'foo',
-                    type: 'success',
-                    title: 'Item add to bag!',
-                    text: 'Your item was added to your shopping bag.'
-                  });
-
-                  _this2.$emit('close');
-
-                  _this2.btnLoading = false;
+                _context2.next = 2;
+                return axios.post('/getCart').then(function (response) {
+                  _this2.$store.state.auth.cart = response.data;
                 });
 
-              case 7:
+              case 2:
               case "end":
                 return _context2.stop();
             }
@@ -9781,18 +9756,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2);
       }))();
     },
-    makeMain: function makeMain(pic) {
-      this.main = pic;
-    },
-    makeCurrentColor: function makeCurrentColor(color) {
-      this.currentColor = color;
-      this.currentSize = '';
-      this.main = this.pictures[this.currentColor][0];
-    },
-    makeCurrentSize: function makeCurrentSize(size) {
-      this.currentSize = size;
-    },
-    getProduct: function getProduct() {
+    addToBag: function addToBag() {
       var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
@@ -9800,26 +9764,39 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                _this3.loading = true;
-                _context3.next = 3;
-                return axios.get('/products/' + _this3.item.p_id).then(function (response) {
-                  _this3.product = response.data;
-                  _this3.pictures = JSON.parse(_this3.product.p_image);
-                  _this3.colors = JSON.parse(response.data.color);
-                  _this3.currentColor = _this3.colors[0];
-                  _this3.productIdentity = {
-                    p_name: response.data.p_name,
-                    cat_id: response.data.cat_id,
-                    price: response.data.price,
-                    brand: response.data.brand_id,
-                    description: response.data.description
-                  };
-                  _this3.main = _this3.pictures[_this3.currentColor][0];
+                if (!(_this3.currentSize == '')) {
+                  _context3.next = 4;
+                  break;
+                }
 
-                  _this3.getInventory();
+                _this3.sizeError = true;
+                _context3.next = 7;
+                break;
+
+              case 4:
+                _this3.btnLoading = true;
+                _context3.next = 7;
+                return axios.post('/addToCart', {
+                  product_id: _this3.product.id,
+                  color_id: _this3.chosenColor,
+                  size_id: _this3.chosenSize,
+                  quantity: 1
+                }).then(function (response) {
+                  _this3.getCart();
+
+                  _this3.$notify({
+                    group: 'foo',
+                    type: 'success',
+                    title: 'Item add to bag!',
+                    text: 'Your item was added to your shopping bag.'
+                  });
+
+                  _this3.$emit('close');
+
+                  _this3.btnLoading = false;
                 });
 
-              case 3:
+              case 7:
               case "end":
                 return _context3.stop();
             }
@@ -9827,7 +9804,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee3);
       }))();
     },
-    getInventory: function getInventory() {
+    makeMain: function makeMain(pic) {
+      this.main = pic;
+    },
+    makeCurrentColor: function makeCurrentColor(color, id) {
+      this.currentColor = color;
+      this.currentSize = '';
+      this.main = this.previewData[this.currentColor].images[0].p_image;
+      this.chosenColor = id;
+      this.sizes = this.sizesData[id];
+    },
+    makeCurrentSize: function makeCurrentSize(size, id) {
+      this.currentSize = size;
+      this.chosenSize = id;
+    },
+    getProduct: function getProduct() {
       var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
@@ -9836,9 +9827,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context4.prev = _context4.next) {
               case 0:
                 _context4.next = 2;
-                return axios.get('/getInventory/' + _this4.item.p_id).then(function (response) {
-                  _this4.sizes = response.data;
-                  _this4.loading = false;
+                return axios.get('/products/' + _this4.item.id).then(function (response) {
+                  _this4.product = response.data;
+                  _this4.currentColor = _this4.product.colors[0].color;
+                  _this4.chosenColor = _this4.product.colors[0].id;
+
+                  _this4.getPreviewData();
                 });
 
               case 2:
@@ -9847,6 +9841,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee4);
+      }))();
+    },
+    getInventory: function getInventory() {
+      var _this5 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _context5.next = 2;
+                return axios.get('/getInventory/' + _this5.item.id).then(function (response) {
+                  _this5.sizesData = response.data;
+                  _this5.sizes = _this5.sizesData[_this5.chosenColor];
+                  _this5.loading = false;
+                });
+
+              case 2:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
       }))();
     }
   }
@@ -45401,25 +45418,31 @@ var render = function () {
       ? _c(
           "div",
           { staticClass: "col-md-1 p-0" },
-          _vm._l(_vm.pictures[_vm.currentColor], function (pic) {
-            return _c("div", { key: pic, staticClass: "row" }, [
-              _c("div", { staticClass: "col-md-12" }, [
-                _c("img", {
-                  class:
-                    pic == _vm.main
-                      ? "img img-fluid mt-2 color-choice"
-                      : "img img-fluid mt-2",
-                  staticStyle: { cursor: "pointer" },
-                  attrs: { src: "/storage/productsThumb/" + pic, alt: "" },
-                  on: {
-                    click: function ($event) {
-                      return _vm.makeMain(pic)
+          _vm._l(
+            _vm.previewData[_vm.currentColor].images,
+            function (pic, index) {
+              return _c("div", { key: "pic" + index, staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-12" }, [
+                  _c("img", {
+                    class:
+                      pic.p_image == _vm.main
+                        ? "img img-fluid mt-2 color-choice"
+                        : "img img-fluid mt-2",
+                    staticStyle: { cursor: "pointer" },
+                    attrs: {
+                      src: "/storage/productsThumb/" + pic.p_image,
+                      alt: "",
                     },
-                  },
-                }),
-              ]),
-            ])
-          }),
+                    on: {
+                      click: function ($event) {
+                        return _vm.makeMain(pic.p_image)
+                      },
+                    },
+                  }),
+                ]),
+              ])
+            }
+          ),
           0
         )
       : _vm._e(),
@@ -45501,19 +45524,19 @@ var render = function () {
             _vm._v(" "),
             _c(
               "h5",
-              _vm._l(_vm.colors, function (color) {
+              _vm._l(_vm.product.colors, function (color, index) {
                 return _c(
                   "span",
                   {
-                    key: color.id,
+                    key: "size" + index,
                     class:
-                      _vm.currentColor == color
+                      _vm.currentColor == color.color
                         ? "hov-color badge rounded-1 p-2 shadow-sm m-1 color-choice"
                         : "hov-color badge rounded-1 p-2 shadow m-1",
-                    style: { backgroundColor: color },
+                    style: { backgroundColor: color.color },
                     on: {
                       click: function ($event) {
-                        return _vm.makeCurrentColor(color)
+                        return _vm.makeCurrentColor(color.color, color.id)
                       },
                     },
                   },
@@ -45525,26 +45548,22 @@ var render = function () {
             _vm._v(" "),
             _vm._m(2),
             _vm._v(" "),
-            _vm._l(_vm.sizes[_vm.currentColor], function (size) {
+            _vm._l(_vm.sizes, function (size, index) {
               return _c(
                 "span",
                 {
-                  key: size.id,
+                  key: "color" + index,
                   class:
-                    _vm.currentSize == size["size"]
+                    _vm.currentSize == size.size
                       ? "hov-main badge rounded-1 p-2 shadow-sm m-1 size-choice"
                       : "hov-main badge rounded-1 p-2 shadow-sm m-1",
                   on: {
                     click: function ($event) {
-                      return _vm.makeCurrentSize(size["size"])
+                      return _vm.makeCurrentSize(size.size, size.size_id)
                     },
                   },
                 },
-                [
-                  _c("h5", { staticClass: "m-0" }, [
-                    _vm._v(_vm._s(size["size"])),
-                  ]),
-                ]
+                [_c("h5", { staticClass: "m-0" }, [_vm._v(_vm._s(size.size))])]
               )
             }),
             _vm._v(" "),
@@ -45570,23 +45589,21 @@ var render = function () {
                 )
               : _vm._e(),
             _vm._v(" "),
-            !_vm.btnLoading
-              ? _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary form-control rounded-1 mt-4",
-                    on: {
-                      click: function ($event) {
-                        return _vm.addToBag()
-                      },
-                    },
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary form-control rounded-1 mt-4",
+                on: {
+                  click: function ($event) {
+                    return _vm.addToBag()
                   },
-                  [
-                    _c("span", { staticClass: "fa fa-shopping-bag" }),
-                    _vm._v(" ADD TO BAG"),
-                  ]
-                )
-              : _vm._e(),
+                },
+              },
+              [
+                _c("span", { staticClass: "fa fa-shopping-bag" }),
+                _vm._v(" ADD TO BAG"),
+              ]
+            ),
           ],
           2
         )
