@@ -9827,7 +9827,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context4.prev = _context4.next) {
               case 0:
                 _context4.next = 2;
-                return axios.get('/products/' + _this4.item.id).then(function (response) {
+                return axios.get('/products/' + _this4.item.p_id).then(function (response) {
                   _this4.product = response.data;
                   _this4.currentColor = _this4.product.colors[0].color;
                   _this4.chosenColor = _this4.product.colors[0].id;
@@ -9852,7 +9852,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context5.prev = _context5.next) {
               case 0:
                 _context5.next = 2;
-                return axios.get('/getInventory/' + _this5.item.id).then(function (response) {
+                return axios.get('/getInventory/' + _this5.item.p_id).then(function (response) {
                   _this5.sizesData = response.data;
                   _this5.sizes = _this5.sizesData[_this5.chosenColor];
                   _this5.loading = false;

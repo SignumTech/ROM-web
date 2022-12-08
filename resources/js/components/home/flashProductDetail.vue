@@ -121,7 +121,7 @@
                 this.chosenSize = id
             },
             async getProduct(){
-                await axios.get('/products/'+this.item.id)
+                await axios.get('/products/'+this.item.p_id)
                 .then( response =>{
                     this.product = response.data
                     this.currentColor = this.product.colors[0].color
@@ -130,7 +130,7 @@
                 })
             },
             async getInventory(){
-                await axios.get('/getInventory/'+this.item.id)
+                await axios.get('/getInventory/'+this.item.p_id)
                 .then( response =>{
                     this.sizesData = response.data
                     this.sizes = this.sizesData[this.chosenColor]
