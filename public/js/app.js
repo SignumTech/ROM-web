@@ -9133,16 +9133,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
       return sum;
     },
-    updateCartItem: function updateCartItem(id) {
+    updateCartItem: function updateCartItem(id, index) {
       var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+        var cartItem;
         return _regeneratorRuntime().wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                _context4.next = 2;
-                return axios.put('/updateCartItem/' + id).then(function (response) {
+                cartItem = _this4.cartItems[index];
+                _context4.next = 3;
+                return axios.put('/updateCartItem/' + id, cartItem).then(function (response) {
                   _this4.getCart();
                 })["catch"](function (error) {
                   _this4.$modal.show(_invErrorModal_vue__WEBPACK_IMPORTED_MODULE_2__["default"], {
@@ -9153,7 +9155,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   }, {});
                 });
 
-              case 2:
+              case 3:
               case "end":
                 return _context4.stop();
             }
@@ -9187,14 +9189,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee5);
       }))();
     },
-    subtract: function subtract(index) {
+    subtract: function subtract(index, id) {
       if (this.cartItems[index].quantity - 1 < 1) {} else {
         this.cartItems[index].quantity -= 1;
+        this.updateCartItem(id, index);
       }
     },
-    add: function add(index) {
+    add: function add(index, id) {
       if (this.cartItems[index].quantity > this.inventory[index]) {} else {
         this.cartItems[index].quantity += 1;
+        this.updateCartItem(id, index);
       }
     }
   }
@@ -44584,7 +44588,7 @@ var render = function () {
                                 attrs: { type: "button", id: "button-addon1" },
                                 on: {
                                   click: function ($event) {
-                                    return _vm.subtract(index)
+                                    return _vm.subtract(index, cart.item_id)
                                   },
                                 },
                               },
@@ -44633,7 +44637,7 @@ var render = function () {
                                 attrs: { type: "button", id: "button-addon1" },
                                 on: {
                                   click: function ($event) {
-                                    return _vm.add(index)
+                                    return _vm.add(index, cart.item_id)
                                   },
                                 },
                               },

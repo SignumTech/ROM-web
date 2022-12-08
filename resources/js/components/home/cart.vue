@@ -30,9 +30,9 @@
                         </div>
                         <div class="col-md-12 col-5">
                             <div class="input-group mb-3 mt-2 float-end">
-                                <button @click="subtract(index)" class="btn btn-outline-secondary btn-sm" type="button" id="button-addon1"><span class="fa fa-minus"></span></button>
+                                <button @click="subtract(index, cart.item_id)" class="btn btn-outline-secondary btn-sm" type="button" id="button-addon1"><span class="fa fa-minus"></span></button>
                                 <input disabled v-model="cart.quantity" type="text" :max="inventory[index]" :class="(cart.quantity > inventory[index])?`form-control text-center border-danger-inv border-2`:`form-control text-center`" placeholder=""  aria-describedby="button-addon1">
-                                <button @click="add(index)" class="btn btn-outline-secondary btn-sm" type="button" id="button-addon1"><span class="fa fa-plus"></span></button>
+                                <button @click="add(index, cart.item_id)" class="btn btn-outline-secondary btn-sm" type="button" id="button-addon1"><span class="fa fa-plus"></span></button>
                             </div>
                             <h6 v-if="invError">{{invEr[cart.p_id]['err']}}</h6> 
                         </div>
@@ -172,8 +172,9 @@ export default {
             })
             return sum;
         },
-        async updateCartItem(id){
-            await axios.put('/updateCartItem/'+id)
+        async updateCartItem(id, index){
+            var cartItem = this.cartItems[index]
+            await axios.put('/updateCartItem/'+id, cartItem)
             .then( response =>{
                 this.getCart()
             })
@@ -200,20 +201,22 @@ export default {
                 this.loading = false
             })
         },
-        subtract(index){
+        subtract(index,id){
             if( (this.cartItems[index].quantity - 1) < 1){
 
             }
             else{
-                this.cartItems[index].quantity -= 1 
+                this.cartItems[index].quantity -= 1
+                this.updateCartItem(id, index) 
             }
         },
-        add(index){
+        add(index,id){
             if(this.cartItems[index].quantity > this.inventory[index]){
 
             }
             else{
                 this.cartItems[index].quantity += 1
+                this.updateCartItem(id, index)
                 
             }
              

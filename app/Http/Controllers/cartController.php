@@ -137,7 +137,7 @@ class cartController extends Controller
                             ->join('product_colors', 'inventories.color_id', '=', 'product_colors.id')
                             ->join('product_images', 'product_colors.id', '=', 'product_images.color_id')
                             ->where('inventories.id', $item['inventory_id'])
-                            ->select('products.p_name', 'product_colors.color', 'sizes.size', 'products.price', 'product_images.p_image', 'products.promotion_status', 'inventories.p_id')
+                            ->select('products.p_name', 'product_colors.color', 'inventories.color_id', 'sizes.size', 'inventories.size_id', 'products.price', 'product_images.p_image', 'products.promotion_status', 'inventories.p_id')
                             ->first();
             $item_detail->quantity = $item['quantity'];
             $item_detail->item_id = $item['id'];
@@ -375,18 +375,21 @@ class cartController extends Controller
             "color_id" => "required",
             "size_id" => "required"
         ]);
-
+        
         $cartItem = CartItem::find($id);
-        $inventory = Inventory::where('p_id', $cartItem->p_id)
-                              ->where('color_id', $request->color_id)
-                              ->where('size_id', $request->size_id)
-                              ->first();
+        
+        $inventory = Inventory::find($cartItem->inventory_id);
+        
+        $newInv = Inventory::where('p_id', $inventory->p_id)
+                           ->where('color_id', $request->color_id)
+                           ->where('size_id', $request->size_id)
+                           ->first();
         if($inventory->quantity < $request->quantity){
             return response("Item quantity exceeds stock", 422);
         }
         else{
             $cartItem->quantity = $request->quantity;
-            $cartItem->inv_id = $inventory->id;
+            $cartItem->inventory_id = $newInv->id;
             $cartItem->save();
             return $cartItem;
         }
@@ -577,7 +580,7 @@ class cartController extends Controller
         $cart = Cart::where('user_id', auth()->user()->id)->first();
         if($cart){
             foreach($items as $item){
-                $inv = Inventory::where('p_id', $item->p_id)
+                $inv = Inventory::where('p_id', $item->product_id)
                                 ->where('size_id', $item->size_id)
                                 ->where('color_id', $item->color_id)
                                 ->first();
