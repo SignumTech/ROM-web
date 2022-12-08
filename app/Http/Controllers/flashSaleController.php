@@ -177,6 +177,9 @@ class flashSaleController extends Controller
                 $flashProducts = FlashDetail::join('products', 'flash_details.p_id', '=', 'products.id')
                                             ->join('flash_sells', 'flash_details.flash_id', '=', 'flash_sells.id')
                                             ->where('flash_details.flash_id', $fs->id)->get();
+                foreach($flashProducts as $product){
+                    $product->p_image = ProductImage::where('product_id', $product->p_id)->first()->p_image;
+                }
                 
                 return $flashProducts;
             }         
