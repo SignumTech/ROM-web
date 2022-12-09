@@ -118,6 +118,7 @@ export default {
     watch: {
         $route (to, from) {
             this.getSubCats()
+            this.getFeaturedItems()
         }
     }
 }

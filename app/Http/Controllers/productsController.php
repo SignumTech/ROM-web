@@ -381,11 +381,16 @@ class productsController extends Controller
     public function getFeatured($id){
         $data = [];
         $categories = Category::where('parent_id', $id)->get();
+        
         foreach($categories as $category){
             $products = Product::where('featured', 'FEATURED')
                           ->where('cat_id', $category->id)
                           ->get();
+            
             if(count($products)>0){
+                foreach($products as $product){
+                    $product->p_image = ProductImage::where('product_id', $product->id)->first()->p_image;
+                }
                 foreach($products as $product){
                     array_push($data,$product);
                 }

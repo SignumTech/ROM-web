@@ -8979,16 +8979,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       cart_id: "",
       btnLoading: false,
       invError: false,
-      invEr: {},
+      invEr: [],
       inventory: {}
     };
   },
   mounted: function mounted() {
     this.getCart();
     this.orderSummary();
+    this.getCartDetail();
   },
   methods: {
-    getInventory: function getInventory() {
+    getCartDetail: function getCartDetail() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
@@ -8997,10 +8998,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios.post('/itemsInventory', {
-                  items: _this.cartItems
-                }).then(function (response) {
-                  _this.inventory = response.data;
+                return axios.get('/getCartDetail').then(function (response) {
+                  _this.cart_id = response.data.id;
                 });
 
               case 2:
@@ -9011,36 +9010,59 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
-    deleteItem: function deleteItem(index) {
+    getInventory: function getInventory() {
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var check;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                check = confirm('Do you want to remove this item from your shopping bag?');
-
-                if (!check) {
-                  _context2.next = 4;
-                  break;
-                }
-
-                _context2.next = 4;
-                return axios.post('/deleteItem', {
-                  cartItems: _this2.cartItems,
-                  index: index
+                _context2.next = 2;
+                return axios.post('/itemsInventory', {
+                  items: _this2.cartItems
                 }).then(function (response) {
-                  _this2.getCart();
+                  _this2.inventory = response.data;
                 });
 
-              case 4:
+              case 2:
               case "end":
                 return _context2.stop();
             }
           }
         }, _callee2);
+      }))();
+    },
+    deleteItem: function deleteItem(index) {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        var check;
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                check = confirm('Do you want to remove this item from your shopping bag?');
+
+                if (!check) {
+                  _context3.next = 4;
+                  break;
+                }
+
+                _context3.next = 4;
+                return axios.post('/deleteItem', {
+                  cartItems: _this3.cartItems,
+                  index: index
+                }).then(function (response) {
+                  _this3.getCart();
+                });
+
+              case 4:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
       }))();
     },
     detailsModal: function detailsModal(id, index, toEdit) {
@@ -9056,56 +9078,55 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     },
     checkout: function checkout() {
-      var _this3 = this;
+      var _this4 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
-                if (_this3.$store.state.auth.authenticated) {
-                  _context3.next = 4;
+                if (_this4.$store.state.auth.authenticated) {
+                  _context4.next = 4;
                   break;
                 }
 
-                _this3.$modal.show(_signinModal_vue__WEBPACK_IMPORTED_MODULE_3__["default"], {}, {
+                _this4.$modal.show(_signinModal_vue__WEBPACK_IMPORTED_MODULE_3__["default"], {}, {
                   "width": "900px",
                   "height": "500px"
                 }, {});
 
-                _context3.next = 7;
+                _context4.next = 7;
                 break;
 
               case 4:
-                _this3.btnLoading = true;
-                _context3.next = 7;
-                return axios.put('/updateCart/' + _this3.cart_id, {
-                  items: _this3.cartItems
+                _this4.btnLoading = true;
+                _context4.next = 7;
+                return axios.put('/updateCart/' + _this4.cart_id, {
+                  items: _this4.cartItems
                 }).then(function (response) {
-                  _this3.$router.push({
+                  _this4.$router.push({
                     name: 'PlaceOrder',
                     params: {
-                      cart_id: response.data.id
+                      cart_id: _this4.cart_id
                     }
                   });
 
-                  _this3.btnLoading = false;
-                  _this3.invError = false;
+                  _this4.btnLoading = false;
+                  _this4.invError = false;
                 })["catch"](function (error) {
                   if (error.response.status == 422) {
-                    _this3.invEr = error.response.data;
-                    console.log(_this3.invEr[57]['err']);
-                    _this3.invError = true;
-                    _this3.btnLoading = false;
+                    _this4.invEr = error.response.data;
+                    _this4.invError = true;
+                    _this4.btnLoading = false;
                   }
                 });
 
               case 7:
               case "end":
-                return _context3.stop();
+                return _context4.stop();
             }
           }
-        }, _callee3);
+        }, _callee4);
       }))();
     },
     orderSummary: function orderSummary() {
@@ -9113,6 +9134,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.cartItems.forEach(function (cart) {
         if (cart.promotion_status == 'REGULAR') {
           sum += parseInt(cart.quantity) * parseFloat(cart.price);
+          console.log(parseFloat(cart.price));
         } else {
           sum += parseInt(cart.quantity) * parseFloat(cart.new_price);
         }
@@ -9134,57 +9156,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return sum;
     },
     updateCartItem: function updateCartItem(id, index) {
-      var _this4 = this;
+      var _this5 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
         var cartItem;
-        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context5.prev = _context5.next) {
               case 0:
-                cartItem = _this4.cartItems[index];
-                _context4.next = 3;
+                cartItem = _this5.cartItems[index];
+                _context5.next = 3;
                 return axios.put('/updateCartItem/' + id, cartItem).then(function (response) {
-                  _this4.getCart();
+                  _this5.getCart();
                 })["catch"](function (error) {
                   if (error.response.status == 422) {
                     console.log('test');
 
-                    _this4.$modal.show(_invErrorModal_vue__WEBPACK_IMPORTED_MODULE_2__["default"], {
+                    _this5.$modal.show(_invErrorModal_vue__WEBPACK_IMPORTED_MODULE_2__["default"], {
                       error: error.response
                     }, {
                       height: 'auto',
                       width: '400px'
                     }, {
-                      'closed': _this4.getCart
+                      'closed': _this5.getCart
                     });
                   }
-                });
-
-              case 3:
-              case "end":
-                return _context4.stop();
-            }
-          }
-        }, _callee4);
-      }))();
-    },
-    getCart: function getCart() {
-      var _this5 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
-        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
-          while (1) {
-            switch (_context5.prev = _context5.next) {
-              case 0:
-                _this5.loading = true;
-                _context5.next = 3;
-                return axios.post('/getCart').then(function (response) {
-                  _this5.cart_id = response.data.id;
-                  _this5.cartItems = response.data;
-                  _this5.loading = false; //this.getInventory()
-                })["catch"](function (response) {
-                  _this5.loading = false;
                 });
 
               case 3:
@@ -9193,6 +9189,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee5);
+      }))();
+    },
+    getCart: function getCart() {
+      var _this6 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                _this6.loading = true;
+                _context6.next = 3;
+                return axios.post('/getCart').then(function (response) {
+                  _this6.cartItems = response.data;
+                  _this6.loading = false; //this.getInventory()
+                })["catch"](function (response) {
+                  _this6.loading = false;
+                });
+
+              case 3:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6);
       }))();
     },
     subtract: function subtract(index, id) {
@@ -10774,12 +10795,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   components: {
     PulseLoader: vue_spinner_src_PulseLoader_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
-  props: ['cart_id'],
   data: function data() {
     return {
       btnLoading: false,
       loading: false,
-      c_id: this.cart_id,
       currentAddress: "",
       cartItems: [],
       paymentMethod: null,
@@ -10800,11 +10819,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   mounted: function mounted() {
+    this.getCartDetail();
     this.getCart();
     this.getAddressBook();
   },
   methods: {
-    makeDefault: function makeDefault(id) {
+    getCartDetail: function getCartDetail() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
@@ -10813,10 +10833,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios.get('/makeDefaultAddress/' + id).then(function (response) {
-                  _this.currentAddress = id;
-
-                  _this.getAddressBook();
+                return axios.get('/getCartDetail').then(function (response) {
+                  _this.cart_id = response.data.id;
                 });
 
               case 2:
@@ -10827,7 +10845,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
-    placeOrder: function placeOrder() {
+    makeDefault: function makeDefault(id) {
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
@@ -10835,37 +10853,60 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                if (!(_this2.paymentMethod == null)) {
-                  _context2.next = 4;
+                _context2.next = 2;
+                return axios.get('/makeDefaultAddress/' + id).then(function (response) {
+                  _this2.currentAddress = id;
+
+                  _this2.getAddressBook();
+                });
+
+              case 2:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    placeOrder: function placeOrder() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                if (!(_this3.paymentMethod == null)) {
+                  _context3.next = 4;
                   break;
                 }
 
-                _this2.paymentError = true;
-                _context2.next = 15;
+                _this3.paymentError = true;
+                _context3.next = 15;
                 break;
 
               case 4:
-                if (_this2.addressBookExists) {
-                  _context2.next = 8;
+                if (_this3.addressBookExists) {
+                  _context3.next = 8;
                   break;
                 }
 
-                _this2.addressError = true;
-                _context2.next = 15;
+                _this3.addressError = true;
+                _context3.next = 15;
                 break;
 
               case 8:
-                if (!(_this2.cartItems.length == 0)) {
-                  _context2.next = 12;
+                if (!(_this3.cartItems.length == 0)) {
+                  _context3.next = 12;
                   break;
                 }
 
-                _this2.cartItemsError = true;
-                _context2.next = 15;
+                _this3.cartItemsError = true;
+                _context3.next = 15;
                 break;
 
               case 12:
-                _this2.btnLoading = true; //await axios.post('/orders')
+                _this3.btnLoading = true; //await axios.post('/orders')
 
                 /*this.$router.push({name:'Pay', params:{
                     address:this.currentAddress,
@@ -10875,20 +10916,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }})
                 this.btnLoading = false*/
 
-                _context2.next = 15;
+                _context3.next = 15;
                 return axios.post('/pay', {
-                  amount: _this2.orderSummary(),
-                  address: _this2.currentAddress,
-                  cart_id: _this2.c_id,
-                  csrf: _this2.csrf
+                  amount: _this3.orderSummary(),
+                  address: _this3.currentAddress,
+                  cart_id: _this3.cart_id,
+                  csrf: _this3.csrf
                 }).then(function (response) {});
 
               case 15:
               case "end":
-                return _context2.stop();
+                return _context3.stop();
             }
           }
-        }, _callee2);
+        }, _callee3);
       }))();
     },
     addAddress: function addAddress() {
@@ -10910,42 +10951,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     },
     getAddressBook: function getAddressBook() {
-      var _this3 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                _this3.loading = true;
-                _context3.next = 3;
-                return axios.get('/addressBooks/' + _this3.$store.state.auth.user.id).then(function (response) {
-                  _this3.addressData = response.data;
-
-                  _this3.addressData.forEach(function (ad) {
-                    if (ad.type === 'DEFAULT') {
-                      _this3.currentAddress = ad.id;
-                    }
-                  });
-
-                  _this3.addressBookExists = true;
-                  _this3.loading = false;
-                })["catch"](function (error) {
-                  if (error.response.status == 422) {
-                    _this3.addressBookExists = false;
-                    _this3.loading = false;
-                  }
-                });
-
-              case 3:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3);
-      }))();
-    },
-    saveAddress: function saveAddress() {
       var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
@@ -10955,13 +10960,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _this4.loading = true;
                 _context4.next = 3;
-                return axios.post('/addressBooks', _this4.addressData).then(function (response) {
+                return axios.get('/addressBooks/' + _this4.$store.state.auth.user.id).then(function (response) {
                   _this4.addressData = response.data;
+
+                  _this4.addressData.forEach(function (ad) {
+                    if (ad.type === 'DEFAULT') {
+                      _this4.currentAddress = ad.id;
+                    }
+                  });
+
                   _this4.addressBookExists = true;
-
-                  _this4.getAddressBook();
-
                   _this4.loading = false;
+                })["catch"](function (error) {
+                  if (error.response.status == 422) {
+                    _this4.addressBookExists = false;
+                    _this4.loading = false;
+                  }
                 });
 
               case 3:
@@ -10972,7 +10986,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee4);
       }))();
     },
-    getCart: function getCart() {
+    saveAddress: function saveAddress() {
       var _this5 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
@@ -10980,18 +10994,45 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
-                _context5.next = 2;
-                return axios.post('/getCart').then(function (response) {
-                  _this5.c_id = response.data.id;
-                  _this5.cartItems = JSON.parse(response.data.items);
+                _this5.loading = true;
+                _context5.next = 3;
+                return axios.post('/addressBooks', _this5.addressData).then(function (response) {
+                  _this5.addressData = response.data;
+                  _this5.addressBookExists = true;
+
+                  _this5.getAddressBook();
+
+                  _this5.loading = false;
                 });
 
-              case 2:
+              case 3:
               case "end":
                 return _context5.stop();
             }
           }
         }, _callee5);
+      }))();
+    },
+    getCart: function getCart() {
+      var _this6 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                _context6.next = 2;
+                return axios.post('/getCart').then(function (response) {
+                  _this6.c_id = response.data.id;
+                  _this6.cartItems = response.data;
+                });
+
+              case 2:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6);
       }))();
     },
     orderSummary: function orderSummary() {
@@ -12958,6 +12999,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   watch: {
     $route: function $route(to, from) {
       this.getSubCats();
+      this.getFeaturedItems();
     }
   }
 });
@@ -44673,7 +44715,11 @@ var render = function () {
                         _vm._v(" "),
                         _vm.invError
                           ? _c("h6", [
-                              _vm._v(_vm._s(_vm.invEr[cart.p_id]["err"])),
+                              _vm.invEr[cart.p_id]["invError"]
+                                ? _c("span", { staticClass: "text-danger" }, [
+                                    _vm._v(_vm._s(_vm.invEr[cart.p_id]["err"])),
+                                  ])
+                                : _vm._e(),
                             ])
                           : _vm._e(),
                       ]),

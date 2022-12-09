@@ -118,12 +118,10 @@ export default {
     components:{
         PulseLoader
     },
-    props:['cart_id'],
     data(){
         return{
             btnLoading:false,
             loading:false,
-            c_id:this.cart_id,
             currentAddress:"",
             cartItems:[],
             paymentMethod:null,
@@ -145,11 +143,19 @@ export default {
         }
     },
     mounted(){
-        
+        this.getCartDetail()
         this.getCart()
         this.getAddressBook()
     },
     methods:{
+        async getCartDetail(){
+            await axios.get('/getCartDetail')
+            .then( response =>{
+                
+                this.cart_id = response.data.id
+               
+            })
+        },
         async makeDefault(id){
             await axios.get('/makeDefaultAddress/'+id)
             .then( response =>{
@@ -177,7 +183,7 @@ export default {
                     
                 }})
                 this.btnLoading = false*/
-                await axios.post('/pay', {amount:this.orderSummary(),address:this.currentAddress,cart_id:this.c_id,csrf:this.csrf})
+                await axios.post('/pay', {amount:this.orderSummary(),address:this.currentAddress,cart_id:this.cart_id,csrf:this.csrf})
                 .then( response =>{
                     
                 })
@@ -234,7 +240,7 @@ export default {
             await axios.post('/getCart')
             .then( response => {
                 this.c_id = response.data.id
-                this.cartItems = JSON.parse(response.data.items)
+                this.cartItems =response.data
             })
         },
         orderSummary(){

@@ -88,6 +88,7 @@ Route::post('/editCart', [cartController::class, 'editCart']);
 Route::post('/getCart', [cartController::class, 'getCartNew']);
 Route::put('/updateCart/{id}', [cartController::class, 'updateCart']);
 Route::post('/deleteItem', [cartController::class, 'deleteItem']);
+Route::middleware('auth:sanctum')->get('/getCartDetail', [cartController::class, 'getCartDetail']);
 Route::middleware('auth:sanctum')->put('/updateCartItem/{id}', [cartController::class, 'updateCartItem']);
 ///////////////////////////////////orders/////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getMyOrders', [ordersController::class, 'getMyOrders']);

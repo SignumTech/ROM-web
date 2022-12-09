@@ -34,7 +34,7 @@
                                 <input disabled v-model="cart.quantity" type="text" :max="inventory[index]" :class="(cart.quantity > inventory[index])?`form-control text-center border-danger-inv border-2`:`form-control text-center`" placeholder=""  aria-describedby="button-addon1">
                                 <button @click="add(index, cart.item_id)" class="btn btn-outline-secondary btn-sm" type="button" id="button-addon1"><span class="fa fa-plus"></span></button>
                             </div>
-                            <h6 v-if="invError">{{invEr[cart.p_id]['err']}}</h6> 
+                            <h6 v-if="invError"><span class="text-danger" v-if="invEr[cart.p_id]['invError']">{{invEr[cart.p_id]['err']}}</span></h6> 
                         </div>
                                                
                     </div>
@@ -80,15 +80,24 @@ export default {
             cart_id:"",
             btnLoading:false,
             invError:false,
-            invEr:{},
+            invEr:[],
             inventory:{}
         }
     },
     mounted(){
         this.getCart()
         this.orderSummary()
+        this.getCartDetail()
     },
     methods:{
+        async getCartDetail(){
+            await axios.get('/getCartDetail')
+            .then( response =>{
+                
+                this.cart_id = response.data.id
+               
+            })
+        },
         async getInventory(){
             await axios.post('/itemsInventory', {items:this.cartItems})
             .then( response =>{
@@ -127,7 +136,7 @@ export default {
                 await axios.put('/updateCart/'+this.cart_id, {items:this.cartItems})
                 .then( response =>{
                     this.$router.push({name:'PlaceOrder', params:{
-                        cart_id:response.data.id
+                        cart_id:this.cart_id
                     }})
                     this.btnLoading = false
                     this.invError = false
@@ -136,7 +145,6 @@ export default {
                     if(error.response.status == 422){
                         
                         this.invEr = error.response.data
-                        console.log(this.invEr[57]['err'])
                         this.invError = true
                         this.btnLoading = false
                     }
@@ -149,6 +157,7 @@ export default {
             this.cartItems.forEach(function(cart){
                 if(cart.promotion_status == 'REGULAR'){
                     sum += (parseInt(cart.quantity) * parseFloat(cart.price));
+                    console.log(parseFloat(cart.price))
                 }
                 else{
                     sum += (parseInt(cart.quantity) * parseFloat(cart.new_price))
@@ -196,7 +205,6 @@ export default {
             this.loading = true
             await axios.post('/getCart')
             .then( response => {
-                this.cart_id = response.data.id
                 this.cartItems = response.data
                 this.loading = false
                 //this.getInventory()
@@ -211,7 +219,7 @@ export default {
             }
             else{
                 this.cartItems[index].quantity -= 1
-                this.updateCartItem(id, index) 
+                this.updateCartItem(id, index)
             }
         },
         add(index,id){

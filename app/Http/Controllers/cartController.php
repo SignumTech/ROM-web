@@ -12,6 +12,9 @@ use App\Models\FlashSell;
 use App\Models\FlashDetail;
 class cartController extends Controller
 {
+    public function getCartDetail(){
+        return Cart::where('user_id', auth()->user()->id)->first();
+    }
     public function addToCartNew(Request $request){
         $this->validate( $request, [
             "product_id" => "required",
@@ -448,28 +451,47 @@ class cartController extends Controller
         $this->validate($request, [
             "items" => "required"
         ]);
-
+        $cart = Cart::find($id);
         $invData = [];
+        $errCount = 0;
         $items = $request->items;
         
         foreach($items as $item){
-            $invCheck = Inventory::where('p_id', $item['p_id'])
-                                 ->where('color', $item['color'])
-                                 ->where('size', $item['size'])
-                                 ->first();
-            if($invCheck->quantity < $item['quantity']){
-                $invData[$item['p_id']]['err'] = 'Only '.$invCheck->quantity.' are available';
+            $cartItem = CartItem::find($item['item_id']);
+        
+            $inventory = Inventory::find($cartItem->inventory_id);
+            
+            $newInv = Inventory::where('p_id', $item['p_id'])
+                            ->where('color_id', $item['color_id'])
+                            ->where('size_id', $item['size_id'])
+                            ->first();
+            if($inventory->quantity < $item['quantity']){
+                $invData[$item['p_id']]['err'] = 'Only '.$inventory->quantity.' are available';
                 $invData[$item['p_id']]['invError'] = true;
+                $errCount++;
+            }
+            else{
+                $invData[$item['p_id']]['invError'] = false;
             }
         }
 
-        if(count($invData) > 0){
+        if($errCount > 0){
             return response($invData, 422);
         }
         else{
-            $cart = Cart::find($id);
-            $cart->items = json_encode($request->items);
-            $cart->save();
+            foreach($items as $item){
+                $cartItem = CartItem::find($item['item_id']);
+        
+                $inventory = Inventory::find($cartItem->inventory_id);
+                
+                $newInv = Inventory::where('p_id', $item['p_id'])
+                                ->where('color_id', $item['color_id'])
+                                ->where('size_id', $item['size_id'])
+                                ->first();
+                $cartItem->quantity = $item['quantity'];
+                $cartItem->inventory_id = $newInv->id;
+                $cartItem->save();
+            }
 
             return $cart;            
         }
