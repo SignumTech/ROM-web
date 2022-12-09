@@ -67,6 +67,7 @@ Route::get('/showSubCategories/{id}', [categoriesController::class, 'showSubCate
 Route::middleware('auth:sanctum')->get('/getMobCart', [cartController::class, 'getMobCartNew']);
 Route::middleware('auth:sanctum')->put('/updateMobCart/{id}', [cartController::class, 'updateMobCart']);
 Route::middleware('auth:sanctum')->post('/syncCart', [cartController::class, 'syncCart']);
+Route::middleware('auth:sanctum')->post('/addToCart', [cartController::class, 'addToCartNew']);
 /////////////////////////////////auth//////////////////////////////////////////////////////////////////
 Route::post('/getUserToken', [getTokenController::class, 'getUserToken']);
 Route::post('/registerUser', [registerUsersController::class, 'registerUser']);
