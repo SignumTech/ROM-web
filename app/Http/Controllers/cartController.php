@@ -466,12 +466,12 @@ class cartController extends Controller
                             ->where('size_id', $item['size_id'])
                             ->first();
             if($inventory->quantity < $item['quantity']){
-                $invData[$item['p_id']]['err'] = 'Only '.$inventory->quantity.' are available';
-                $invData[$item['p_id']]['invError'] = true;
+                $invData[$item['item_id']]['err'] = 'Only '.$inventory->quantity.' are available';
+                $invData[$item['item_id']]['invError'] = true;
                 $errCount++;
             }
             else{
-                $invData[$item['p_id']]['invError'] = false;
+                $invData[$item['item_id']]['invError'] = false;
             }
         }
 
