@@ -503,7 +503,7 @@ class cartController extends Controller
             "items" => "required"
         ]);
 
-        $request->items = json_decode($request->items);
+        $request->items = collect(json_decode($request->items))->toArray();
         $this->updateCart($request, $id);
         
 
