@@ -34,7 +34,7 @@
                                 <input disabled v-model="cart.quantity" type="text" :max="inventory[index]" :class="(cart.quantity > inventory[index])?`form-control text-center border-danger-inv border-2`:`form-control text-center`" placeholder=""  aria-describedby="button-addon1">
                                 <button @click="add(index, cart.item_id)" class="btn btn-outline-secondary btn-sm" type="button" id="button-addon1"><span class="fa fa-plus"></span></button>
                             </div>
-                            <h6 v-if="invError"><span class="text-danger" v-if="invEr[cart.p_id]['invError']">{{invEr[cart.p_id]['err']}}</span></h6> 
+                            <h6 v-if="invError"><span class="text-danger" v-if="invEr[cart.item_id]['invError']">{{invEr[cart.item_id]['err']}}</span></h6> 
                         </div>
                                                
                     </div>

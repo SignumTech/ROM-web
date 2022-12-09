@@ -44715,9 +44715,11 @@ var render = function () {
                         _vm._v(" "),
                         _vm.invError
                           ? _c("h6", [
-                              _vm.invEr[cart.p_id]["invError"]
+                              _vm.invEr[cart.item_id]["invError"]
                                 ? _c("span", { staticClass: "text-danger" }, [
-                                    _vm._v(_vm._s(_vm.invEr[cart.p_id]["err"])),
+                                    _vm._v(
+                                      _vm._s(_vm.invEr[cart.item_id]["err"])
+                                    ),
                                   ])
                                 : _vm._e(),
                             ])
