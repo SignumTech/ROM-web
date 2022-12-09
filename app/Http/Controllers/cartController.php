@@ -455,7 +455,7 @@ class cartController extends Controller
         $invData = [];
         $errCount = 0;
         $items = $request->items;
-        
+        var_dump($items);
         foreach($items as $item){
             $cartItem = CartItem::find($item['item_id']);
         
@@ -503,7 +503,7 @@ class cartController extends Controller
             "items" => "required"
         ]);
 
-        $request->items = collect(json_decode($request->items))->toArray();
+        $request->items = json_decode($request->items);
         $this->updateCart($request, $id);
         
 
