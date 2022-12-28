@@ -30,7 +30,7 @@ export default {
         async repurchaseOrder(){
             await axios.post('/repurchaseOrder', {order_id:this.order_id})
             .then( response =>{
-                this.$store.state.cart = JSON.parse(response.data.items)
+                this.$store.state.cart = response.data
                 this.repurchased = true
             })
         }

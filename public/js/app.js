@@ -9033,31 +9033,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2);
       }))();
     },
-    deleteItem: function deleteItem(index) {
+    deleteItem: function deleteItem(id) {
       var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-        var check;
         return _regeneratorRuntime().wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                check = confirm('Do you want to remove this item from your shopping bag?');
-
-                if (!check) {
-                  _context3.next = 4;
+                if (!confirm('Do you want to remove this item from your shopping bag?')) {
+                  _context3.next = 3;
                   break;
                 }
 
-                _context3.next = 4;
-                return axios.post('/deleteItem', {
-                  cartItems: _this3.cartItems,
-                  index: index
-                }).then(function (response) {
+                _context3.next = 3;
+                return axios["delete"]('/deleteItem/' + id).then(function (response) {
                   _this3.getCart();
                 });
 
-              case 4:
+              case 3:
               case "end":
                 return _context3.stop();
             }
@@ -14293,7 +14287,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return axios.post('/repurchaseOrder', {
                   order_id: _this.order_id
                 }).then(function (response) {
-                  _this.$store.state.cart = JSON.parse(response.data.items);
+                  _this.$store.state.cart = response.data;
                   _this.repurchased = true;
                 });
 
@@ -44731,7 +44725,7 @@ var render = function () {
                           staticClass: "fa fa-trash-alt",
                           on: {
                             click: function ($event) {
-                              return _vm.deleteItem(index)
+                              return _vm.deleteItem(cart.item_id)
                             },
                           },
                         }),

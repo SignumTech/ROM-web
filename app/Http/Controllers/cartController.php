@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Cart;
 use App\Models\CartItem;
+use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\Inventory;
 use App\Models\FlashSell;
@@ -541,25 +542,16 @@ class cartController extends Controller
 
     }
 
-    public function deleteItem(Request $request){
-        $this->validate($request, [
-            "index" => "required"
-        ]);
+    public function deleteItem($id){
         
         if (Auth::check()){
-            $cart = Cart::where('user_id', auth()->user()->id)
-                            ->where('cart_status', 'ACTIVE')
-                            ->first();
-            $cart_items = json_decode($cart->items);
-            
-            array_splice($cart_items, $request->index, 1);
-            $cart->items = json_encode($cart_items);
-            $cart->save();
-            return $cart;
+            $cart_item = CartItem::find($id);
+            $cart_item->delete();
+            return $cart_item;
         }
         else{
             $cartData = json_decode($request->session()->get('cart'));
-            array_splice($cartData, $request->index, 1);
+            array_splice($cartData, $id, 1);
 
             $request->session()->put('cart', json_encode($cartData));
             $data = [];
@@ -680,5 +672,40 @@ class cartController extends Controller
         return CartItem::where('cart_id', $cart->id)->get();
     }
 
+    public function repurchaseOrder(Request $request){
+        $this->validate($request, [
+            "order_id" => "required"
+        ]);
+        //$order = Order::find($request->order_id);
+        $orderItems = OrderItem::where('order_id', $request->order_id)
+                               ->get();
+        $cart = Cart::where('user_id', auth()->user()->id)
+                    ->where('cart_status', 'ACTIVE')
+                    ->first();
+        if(!$cart){
+            $cart = new Cart;
+            $cart->user_id = auth()->user()->id;
+            $cart->save();
+        }
+
+        foreach($orderItems as $item){
+            $cartItem = CartItem::where('cart_id', $cart->id)
+                                ->where('inventory_id', $item->inventory_id)
+                                ->first();
+            if($cartItem){
+                $cartItem->quantity += $item->quantity;
+                $cartItem->save();
+            }
+            else{
+                $cartItem = new CartItem;
+                $cartItem->cart_id = $cart->id;
+                $cartItem->inventory_id = $item->inventory_id;
+                $cartItem->quantity = $item->quantity;
+                $cartItem->save();
+            }
+        }
+
+        return $this->getCartNew($request);
+    }
 
 }

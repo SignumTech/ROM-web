@@ -175,6 +175,7 @@ class ordersController extends Controller
         return $orders;
     }
 
+
     public function repurchaseOrder(Request $request){
         $this->validate($request, [
             "order_id" => "required"

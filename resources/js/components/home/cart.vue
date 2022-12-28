@@ -43,7 +43,7 @@
                     <div class="row mt-md-1">
                         <div class="col-md-12 mt-4">
                             <span class="fa fa-heart me-3"></span>
-                            <span @click="deleteItem(index)" class="fa fa-trash-alt"></span>
+                            <span @click="deleteItem(cart.item_id)" class="fa fa-trash-alt"></span>
                         </div>
                     </div>
                 </div>
@@ -104,10 +104,9 @@ export default {
                 this.inventory = response.data
             })
         },
-        async deleteItem(index){
-            var check = confirm('Do you want to remove this item from your shopping bag?')
-            if(check){
-                await axios.post('/deleteItem', {cartItems:this.cartItems, index:index})
+        async deleteItem(id){
+            if(confirm('Do you want to remove this item from your shopping bag?')){
+                await axios.delete('/deleteItem/'+id)
                 .then(response =>{
                     this.getCart()
                 })

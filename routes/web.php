@@ -87,14 +87,14 @@ Route::post('/addToCart', [cartController::class, 'addToCartNew']);
 Route::post('/editCart', [cartController::class, 'editCart']);
 Route::post('/getCart', [cartController::class, 'getCartNew']);
 Route::put('/updateCart/{id}', [cartController::class, 'updateCart']);
-Route::post('/deleteItem', [cartController::class, 'deleteItem']);
+Route::delete('/deleteItem/{id}', [cartController::class, 'deleteItem']);
 Route::middleware('auth:sanctum')->get('/getCartDetail', [cartController::class, 'getCartDetail']);
 Route::middleware('auth:sanctum')->put('/updateCartItem/{id}', [cartController::class, 'updateCartItem']);
 Route::post('/updateColorSize', [cartController::class, 'updateColorSize']);
 ///////////////////////////////////orders/////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getMyOrders', [ordersController::class, 'getMyOrders']);
 Route::middleware('auth:sanctum')->get('/getMyOrdersStatus/{status}', [ordersController::class, 'getMyOrdersStatus']);
-Route::middleware('auth:sanctum')->post('/repurchaseOrder', [ordersController::class, 'repurchaseOrder']);
+Route::middleware('auth:sanctum')->post('/repurchaseOrder', [cartController::class, 'repurchaseOrder']);
 ///////////////////////////////////products/////////////////////////////////////////////////////////
 Route::post('/filterData', [productsController::class, 'filterData']);
 Route::get('/getProductsList', [productsController::class, 'getProductsList']);
