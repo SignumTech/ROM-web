@@ -12100,13 +12100,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
-    return {
-      mainPic: JSON.parse(this.item.p_image)['main']
-    };
+    return {};
   },
   props: ['item'],
   mounted: function mounted() {
@@ -48538,7 +48540,7 @@ var render = function () {
   return _c(
     "div",
     {
-      staticClass: "row m-0 show-add-btn",
+      staticClass: "row show-add-btn",
       on: {
         mouseover: function ($event) {
           return _vm.slideShow()
@@ -48549,14 +48551,32 @@ var render = function () {
       },
     },
     [
-      _c("div", { staticClass: "col-12 text-center" }, [
+      _c(
+        "div",
+        {
+          staticClass: "col-12 text-center mob_display",
+          on: {
+            click: function ($event) {
+              return _vm.mobileDetailsModal(_vm.item.id)
+            },
+          },
+        },
+        [
+          _c("img", {
+            staticClass: "img img-fluid",
+            attrs: { src: "/storage/products/" + _vm.item.p_image, alt: "" },
+          }),
+        ]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-12 text-center mob_hide" }, [
         _c("img", {
           staticClass: "img img-fluid",
-          attrs: { src: "/storage/products/" + _vm.mainPic, alt: "" },
+          attrs: { src: "/storage/products/" + _vm.item.p_image, alt: "" },
         }),
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-12 text-center" }, [
+      _c("div", { staticClass: "col-md-12 text-center mob_hide" }, [
         _c("span", { staticClass: "add-cart" }, [
           _c(
             "button",

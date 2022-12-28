@@ -1,9 +1,13 @@
 <template>
-<div @mouseover="slideShow()" @mouseleave="backToStatic()" class="row m-0 show-add-btn">
-    <div class="col-12  text-center">
-        <img class="img img-fluid" :src="`/storage/products/`+mainPic" alt="">
+<div @mouseover="slideShow()" @mouseleave="backToStatic()" class="row show-add-btn">
+    <div @click="mobileDetailsModal(item.id)" class="col-12  text-center mob_display">
+        <img class="img img-fluid " :src="`/storage/products/`+item.p_image" alt="">
+        
     </div>
-    <div class="col-md-12 text-center">
+    <div  class="col-12  text-center mob_hide">
+        <img class="img img-fluid " :src="`/storage/products/`+item.p_image" alt="">
+    </div>
+    <div class="col-md-12 text-center mob_hide">
         <span class="add-cart">
             <button @click="detailsModal(item.id)" class="btn btn-light rounded-1 ps-4 pe-4 shadow"><strong>ADD TO BAG</strong></button>
         </span>
@@ -25,7 +29,7 @@ import productDetailsModal from './productDetailsModal.vue';
 export default {
     data(){
         return{
-            mainPic:JSON.parse(this.item.p_image)['main']
+            
         }
     },
     props:['item'],

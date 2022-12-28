@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Wishlist;
+use App\Models\ProductImage;
 
 class wishlistController extends Controller
 {
@@ -17,10 +18,13 @@ class wishlistController extends Controller
     }
 
     public function getMyWishlist(){
-        $wishlist = Wishlist::join('products', 'wishlists.p_id', '=', 'products.id')
+        $wishlists = Wishlist::join('products', 'wishlists.p_id', '=', 'products.id')
                             ->where('user_id', auth()->user()->id)
                             ->get();
-        return $wishlist;
+        foreach($wishlists as $wishlist){
+            $wishlist->p_image = ProductImage::where('product_id', $wishlist->id)->first()->p_image;
+        }
+        return $wishlists;
     }
 
     public function removeFromWishlist($id){
