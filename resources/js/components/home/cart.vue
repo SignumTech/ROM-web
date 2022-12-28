@@ -132,7 +132,11 @@ export default {
             }
             else{
                 this.btnLoading = true
-                await axios.put('/updateCart/'+this.cart_id, {items:this.cartItems})
+                this.$router.push({name:'PlaceOrder', params:{
+                        cart_id:this.cart_id,
+                        total:this.orderSummary()
+                    }})
+                /*await axios.put('/updateCart/'+this.cart_id, {items:this.cartItems})
                 .then( response =>{
                     this.$router.push({name:'PlaceOrder', params:{
                         cart_id:this.cart_id
@@ -148,7 +152,7 @@ export default {
                         this.btnLoading = false
                     }
                     
-                })
+                })*/
             }
         },
         orderSummary(){

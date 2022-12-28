@@ -74,8 +74,8 @@
         <form method="POST" action="/pay" id="paymentForm">
             <input type="hidden" name="_token" :value="csrf">
             <input type="hidden" name="address" :value="currentAddress">
-            <input type="hidden" name="amount" :value="orderSummary()">
-            <input type="hidden" name="cart_id" :value="c_id">
+            <input type="hidden" name="amount" :value="total">
+            <input type="hidden" name="cart_id" :value="cart_id">
             <div class="bg-white rounded-1 p-3 shadow-sm">
                 <h5><strong>
                     Payment Options
@@ -98,7 +98,7 @@
             </div>
             <div class="bg-white rounded-1 p-3 shadow-sm mt-3">
                 <h4 class="m-0"><strong>Order Summary</strong></h4>
-                <h6 class="mt-4">Subtotal <span class="float-end fs-3"><strong>{{orderSummary() | numFormat}} ETB</strong></span></h6>
+                <h6 class="mt-4">Subtotal <span class="float-end fs-3"><strong>{{this.total | numFormat}} ETB</strong></span></h6>
             </div>
             <div v-if="btnLoading" class="d-flex justify-content-center mt-3 align-self-center">
                 <pulse-loader :color="`#BF7F25`" :size="`15px`"></pulse-loader> 
@@ -115,6 +115,7 @@ import editAddressModalVue from './editAddressModal.vue'
 
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 export default {
+    props:['cart_id', 'total'],
     components:{
         PulseLoader
     },
@@ -143,19 +144,9 @@ export default {
         }
     },
     mounted(){
-        this.getCartDetail()
-        this.getCart()
         this.getAddressBook()
     },
     methods:{
-        async getCartDetail(){
-            await axios.get('/getCartDetail')
-            .then( response =>{
-                
-                this.cart_id = response.data.id
-               
-            })
-        },
         async makeDefault(id){
             await axios.get('/makeDefaultAddress/'+id)
             .then( response =>{
@@ -183,7 +174,7 @@ export default {
                     
                 }})
                 this.btnLoading = false*/
-                await axios.post('/pay', {amount:this.orderSummary(),address:this.currentAddress,cart_id:this.cart_id,csrf:this.csrf})
+                await axios.post('/pay', {amount:this.total,address:this.currentAddress,cart_id:this.cart_id,csrf:this.csrf})
                 .then( response =>{
                     
                 })
@@ -236,26 +227,6 @@ export default {
                 this.loading = false
             })
         },
-        async getCart(){
-            await axios.post('/getCart')
-            .then( response => {
-                this.c_id = response.data.id
-                this.cartItems =response.data
-            })
-        },
-        orderSummary(){
-            var sum = 0;
-            this.cartItems.forEach(function(cart){
-                if(cart.promotion_status == 'REGULAR'){
-                    sum += (cart.quantity * cart.price);
-                }
-                else{
-                    sum += (cart.quantity * cart.new_price)
-                }
-                
-            })
-            return sum
-        }
     }
 }
 </script>

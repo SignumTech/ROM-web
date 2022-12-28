@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Inventory;
 use App\Models\Cart;
+use App\Models\CartItem;
+use App\Models\OrderItem;
 use DB;
 class ChapaController extends Controller
 {
@@ -33,13 +35,11 @@ class ChapaController extends Controller
         try{
             DB::beginTransaction();
             $cart = Cart::find($request->cart_id);
-            $items = json_decode($cart->items);
+            $items = CartItem::where('cart_id', $request->cart_id)->get();
             //////////update inventory//////////////////////
             foreach($items as $item){
-                $inventory = Inventory::where('p_id', $item->p_id)
-                                    ->where('size', $item->size)
-                                    ->where('color', $item->color)
-                                    ->lockForUpdate()->first();
+                $inventory = Inventory::lockForUpdate()->find($item->inventory_id);
+                                    
                 if($inventory->quantity < $item->quantity){
                     return response("Some of the items have been sold out", 422);
                 }
@@ -52,7 +52,6 @@ class ChapaController extends Controller
             
             ////////////////////////////////////////////////
             $order = new Order;
-            $order->items = json_encode($items);
 
             $latestOrder = Order::orderBy('created_at','DESC')->first();
             if($latestOrder){
@@ -67,6 +66,14 @@ class ChapaController extends Controller
             $order->user_id = auth()->user()->id;
             $order->delivery_details = $request->address;
             $order->save();
+
+            foreach($items as $item){
+                $orderItem = new OrderItem;
+                $orderItem->order_id = $order->id;
+                $orderItem->inventory_id = $item->inventory_id;
+                $orderItem->quantity = $item->quantity;
+                $orderItem->save();
+            }
 
             $cart->delete();
             DB::commit();

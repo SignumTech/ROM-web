@@ -9076,43 +9076,42 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                if (_this4.$store.state.auth.authenticated) {
-                  _context4.next = 4;
-                  break;
-                }
+                if (!_this4.$store.state.auth.authenticated) {
+                  _this4.$modal.show(_signinModal_vue__WEBPACK_IMPORTED_MODULE_3__["default"], {}, {
+                    "width": "900px",
+                    "height": "500px"
+                  }, {});
+                } else {
+                  _this4.btnLoading = true;
 
-                _this4.$modal.show(_signinModal_vue__WEBPACK_IMPORTED_MODULE_3__["default"], {}, {
-                  "width": "900px",
-                  "height": "500px"
-                }, {});
-
-                _context4.next = 7;
-                break;
-
-              case 4:
-                _this4.btnLoading = true;
-                _context4.next = 7;
-                return axios.put('/updateCart/' + _this4.cart_id, {
-                  items: _this4.cartItems
-                }).then(function (response) {
                   _this4.$router.push({
                     name: 'PlaceOrder',
                     params: {
-                      cart_id: _this4.cart_id
+                      cart_id: _this4.cart_id,
+                      total: _this4.orderSummary()
                     }
                   });
+                  /*await axios.put('/updateCart/'+this.cart_id, {items:this.cartItems})
+                  .then( response =>{
+                      this.$router.push({name:'PlaceOrder', params:{
+                          cart_id:this.cart_id
+                      }})
+                      this.btnLoading = false
+                      this.invError = false
+                  })
+                  .catch( error =>{
+                      if(error.response.status == 422){
+                          
+                          this.invEr = error.response.data
+                          this.invError = true
+                          this.btnLoading = false
+                      }
+                      
+                  })*/
 
-                  _this4.btnLoading = false;
-                  _this4.invError = false;
-                })["catch"](function (error) {
-                  if (error.response.status == 422) {
-                    _this4.invEr = error.response.data;
-                    _this4.invError = true;
-                    _this4.btnLoading = false;
-                  }
-                });
+                }
 
-              case 7:
+              case 1:
               case "end":
                 return _context4.stop();
             }
@@ -10790,6 +10789,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['cart_id', 'total'],
   components: {
     PulseLoader: vue_spinner_src_PulseLoader_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
@@ -10817,12 +10817,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   mounted: function mounted() {
-    this.getCartDetail();
-    this.getCart();
     this.getAddressBook();
   },
   methods: {
-    getCartDetail: function getCartDetail() {
+    makeDefault: function makeDefault(id) {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
@@ -10831,8 +10829,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios.get('/getCartDetail').then(function (response) {
-                  _this.cart_id = response.data.id;
+                return axios.get('/makeDefaultAddress/' + id).then(function (response) {
+                  _this.currentAddress = id;
+
+                  _this.getAddressBook();
                 });
 
               case 2:
@@ -10843,7 +10843,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
-    makeDefault: function makeDefault(id) {
+    placeOrder: function placeOrder() {
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
@@ -10851,60 +10851,37 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.next = 2;
-                return axios.get('/makeDefaultAddress/' + id).then(function (response) {
-                  _this2.currentAddress = id;
-
-                  _this2.getAddressBook();
-                });
-
-              case 2:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
-      }))();
-    },
-    placeOrder: function placeOrder() {
-      var _this3 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                if (!(_this3.paymentMethod == null)) {
-                  _context3.next = 4;
+                if (!(_this2.paymentMethod == null)) {
+                  _context2.next = 4;
                   break;
                 }
 
-                _this3.paymentError = true;
-                _context3.next = 15;
+                _this2.paymentError = true;
+                _context2.next = 15;
                 break;
 
               case 4:
-                if (_this3.addressBookExists) {
-                  _context3.next = 8;
+                if (_this2.addressBookExists) {
+                  _context2.next = 8;
                   break;
                 }
 
-                _this3.addressError = true;
-                _context3.next = 15;
+                _this2.addressError = true;
+                _context2.next = 15;
                 break;
 
               case 8:
-                if (!(_this3.cartItems.length == 0)) {
-                  _context3.next = 12;
+                if (!(_this2.cartItems.length == 0)) {
+                  _context2.next = 12;
                   break;
                 }
 
-                _this3.cartItemsError = true;
-                _context3.next = 15;
+                _this2.cartItemsError = true;
+                _context2.next = 15;
                 break;
 
               case 12:
-                _this3.btnLoading = true; //await axios.post('/orders')
+                _this2.btnLoading = true; //await axios.post('/orders')
 
                 /*this.$router.push({name:'Pay', params:{
                     address:this.currentAddress,
@@ -10914,20 +10891,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }})
                 this.btnLoading = false*/
 
-                _context3.next = 15;
+                _context2.next = 15;
                 return axios.post('/pay', {
-                  amount: _this3.orderSummary(),
-                  address: _this3.currentAddress,
-                  cart_id: _this3.cart_id,
-                  csrf: _this3.csrf
+                  amount: _this2.total,
+                  address: _this2.currentAddress,
+                  cart_id: _this2.cart_id,
+                  csrf: _this2.csrf
                 }).then(function (response) {});
 
               case 15:
               case "end":
-                return _context3.stop();
+                return _context2.stop();
             }
           }
-        }, _callee3);
+        }, _callee2);
       }))();
     },
     addAddress: function addAddress() {
@@ -10949,6 +10926,42 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     },
     getAddressBook: function getAddressBook() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _this3.loading = true;
+                _context3.next = 3;
+                return axios.get('/addressBooks/' + _this3.$store.state.auth.user.id).then(function (response) {
+                  _this3.addressData = response.data;
+
+                  _this3.addressData.forEach(function (ad) {
+                    if (ad.type === 'DEFAULT') {
+                      _this3.currentAddress = ad.id;
+                    }
+                  });
+
+                  _this3.addressBookExists = true;
+                  _this3.loading = false;
+                })["catch"](function (error) {
+                  if (error.response.status == 422) {
+                    _this3.addressBookExists = false;
+                    _this3.loading = false;
+                  }
+                });
+
+              case 3:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    saveAddress: function saveAddress() {
       var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
@@ -10958,22 +10971,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _this4.loading = true;
                 _context4.next = 3;
-                return axios.get('/addressBooks/' + _this4.$store.state.auth.user.id).then(function (response) {
+                return axios.post('/addressBooks', _this4.addressData).then(function (response) {
                   _this4.addressData = response.data;
-
-                  _this4.addressData.forEach(function (ad) {
-                    if (ad.type === 'DEFAULT') {
-                      _this4.currentAddress = ad.id;
-                    }
-                  });
-
                   _this4.addressBookExists = true;
+
+                  _this4.getAddressBook();
+
                   _this4.loading = false;
-                })["catch"](function (error) {
-                  if (error.response.status == 422) {
-                    _this4.addressBookExists = false;
-                    _this4.loading = false;
-                  }
                 });
 
               case 3:
@@ -10983,66 +10987,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee4);
       }))();
-    },
-    saveAddress: function saveAddress() {
-      var _this5 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
-        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
-          while (1) {
-            switch (_context5.prev = _context5.next) {
-              case 0:
-                _this5.loading = true;
-                _context5.next = 3;
-                return axios.post('/addressBooks', _this5.addressData).then(function (response) {
-                  _this5.addressData = response.data;
-                  _this5.addressBookExists = true;
-
-                  _this5.getAddressBook();
-
-                  _this5.loading = false;
-                });
-
-              case 3:
-              case "end":
-                return _context5.stop();
-            }
-          }
-        }, _callee5);
-      }))();
-    },
-    getCart: function getCart() {
-      var _this6 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
-        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
-          while (1) {
-            switch (_context6.prev = _context6.next) {
-              case 0:
-                _context6.next = 2;
-                return axios.post('/getCart').then(function (response) {
-                  _this6.c_id = response.data.id;
-                  _this6.cartItems = response.data;
-                });
-
-              case 2:
-              case "end":
-                return _context6.stop();
-            }
-          }
-        }, _callee6);
-      }))();
-    },
-    orderSummary: function orderSummary() {
-      var sum = 0;
-      this.cartItems.forEach(function (cart) {
-        if (cart.promotion_status == 'REGULAR') {
-          sum += cart.quantity * cart.price;
-        } else {
-          sum += cart.quantity * cart.new_price;
-        }
-      });
-      return sum;
     }
   }
 });
@@ -47057,12 +47001,12 @@ var render = function () {
           _vm._v(" "),
           _c("input", {
             attrs: { type: "hidden", name: "amount" },
-            domProps: { value: _vm.orderSummary() },
+            domProps: { value: _vm.total },
           }),
           _vm._v(" "),
           _c("input", {
             attrs: { type: "hidden", name: "cart_id" },
-            domProps: { value: _vm.c_id },
+            domProps: { value: _vm.cart_id },
           }),
           _vm._v(" "),
           _c("div", { staticClass: "bg-white rounded-1 p-3 shadow-sm" }, [
@@ -47144,9 +47088,7 @@ var render = function () {
               _vm._v("Subtotal "),
               _c("span", { staticClass: "float-end fs-3" }, [
                 _c("strong", [
-                  _vm._v(
-                    _vm._s(_vm._f("numFormat")(_vm.orderSummary())) + " ETB"
-                  ),
+                  _vm._v(_vm._s(_vm._f("numFormat")(this.total)) + " ETB"),
                 ]),
               ]),
             ]),
