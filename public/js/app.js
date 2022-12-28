@@ -7638,7 +7638,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -42403,8 +42402,13 @@ var render = function () {
                           _c(
                             "ul",
                             {
-                              staticClass: "dropdown-menu",
-                              staticStyle: { width: "400px" },
+                              staticClass: "dropdown-menu rounded-1",
+                              staticStyle: {
+                                "max-height": "500px",
+                                "min-width": "400px",
+                                "overflow-y": "auto",
+                                "overflow-x": "hidden",
+                              },
                               attrs: { "aria-labelledby": "navbarDropdown" },
                             },
                             [
@@ -42436,7 +42440,6 @@ var render = function () {
                                         ]),
                                         _vm._v(" "),
                                         _c("p", { staticClass: "m-0" }, [
-                                          _vm._v("Color - "),
                                           _c(
                                             "span",
                                             {
@@ -42447,10 +42450,7 @@ var render = function () {
                                             },
                                             [_vm._v(_vm._s(cart.color))]
                                           ),
-                                        ]),
-                                        _vm._v(" "),
-                                        _c("p", { staticClass: "m-0" }, [
-                                          _vm._v("Size - " + _vm._s(cart.size)),
+                                          _vm._v(" | " + _vm._s(cart.size)),
                                         ]),
                                         _vm._v(" "),
                                         cart.promotion_status == "REGULAR"
@@ -42542,7 +42542,7 @@ var render = function () {
                                         "router-link",
                                         {
                                           staticClass:
-                                            "btn btn-primary form-control rounded-1 py-3 text-white",
+                                            "btn btn-primary form-control rounded-1 rounded-1 py-3 text-white",
                                           attrs: { to: "/cart" },
                                         },
                                         [

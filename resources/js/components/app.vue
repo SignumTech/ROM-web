@@ -29,7 +29,7 @@
                             <a class="nav-link nav-link-main dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                                 <span class="fa fa-shopping-bag fs-5"></span> <span v-if="$store.state.auth.cart.length > 0" class="badge bg-light text-dark">{{$store.state.auth.cart.length}}</span>
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="width:400px">
+                            <ul class="dropdown-menu rounded-1" aria-labelledby="navbarDropdown" style="max-height:500px; min-width:400px; overflow-y: auto; overflow-x:hidden">
                                 
                                 <div v-for="cart in $store.state.auth.cart" :key="cart.id" class="row m-0 p-2 border-bottom">
                                     <div class="col-md-3">
@@ -37,8 +37,7 @@
                                     </div>
                                     <div class="col-md-8">
                                         <p class="m-0">{{cart.p_name}} </p>
-                                        <p class="m-0">Color - <span class="badge rounded-pill"  :style="{backgroundColor:cart.color}">{{cart.color}}</span></p>
-                                        <p class="m-0">Size - {{cart.size}}</p>
+                                        <p class="m-0"><span class="badge rounded-pill"  :style="{backgroundColor:cart.color}">{{cart.color}}</span> | {{cart.size}}</p>
                                         <h5 v-if="cart.promotion_status == `REGULAR`" class="mt-2"><strong>{{cart.price | numFormat}} Birr</strong></h5>
                                         <h5 v-if="cart.promotion_status == `FLASH SALE`" class="mt-2"><strong>{{cart.new_price | numFormat}} Birr</strong> <span class="text-muted fs-6"><s><strong>{{cart.price | numFormat}} ETB</strong></s></span></h5>
                                         <h6 v-if="cart.promotion_status == `FLASH SALE`"><span class="bg-warning p-1"><span class="fa fa-bolt"></span> Flash Sale</span></h6>
@@ -52,7 +51,7 @@
                                 </div>
                                 <div class="row m-0 p-2 border-top">
                                     <div class="col-md-12">
-                                        <router-link to="/cart" class="btn btn-primary form-control rounded-1 py-3 text-white"><h5 class="m-0"><strong><span class="fa fa-shopping-bag"></span> VIEW BAG</strong></h5> </router-link>
+                                        <router-link to="/cart" class="btn btn-primary form-control rounded-1 rounded-1 py-3 text-white"><h5 class="m-0"><strong><span class="fa fa-shopping-bag"></span> VIEW BAG</strong></h5> </router-link>
                                     </div>
                                     
                                 </div>
