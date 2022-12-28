@@ -30,7 +30,7 @@
         </h5>
         
         <h5 class="mt-3"><strong>Sizes</strong></h5>
-        <span @click="makeCurrentSize(size.size,size.id)" v-for="size,index in product.sizes" :key="`color`+index" :class="(currentSize == size.size)?`hov-main badge rounded-1 p-2 shadow-sm m-1 size-choice` : `hov-main badge rounded-1 p-2 shadow-sm m-1`"><h5 class="m-0">{{size.size}}</h5></span>  
+        <span @click="makeCurrentSize(size.size,size.size_id)" v-for="size,index in sizes" :key="`color`+index" :class="(currentSize == size.size)?`hov-main badge rounded-1 p-2 shadow-sm m-1 size-choice` : `hov-main badge rounded-1 p-2 shadow-sm m-1`"><h5 class="m-0">{{size.size}}</h5></span>  
         <h6 v-if="sizeError" class="text-danger mt-1">Please choose a size before add to bag.</h6>
         <div v-if="btnLoading" class="d-flex justify-content-center align-self-center mt-3">
             <pulse-loader :color="`#BF7F25`" :size="`15px`"></pulse-loader> 
@@ -45,7 +45,7 @@ export default {
     components:{
         PulseLoader
     },
-    props:['id'],
+    props:['cart'],
     data(){
         return{
             loading:true,
@@ -57,16 +57,22 @@ export default {
             chosenSize:'',
             currentSize:'',
             main:'',
-            sizeError:false
+            sizeError:false,
+            sizesData:{},
+            sizes:{}
         }
     },
     mounted(){
-        this.getProduct()        
+        this.getProduct()   
+        this.currentColor = this.cart.color
+        this.chosenColor = this.cart.color_id    
+        this.currentSize = this.cart.size
+        this.chosenSize = this.cart.size_id 
     },
     methods:{
         async getPreviewData(){
             this.loading = true
-            await axios.get('/getPreviewData/'+this.id)
+            await axios.get('/getPreviewData/'+this.cart.p_id)
             .then( response =>{
                 this.previewData = response.data
                 this.main = this.previewData[this.currentColor].images[0].p_image
@@ -76,7 +82,7 @@ export default {
         async getCart(){
             await axios.post('/getCart')
             .then( response => {
-                this.$store.state.auth.cart = JSON.parse(response.data.items)
+                this.$store.state.auth.cart = response.data
             })
         },
         async addToBag(){
@@ -85,7 +91,7 @@ export default {
             }
             else{
                 this.btnLoading = true
-                await axios.post('/addToCart', {product_id:this.product.id,color_id:this.chosenColor,size_id:this.chosenSize,quantity:1})
+                await axios.post('/updateColorSize', {product_id:this.product.id,color_id:this.chosenColor,size_id:this.chosenSize,quantity:this.cart.quantity, item_id:this.cart.item_id})
                 .then( response =>{
                     this.getCart()
                     this.$notify({
@@ -107,24 +113,24 @@ export default {
             this.currentSize = ''
             this.main = this.previewData[this.currentColor].images[0].p_image
             this.chosenColor = id
+            this.sizes = this.sizesData[id]
         },
         makeCurrentSize(size,id){
             this.currentSize = size
             this.chosenSize = id
         },
         async getProduct(){
-            await axios.get('/products/'+this.id)
+            await axios.get('/products/'+this.cart.p_id)
             .then( response =>{
                 this.product = response.data
-                this.currentColor = this.product.colors[0].color
-                this.chosenColor = this.product.colors[0].id
                 this.getPreviewData()
             })
         },
         async getInventory(){
-            await axios.get('/getInventory/'+this.id)
+            await axios.get('/getInventory/'+this.cart.p_id)
             .then( response =>{
-                this.sizes = response.data
+                this.sizesData = response.data
+                this.sizes = this.sizesData[this.chosenColor]
                 this.loading = false
             })
         }

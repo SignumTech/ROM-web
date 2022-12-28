@@ -10,24 +10,20 @@
         <div v-if="loading" class="d-flex justify-content-center align-self-center mt-5">
             <pulse-loader :color="`#BF7F25`" :size="`15px`"></pulse-loader> 
         </div>
-        <div v-for="(cart,index) in cartItems" :key="index" class="bg-white rounded-1 p-3 shadow-sm mt-3">
+        <div v-for="(cart,index) in cartItems" :key="index" class="bg-white rounded-1 p-2 shadow-sm mt-3" >
             <div class="row">
-                <div class="col-md-2 col-4">
-                    <img :src="`/storage/productsThumb/`+cart.p_image" class="img img-fluid" alt="">
+                <div class="col-md-2 col-4"  >
+                    <img :src="`/storage/productsThumb/`+cart.p_image" class="img img-fluid" alt="" style="max-height:100px; width:auto">
                 </div>
-                <div class="col-md-7 col-8">
+                <div class="col-md-3 col-8">
                     <h5><strong>{{cart.p_name}}</strong></h5>
-                    <h5 v-if="cart.promotion_status == `REGULAR`" class="mt-md-4 mt-sm-2"><strong>{{cart.price | numFormat}} Birr</strong></h5>
-                    <h5 v-if="cart.promotion_status == `FLASH SALE`" class="mt-md-4 mt-sm-2"><strong>{{cart.new_price | numFormat}} Birr</strong> <span class="text-muted fs-6"><s><strong>{{cart.price | numFormat}} ETB</strong></s></span></h5>
-                    <h6 v-if="cart.promotion_status == `FLASH SALE`" class="mt-md-3 mt-sm-2"><span class="bg-warning p-1"><span class="fa fa-bolt"></span> Flash Sale</span></h6>
-                    <h6  style="cursor:pointer">Color - <span @click="detailsModal(cart.item_id,cart.color,cart.size)" class="badge rounded-pill px-3 mt-2 shadow-sm"  :style="{backgroundColor:cart.color}">{{cart.color}}</span></h6>
-                    <h6  style="cursor:pointer">Size - <span @click="detailsModal(cart.item_id,cart.color,cart.size)" class="badge rounded-pill border bg-light shadow-sm text-dark px-3 mt-2"><strong>{{cart.size}}</strong></span></h6>
+                    <h5 v-if="cart.promotion_status == `REGULAR`" class="mt-md-2 mt-sm-2"><strong>{{cart.price | numFormat}} Birr</strong></h5>
+                    <h5 v-if="cart.promotion_status == `FLASH SALE`" class="mt-md-2 mt-sm-2"><strong>{{cart.new_price | numFormat}} Birr</strong> <span class="text-muted fs-6"><s><strong>{{cart.price | numFormat}} ETB</strong></s></span></h5>
+                    <h6 v-if="cart.promotion_status == `FLASH SALE`" class="mt-md-2 mt-sm-2"><span class="bg-warning p-1"><span class="fa fa-bolt"></span> Flash Sale</span></h6>
+                    <h6  style="cursor:pointer"><span @click="detailsModal(cart)" class="badge rounded-pill px-3 mt-2 shadow-sm"  :style="{backgroundColor:cart.color}">{{cart.color}}</span> | <span @click="detailsModal(cart)" class="badge rounded-pill border bg-light shadow-sm text-dark px-3 mt-2"><strong>{{cart.size}}</strong></span></h6>
                 </div>
-                <div class="col-md-3 col-12 text-md-end mt-md-0 mt-sm-3">
-                    <div class="row ms-md-5 ms-sm-3">
-                        <div class="col-md-12 col-7 align-self-center">
-                            <h4><strong>{{subTotal(index) | numFormat}} Birr</strong></h4>
-                        </div>
+                <div class="col-md-3 align-self-center">
+                    <div class="row ms-md-3 me-md-3 ms-sm-3">
                         <div class="col-md-12 col-5">
                             <div class="input-group mb-3 mt-2 float-end">
                                 <button @click="subtract(index, cart.item_id)" class="btn btn-outline-secondary btn-sm" type="button" id="button-addon1"><span class="fa fa-minus"></span></button>
@@ -36,14 +32,18 @@
                             </div>
                             <h6 v-if="invError"><span class="text-danger" v-if="invEr[cart.item_id]['invError']">{{invEr[cart.item_id]['err']}}</span></h6> 
                         </div>
-                                               
                     </div>
-                    <div class="row mt-md-5">
-                        <div class="col-md-6 col-6">
-                            <h6 @click="deleteItem(index)" style="cursor:pointer"><span class="fa fa-trash-alt"></span> Delete</h6>
-                        </div>
-                        <div class="col-md-6 col-6 text-end">
-                            <h6><span class="fa fa-heart"></span> Save</h6>
+                </div>
+                <div class="col-md-4 col-12 text-md-end mt-md-0 mt-sm-3">
+                    <div class="row ms-md-5 ms-sm-3">
+                        <div class="col-md-12 col-7 align-self-center">
+                            <h4><strong>{{subTotal(index) | numFormat}} ETB</strong></h4>
+                        </div>         
+                    </div>
+                    <div class="row mt-md-1">
+                        <div class="col-md-12 mt-4">
+                            <span class="fa fa-heart me-3"></span>
+                            <span @click="deleteItem(index)" class="fa fa-trash-alt"></span>
                         </div>
                     </div>
                 </div>
@@ -114,10 +114,10 @@ export default {
             }
 
         },
-        detailsModal(id,index,toEdit){
+        detailsModal(cart){
             this.$modal.show(
                 editSizesColorsVue,
-                {"id":id, "index":index, "toEdit":toEdit},
+                {cart:cart},
                 { "height" : "auto", "width" : "900px"},
                 { "closed" : this.getCart}
             )

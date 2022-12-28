@@ -9065,11 +9065,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee3);
       }))();
     },
-    detailsModal: function detailsModal(id, index, toEdit) {
+    detailsModal: function detailsModal(cart) {
       this.$modal.show(_editSizesColors_vue__WEBPACK_IMPORTED_MODULE_1__["default"], {
-        "id": id,
-        "index": index,
-        "toEdit": toEdit
+        cart: cart
       }, {
         "height": "auto",
         "width": "900px"
@@ -9408,7 +9406,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   components: {
     PulseLoader: vue_spinner_src_PulseLoader_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  props: ['id'],
+  props: ['cart'],
   data: function data() {
     return {
       loading: true,
@@ -9420,11 +9418,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       chosenSize: '',
       currentSize: '',
       main: '',
-      sizeError: false
+      sizeError: false,
+      sizesData: {},
+      sizes: {}
     };
   },
   mounted: function mounted() {
     this.getProduct();
+    this.currentColor = this.cart.color;
+    this.chosenColor = this.cart.color_id;
+    this.currentSize = this.cart.size;
+    this.chosenSize = this.cart.size_id;
   },
   methods: {
     getPreviewData: function getPreviewData() {
@@ -9437,7 +9441,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _this.loading = true;
                 _context.next = 3;
-                return axios.get('/getPreviewData/' + _this.id).then(function (response) {
+                return axios.get('/getPreviewData/' + _this.cart.p_id).then(function (response) {
                   _this.previewData = response.data;
                   _this.main = _this.previewData[_this.currentColor].images[0].p_image;
 
@@ -9462,7 +9466,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context2.next = 2;
                 return axios.post('/getCart').then(function (response) {
-                  _this2.$store.state.auth.cart = JSON.parse(response.data.items);
+                  _this2.$store.state.auth.cart = response.data;
                 });
 
               case 2:
@@ -9493,11 +9497,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 4:
                 _this3.btnLoading = true;
                 _context3.next = 7;
-                return axios.post('/addToCart', {
+                return axios.post('/updateColorSize', {
                   product_id: _this3.product.id,
                   color_id: _this3.chosenColor,
                   size_id: _this3.chosenSize,
-                  quantity: 1
+                  quantity: _this3.cart.quantity,
+                  item_id: _this3.cart.item_id
                 }).then(function (response) {
                   _this3.getCart();
 
@@ -9529,6 +9534,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.currentSize = '';
       this.main = this.previewData[this.currentColor].images[0].p_image;
       this.chosenColor = id;
+      this.sizes = this.sizesData[id];
     },
     makeCurrentSize: function makeCurrentSize(size, id) {
       this.currentSize = size;
@@ -9543,10 +9549,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context4.prev = _context4.next) {
               case 0:
                 _context4.next = 2;
-                return axios.get('/products/' + _this4.id).then(function (response) {
+                return axios.get('/products/' + _this4.cart.p_id).then(function (response) {
                   _this4.product = response.data;
-                  _this4.currentColor = _this4.product.colors[0].color;
-                  _this4.chosenColor = _this4.product.colors[0].id;
 
                   _this4.getPreviewData();
                 });
@@ -9568,8 +9572,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context5.prev = _context5.next) {
               case 0:
                 _context5.next = 2;
-                return axios.get('/getInventory/' + _this5.id).then(function (response) {
-                  _this5.sizes = response.data;
+                return axios.get('/getInventory/' + _this5.cart.p_id).then(function (response) {
+                  _this5.sizesData = response.data;
+                  _this5.sizes = _this5.sizesData[_this5.chosenColor];
                   _this5.loading = false;
                 });
 
@@ -44523,13 +44528,14 @@ var render = function () {
             "div",
             {
               key: index,
-              staticClass: "bg-white rounded-1 p-3 shadow-sm mt-3",
+              staticClass: "bg-white rounded-1 p-2 shadow-sm mt-3",
             },
             [
               _c("div", { staticClass: "row" }, [
                 _c("div", { staticClass: "col-md-2 col-4" }, [
                   _c("img", {
                     staticClass: "img img-fluid",
+                    staticStyle: { "max-height": "100px", width: "auto" },
                     attrs: {
                       src: "/storage/productsThumb/" + cart.p_image,
                       alt: "",
@@ -44537,11 +44543,11 @@ var render = function () {
                   }),
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-md-7 col-8" }, [
+                _c("div", { staticClass: "col-md-3 col-8" }, [
                   _c("h5", [_c("strong", [_vm._v(_vm._s(cart.p_name))])]),
                   _vm._v(" "),
                   cart.promotion_status == "REGULAR"
-                    ? _c("h5", { staticClass: "mt-md-4 mt-sm-2" }, [
+                    ? _c("h5", { staticClass: "mt-md-2 mt-sm-2" }, [
                         _c("strong", [
                           _vm._v(
                             _vm._s(_vm._f("numFormat")(cart.price)) + " Birr"
@@ -44551,7 +44557,7 @@ var render = function () {
                     : _vm._e(),
                   _vm._v(" "),
                   cart.promotion_status == "FLASH SALE"
-                    ? _c("h5", { staticClass: "mt-md-4 mt-sm-2" }, [
+                    ? _c("h5", { staticClass: "mt-md-2 mt-sm-2" }, [
                         _c("strong", [
                           _vm._v(
                             _vm._s(_vm._f("numFormat")(cart.new_price)) +
@@ -44572,13 +44578,12 @@ var render = function () {
                     : _vm._e(),
                   _vm._v(" "),
                   cart.promotion_status == "FLASH SALE"
-                    ? _c("h6", { staticClass: "mt-md-3 mt-sm-2" }, [
+                    ? _c("h6", { staticClass: "mt-md-2 mt-sm-2" }, [
                         _vm._m(2, true),
                       ])
                     : _vm._e(),
                   _vm._v(" "),
                   _c("h6", { staticStyle: { cursor: "pointer" } }, [
-                    _vm._v("Color - "),
                     _c(
                       "span",
                       {
@@ -44586,20 +44591,13 @@ var render = function () {
                         style: { backgroundColor: cart.color },
                         on: {
                           click: function ($event) {
-                            return _vm.detailsModal(
-                              cart.item_id,
-                              cart.color,
-                              cart.size
-                            )
+                            return _vm.detailsModal(cart)
                           },
                         },
                       },
                       [_vm._v(_vm._s(cart.color))]
                     ),
-                  ]),
-                  _vm._v(" "),
-                  _c("h6", { staticStyle: { cursor: "pointer" } }, [
-                    _vm._v("Size - "),
+                    _vm._v(" | "),
                     _c(
                       "span",
                       {
@@ -44607,11 +44605,7 @@ var render = function () {
                           "badge rounded-pill border bg-light shadow-sm text-dark px-3 mt-2",
                         on: {
                           click: function ($event) {
-                            return _vm.detailsModal(
-                              cart.item_id,
-                              cart.color,
-                              cart.size
-                            )
+                            return _vm.detailsModal(cart)
                           },
                         },
                       },
@@ -44620,10 +44614,93 @@ var render = function () {
                   ]),
                 ]),
                 _vm._v(" "),
+                _c("div", { staticClass: "col-md-3 align-self-center" }, [
+                  _c("div", { staticClass: "row ms-md-3 me-md-3 ms-sm-3" }, [
+                    _c("div", { staticClass: "col-md-12 col-5" }, [
+                      _c(
+                        "div",
+                        { staticClass: "input-group mb-3 mt-2 float-end" },
+                        [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-outline-secondary btn-sm",
+                              attrs: { type: "button", id: "button-addon1" },
+                              on: {
+                                click: function ($event) {
+                                  return _vm.subtract(index, cart.item_id)
+                                },
+                              },
+                            },
+                            [_c("span", { staticClass: "fa fa-minus" })]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: cart.quantity,
+                                expression: "cart.quantity",
+                              },
+                            ],
+                            class:
+                              cart.quantity > _vm.inventory[index]
+                                ? "form-control text-center border-danger-inv border-2"
+                                : "form-control text-center",
+                            attrs: {
+                              disabled: "",
+                              type: "text",
+                              max: _vm.inventory[index],
+                              placeholder: "",
+                              "aria-describedby": "button-addon1",
+                            },
+                            domProps: { value: cart.quantity },
+                            on: {
+                              input: function ($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(cart, "quantity", $event.target.value)
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-outline-secondary btn-sm",
+                              attrs: { type: "button", id: "button-addon1" },
+                              on: {
+                                click: function ($event) {
+                                  return _vm.add(index, cart.item_id)
+                                },
+                              },
+                            },
+                            [_c("span", { staticClass: "fa fa-plus" })]
+                          ),
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _vm.invError
+                        ? _c("h6", [
+                            _vm.invEr[cart.item_id]["invError"]
+                              ? _c("span", { staticClass: "text-danger" }, [
+                                  _vm._v(
+                                    _vm._s(_vm.invEr[cart.item_id]["err"])
+                                  ),
+                                ])
+                              : _vm._e(),
+                          ])
+                        : _vm._e(),
+                    ]),
+                  ]),
+                ]),
+                _vm._v(" "),
                 _c(
                   "div",
                   {
-                    staticClass: "col-md-3 col-12 text-md-end mt-md-0 mt-sm-3",
+                    staticClass: "col-md-4 col-12 text-md-end mt-md-0 mt-sm-3",
                   },
                   [
                     _c("div", { staticClass: "row ms-md-5 ms-sm-3" }, [
@@ -44636,117 +44713,27 @@ var render = function () {
                               _vm._v(
                                 _vm._s(
                                   _vm._f("numFormat")(_vm.subTotal(index))
-                                ) + " Birr"
+                                ) + " ETB"
                               ),
                             ]),
                           ]),
                         ]
                       ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-12 col-5" }, [
-                        _c(
-                          "div",
-                          { staticClass: "input-group mb-3 mt-2 float-end" },
-                          [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-outline-secondary btn-sm",
-                                attrs: { type: "button", id: "button-addon1" },
-                                on: {
-                                  click: function ($event) {
-                                    return _vm.subtract(index, cart.item_id)
-                                  },
-                                },
-                              },
-                              [_c("span", { staticClass: "fa fa-minus" })]
-                            ),
-                            _vm._v(" "),
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: cart.quantity,
-                                  expression: "cart.quantity",
-                                },
-                              ],
-                              class:
-                                cart.quantity > _vm.inventory[index]
-                                  ? "form-control text-center border-danger-inv border-2"
-                                  : "form-control text-center",
-                              attrs: {
-                                disabled: "",
-                                type: "text",
-                                max: _vm.inventory[index],
-                                placeholder: "",
-                                "aria-describedby": "button-addon1",
-                              },
-                              domProps: { value: cart.quantity },
-                              on: {
-                                input: function ($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(
-                                    cart,
-                                    "quantity",
-                                    $event.target.value
-                                  )
-                                },
-                              },
-                            }),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-outline-secondary btn-sm",
-                                attrs: { type: "button", id: "button-addon1" },
-                                on: {
-                                  click: function ($event) {
-                                    return _vm.add(index, cart.item_id)
-                                  },
-                                },
-                              },
-                              [_c("span", { staticClass: "fa fa-plus" })]
-                            ),
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _vm.invError
-                          ? _c("h6", [
-                              _vm.invEr[cart.item_id]["invError"]
-                                ? _c("span", { staticClass: "text-danger" }, [
-                                    _vm._v(
-                                      _vm._s(_vm.invEr[cart.item_id]["err"])
-                                    ),
-                                  ])
-                                : _vm._e(),
-                            ])
-                          : _vm._e(),
-                      ]),
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "row mt-md-5" }, [
-                      _c("div", { staticClass: "col-md-6 col-6" }, [
-                        _c(
-                          "h6",
-                          {
-                            staticStyle: { cursor: "pointer" },
-                            on: {
-                              click: function ($event) {
-                                return _vm.deleteItem(index)
-                              },
+                    _c("div", { staticClass: "row mt-md-1" }, [
+                      _c("div", { staticClass: "col-md-12 mt-4" }, [
+                        _c("span", { staticClass: "fa fa-heart me-3" }),
+                        _vm._v(" "),
+                        _c("span", {
+                          staticClass: "fa fa-trash-alt",
+                          on: {
+                            click: function ($event) {
+                              return _vm.deleteItem(index)
                             },
                           },
-                          [
-                            _c("span", { staticClass: "fa fa-trash-alt" }),
-                            _vm._v(" Delete"),
-                          ]
-                        ),
+                        }),
                       ]),
-                      _vm._v(" "),
-                      _vm._m(3, true),
                     ]),
                   ]
                 ),
@@ -44760,7 +44747,7 @@ var render = function () {
     _vm._v(" "),
     _c("div", { staticClass: "col-md-4 mt-3" }, [
       _c("div", { staticClass: "bg-white rounded-1 p-3 shadow-sm" }, [
-        _vm._m(4),
+        _vm._m(3),
         _vm._v(" "),
         _c("h6", { staticClass: "mt-4" }, [
           _c("strong", [_vm._v("Subtotal")]),
@@ -44796,7 +44783,7 @@ var render = function () {
                 },
               },
             },
-            [_vm._m(5)]
+            [_vm._m(4)]
           )
         : _vm._e(),
     ]),
@@ -44829,14 +44816,6 @@ var staticRenderFns = [
     return _c("span", { staticClass: "bg-warning p-1" }, [
       _c("span", { staticClass: "fa fa-bolt" }),
       _vm._v(" Flash Sale"),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-6 col-6 text-end" }, [
-      _c("h6", [_c("span", { staticClass: "fa fa-heart" }), _vm._v(" Save")]),
     ])
   },
   function () {
@@ -45255,7 +45234,7 @@ var render = function () {
             _vm._v(" "),
             _vm._m(1),
             _vm._v(" "),
-            _vm._l(_vm.product.sizes, function (size, index) {
+            _vm._l(_vm.sizes, function (size, index) {
               return _c(
                 "span",
                 {
@@ -45266,7 +45245,7 @@ var render = function () {
                       : "hov-main badge rounded-1 p-2 shadow-sm m-1",
                   on: {
                     click: function ($event) {
-                      return _vm.makeCurrentSize(size.size, size.id)
+                      return _vm.makeCurrentSize(size.size, size.size_id)
                     },
                   },
                 },

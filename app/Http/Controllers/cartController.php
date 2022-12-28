@@ -106,6 +106,36 @@ class cartController extends Controller
         }
     }
 
+    public function updateColorSize(Request $request){
+        $this->validate( $request, [
+            "product_id" => "required",
+            "color_id" => "required",
+            "size_id" => "required",
+            "item_id" => "required"
+        ]);
+        $inventory = Inventory::where('p_id', $request->product_id)
+                            ->where('color_id', $request->color_id)
+                            ->where('size_id', $request->size_id)
+                            ->first();
+        if(Auth::check()){
+            $cartItem = CartItem::find($request->item_id);
+            $cartItem->quantity = 0;
+            $cartItem->inventory_id = $inventory->id;
+            $cartItem->save();
+
+            return $this->addAuthCart($inventory, $request);
+        }
+        else{
+            $cartData = $request->session()->get('cart');
+            $cartData[$request->item_id]['quantity'] = 0;
+            $cartData[$request->item_id]['inventory_id'] = $inventory->id;
+            /*unset($cartData[$request->item_id]);
+            $cartData = array_values($cartData);*/
+            $request->session()->put('cart', $cartData);
+            return $this->addSessionCart($inventory, $request);
+        }
+    }
+
     public function getCartNew(Request $request){
 
         return (Auth::check())?$this->getDBcart($request):$this->getSessionCart($request);
@@ -131,6 +161,7 @@ class cartController extends Controller
 
     public function getFinalCartData($cart_items){
         $data = [];
+        $index = 0;
         if(!$cart_items)
         {
             return [];
@@ -157,9 +188,10 @@ class cartController extends Controller
             }
             $item_detail->product_id = $item_detail->p_id;
             $item_detail->quantity = $item['quantity'];
-            $item_detail->item_id = $item['id'];
+            $item_detail->item_id = ($item['id']==0)?$index:$item['id'];
             $item_detail->cart_id = $item['cart_id'];                 
             array_push($data,$item_detail);
+            $index++;
         }
         return $data;
     }
