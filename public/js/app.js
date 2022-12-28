@@ -14187,11 +14187,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.loading = true;
                 _context.next = 3;
                 return axios.get('/orders/' + _this.$route.params.id).then(function (response) {
-                  _this.order = response.data;
-                  _this.orderItems = JSON.parse(response.data.items);
+                  _this.order = response.data.order;
+                  _this.orderItems = response.data.order_items;
                   console.log(response.data.delivery_details);
 
-                  _this.getAddress(response.data.delivery_details);
+                  _this.getAddress(response.data.order.delivery_details);
                 });
 
               case 3:

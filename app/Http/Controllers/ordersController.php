@@ -8,6 +8,10 @@ use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\OrderItem;
 use App\Models\Inventory;
+use App\Models\Product;
+use App\Models\ProductImage;
+use App\Models\ProductColor;
+use App\Models\Size;
 use DB;
 class ordersController extends Controller
 {
@@ -106,7 +110,23 @@ class ordersController extends Controller
      */
     public function show($id)
     {
-        return Order::find($id);
+        $data = [];
+        $data['order'] = Order::find($id);
+        $orderItems = OrderItem::where('order_id', $id)->get();
+        foreach($orderItems as $item){
+            $inventory = Inventory::find($item->inventory_id);
+            $product = Product::find($inventory->p_id);
+            $item->p_name = $product->p_name;
+            $item->promotion_status = $product->promotion_status;
+            $item->size = Size::find($inventory->size_id)->size;
+            $item->color = ProductColor::find($inventory->color_id)->color;
+            $item->price = $product->price;
+            $item->p_image = ProductImage::where('product_id', $product->id)
+                                        ->where('color_id', $inventory->color_id)
+                                        ->first()->p_image;
+        }
+        $data['order_items'] = $orderItems;
+        return $data;
     }
 
     /**

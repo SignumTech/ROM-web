@@ -101,10 +101,10 @@ export default {
             this.loading = true
             await axios.get('/orders/'+this.$route.params.id)
             .then( response =>{
-                this.order = response.data
-                this.orderItems = JSON.parse(response.data.items)
+                this.order = response.data.order
+                this.orderItems = response.data.order_items
                 console.log(response.data.delivery_details)
-                this.getAddress(response.data.delivery_details)
+                this.getAddress(response.data.order.delivery_details)
             })
         },
         async getAddress(id){
