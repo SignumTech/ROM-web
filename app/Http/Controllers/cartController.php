@@ -441,7 +441,8 @@ class cartController extends Controller
             $cartItem->quantity = $request->quantity;
             $cartItem->inventory_id = $newInv->id;
             $cartItem->save();
-            return $cartItem;
+
+            return $this->getMobCartNew();
         }
         
         
