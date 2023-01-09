@@ -20,28 +20,28 @@
                     <h5 v-if="cart.promotion_status == `REGULAR`" class="mt-md-2 mt-sm-2"><strong>{{cart.price | numFormat}} Birr</strong></h5>
                     <h5 v-if="cart.promotion_status == `FLASH SALE`" class="mt-md-2 mt-sm-2"><strong>{{cart.new_price | numFormat}} Birr</strong> <span class="text-muted fs-6"><s><strong>{{cart.price | numFormat}} ETB</strong></s></span></h5>
                     <h6 v-if="cart.promotion_status == `FLASH SALE`" class="mt-md-2 mt-sm-2"><span class="bg-warning p-1"><span class="fa fa-bolt"></span> Flash Sale</span></h6>
-                    <h6  style="cursor:pointer"><span @click="detailsModal(cart)" class="badge rounded-pill px-3 mt-2 shadow-sm"  :style="{backgroundColor:cart.color}">{{cart.color}}</span> | <span @click="detailsModal(cart)" class="badge rounded-pill border bg-light shadow-sm text-dark px-3 mt-2"><strong>{{cart.size}}</strong></span></h6>
+                    <h6  style="cursor:pointer"><span @click="detailsModal(cart)" class="badge rounded-pill px-3 mt-2 shadow-sm fa px-3"  :style="{backgroundColor:cart.color}"><span class="fa fa-circle" :style="{color:cart.color}"></span></span> | <span @click="detailsModal(cart)" class="badge rounded-pill border bg-light shadow-sm text-dark px-3 mt-2"><strong>{{cart.size}}</strong></span></h6>
                 </div>
-                <div class="col-md-3 align-self-center">
+                <div class="col-md-3 col-12 align-self-center">
                     <div class="row ms-md-3 me-md-3 ms-sm-3">
-                        <div class="col-md-12 col-5">
+                        <div class="col-md-12 col-12">
                             <div class="input-group mb-3 mt-2 float-end">
                                 <button @click="subtract(index, cart.item_id)" class="btn btn-outline-secondary btn-sm" type="button" id="button-addon1"><span class="fa fa-minus"></span></button>
                                 <input disabled v-model="cart.quantity" type="text" :max="inventory[index]" :class="(cart.quantity > inventory[index])?`form-control text-center border-danger-inv border-2`:`form-control text-center`" placeholder=""  aria-describedby="button-addon1">
                                 <button @click="add(index, cart.item_id)" class="btn btn-outline-secondary btn-sm" type="button" id="button-addon1"><span class="fa fa-plus"></span></button>
                             </div>
-                            <h6 v-if="invError"><span class="text-danger" v-if="invEr[cart.item_id]['invError']">{{invEr[cart.item_id]['err']}}</span></h6> 
+                            <h6 class="text-sm-center" v-if="invError"><span class="text-danger" v-if="invEr[cart.item_id]['invError']">{{invEr[cart.item_id]['err']}}</span></h6> 
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 col-12 text-md-end mt-md-0 mt-sm-3">
+                <div class="col-md-4 col-12 text-end mt-md-0 mt-sm-3">
                     <div class="row ms-md-5 ms-sm-3">
-                        <div class="col-md-12 col-7 align-self-center">
+                        <div class="col-md-12 col-12 align-self-center">
                             <h4><strong>{{subTotal(index) | numFormat}} ETB</strong></h4>
                         </div>         
                     </div>
                     <div class="row mt-md-1">
-                        <div class="col-md-12 mt-4">
+                        <div class="col-md-12 col-12 mt-md-4">
                             <span class="fa fa-heart me-3"></span>
                             <span @click="deleteItem(cart.item_id)" class="fa fa-trash-alt"></span>
                         </div>

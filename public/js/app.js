@@ -44525,7 +44525,8 @@ var render = function () {
                     _c(
                       "span",
                       {
-                        staticClass: "badge rounded-pill px-3 mt-2 shadow-sm",
+                        staticClass:
+                          "badge rounded-pill px-3 mt-2 shadow-sm fa px-3",
                         style: { backgroundColor: cart.color },
                         on: {
                           click: function ($event) {
@@ -44533,7 +44534,12 @@ var render = function () {
                           },
                         },
                       },
-                      [_vm._v(_vm._s(cart.color))]
+                      [
+                        _c("span", {
+                          staticClass: "fa fa-circle",
+                          style: { color: cart.color },
+                        }),
+                      ]
                     ),
                     _vm._v(" | "),
                     _c(
@@ -44552,99 +44558,105 @@ var render = function () {
                   ]),
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-md-3 align-self-center" }, [
-                  _c("div", { staticClass: "row ms-md-3 me-md-3 ms-sm-3" }, [
-                    _c("div", { staticClass: "col-md-12 col-5" }, [
-                      _c(
-                        "div",
-                        { staticClass: "input-group mb-3 mt-2 float-end" },
-                        [
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-outline-secondary btn-sm",
-                              attrs: { type: "button", id: "button-addon1" },
-                              on: {
-                                click: function ($event) {
-                                  return _vm.subtract(index, cart.item_id)
-                                },
-                              },
-                            },
-                            [_c("span", { staticClass: "fa fa-minus" })]
-                          ),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
+                _c(
+                  "div",
+                  { staticClass: "col-md-3 col-12 align-self-center" },
+                  [
+                    _c("div", { staticClass: "row ms-md-3 me-md-3 ms-sm-3" }, [
+                      _c("div", { staticClass: "col-md-12 col-12" }, [
+                        _c(
+                          "div",
+                          { staticClass: "input-group mb-3 mt-2 float-end" },
+                          [
+                            _c(
+                              "button",
                               {
-                                name: "model",
-                                rawName: "v-model",
-                                value: cart.quantity,
-                                expression: "cart.quantity",
-                              },
-                            ],
-                            class:
-                              cart.quantity > _vm.inventory[index]
-                                ? "form-control text-center border-danger-inv border-2"
-                                : "form-control text-center",
-                            attrs: {
-                              disabled: "",
-                              type: "text",
-                              max: _vm.inventory[index],
-                              placeholder: "",
-                              "aria-describedby": "button-addon1",
-                            },
-                            domProps: { value: cart.quantity },
-                            on: {
-                              input: function ($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(cart, "quantity", $event.target.value)
-                              },
-                            },
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-outline-secondary btn-sm",
-                              attrs: { type: "button", id: "button-addon1" },
-                              on: {
-                                click: function ($event) {
-                                  return _vm.add(index, cart.item_id)
+                                staticClass: "btn btn-outline-secondary btn-sm",
+                                attrs: { type: "button", id: "button-addon1" },
+                                on: {
+                                  click: function ($event) {
+                                    return _vm.subtract(index, cart.item_id)
+                                  },
                                 },
                               },
-                            },
-                            [_c("span", { staticClass: "fa fa-plus" })]
-                          ),
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _vm.invError
-                        ? _c("h6", [
-                            _vm.invEr[cart.item_id]["invError"]
-                              ? _c("span", { staticClass: "text-danger" }, [
-                                  _vm._v(
-                                    _vm._s(_vm.invEr[cart.item_id]["err"])
-                                  ),
-                                ])
-                              : _vm._e(),
-                          ])
-                        : _vm._e(),
+                              [_c("span", { staticClass: "fa fa-minus" })]
+                            ),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: cart.quantity,
+                                  expression: "cart.quantity",
+                                },
+                              ],
+                              class:
+                                cart.quantity > _vm.inventory[index]
+                                  ? "form-control text-center border-danger-inv border-2"
+                                  : "form-control text-center",
+                              attrs: {
+                                disabled: "",
+                                type: "text",
+                                max: _vm.inventory[index],
+                                placeholder: "",
+                                "aria-describedby": "button-addon1",
+                              },
+                              domProps: { value: cart.quantity },
+                              on: {
+                                input: function ($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    cart,
+                                    "quantity",
+                                    $event.target.value
+                                  )
+                                },
+                              },
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-outline-secondary btn-sm",
+                                attrs: { type: "button", id: "button-addon1" },
+                                on: {
+                                  click: function ($event) {
+                                    return _vm.add(index, cart.item_id)
+                                  },
+                                },
+                              },
+                              [_c("span", { staticClass: "fa fa-plus" })]
+                            ),
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _vm.invError
+                          ? _c("h6", { staticClass: "text-sm-center" }, [
+                              _vm.invEr[cart.item_id]["invError"]
+                                ? _c("span", { staticClass: "text-danger" }, [
+                                    _vm._v(
+                                      _vm._s(_vm.invEr[cart.item_id]["err"])
+                                    ),
+                                  ])
+                                : _vm._e(),
+                            ])
+                          : _vm._e(),
+                      ]),
                     ]),
-                  ]),
-                ]),
+                  ]
+                ),
                 _vm._v(" "),
                 _c(
                   "div",
-                  {
-                    staticClass: "col-md-4 col-12 text-md-end mt-md-0 mt-sm-3",
-                  },
+                  { staticClass: "col-md-4 col-12 text-end mt-md-0 mt-sm-3" },
                   [
                     _c("div", { staticClass: "row ms-md-5 ms-sm-3" }, [
                       _c(
                         "div",
-                        { staticClass: "col-md-12 col-7 align-self-center" },
+                        { staticClass: "col-md-12 col-12 align-self-center" },
                         [
                           _c("h4", [
                             _c("strong", [
@@ -44660,7 +44672,7 @@ var render = function () {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "row mt-md-1" }, [
-                      _c("div", { staticClass: "col-md-12 mt-4" }, [
+                      _c("div", { staticClass: "col-md-12 col-12 mt-md-4" }, [
                         _c("span", { staticClass: "fa fa-heart me-3" }),
                         _vm._v(" "),
                         _c("span", {
