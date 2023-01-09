@@ -69,6 +69,7 @@ Route::middleware('auth:sanctum')->put('/updateMobCart/{id}', [cartController::c
 Route::middleware('auth:sanctum')->post('/syncCart', [cartController::class, 'syncCart']);
 Route::middleware('auth:sanctum')->post('/addToCart', [cartController::class, 'addToCartNew']);
 Route::middleware('auth:sanctum')->put('/updateCartItem/{id}', [cartController::class, 'updateCartItem']);
+Route::middleware('auth:sanctum')->delete('/deleteItem/{id}', [cartController::class, 'deleteItem']);
 /////////////////////////////////auth//////////////////////////////////////////////////////////////////
 Route::post('/getUserToken', [getTokenController::class, 'getUserToken']);
 Route::post('/registerUser', [registerUsersController::class, 'registerUser']);
