@@ -188,7 +188,7 @@ export default {
             var cartItem = this.cartItems[index]
             await axios.put('/updateCartItem/'+id, cartItem)
             .then( response =>{
-                this.getCart()
+                
             })
             .catch( error =>{
                 if(error.response.status == 422){

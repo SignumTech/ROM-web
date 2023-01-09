@@ -9156,9 +9156,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 cartItem = _this5.cartItems[index];
                 _context5.next = 3;
-                return axios.put('/updateCartItem/' + id, cartItem).then(function (response) {
-                  _this5.getCart();
-                })["catch"](function (error) {
+                return axios.put('/updateCartItem/' + id, cartItem).then(function (response) {})["catch"](function (error) {
                   if (error.response.status == 422) {
                     console.log('test');
 
