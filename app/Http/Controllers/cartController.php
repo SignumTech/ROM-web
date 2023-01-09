@@ -488,7 +488,7 @@ class cartController extends Controller
         $invData = [];
         $errCount = 0;
         $items = $request->items;
-        var_dump($items);
+        //var_dump($items);
         foreach($items as $item){
             $cartItem = CartItem::find($item['item_id']);
         
