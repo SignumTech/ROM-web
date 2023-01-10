@@ -11,6 +11,8 @@ use App\Models\Inventory;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProductColor;
+use App\Models\FlashDetail;
+use App\Models\FlashSell;
 use App\Models\Size;
 use DB;
 class ordersController extends Controller
@@ -117,6 +119,16 @@ class ordersController extends Controller
             $product = Product::find($inventory->p_id);
             $item->p_name = $product->p_name;
             $item->promotion_status = $product->promotion_status;
+            if($product->promotion_status == 'FLASH SALE'){
+                $flashDetail = FlashDetail::where('p_id', $product->id)->first();
+                $flashSale = FlashSell::find($flashDetail->flash_id);
+                $item->new_price = $product->price - ($flashDetail->discount/100 * $product->price);
+                $item->expiry_date = $flashSale->expiry_date;
+            }
+            else{
+                $item->new_price = null;
+                $item->expiry_date = null;
+            }
             $item->size = Size::find($inventory->size_id)->size;
             $item->color = ProductColor::find($inventory->color_id)->color;
             $item->price = $product->price;

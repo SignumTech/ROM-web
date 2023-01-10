@@ -230,7 +230,7 @@ export default {
 
             }
             else{
-                this.cartItems[index].quantity += 1
+                parseInt(this.cartItems[index].quantity) += 1
                 this.updateCartItem(id, index)
                 
             }
