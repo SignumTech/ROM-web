@@ -47,8 +47,8 @@ export default {
         showNav(){
             this.$modal.show(
                 showNavModalVue,
-                {subCats:this.subCats, mainCat:this.mainCat},
-                {height: "100%", width: "300px", shiftX: -1}  
+                {mainCat:this.categories},
+                {height: "100%", width: "300px", shiftX: 1}  
             );   
         }
     }
