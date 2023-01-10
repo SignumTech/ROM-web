@@ -186,7 +186,7 @@ class ordersController extends Controller
             $order->p_image = OrderItem::join('inventories', 'order_items.inventory_id', '=', 'inventories.id')
                                        ->join('product_images', 'inventories.color_id', '=', 'product_images.color_id')
                                        ->where('order_items.order_id', $order->id)->first()->p_image;
-            
+            $order->items = $this->show($order->id)['order_items'];
         }
         return $orders;
     }
