@@ -13383,7 +13383,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     addAddress: function addAddress() {
       this.$modal.show(_home_addressModal_vue__WEBPACK_IMPORTED_MODULE_1__["default"], {}, {
-        "width": "600px",
+        "width": "80%",
         height: "auto"
       }, {
         "closed": this.getAddressBook
@@ -13393,7 +13393,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.$modal.show(_home_editAddressModal_vue__WEBPACK_IMPORTED_MODULE_2__["default"], {
         "address": ad
       }, {
-        "width": "600px",
+        "width": "80%",
         height: "auto"
       }, {
         "closed": this.getAddressBook
@@ -50740,7 +50740,7 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container-fluid" }, [
-    _c("div", { staticClass: "row m-0 px-3" }, [
+    _c("div", { staticClass: "row m-0 px-0 px-md-3" }, [
       _c("div", { staticClass: "col-md-12 mt-3" }, [
         _c(
           "h6",
@@ -50755,7 +50755,7 @@ var render = function () {
     _vm._v(" "),
     _c(
       "div",
-      { staticClass: "row mt-4 px-3" },
+      { staticClass: "row mt-4 px-0 px-md-3" },
       [
         _c("div", { staticClass: "col-md-3" }, [
           _c(
@@ -50844,8 +50844,8 @@ var render = function () {
               {
                 class:
                   _vm.active == "all"
-                    ? "col-md-3 p-2 orders-hover border-bottom border-dark border-3"
-                    : "col-md-3 p-2 orders-hover rounded-1",
+                    ? "col-md-3 col-6 p-2 orders-hover border-bottom border-dark border-3"
+                    : "col-md-3 col-6 p-2 orders-hover rounded-1",
                 staticStyle: { cursor: "pointer" },
                 on: {
                   click: function ($event) {
@@ -50867,8 +50867,8 @@ var render = function () {
               {
                 class:
                   _vm.active == "PROCESSING"
-                    ? "col-md-3 p-2 orders-hover border-bottom border-dark border-3"
-                    : "col-md-3 p-2 orders-hover rounded-1",
+                    ? "col-md-3 col-6 p-2 orders-hover border-bottom border-dark border-3"
+                    : "col-md-3 col-6 p-2 orders-hover rounded-1",
                 staticStyle: { cursor: "pointer" },
                 on: {
                   click: function ($event) {
@@ -50890,8 +50890,8 @@ var render = function () {
               {
                 class:
                   _vm.active == "SHIPPED"
-                    ? "col-md-3 p-2 orders-hover border-bottom border-dark border-3"
-                    : "col-md-3 p-2 orders-hover rounded-1",
+                    ? "col-md-3 col-6 p-2 orders-hover border-bottom border-dark border-3"
+                    : "col-md-3 col-6 p-2 orders-hover rounded-1",
                 staticStyle: { cursor: "pointer" },
                 on: {
                   click: function ($event) {
@@ -50913,8 +50913,8 @@ var render = function () {
               {
                 class:
                   _vm.active == "DELIVERED"
-                    ? "col-md-3 p-2 orders-hover border-bottom border-dark border-3"
-                    : "col-md-3 p-2 orders-hover rounded-1",
+                    ? "col-md-3 col-6 p-2 orders-hover border-bottom border-dark border-3"
+                    : "col-md-3 col-6 p-2 orders-hover rounded-1",
                 staticStyle: { cursor: "pointer" },
                 on: {
                   click: function ($event) {
@@ -50950,7 +50950,7 @@ var render = function () {
               : _vm._e(),
             _vm._v(" "),
             !_vm.loading
-              ? _c("div", { staticClass: "col-md-12 mt-2" }, [
+              ? _c("div", { staticClass: "col-md-12 mt-2 table-responsive" }, [
                   _c(
                     "table",
                     { staticClass: "table table-sm mt-2 table-borderless" },
@@ -51127,8 +51127,8 @@ var render = function () {
           {
             class:
               _vm.active == "all"
-                ? "col-md-3 p-2 border-bottom border-dark border-3"
-                : "col-md-3 p-2 orders-hover rounded-1",
+                ? "col-md-3 col-6 p-2 border-bottom border-dark border-3"
+                : "col-md-3 col-6 p-2 orders-hover rounded-1",
             staticStyle: { cursor: "pointer" },
             on: {
               click: function ($event) {
@@ -51144,8 +51144,8 @@ var render = function () {
           {
             class:
               _vm.active == "PROCESSING"
-                ? "col-md-3 p-2 orders-hover border-bottom border-dark border-3"
-                : "col-md-3 p-2 orders-hover rounded-1",
+                ? "col-md-3 col-6 p-2 orders-hover border-bottom border-dark border-3"
+                : "col-md-3 col-6 p-2 orders-hover rounded-1",
             staticStyle: { cursor: "pointer" },
             on: {
               click: function ($event) {
@@ -51161,8 +51161,8 @@ var render = function () {
           {
             class:
               _vm.active == "SHIPPED"
-                ? "col-md-3 p-2 orders-hover border-bottom border-dark border-3"
-                : "col-md-3 p-2 orders-hover rounded-1",
+                ? "col-md-3 col-6 p-2 orders-hover border-bottom border-dark border-3"
+                : "col-md-3 col-6 p-2 orders-hover rounded-1",
             staticStyle: { cursor: "pointer" },
             on: {
               click: function ($event) {
@@ -51178,8 +51178,8 @@ var render = function () {
           {
             class:
               _vm.active == "DELIVERED"
-                ? "col-md-3 p-2 orders-hover border-bottom border-dark border-3"
-                : "col-md-3 p-2 orders-hover rounded-1",
+                ? "col-md-3 col-6 p-2 orders-hover border-bottom border-dark border-3"
+                : "col-md-3 col-6 p-2 orders-hover rounded-1",
             staticStyle: { cursor: "pointer" },
             on: {
               click: function ($event) {
@@ -51211,7 +51211,7 @@ var render = function () {
         !_vm.loading
           ? _c(
               "div",
-              { staticClass: "col-md-12 mt-4" },
+              { staticClass: "col-md-12 mt-4 table-responsive" },
               _vm._l(_vm.orders, function (order) {
                 return _c(
                   "table",

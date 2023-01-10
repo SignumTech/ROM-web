@@ -8,19 +8,19 @@
             <div class="bg-white rounded-1 p-3 mt-3">
                 <h5 class="m-0"><b>My Orders</b></h5>
                 <div class="row ms-0 me-0 mt-4">
-                    <div @click="getOrders()" :class="(active==`all`)?`col-md-3 p-2 orders-hover border-bottom border-dark border-3`:`col-md-3 p-2 orders-hover rounded-1`" style="cursor:pointer">
+                    <div @click="getOrders()" :class="(active==`all`)?`col-md-3 col-6 p-2 orders-hover border-bottom border-dark border-3`:`col-md-3 col-6 p-2 orders-hover rounded-1`" style="cursor:pointer">
                         <h3 class="text-center m-0"><span class="fa fa-shopping-bag"></span></h3>
                         <h6 class="text-center m-0">All Ordered</h6>
                     </div>
-                    <div @click="getMyOrdersStatus('PROCESSING')" :class="(active==`PROCESSING`)?`col-md-3 p-2 orders-hover border-bottom border-dark border-3`:`col-md-3 p-2 orders-hover rounded-1`" style="cursor:pointer">
+                    <div @click="getMyOrdersStatus('PROCESSING')" :class="(active==`PROCESSING`)?`col-md-3 col-6 p-2 orders-hover border-bottom border-dark border-3`:`col-md-3 col-6 p-2 orders-hover rounded-1`" style="cursor:pointer">
                         <h3 class="text-center m-0"><span class="fa fa-cart-plus"></span></h3>
                         <h6 class="text-center m-0">Processing</h6>
                     </div>
-                    <div @click="getMyOrdersStatus('SHIPPED')" :class="(active==`SHIPPED`)?`col-md-3 p-2 orders-hover border-bottom border-dark border-3`:`col-md-3 p-2 orders-hover rounded-1`" style="cursor:pointer">
+                    <div @click="getMyOrdersStatus('SHIPPED')" :class="(active==`SHIPPED`)?`col-md-3 col-6 p-2 orders-hover border-bottom border-dark border-3`:`col-md-3 col-6 p-2 orders-hover rounded-1`" style="cursor:pointer">
                         <h3 class="text-center m-0"><span class="fa fa-shipping-fast"></span></h3>
                         <h6 class="text-center m-0">Shipped</h6>
                     </div>
-                    <div @click="getMyOrdersStatus('DELIVERED')" :class="(active==`DELIVERED`)?`col-md-3 p-2 orders-hover border-bottom border-dark border-3`:`col-md-3 p-2 orders-hover rounded-1`" style="cursor:pointer">
+                    <div @click="getMyOrdersStatus('DELIVERED')" :class="(active==`DELIVERED`)?`col-md-3 col-6 p-2 orders-hover border-bottom border-dark border-3`:`col-md-3 col-6 p-2 orders-hover rounded-1`" style="cursor:pointer">
                         <h3 class="text-center m-0"><span class="fa fa-box-open"></span></h3>
                         <h6 class="text-center m-0">Delivered</h6>
                     </div>
@@ -29,7 +29,7 @@
                             <pulse-loader :color="`#BF7F25`" :size="`15px`"></pulse-loader> 
                         </div>
                     </div>  
-                    <div v-if="!loading" class="col-md-12 mt-2">
+                    <div v-if="!loading" class="col-md-12 mt-2 table-responsive" >
                         <table class="table table-sm mt-2 table-borderless">
                             <tr v-for="order in orders" :key="order.id" class="border-top text-center">
                                 <td>

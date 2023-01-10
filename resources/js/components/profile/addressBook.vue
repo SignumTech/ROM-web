@@ -109,7 +109,7 @@ export default {
             this.$modal.show(
                 addressModalVue,
                 {},
-                {"width":"600px", height:"auto"},
+                {"width":"80%", height:"auto"},
                 {"closed":this.getAddressBook}
             )
         },
@@ -117,7 +117,7 @@ export default {
             this.$modal.show(
                 editAddressModalVue,
                 {"address":ad},
-                {"width":"600px", height:"auto"},
+                {"width":"80%", height:"auto"},
                 {"closed":this.getAddressBook}
             )
         },

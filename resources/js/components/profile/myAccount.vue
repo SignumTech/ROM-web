@@ -1,11 +1,11 @@
 <template>
 <div class="container-fluid">
-    <div class="row m-0 px-3">
+    <div class="row m-0 px-0 px-md-3">
         <div class="col-md-12 mt-3">
             <h6><router-link to="/">Home</router-link> / {{$route.name}}</h6>
         </div>
     </div>
-    <div class="row mt-4 px-3">
+    <div class="row mt-4 px-0 px-md-3">
         <div class="col-md-3">
             <div class="bg-white rounded-1 p-3">
                 <router-link to="/myAccount"><h5 class="m-0"><b>My Account</b></h5></router-link>
