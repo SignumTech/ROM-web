@@ -409,10 +409,11 @@ class productsController extends Controller
         ///////categories/////////////
         $category = Category::where('cat_name', 'LIKE', '%'.$request->searchQuery.'%')->get();
         foreach($category as $cat){
-            $products = Product::where('cat_id', $cat->id)->get()->toArray();
+            $products = Product::where('cat_id', $cat->id)->get();
             foreach($products as $product){
                 $product->p_image = ProductImage::where('product_id', $product->id)->first()->p_image;
             }
+            $products = $products->toArray();
             if(count($products)>0){
                 $data = array_merge($data,$products);
             }
@@ -420,10 +421,11 @@ class productsController extends Controller
         }
 
         //////products//////////////////
-        $products = Product::where('p_name', 'LIKE', '%'.$request->searchQuery.'%')->get()->toArray();
+        $products = Product::where('p_name', 'LIKE', '%'.$request->searchQuery.'%')->get();
         foreach($products as $product){
             $product->p_image = ProductImage::where('product_id', $product->id)->first()->p_image;
         }
+        $products = $products->toArray();
         $data = array_merge($data, $products);
 
         return $data;
