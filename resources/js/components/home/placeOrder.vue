@@ -295,7 +295,7 @@ export default {
                 
                 this.addressData.forEach((ad)=>{
                     if(ad.type === 'DEFAULT'){
-                        this.currentBilling = ad.id
+                        this.currentAddress = ad.id
                     }
                 })
                 this.addressBookExists = true

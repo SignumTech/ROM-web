@@ -11150,7 +11150,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                   _this4.addressData.forEach(function (ad) {
                     if (ad.type === 'DEFAULT') {
-                      _this4.currentBilling = ad.id;
+                      _this4.currentAddress = ad.id;
                     }
                   });
 
