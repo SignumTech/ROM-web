@@ -709,4 +709,39 @@ class cartController extends Controller
         return $this->getCartNew($request);
     }
 
+    public function repurchaseMobOrder(Request $request){
+        $this->validate($request, [
+            "order_id" => "required"
+        ]);
+        //$order = Order::find($request->order_id);
+        $orderItems = OrderItem::where('order_id', $request->order_id)
+                               ->get();
+        $cart = Cart::where('user_id', auth()->user()->id)
+                    ->where('cart_status', 'ACTIVE')
+                    ->first();
+        if(!$cart){
+            $cart = new Cart;
+            $cart->user_id = auth()->user()->id;
+            $cart->save();
+        }
+
+        foreach($orderItems as $item){
+            $cartItem = CartItem::where('cart_id', $cart->id)
+                                ->where('inventory_id', $item->inventory_id)
+                                ->first();
+            if($cartItem){
+                $cartItem->quantity += $item->quantity;
+                $cartItem->save();
+            }
+            else{
+                $cartItem = new CartItem;
+                $cartItem->cart_id = $cart->id;
+                $cartItem->inventory_id = $item->inventory_id;
+                $cartItem->quantity = $item->quantity;
+                $cartItem->save();
+            }
+        }
+        return $this->getMobCartNew($request);
+    }
+
 }
