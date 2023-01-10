@@ -71,8 +71,7 @@ class ordersController extends Controller
             $order->save();
             //////////update inventory//////////////////////
             foreach($items as $item){
-                $inventory = Inventory::where('inventory_id', $item->inventory_id)
-                                    ->lockForUpdate()->first();
+                $inventory = Inventory::lockForUpdate()->find($item->inventory_id);
                 if($inventory->quantity < $item->quantity){
                     return response("Some of the items have been sold out", 422);
                 }
