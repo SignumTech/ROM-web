@@ -48238,7 +48238,7 @@ var render = function () {
                   staticClass: "btn btn-primary py-3 form-control mt-3",
                   attrs: {
                     disabled:
-                      _vm.currentAddress != "" && _vm.currentBilling != "",
+                      _vm.currentAddress == "" || _vm.currentBilling == "",
                     type: "submit",
                     value: "Buy",
                   },
