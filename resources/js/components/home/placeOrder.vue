@@ -183,7 +183,6 @@ import editAddressModalVue from './editAddressModal.vue'
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 import billingModalVue from './billingModal.vue'
 export default {
-    props:['cart_id', 'total'],
     components:{
         PulseLoader
     },
@@ -220,6 +219,8 @@ export default {
     mounted(){
         this.getAddressBook()
         this.getBillingAddress()
+        this.getCart()
+        
     },
     methods:{
         async makeDefault(id){
@@ -348,9 +349,25 @@ export default {
                 this.billingLoading = false
             })
         },
+        async getCart(){
+            await axios.post('/getCart')
+            .then( response => {
+                this.$store.state.auth.cart = response.data
+                this.setOrderDetails()
+            })
+        },
         setOrderDetails(){
             var cart = this.$store.state.auth.cart
+            console.log(this.$store.state.auth.cart)
             this.cart_id = cart.cart_id
+            cart.forEach(ct =>{
+                if(ct.promotion_status == 'REGULAR'){
+                    this.total += (parseFloat(ct.quantity) * parseFloat(ct.price))
+                }
+                if(ct.promotion_status == 'FLASH SALE'){
+                    this.total += (parseFloat(ct.quantity) * parseFloat(ct.new_price))
+                }
+            })
         }
     }
 }

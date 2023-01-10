@@ -51,7 +51,7 @@ class ordersController extends Controller
         try{
             DB::beginTransaction();
             $cart = Cart::find($request->cart_id);
-            $items = CartItem::where('cart_id', $request->cart_id)-get();
+            $items = CartItem::where('cart_id', $request->cart_id)->get();
 
             ////////////////////////////////////////////////
             $order = new Order;

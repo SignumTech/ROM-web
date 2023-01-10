@@ -10961,7 +10961,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['cart_id', 'total'],
   components: {
     PulseLoader: vue_spinner_src_PulseLoader_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
@@ -10997,6 +10996,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   mounted: function mounted() {
     this.getAddressBook();
     this.getBillingAddress();
+    this.getCart();
   },
   methods: {
     makeDefault: function makeDefault(id) {
@@ -11261,9 +11261,44 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee7);
       }))();
     },
+    getCart: function getCart() {
+      var _this8 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+          while (1) {
+            switch (_context8.prev = _context8.next) {
+              case 0:
+                _context8.next = 2;
+                return axios.post('/getCart').then(function (response) {
+                  _this8.$store.state.auth.cart = response.data;
+
+                  _this8.setOrderDetails();
+                });
+
+              case 2:
+              case "end":
+                return _context8.stop();
+            }
+          }
+        }, _callee8);
+      }))();
+    },
     setOrderDetails: function setOrderDetails() {
+      var _this9 = this;
+
       var cart = this.$store.state.auth.cart;
+      console.log(this.$store.state.auth.cart);
       this.cart_id = cart.cart_id;
+      cart.forEach(function (ct) {
+        if (ct.promotion_status == 'REGULAR') {
+          _this9.total += parseFloat(ct.quantity) * parseFloat(ct.price);
+        }
+
+        if (ct.promotion_status == 'FLASH SALE') {
+          _this9.total += parseFloat(ct.quantity) * parseFloat(ct.new_price);
+        }
+      });
     }
   }
 });
