@@ -170,7 +170,7 @@
             <div v-if="btnLoading" class="d-flex justify-content-center mt-3 align-self-center">
                 <pulse-loader :color="`#BF7F25`" :size="`15px`"></pulse-loader> 
             </div>
-            <button :disabled="!addressBookExists && !billingExists" type="submit" value="Buy" v-if="!btnLoading" class="btn btn-primary py-3 form-control mt-3"><h4 class="m-0"><strong>Place Order</strong></h4></button>        
+            <button :disabled="currentAddress!='' && currentBilling !=''" type="submit" value="Buy" v-if="!btnLoading" class="btn btn-primary py-3 form-control mt-3"><h4 class="m-0"><strong>Place Order</strong></h4></button>        
         </form>
 
     </div>
@@ -358,7 +358,6 @@ export default {
         },
         setOrderDetails(){
             var cart = this.$store.state.auth.cart
-            console.log(this.$store.state.auth.cart)
             this.cart_id = cart.cart_id
             cart.forEach(ct =>{
                 if(ct.promotion_status == 'REGULAR'){

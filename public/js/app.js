@@ -11288,7 +11288,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this9 = this;
 
       var cart = this.$store.state.auth.cart;
-      console.log(this.$store.state.auth.cart);
       this.cart_id = cart.cart_id;
       cart.forEach(function (ct) {
         if (ct.promotion_status == 'REGULAR') {
@@ -48238,7 +48237,8 @@ var render = function () {
                 {
                   staticClass: "btn btn-primary py-3 form-control mt-3",
                   attrs: {
-                    disabled: !_vm.addressBookExists && !_vm.billingExists,
+                    disabled:
+                      _vm.currentAddress != "" && _vm.currentBilling != "",
                     type: "submit",
                     value: "Buy",
                   },
