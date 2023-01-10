@@ -38,7 +38,7 @@ Route::middleware('auth:sanctum')->delete('/removeFromWishlist/{id}', [wishlistC
 ///////////////////////////////////orders/////////////////////////////////////////////////////////
 Route::get('/getMyOrders', [ordersController::class, 'getMyOrders']);
 Route::middleware('auth:sanctum')->get('/getMyOrdersStatus/{status}', [ordersController::class, 'getMyOrdersStatus']);
-Route::post('/repurchaseOrder', [ordersController::class, 'repurchaseOrder']);
+Route::middleware('auth:sanctum')->post('/repurchaseOrder', [cartController::class, 'repurchaseOrder']);
 ///////////////////////////////////resources///////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->resource('/categories', categoriesController::class);
 Route::resource('/products', productsController::class);
