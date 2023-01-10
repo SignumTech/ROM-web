@@ -3,11 +3,11 @@
     <div class="col-md-12 mt-5 text-center">
         <h5>Shopping Bag > <strong>Place Order </strong>> Pay > Order Complete</h5>
     </div>
-    <div class="col-md-8 mt-3">
+    <div class="col-md-4 mt-3">
         <div class="bg-white rounded-1 p-3 shadow-sm">
             <h5 class="m-0">Shipping Address</h5>
         </div>
-        <div v-if="loading" class="row mx-0 mt-3 p-3">
+        <div v-if="loading" class="row mx-0 mt-1">
             <div  class="col-md-12 p-5 mt-4">
                 <div class="d-flex justify-content-center align-self-center">
                     <pulse-loader :color="`#BF7F25`" :size="`15px`"></pulse-loader> 
@@ -15,8 +15,8 @@
             </div>         
         </div>
 
-        <div v-if="addressBookExists && !loading" class="row mx-0 mt-3 p-3">
-            <div v-for="ad in addressData" :key="ad.id" class="col-md-6 mt-3">
+        <div v-if="addressBookExists && !loading" class="row mx-0 mt-1">
+            <div v-for="ad in addressData" :key="ad.id" class="col-md-12 mt-3">
                 <div @click="makeDefault(ad.id)" :class="(ad.type == 'DEFAULT')?`bg-white shadow-sm rounded-1 border border-primary border-5 p-3`:`bg-white shadow-sm rounded-1 border-start border-secondary border-3 p-3`" style="cursor:pointer">
                     <h5><strong>{{ad.f_name}} {{ad.l_name}}</strong> <span @click="editAddress(ad)" class="fa fa-edit float-end" style="cursor:pointer"></span></h5>
                     <h6>+251-{{ad.phone_no}}</h6>
@@ -62,6 +62,73 @@
                     <input v-model="addressData.address_2" type="text" class="form-control" placeholder="Address 2">
                 </div>
                 <div class="col-md-12 mt-2">
+                    <h6 v-if="addressError" class="text-danger text-center mt-2">Please add a billing address!</h6>
+                </div>
+                <div class="col-md-12 mt-4 text-center">
+                    <button type="submit" class="btn btn-primary px-3 rounded-1"><span class="fa fa-address-book"></span> Save Address</button>
+                </div>                
+            </div>
+        </form>
+    </div>
+    <div class="col-md-4 mt-3">
+        <div class="bg-white rounded-1 p-3 shadow-sm">
+            <h5 class="m-0">Billing Address</h5>
+        </div>
+        <div v-if="billingLoading" class="row mx-0 mt-3">
+            <div  class="col-md-12 p-5 mt-4">
+                <div class="d-flex justify-content-center align-self-center">
+                    <pulse-loader :color="`#BF7F25`" :size="`15px`"></pulse-loader> 
+                </div>
+            </div>         
+        </div>
+
+        <div v-if="billingExists && !billingLoading" class="row mx-0 mt-1">
+            <div v-for="ad in billingData" :key="ad.id" class="col-md-12 mt-3">
+                <div @click="makeBillingDefault(ad.id)" :class="(ad.type == 'DEFAULT')?`bg-white shadow-sm rounded-1 border border-primary border-5 p-3`:`bg-white shadow-sm rounded-1 border-start border-secondary border-3 p-3`" style="cursor:pointer">
+                    <h5><strong>{{ad.f_name}} {{ad.l_name}}</strong> <span @click="editAddress(ad)" class="fa fa-edit float-end" style="cursor:pointer"></span></h5>
+                    <h6>+251-{{ad.phone_no}}</h6>
+                    <h6>{{ad.city}} - {{ad.state}}</h6>
+                    <h6>{{ad.address_1}} / {{ad.address_2}}</h6>
+                </div>
+            </div>
+            <div class="col-md-12 mt-3 align-self-center text-center">
+                <button @click="addBillingAddress()" class="btn btn-outline-primary rounded-1"> <span class="fa fa-plus"></span> Add Billing Address</button>
+            </div>
+        </div>
+        <form v-if="!billingExists && !billingLoading" action="#" @submit.prevent="saveBillingAddress">
+            <div class="row mx-0 mt-3 p-3 bg-white rounded-1 shadow-sm">
+                <div class="col-md-6">
+                    <label>First Name</label>
+                    <input required v-model="billingData.f_name" type="text" class="form-control" placeholder="First Name">
+                </div>
+                <div class="col-md-6">
+                    <label>Last Name</label>
+                    <input required v-model="billingData.l_name" type="text" class="form-control" placeholder="Last Name">
+                </div>
+                <div class="col-md-12 mt-3">
+                    <label for="">Phone Number</label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="inputGroup-sizing-default">+251</span>
+                        <input required v-model="billingData.phone_no" type="text" class="form-control" placeholder="Phone Number">
+                    </div>
+                </div>
+                <div class="col-md-6 mt-3">
+                    <label>City</label>
+                    <input required v-model="billingData.city" type="text" class="form-control" placeholder="City">
+                </div>
+                <div class="col-md-6 mt-3">
+                    <label>State</label>
+                    <input required v-model="billingData.state" type="text" class="form-control" placeholder="State">
+                </div>
+                <div class="col-md-6 mt-3">
+                    <label>Address 1</label>
+                    <input required v-model="billingData.address_1" type="text" class="form-control" placeholder="Address 1">
+                </div>
+                <div class="col-md-6 mt-3">
+                    <label>Address 2 (optional)</label>
+                    <input v-model="billingData.address_2" type="text" class="form-control" placeholder="Address 2">
+                </div>
+                <div class="col-md-12 mt-2">
                     <h6 v-if="addressError" class="text-danger text-center mt-2">Please add a shipping address!</h6>
                 </div>
                 <div class="col-md-12 mt-4 text-center">
@@ -103,7 +170,7 @@
             <div v-if="btnLoading" class="d-flex justify-content-center mt-3 align-self-center">
                 <pulse-loader :color="`#BF7F25`" :size="`15px`"></pulse-loader> 
             </div>
-            <button type="submit" value="Buy" v-if="!btnLoading" class="btn btn-primary py-3 form-control mt-3"><h4 class="m-0"><strong>Place Order</strong></h4></button>        
+            <button :disabled="!addressBookExists && !billingExists" type="submit" value="Buy" v-if="!btnLoading" class="btn btn-primary py-3 form-control mt-3"><h4 class="m-0"><strong>Place Order</strong></h4></button>        
         </form>
 
     </div>
@@ -114,6 +181,7 @@ import addressModalVue from './addressModal.vue'
 import editAddressModalVue from './editAddressModal.vue'
 
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
+import billingModalVue from './billingModal.vue'
 export default {
     props:['cart_id', 'total'],
     components:{
@@ -121,9 +189,13 @@ export default {
     },
     data(){
         return{
+            cart_id:null,
+            total:null,
+            billingLoading:false,
             btnLoading:false,
             loading:false,
             currentAddress:"",
+            currentBilling:"",
             cartItems:[],
             paymentMethod:null,
             addressData:{
@@ -135,7 +207,9 @@ export default {
                 address_1:"",
                 address_2:"",
             },
+            billingData:{},
             addressBookExists:false,
+            billingExists:false,
             paymentError:false,
             addressError:false,
             cartItemsError:false,
@@ -145,6 +219,7 @@ export default {
     },
     mounted(){
         this.getAddressBook()
+        this.getBillingAddress()
     },
     methods:{
         async makeDefault(id){
@@ -152,6 +227,13 @@ export default {
             .then( response =>{
                 this.currentAddress = id
                 this.getAddressBook()
+            })
+        },
+        async makeBillingDefault(id){
+            await axios.get('/makeDefaultBilling/'+id)
+            .then( response =>{
+                this.currentBilling = id
+                this.getBillingAddress()
             })
         },
         async placeOrder(){
@@ -188,23 +270,31 @@ export default {
                 {"closed":this.getAddressBook}
             )
         },
+        addBillingAddress(){
+            this.$modal.show(
+                billingModalVue,
+                {},
+                {"width":"600px", height:"auto"},
+                {"closed":this.getAddressBook}
+            )
+        },
         editAddress(ad){
             this.$modal.show(
                 editAddressModalVue,
                 {"address":ad},
                 {"width":"600px", height:"auto"},
-                {"closed":this.getAddressBook}
+                {"closed":this.getBillingAddress}
             )
         },
         async getAddressBook(){
             this.loading = true
-            await axios.get('/addressBooks/'+this.$store.state.auth.user.id)
+            await axios.get('/getShippingAddress')
             .then( response =>{
                 this.addressData = response.data
                 
                 this.addressData.forEach((ad)=>{
                     if(ad.type === 'DEFAULT'){
-                        this.currentAddress = ad.id
+                        this.currentBilling = ad.id
                     }
                 })
                 this.addressBookExists = true
@@ -214,6 +304,27 @@ export default {
                 if(error.response.status == 422){
                     this.addressBookExists = false
                     this.loading = false
+                }
+            })
+        },
+        async getBillingAddress(){
+            this.billingLoading = false
+            await axios.get('/getBillingAddress')
+            .then( response =>{
+                this.billingData = response.data
+                
+                this.billingData.forEach((ad)=>{
+                    if(ad.type === 'DEFAULT'){
+                        this.currentBilling = ad.id
+                    }
+                })
+                this.billingExists = true
+                this.billingLoading = false
+            })
+            .catch( error =>{
+                if(error.response.status == 422){
+                    this.billingExists = false
+                    this.billingLoading = false
                 }
             })
         },
@@ -227,6 +338,20 @@ export default {
                 this.loading = false
             })
         },
+        async saveBillingAddress(){
+            this.billingLoading = true
+            await axios.post('/addBillingAddress', this.billingData)
+            .then( response =>{
+                this.billingData = response.data
+                this.billingExists = true
+                this.getBillingAddress()
+                this.billingLoading = false
+            })
+        },
+        setOrderDetails(){
+            var cart = this.$store.state.auth.cart
+            this.cart_id = cart.cart_id
+        }
     }
 }
 </script>

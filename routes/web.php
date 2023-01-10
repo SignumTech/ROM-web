@@ -48,6 +48,13 @@ Route::resource('/products', productsController::class);
 Route::resource('/orders', ordersController::class);
 Route::resource('/addressBooks', addressBookController::class);
 Route::resource('/flashSales', flashSaleController::class);
+/////////////////////////////////////ADDRESS BOOKS///////////////////////////////////////////////////////
+Route::get('/showAddress/{id}', [addressBookController::class, 'showAddress']);
+Route::get('/makeDefaultAddress/{id}', [addressBookController::class, 'makeDefaultAddress']);
+Route::middleware('auth:sanctum')->post('/addBillingAddress', [addressBookController::class, 'addBillingAddress']);
+Route::middleware('auth:sanctum')->get('/getShippingAddress', [addressBookController::class, 'getShippingAddress']);
+Route::middleware('auth:sanctum')->get('/getBillingAddress', [addressBookController::class, 'getBillingAddress']);
+Route::middleware('auth:sanctum')->get('/makeDefaultBilling/{id}', [addressBookController::class, 'makeDefaultBilling']);
 /////////////////////////////////////whishlists///////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/addToWishlist/{id}', [wishlistController::class, 'addToWishlist']);
 Route::middleware('auth:sanctum')->get('/getMyWishlist', [wishlistController::class, 'getMyWishlist']);
@@ -80,8 +87,7 @@ Route::get('/getFlashSales', [flashSaleController::class, 'getFlashSales']);
 ///////////////////////////////////inventory/////////////////////////////////////////////////////////////
 Route::post('/itemsInventory', [inventoriesController::class, 'itemsInventory']);
 ///////////////////////////////////address/////////////////////////////////////////////////////////////
-Route::get('/showAddress/{id}', [addressBookController::class, 'showAddress']);
-Route::get('/makeDefaultAddress/{id}', [addressBookController::class, 'makeDefaultAddress']);
+
 ///////////////////////////////////cart/////////////////////////////////////////////////////////////
 Route::post('/addToCart', [cartController::class, 'addToCartNew']);
 Route::post('/editCart', [cartController::class, 'editCart']);

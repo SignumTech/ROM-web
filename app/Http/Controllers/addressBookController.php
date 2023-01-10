@@ -52,10 +52,10 @@ class addressBookController extends Controller
         $addressBook->state = $request->state;
         $addressBook->address_1 = $request->address_1;
         $addressBook->address_2 = $request->address_2;
-        if(!AddressBook::where("user_id", auth()->user()->id)->first()){
+        if(!AddressBook::where("user_id", auth()->user()->id)->where('address_type', 'BILLING')->first()){
             $addressBook->type = 'DEFAULT';
         }
-
+        $addressBook->address_type = 'SHIPPING';
         $addressBook->save();
 
         return $addressBook;
@@ -139,9 +139,33 @@ class addressBookController extends Controller
         return $address;
     }
 
+    public function getBillingAddress(){
+        $address = AddressBook::where("user_id", auth()->user()->id)
+                              ->where("address_type", 'BILLING')
+                              ->get();
+        if(count($address)>0){
+            return $address;
+        }
+        else{
+            return response('Address doesnt exist', 422);
+        }
+    }
+    public function getShippingAddress(){
+        $address = AddressBook::where("user_id", auth()->user()->id)
+                              ->where("address_type", 'SHIPPING')
+                              ->get();
+        if(count($address)>0){
+            return $address;
+        }
+        else{
+            return response('Address doesnt exist', 422);
+        }
+    }
+
     public function makeDefaultAddress($id){
 
         $current_default = AddressBook::where('user_id', auth()->user()->id)
+                                      ->where('address_type', 'SHIPPING')
                                       ->where('type', 'DEFAULT')
                                       ->first();
         $current_default->type = null;
@@ -153,4 +177,48 @@ class addressBookController extends Controller
 
         return $address;
     }
+
+    public function makeDefaultBilling($id){
+        $current_default = AddressBook::where('user_id', auth()->user()->id)
+                                      ->where('address_type', 'BILLING')
+                                      ->where('type', 'DEFAULT')
+                                      ->first();
+        $current_default->type = null;
+        $current_default->save();
+
+        $address = AddressBook::find($id);
+        $address->type = "DEFAULT";
+        $address->save();
+
+        return $address;
+    }
+
+    public function addBillingAddress(Request $request){
+        $this->validate($request, [
+            "f_name" => "required",
+            "l_name" => "required",
+            "phone_no" => "required",
+            "city" => "required",
+            "state" => "required",
+            "address_1" => "required",
+        ]);
+
+        $addressBook = new AddressBook;
+        $addressBook->f_name = $request->f_name;
+        $addressBook->l_name = $request->l_name;
+        $addressBook->user_id = auth()->user()->id;
+        $addressBook->phone_no = $request->phone_no;
+        $addressBook->city = $request->city;
+        $addressBook->state = $request->state;
+        $addressBook->address_1 = $request->address_1;
+        $addressBook->address_2 = $request->address_2;
+        if(!AddressBook::where("user_id", auth()->user()->id)->where('address_type', 'BILLING')->first()){
+            $addressBook->type = 'DEFAULT';
+        }
+        $addressBook->address_type = 'BILLING';
+        $addressBook->save();
+
+        return $addressBook;
+    }
+
 }
