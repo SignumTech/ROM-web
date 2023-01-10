@@ -30,27 +30,27 @@
                                     <router-link to="/forgetPassword"><h6 class="text-center mt-3">Forgot your password?</h6></router-link>
                                 </div>
                                 
-                                <div class="col-md-6 mt-3 border-end">
+                                <div class="col-6 mt-3 border-end">
                                     <a href="/auth/google/redirect"><img src="/storage/settings/google.png" class="img img-fluid d-flex m-auto" alt="" style="width:40px; height:40px"></a>
                                     <h6 class="text-center mt-2">Sign in with google</h6>
                                 </div>
-                                <div class="col-md-6 mt-3">
+                                <div class="col-6 mt-3">
                                     <a href="/auth/facebook/redirect"><img src="/storage/settings/facebook.png" class="img img-fluid d-flex m-auto" alt="" style="width:40px; height:40px"></a>
                                     <h6 class="text-center mt-2">Sign in with facebook</h6>
                                 </div>
                             </div>
                         </form>                      
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 col-12 mt-5 mt-md-0">
                         <h4 class="text-center"><strong>REGISTER</strong></h4>
                         <form action="#" @submit.prevent="registerUser">
                             <div class="row m-0 mt-4">
-                                <div class="col-md-6">
+                                <div class="col-md-6 col-12">
                                     <label for="email">First Name</label>
                                     <input required v-model="registerData.f_name" type="text" class="form-control form-control-auth" placeholder="First Name">
                                     <h6 v-for="er in loginErrors.f_name" :key="er.id" class="text-danger m-0">{{er}}</h6>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-6 col-12 mt-4 mt-md-0">
                                     <label for="email">Last Name</label>
                                     <input required v-model="registerData.l_name" type="text" class="form-control form-control-auth" placeholder="Last Name">
                                     <h6 v-for="er in loginErrors.l_name" :key="er.id" class="text-danger m-0">{{er}}</h6>
@@ -80,7 +80,7 @@
                                 <div class="col-md-12">
                                     <h6>Style preference</h6>
                                 </div>
-                                <div v-for="category,index in mainCategories" :key="index" class="col-md-6">
+                                <div v-for="category,index in mainCategories" :key="index" class="col-md-6 col-6">
                                     <div class="form-check">
                                         <input v-model="registerData.preferences" :value="category.id" class="form-check-input" type="checkbox" >
                                         <label class="form-check-label" for="flexCheckDefault">

@@ -43463,7 +43463,7 @@ var render = function () {
               ),
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "col-md-6" }, [
+            _c("div", { staticClass: "col-md-6 col-12 mt-5 mt-md-0" }, [
               _vm._m(4),
               _vm._v(" "),
               _c(
@@ -43481,7 +43481,7 @@ var render = function () {
                   _c("div", { staticClass: "row m-0 mt-4" }, [
                     _c(
                       "div",
-                      { staticClass: "col-md-6" },
+                      { staticClass: "col-md-6 col-12" },
                       [
                         _c("label", { attrs: { for: "email" } }, [
                           _vm._v("First Name"),
@@ -43530,7 +43530,7 @@ var render = function () {
                     _vm._v(" "),
                     _c(
                       "div",
-                      { staticClass: "col-md-6" },
+                      { staticClass: "col-md-6 col-12 mt-4 mt-md-0" },
                       [
                         _c("label", { attrs: { for: "email" } }, [
                           _vm._v("Last Name"),
@@ -43729,7 +43729,7 @@ var render = function () {
                       _vm._l(_vm.mainCategories, function (category, index) {
                         return _c(
                           "div",
-                          { key: index, staticClass: "col-md-6" },
+                          { key: index, staticClass: "col-md-6 col-6" },
                           [
                             _c("div", { staticClass: "form-check" }, [
                               _c("input", {
@@ -43870,7 +43870,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-6 mt-3 border-end" }, [
+    return _c("div", { staticClass: "col-6 mt-3 border-end" }, [
       _c("a", { attrs: { href: "/auth/google/redirect" } }, [
         _c("img", {
           staticClass: "img img-fluid d-flex m-auto",
@@ -43888,7 +43888,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-6 mt-3" }, [
+    return _c("div", { staticClass: "col-6 mt-3" }, [
       _c("a", { attrs: { href: "/auth/facebook/redirect" } }, [
         _c("img", {
           staticClass: "img img-fluid d-flex m-auto",
