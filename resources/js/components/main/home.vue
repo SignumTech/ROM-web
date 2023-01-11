@@ -67,7 +67,7 @@ export default {
             noFlash:true,
             subCats:{},
             mainCat:{},
-            heroImage:"/storage/settings/front.jpg",
+            heroImage:null,
             noFeatured:false,
             flashProducts:{}
         }
@@ -83,6 +83,7 @@ export default {
             await axios.get('/showMainCat/'+this.$route.params.id)
             .then( response =>{
                 this.mainCat = response.data
+                this.heroImage = "/storage/settings/"+response.data.cat_image
             })
         },
         async getSubCats(){
@@ -119,6 +120,7 @@ export default {
         $route (to, from) {
             this.getSubCats()
             this.getFeaturedItems()
+            this.getMainCat()
         }
     }
 }

@@ -4,8 +4,29 @@
     <div class="col-md-12 mt-3">
         <h6>Home / {{catDetail.cat_name}}</h6>
     </div>
-    <div class="col-md-12 mt-3">
+    <div class="col-md-2 col-12 mt-3">
         <h4><strong>{{catDetail.cat_name}}</strong></h4>
+    </div>
+    <div class="col-md-10 mob_hide">
+        <span class="fs-6 shadow-sm py-1 px-4 bg-light me-3 rounded-pill border border-1" v-for="leaf,index in leafs" :key="index">
+           <router-link :to="`/home/`+$route.params.id+`/shop/`+leaf.id">{{ leaf.cat_name }}</router-link> 
+        </span>
+    </div>
+    <div class="col-12 mt-2 overflow-auto hide-scroll mob_display">
+        <div class="row" style="min-width:500%">
+            <div class="col-12 p-2">
+                <span class="fs-6 shadow-sm py-1 px-4 bg-light me-3 rounded-pill border border-1" v-for="leaf,index in leafs" :key="index">
+                    <router-link :to="`/home/`+$route.params.id+`/shop/`+leaf.id">{{ leaf.cat_name }}</router-link> 
+                </span>
+                <span class="fs-6 shadow-sm py-1 px-4 bg-light me-3 rounded-pill border border-1" v-for="leaf,index in leafs" :key="index">
+                    <router-link :to="`/home/`+$route.params.id+`/shop/`+leaf.id">{{ leaf.cat_name }}</router-link> 
+                </span>
+            </div>
+
+            
+
+        </div>
+        
     </div>
     <div class="col-md-2 mt-3 border-top mt-md-5 mt-sm-2">
         <div class="row m-0">
@@ -59,6 +80,7 @@ export default {
     data(){
         return{
             query:null,
+            leafs:{},
             upHere:false,
             filterRange:this.priceMax,
             items:{},
@@ -87,6 +109,7 @@ export default {
             this.getProductFilters()
             this.priceRange()
             this.getSubCats()
+            this.getLeafs(this.$route.params.cat_id)
         }
     },
     methods:{
@@ -100,6 +123,13 @@ export default {
             await axios.get('/showSubCategories/'+this.$route.params.id)
             .then( response =>{
                 this.subCats = response.data
+                this.loading = false
+            })
+        },
+        async getLeafs(id){
+            await axios.get('/showSubCategories/'+id)
+            .then( response =>{
+                this.leafs = response.data
                 this.loading = false
             })
         },
@@ -124,6 +154,9 @@ export default {
             await axios.get('/showMainCat/'+this.$route.params.cat_id)
             .then( response =>{
                 this.catDetail = response.data
+                if(this.catDetail.tree_level == 'NODE'){
+                    this.getLeafs(this.catDetail.id)
+                }
             })
         },
         async getCatProducts(){

@@ -11808,6 +11808,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -11820,6 +11841,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       query: null,
+      leafs: {},
       upHere: false,
       filterRange: this.priceMax,
       items: {},
@@ -11848,6 +11870,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.getProductFilters();
       this.priceRange();
       this.getSubCats();
+      this.getLeafs(this.$route.params.cat_id);
     }
   },
   methods: {
@@ -11894,10 +11917,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2);
       }))();
     },
-    mouseHov: function mouseHov() {
-      console.log('hover');
-    },
-    filterProductData: function filterProductData() {
+    getLeafs: function getLeafs(id) {
       var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
@@ -11905,19 +11925,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                _this3.loading = true;
-                _context3.next = 3;
-                return axios.post('/filterData', {
-                  sizeData: _this3.filterData,
-                  cat_id: _this3.$route.params.cat_id,
-                  max: _this3.filterRange,
-                  min: _this3.priceMin
-                }).then(function (response) {
-                  _this3.items = response.data;
+                _context3.next = 2;
+                return axios.get('/showSubCategories/' + id).then(function (response) {
+                  _this3.leafs = response.data;
                   _this3.loading = false;
                 });
 
-              case 3:
+              case 2:
               case "end":
                 return _context3.stop();
             }
@@ -11925,7 +11939,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee3);
       }))();
     },
-    getProductFilters: function getProductFilters() {
+    mouseHov: function mouseHov() {
+      console.log('hover');
+    },
+    filterProductData: function filterProductData() {
       var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
@@ -11933,12 +11950,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                _context4.next = 2;
-                return axios.get('/productFilters/' + _this4.$route.params.cat_id).then(function (response) {
-                  _this4.filters = response.data;
+                _this4.loading = true;
+                _context4.next = 3;
+                return axios.post('/filterData', {
+                  sizeData: _this4.filterData,
+                  cat_id: _this4.$route.params.cat_id,
+                  max: _this4.filterRange,
+                  min: _this4.priceMin
+                }).then(function (response) {
+                  _this4.items = response.data;
+                  _this4.loading = false;
                 });
 
-              case 2:
+              case 3:
               case "end":
                 return _context4.stop();
             }
@@ -11946,7 +11970,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee4);
       }))();
     },
-    getCatDetail: function getCatDetail() {
+    getProductFilters: function getProductFilters() {
       var _this5 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
@@ -11955,8 +11979,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context5.prev = _context5.next) {
               case 0:
                 _context5.next = 2;
-                return axios.get('/showMainCat/' + _this5.$route.params.cat_id).then(function (response) {
-                  _this5.catDetail = response.data;
+                return axios.get('/productFilters/' + _this5.$route.params.cat_id).then(function (response) {
+                  _this5.filters = response.data;
                 });
 
               case 2:
@@ -11967,7 +11991,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee5);
       }))();
     },
-    getCatProducts: function getCatProducts() {
+    getCatDetail: function getCatDetail() {
       var _this6 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
@@ -11975,14 +11999,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
-                _this6.loading = true;
-                _context6.next = 3;
-                return axios.get('/productsByCategory/' + _this6.$route.params.cat_id).then(function (response) {
-                  _this6.items = response.data;
-                  _this6.loading = false;
+                _context6.next = 2;
+                return axios.get('/showMainCat/' + _this6.$route.params.cat_id).then(function (response) {
+                  _this6.catDetail = response.data;
+
+                  if (_this6.catDetail.tree_level == 'NODE') {
+                    _this6.getLeafs(_this6.catDetail.id);
+                  }
                 });
 
-              case 3:
+              case 2:
               case "end":
                 return _context6.stop();
             }
@@ -11990,7 +12016,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee6);
       }))();
     },
-    priceRange: function priceRange() {
+    getCatProducts: function getCatProducts() {
       var _this7 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
@@ -11998,19 +12024,42 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context7.prev = _context7.next) {
               case 0:
-                _context7.next = 2;
-                return axios.get('/priceRange/' + _this7.$route.params.cat_id).then(function (response) {
-                  _this7.priceMax = response.data.max;
-                  _this7.priceMin = response.data.min;
-                  _this7.filterRange = _this7.priceMax;
+                _this7.loading = true;
+                _context7.next = 3;
+                return axios.get('/productsByCategory/' + _this7.$route.params.cat_id).then(function (response) {
+                  _this7.items = response.data;
+                  _this7.loading = false;
                 });
 
-              case 2:
+              case 3:
               case "end":
                 return _context7.stop();
             }
           }
         }, _callee7);
+      }))();
+    },
+    priceRange: function priceRange() {
+      var _this8 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+          while (1) {
+            switch (_context8.prev = _context8.next) {
+              case 0:
+                _context8.next = 2;
+                return axios.get('/priceRange/' + _this8.$route.params.cat_id).then(function (response) {
+                  _this8.priceMax = response.data.max;
+                  _this8.priceMin = response.data.min;
+                  _this8.filterRange = _this8.priceMax;
+                });
+
+              case 2:
+              case "end":
+                return _context8.stop();
+            }
+          }
+        }, _callee8);
       }))();
     }
   }
@@ -13207,7 +13256,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       noFlash: true,
       subCats: {},
       mainCat: {},
-      heroImage: "/storage/settings/front.jpg",
+      heroImage: null,
       noFeatured: false,
       flashProducts: {}
     };
@@ -13230,6 +13279,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context.next = 2;
                 return axios.get('/showMainCat/' + _this.$route.params.id).then(function (response) {
                   _this.mainCat = response.data;
+                  _this.heroImage = "/storage/settings/" + response.data.cat_image;
                 });
 
               case 2:
@@ -13318,6 +13368,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     $route: function $route(to, from) {
       this.getSubCats();
       this.getFeaturedItems();
+      this.getMainCat();
     }
   }
 });
@@ -48730,9 +48781,110 @@ var render = function () {
         _c("h6", [_vm._v("Home / " + _vm._s(_vm.catDetail.cat_name))]),
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-12 mt-3" }, [
+      _c("div", { staticClass: "col-md-2 col-12 mt-3" }, [
         _c("h4", [_c("strong", [_vm._v(_vm._s(_vm.catDetail.cat_name))])]),
       ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-md-10 mob_hide" },
+        _vm._l(_vm.leafs, function (leaf, index) {
+          return _c(
+            "span",
+            {
+              key: index,
+              staticClass:
+                "fs-6 shadow-sm py-1 px-4 bg-light me-3 rounded-pill border border-1",
+            },
+            [
+              _c(
+                "router-link",
+                {
+                  attrs: {
+                    to: "/home/" + _vm.$route.params.id + "/shop/" + leaf.id,
+                  },
+                },
+                [_vm._v(_vm._s(leaf.cat_name))]
+              ),
+            ],
+            1
+          )
+        }),
+        0
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-12 mt-2 overflow-auto hide-scroll mob_display" },
+        [
+          _c(
+            "div",
+            { staticClass: "row", staticStyle: { "min-width": "500%" } },
+            [
+              _c(
+                "div",
+                { staticClass: "col-12 p-2" },
+                [
+                  _vm._l(_vm.leafs, function (leaf, index) {
+                    return _c(
+                      "span",
+                      {
+                        key: index,
+                        staticClass:
+                          "fs-6 shadow-sm py-1 px-4 bg-light me-3 rounded-pill border border-1",
+                      },
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            attrs: {
+                              to:
+                                "/home/" +
+                                _vm.$route.params.id +
+                                "/shop/" +
+                                leaf.id,
+                            },
+                          },
+                          [_vm._v(_vm._s(leaf.cat_name))]
+                        ),
+                      ],
+                      1
+                    )
+                  }),
+                  _vm._v(" "),
+                  _vm._l(_vm.leafs, function (leaf, index) {
+                    return _c(
+                      "span",
+                      {
+                        key: index,
+                        staticClass:
+                          "fs-6 shadow-sm py-1 px-4 bg-light me-3 rounded-pill border border-1",
+                      },
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            attrs: {
+                              to:
+                                "/home/" +
+                                _vm.$route.params.id +
+                                "/shop/" +
+                                leaf.id,
+                            },
+                          },
+                          [_vm._v(_vm._s(leaf.cat_name))]
+                        ),
+                      ],
+                      1
+                    )
+                  }),
+                ],
+                2
+              ),
+            ]
+          ),
+        ]
+      ),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-2 mt-3 border-top mt-md-5 mt-sm-2" }, [
         _c(
