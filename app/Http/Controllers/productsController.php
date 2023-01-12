@@ -64,9 +64,8 @@ class productsController extends Controller
         if($product->promotion_status == 'FLASH SALE'){
             $flashDetail = FlashDetail::where('p_id', $product->id)->first();
             $flashSale = FlashSell::find($flashDetail->flash_id);
-            $product->new_price = $product->price - ($flashDetail->discount/100 * $product->price);
+            $product->new_price = $product->price - ($product->discount/100 * $product->price);
             $product->expiry_date = $flashSale->expiry_date;
-            $product->discount = $flashDetail->discount;
         }
         else{
             $product->new_price = null;

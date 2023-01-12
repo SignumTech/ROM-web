@@ -148,12 +148,12 @@ class flashSaleController extends Controller
 
         $flashDetail = new FlashDetail;
         $flashDetail->flash_id = $request->flashPeriod;
-        $flashDetail->discount = $request->discount;
         $flashDetail->p_id = $request->p_id;
         $flashDetail->save();
 
         $product = Product::find($request->p_id);
         $product->promotion_status = 'FLASH SALE';
+        $product->discount = $request->discount;
         $product->save();
         
         return $flashDetail;
@@ -162,7 +162,7 @@ class flashSaleController extends Controller
     public function getFlashProducts($id){
         $products = FlashDetail::join('products', 'flash_details.p_id', '=', 'products.id')
                              ->where('flash_id', $id)
-                             ->select('products.*', 'flash_details.discount')
+                             ->select('products.*')
                              ->get();
         return $products;
     }
