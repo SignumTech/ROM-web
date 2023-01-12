@@ -162,6 +162,7 @@ class flashSaleController extends Controller
     public function getFlashProducts($id){
         $products = FlashDetail::join('products', 'flash_details.p_id', '=', 'products.id')
                              ->where('flash_id', $id)
+                             ->select('products.*', 'flash_details.discount')
                              ->get();
         return $products;
     }
