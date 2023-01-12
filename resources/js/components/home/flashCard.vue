@@ -37,7 +37,7 @@ export default {
     },
     props:['item'],
     methods:{
-        detailsModal(item){
+        detailsModal(id){
             this.$modal.show(
                 productDetailsModalVue,
                 {"id":id},

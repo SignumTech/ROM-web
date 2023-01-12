@@ -9735,7 +9735,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   props: ['item'],
   methods: {
-    detailsModal: function detailsModal(item) {
+    detailsModal: function detailsModal(id) {
       this.$modal.show(_productDetailsModal_vue__WEBPACK_IMPORTED_MODULE_1__["default"], {
         "id": id
       }, {
