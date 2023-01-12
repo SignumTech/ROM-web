@@ -162,7 +162,6 @@ class flashSaleController extends Controller
     public function getFlashProducts($id){
         $products = FlashDetail::join('products', 'flash_details.p_id', '=', 'products.id')
                              ->where('flash_id', $id)
-                             ->select('products.*')
                              ->get();
         return $products;
     }
@@ -178,7 +177,9 @@ class flashSaleController extends Controller
                 
                 $flashProducts = FlashDetail::join('products', 'flash_details.p_id', '=', 'products.id')
                                             ->join('flash_sells', 'flash_details.flash_id', '=', 'flash_sells.id')
-                                            ->where('flash_details.flash_id', $fs->id)->get();
+                                            ->where('flash_details.flash_id', $fs->id)
+                                            ->select('products.*')
+                                            ->get();
                 foreach($flashProducts as $product){
                     $product->p_image = ProductImage::where('product_id', $product->p_id)->first()->p_image;
                 }
