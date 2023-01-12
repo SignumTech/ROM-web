@@ -181,7 +181,7 @@ class flashSaleController extends Controller
                                             ->select('products.*')
                                             ->get();
                 foreach($flashProducts as $product){
-                    $product->p_image = ProductImage::where('product_id', $product->p_id)->first()->p_image;
+                    $product->p_image = ProductImage::where('product_id', $product->id)->first()->p_image;
                 }
                 
                 return $flashProducts;
