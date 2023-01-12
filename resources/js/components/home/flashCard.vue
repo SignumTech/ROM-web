@@ -40,7 +40,7 @@ export default {
         detailsModal(item){
             this.$modal.show(
                 productDetailsModalVue,
-                {"item":item},
+                {"id":id},
                 { "height" : "auto", "width" : "900px"},
                 {}
             )
