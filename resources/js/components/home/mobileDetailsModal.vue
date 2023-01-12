@@ -34,7 +34,7 @@
         <h6 v-if="product.promotion_status == 'FLASH SALE'" class="mt-2">
             <span class="bg-warning p-1"><span class="fa fa-bolt"></span> Flash Sale</span> 
             <span class="bg-warning p-1">-{{product.discount}}%</span>
-            <span class="bg-warning p-1">Ends {{product.expiry_date | moment("ddd, MMM Do YYYY h:mm")}}</span>
+            <span class="bg-warning p-1">Ends {{product.expiry_date | moment("MMM Do YYYY h:mm")}}</span>
         </h6>
         <hr class="mt-3">
         <h5 class="mt-3"><strong>Colors</strong></h5>

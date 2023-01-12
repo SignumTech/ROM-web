@@ -23,10 +23,15 @@
         <h5 class="mb-0 mt-2"><strong>{{product.p_name}} </strong></h5>
         <h6 class="mb-0 mt-2">{{product.description}}</h6>
         <h2 v-if="product.promotion_status == 'REGULAR'" class="mt-3"><strong>{{product.price}} Birr</strong></h2>
-        <h2 v-if="product.promotion_status == 'SALE'" class="mb-0"><strong><span>{{product.price - (product.price *(product.discount/100)) | numFormat}} ETB</span> <span class="text-muted fs-6"><s><strong>{{product.price | numFormat}} ETB</strong></s></span> </strong></h2>
+        <h2 v-if="product.promotion_status == 'SALE' || product.promotion_status == 'FLASH SALE'" class="mb-0"><strong><span>{{product.price - (product.price *(product.discount/100)) | numFormat}} ETB</span> <span class="text-muted fs-6"><s><strong>{{product.price | numFormat}} ETB</strong></s></span> </strong></h2>
         <h6 v-if="product.promotion_status == 'SALE'" class="mt-2">
             <span class="bg-warning p-1"><span class="fa fa-tags"></span> Sale</span> 
             <span class="bg-warning p-1">-{{product.discount}}%</span>
+        </h6>
+        <h6 v-if="product.promotion_status == 'FLASH SALE'" class="mt-2">
+            <span class="bg-warning p-1"><span class="fa fa-bolt"></span> Flash Sale</span> 
+            <span class="bg-warning p-1">-{{product.discount}}%</span>
+            <span class="bg-warning p-1">Ends {{product.expiry_date | moment("MMM Do YYYY h:mm")}}</span>
         </h6>
         <hr class="mt-3">
         <h5 class="mt-3"><strong>Colors</strong></h5>

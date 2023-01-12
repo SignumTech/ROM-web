@@ -26,8 +26,9 @@
 </div>   
 </template>
 <script>
-import flashProductDetailVue from './flashProductDetail.vue';
+
 import mobileDetailsModalVue from './mobileDetailsModal.vue';
+import productDetailsModalVue from './productDetailsModal.vue';
 export default {
     data(){
         return{
@@ -38,7 +39,7 @@ export default {
     methods:{
         detailsModal(item){
             this.$modal.show(
-                flashProductDetailVue,
+                productDetailsModalVue,
                 {"item":item},
                 { "height" : "auto", "width" : "900px"},
                 {}
