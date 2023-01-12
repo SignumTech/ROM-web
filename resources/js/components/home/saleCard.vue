@@ -1,7 +1,7 @@
 <template>
-<div class="row m-0 show-add-btn">
+<div class="row show-add-btn">
     <div class="col-12" style="position:relative">
-        <span class="bg-info text-white p-2 fs-6" style="position:absolute">-{{item.discount}}%</span>
+        <span class="bg-warning text-dark p-1 fs-6" style="position:absolute">-{{item.discount}}%</span>
     </div>
     <div  class="col-12  text-center mob_hide">
         <img class="img img-fluid " :src="`/storage/products/`+item.p_image" alt="">
@@ -26,21 +26,21 @@
 </div>   
 </template>
 <script>
-import flashProductDetailVue from './flashProductDetail.vue';
+import productDetailsModalVue from './productDetailsModal.vue';
 import mobileDetailsModalVue from './mobileDetailsModal.vue';
 export default {
     data(){
         return{
-
+            
         }
     },
     props:['item'],
     methods:{
-        detailsModal(item){
+        detailsModal(id){
             this.$modal.show(
-                flashProductDetailVue,
-                {"item":item},
-                { "height" : "auto", "width" : "900px"},
+                productDetailsModalVue,
+                {"id":id},
+                { "height" : "auto", "width" : "70%"},
                 {}
             )
         },

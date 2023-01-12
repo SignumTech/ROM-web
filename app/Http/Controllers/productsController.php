@@ -71,7 +71,6 @@ class productsController extends Controller
         else{
             $product->new_price = null;
             $product->expiry_date = null;
-            $product->discount = null;
         }
         
         return $product;
@@ -408,10 +407,13 @@ class productsController extends Controller
         $data = [];
         ///////categories/////////////
         $category = Category::where('cat_name', 'LIKE', '%'.$request->searchQuery.'%')->get();
+        
         foreach($category as $cat){
             $products = Product::where('cat_id', $cat->id)->get();
+            
             foreach($products as $product){
-                $product->p_image = ProductImage::where('product_id', $product->id)->first()->p_image;
+                $pr = ProductImage::where('product_id', $product->id)->first();
+                $product->p_image = ($pr)?$pr->p_image:'placeholder.jpg';
             }
             $products = $products->toArray();
             if(count($products)>0){
@@ -423,7 +425,8 @@ class productsController extends Controller
         //////products//////////////////
         $products = Product::where('p_name', 'LIKE', '%'.$request->searchQuery.'%')->get();
         foreach($products as $product){
-            $product->p_image = ProductImage::where('product_id', $product->id)->first()->p_image;
+            $pr = ProductImage::where('product_id', $product->id)->first();
+            $product->p_image = ($pr)?$pr->p_image:'placeholder.jpg';
         }
         $products = $products->toArray();
         $data = array_merge($data, $products);

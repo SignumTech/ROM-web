@@ -36,9 +36,14 @@ export default {
     props:['subCats', 'mainCat'],
     data(){
         return{
-            query:null
+            query:''
         }
     },
+    methods:{
+        searchItems(){
+            this.$router.push('/search/'+this.query)
+        }
+    }
     
 }
 </script>
